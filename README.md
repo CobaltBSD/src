@@ -6,7 +6,7 @@ Cobalt is a microscopic but extremely versatile distribution of Linux geared tow
 
 The Cobalt desktop environment is currently very small and missing several relatively critical components which will need to be developed from scratch, but the sandboxing infrastructure is complete. Cobalt ships with NeoSurf, its dedicated web browser.
 
-By design, most of your work will likely occur in a sandbox anyways, and the base system can be thought of as essentially immutable. Unlike virtual machines, Linux sandboxes generally have very little performance overhead. These sandboxes are essentially sub-distributions. They can be built from the ground up, or pre-installed.
+By design, most of your work will likely occur in a sandbox anyways, where you can safely run whatever bloated monstrosities you can throw at it. Unlike virtual machines, Linux sandboxes generally have very little performance overhead. These sandboxes are essentially sub-distributions. They can be built from the ground up, or pre-installed.
 
 ## Why?
 Distributions that are touted as being privacy and security-oriented, such as Qemu and Tails, do so at the immense cost of practicality. They are great to have, but not suitable for every-day usage. Cobalt intends to accomodate a vast range of purposes. It can be used for common tasks such as gaming and browsing the Internet, or for [REDACTED].
