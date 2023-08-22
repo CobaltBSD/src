@@ -1,10 +1,15 @@
 # src
-CobaltBSD core repository
-
-Note: This repository is currently a stub
+Cobalt core repository (currently a stub)
 
 ## What is Cobalt?
-Cobalt is a microscopic but extremely versatile distribution of Linux, with the purpose of creating a satisfying user experience without the insane amount of bloat and ineffiency that other distributions have become complacent with. Cobalt ships with its own browser, Neosurf, as well as several BSD ports that we maintain. Cobalt supports a high degree of flexibility via its LuaJIT framework. Cobalt is also the first distribution to use the advanced bcachefs as its primarily filesystem.
+Cobalt is a microscopic but extremely versatile distribution of Linux geared towards towards being distribution that is highly secure but also practical to use. Cobalt contains a minimal desktop environment and utilities for creating and accessing sandboxes in the form of nested Wayland sessions.
+
+The Cobalt desktop environment is currently very small and missing several relatively critical components which will need to be developed from scratch, but the sandboxing infrastructure is complete. Cobalt ships with NeoSurf, its dedicated web browser.
+
+By design, most of your work will likely occur in a sandbox anyways, and the base system can be thought of as essentially immutable. Unlike virtual machines, Linux sandboxes generally have very little performance overhead. These sandboxes are essentially sub-distributions. They can be built from the ground up, or pre-installed.
+
+## Why?
+Distributions that are touted as being privacy and security-oriented, such as Qemu and Tails, do so at the immense cost of practicality. They are great to have, but not suitable for every-day usage. Cobalt intends to accomodate a vast range of purposes. It can be used for common tasks such as gaming and browsing the Internet, or for [REDACTED].
 
 ## Core Packages (136)
 alsa-lib
