@@ -4,7 +4,7 @@ Cobalt core repository (currently a stub)
 ## What is Cobalt?
 Cobalt is a security-focused Linux distribution with a focus on minimalism, customizability and process isolation.
 
-More detailed information can be found at [https://cobaltbsd.github.io](CobaltBSD.github.io).
+More detailed information can be found at [CobaltBSD.github,io](https://cobaltbsd.github.io).
 
 This repository contains the "glue" that makes Cobalt, such as build scripts and installation tools.
 
