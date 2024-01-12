@@ -1,0 +1,295 @@
+kshadow.lo: kshadow.c ../../../include/dix-config.h kdrive.h \
+  /usr/include/stdio.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/sys/types.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/machine/endian.h \
+  /usr/include/string.h /usr/include/strings.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xmd.h \
+  /usr/X11R6/include/X11/Xproto.h /usr/X11R6/include/X11/Xprotostr.h \
+  /usr/X11R6/include/X11/Xos.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/include/fcntl.h /usr/include/unistd.h /usr/include/sys/unistd.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h /usr/include/time.h \
+  /usr/include/sys/_time.h /usr/X11R6/include/X11/Xarch.h \
+  ../../../include/scrnintstr.h ../../../include/screenint.h \
+  ../../../include/misc.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xdefs.h /usr/include/stddef.h \
+  /usr/include/stdint.h /usr/include/pthread.h /usr/include/sys/signal.h \
+  /usr/include/machine/signal.h /usr/include/sys/siginfo.h \
+  /usr/include/limits.h /usr/include/sys/limits.h \
+  /usr/include/machine/limits.h /usr/include/sys/syslimits.h \
+  /usr/include/sched.h ../../../include/os.h /usr/include/stdarg.h \
+  /usr/include/stdlib.h ../../../include/Xprintf.h /usr/include/signal.h \
+  /usr/X11R6/include/X11/Xfuncs.h /usr/include/math.h \
+  /usr/include/assert.h /usr/include/ctype.h \
+  ../../../include/regionstr.h ../../../include/miscstruct.h \
+  /usr/X11R6/include/pixman-1/pixman.h \
+  /usr/X11R6/include/pixman-1/pixman-version.h /usr/include/inttypes.h \
+  /usr/include/sys/stdint.h ../../../include/colormap.h \
+  ../../../include/window.h ../../../include/region.h \
+  ../../../include/cursor.h ../../../include/privates.h \
+  ../../../include/dix.h ../../../include/callback.h \
+  ../../../include/gc.h ../../../include/pixmap.h \
+  /usr/X11R6/include/X11/extensions/randr.h ../../../include/input.h \
+  ../../../include/xkbrules.h ../../../include/events.h \
+  ../../../include/list.h /usr/X11R6/include/X11/extensions/XI2.h \
+  ../../../Xext/geext.h /usr/X11R6/include/X11/extensions/geproto.h \
+  /usr/X11R6/include/X11/extensions/ge.h \
+  /usr/X11R6/include/X11/extensions/XI.h ../../../include/resource.h \
+  ../../../include/dixaccess.h ../../../include/validate.h \
+  ../../../include/pixmapstr.h ../../../miext/damage/damage.h \
+  ../../../render/picturestr.h ../../../render/glyphstr.h \
+  /usr/X11R6/include/X11/extensions/renderproto.h \
+  /usr/X11R6/include/X11/extensions/render.h ../../../render/picture.h \
+  ../../../include/windowstr.h ../../../include/property.h \
+  ../../../include/opaque.h ../../../include/globals.h \
+  ../../../include/extinit.h ../../../include/extnsionst.h \
+  ../../../include/extension.h ../../../include/dixstruct.h \
+  ../../../include/client.h ../../../present/presentext.h \
+  /usr/X11R6/include/X11/extensions/dpmsconst.h \
+  ../../../include/servermd.h ../../../include/colormapst.h \
+  ../../../include/gcstruct.h ../../../mi/mipointer.h ../../../mi/mi.h \
+  /usr/X11R6/include/X11/fonts/font.h \
+  /usr/X11R6/include/X11/fonts/fsmasks.h ../../../fb/fb.h \
+  ../../../mi/migc.h ../../../fb/fbrop.h ../../../mi/micoord.h \
+  ../../../fb/fboverlay.h ../../../miext/shadow/shadow.h \
+  ../../../miext/damage/damagestr.h ../../../randr/randrstr.h \
+  ../../../randr/rrtransform.h \
+  /usr/X11R6/include/X11/extensions/randrproto.h \
+  ../../../include/xkbstr.h /usr/X11R6/include/X11/extensions/XKB.h
+
+../../../include/dix-config.h:
+
+kdrive.h:
+
+/usr/include/stdio.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+/usr/X11R6/include/X11/Xos.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+../../../include/scrnintstr.h:
+
+../../../include/screenint.h:
+
+../../../include/misc.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/stdint.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/sys/siginfo.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/sched.h:
+
+../../../include/os.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/stdlib.h:
+
+../../../include/Xprintf.h:
+
+/usr/include/signal.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/math.h:
+
+/usr/include/assert.h:
+
+/usr/include/ctype.h:
+
+../../../include/regionstr.h:
+
+../../../include/miscstruct.h:
+
+/usr/X11R6/include/pixman-1/pixman.h:
+
+/usr/X11R6/include/pixman-1/pixman-version.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+../../../include/colormap.h:
+
+../../../include/window.h:
+
+../../../include/region.h:
+
+../../../include/cursor.h:
+
+../../../include/privates.h:
+
+../../../include/dix.h:
+
+../../../include/callback.h:
+
+../../../include/gc.h:
+
+../../../include/pixmap.h:
+
+/usr/X11R6/include/X11/extensions/randr.h:
+
+../../../include/input.h:
+
+../../../include/xkbrules.h:
+
+../../../include/events.h:
+
+../../../include/list.h:
+
+/usr/X11R6/include/X11/extensions/XI2.h:
+
+../../../Xext/geext.h:
+
+/usr/X11R6/include/X11/extensions/geproto.h:
+
+/usr/X11R6/include/X11/extensions/ge.h:
+
+/usr/X11R6/include/X11/extensions/XI.h:
+
+../../../include/resource.h:
+
+../../../include/dixaccess.h:
+
+../../../include/validate.h:
+
+../../../include/pixmapstr.h:
+
+../../../miext/damage/damage.h:
+
+../../../render/picturestr.h:
+
+../../../render/glyphstr.h:
+
+/usr/X11R6/include/X11/extensions/renderproto.h:
+
+/usr/X11R6/include/X11/extensions/render.h:
+
+../../../render/picture.h:
+
+../../../include/windowstr.h:
+
+../../../include/property.h:
+
+../../../include/opaque.h:
+
+../../../include/globals.h:
+
+../../../include/extinit.h:
+
+../../../include/extnsionst.h:
+
+../../../include/extension.h:
+
+../../../include/dixstruct.h:
+
+../../../include/client.h:
+
+../../../present/presentext.h:
+
+/usr/X11R6/include/X11/extensions/dpmsconst.h:
+
+../../../include/servermd.h:
+
+../../../include/colormapst.h:
+
+../../../include/gcstruct.h:
+
+../../../mi/mipointer.h:
+
+../../../mi/mi.h:
+
+/usr/X11R6/include/X11/fonts/font.h:
+
+/usr/X11R6/include/X11/fonts/fsmasks.h:
+
+../../../fb/fb.h:
+
+../../../mi/migc.h:
+
+../../../fb/fbrop.h:
+
+../../../mi/micoord.h:
+
+../../../fb/fboverlay.h:
+
+../../../miext/shadow/shadow.h:
+
+../../../miext/damage/damagestr.h:
+
+../../../randr/randrstr.h:
+
+../../../randr/rrtransform.h:
+
+/usr/X11R6/include/X11/extensions/randrproto.h:
+
+../../../include/xkbstr.h:
+
+/usr/X11R6/include/X11/extensions/XKB.h:

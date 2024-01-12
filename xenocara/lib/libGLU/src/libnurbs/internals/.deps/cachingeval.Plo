@@ -1,0 +1,5 @@
+src/libnurbs/internals/cachingeval.lo: \
+  src/libnurbs/internals/cachingeval.cc \
+  src/libnurbs/internals/cachingeval.h
+
+src/libnurbs/internals/cachingeval.h:

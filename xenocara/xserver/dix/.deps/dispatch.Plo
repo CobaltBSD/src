@@ -1,0 +1,309 @@
+dispatch.lo: dispatch.c ../include/dix-config.h \
+  ../include/version-config.h ../include/windowstr.h ../include/window.h \
+  ../include/misc.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/X11R6/include/X11/Xfuncproto.h /usr/X11R6/include/X11/Xmd.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xdefs.h \
+  /usr/include/stddef.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/stdint.h /usr/include/pthread.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/include/sys/time.h \
+  /usr/include/sys/select.h /usr/include/time.h /usr/include/sys/_time.h \
+  /usr/include/sys/signal.h /usr/include/machine/signal.h \
+  /usr/include/sys/siginfo.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/sched.h ../include/os.h \
+  /usr/include/stdarg.h /usr/include/stdlib.h /usr/include/string.h \
+  /usr/include/strings.h /usr/include/stdio.h ../include/Xprintf.h \
+  /usr/include/signal.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/include/math.h /usr/include/assert.h /usr/include/ctype.h \
+  ../include/region.h ../include/regionstr.h ../include/miscstruct.h \
+  /usr/X11R6/include/X11/Xprotostr.h \
+  /usr/X11R6/include/pixman-1/pixman.h \
+  /usr/X11R6/include/pixman-1/pixman-version.h /usr/include/inttypes.h \
+  /usr/include/sys/stdint.h ../include/screenint.h \
+  /usr/X11R6/include/X11/Xproto.h ../include/pixmapstr.h \
+  ../include/pixmap.h /usr/X11R6/include/X11/extensions/randr.h \
+  ../include/privates.h ../include/dix.h ../include/callback.h \
+  ../include/gc.h ../include/input.h ../include/xkbrules.h \
+  ../include/events.h ../include/list.h \
+  /usr/X11R6/include/X11/extensions/XI2.h ../include/cursor.h \
+  ../Xext/geext.h /usr/X11R6/include/X11/extensions/geproto.h \
+  /usr/X11R6/include/X11/extensions/ge.h \
+  /usr/X11R6/include/X11/extensions/XI.h ../include/resource.h \
+  ../include/dixaccess.h ../miext/damage/damage.h ../render/picturestr.h \
+  ../include/scrnintstr.h ../include/colormap.h ../include/validate.h \
+  ../render/glyphstr.h /usr/X11R6/include/X11/extensions/renderproto.h \
+  /usr/X11R6/include/X11/extensions/render.h ../render/picture.h \
+  ../include/property.h ../include/opaque.h ../include/globals.h \
+  ../include/extinit.h ../include/extnsionst.h ../include/extension.h \
+  ../include/dixstruct.h ../include/client.h ../present/presentext.h \
+  /usr/X11R6/include/X11/extensions/dpmsconst.h \
+  /usr/X11R6/include/X11/fonts/fontstruct.h \
+  /usr/X11R6/include/X11/fonts/font.h \
+  /usr/X11R6/include/X11/fonts/fsmasks.h \
+  /usr/X11R6/include/X11/fonts/fontproto.h \
+  /usr/X11R6/include/X11/fonts/libxfont2.h ../include/dixfontstr.h \
+  ../include/servermd.h /usr/X11R6/include/X11/Xarch.h \
+  ../include/dixfont.h ../include/closure.h ../include/gcstruct.h \
+  ../include/selection.h ../include/colormapst.h ../include/cursorstr.h \
+  dispatch.h ../include/swaprep.h ../include/swapreq.h ../Xext/xace.h \
+  ../include/inputstr.h /usr/X11R6/include/X11/extensions/XI2proto.h \
+  ../include/xkbsrv.h /usr/X11R6/include/X11/extensions/XKBproto.h \
+  /usr/X11R6/include/X11/extensions/XKB.h ../include/xkbstr.h \
+  ../include/xkbfile.h ../xfixes/xfixesint.h \
+  /usr/X11R6/include/X11/extensions/xfixesproto.h \
+  /usr/X11R6/include/X11/extensions/xfixeswire.h \
+  /usr/X11R6/include/X11/extensions/shapeconst.h ../xfixes/xfixes.h \
+  ../Xi/xibarriers.h
+
+../include/dix-config.h:
+
+../include/version-config.h:
+
+../include/windowstr.h:
+
+../include/window.h:
+
+../include/misc.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/stdint.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/sys/siginfo.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/sched.h:
+
+../include/os.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/stdio.h:
+
+../include/Xprintf.h:
+
+/usr/include/signal.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/math.h:
+
+/usr/include/assert.h:
+
+/usr/include/ctype.h:
+
+../include/region.h:
+
+../include/regionstr.h:
+
+../include/miscstruct.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+/usr/X11R6/include/pixman-1/pixman.h:
+
+/usr/X11R6/include/pixman-1/pixman-version.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+../include/screenint.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+../include/pixmapstr.h:
+
+../include/pixmap.h:
+
+/usr/X11R6/include/X11/extensions/randr.h:
+
+../include/privates.h:
+
+../include/dix.h:
+
+../include/callback.h:
+
+../include/gc.h:
+
+../include/input.h:
+
+../include/xkbrules.h:
+
+../include/events.h:
+
+../include/list.h:
+
+/usr/X11R6/include/X11/extensions/XI2.h:
+
+../include/cursor.h:
+
+../Xext/geext.h:
+
+/usr/X11R6/include/X11/extensions/geproto.h:
+
+/usr/X11R6/include/X11/extensions/ge.h:
+
+/usr/X11R6/include/X11/extensions/XI.h:
+
+../include/resource.h:
+
+../include/dixaccess.h:
+
+../miext/damage/damage.h:
+
+../render/picturestr.h:
+
+../include/scrnintstr.h:
+
+../include/colormap.h:
+
+../include/validate.h:
+
+../render/glyphstr.h:
+
+/usr/X11R6/include/X11/extensions/renderproto.h:
+
+/usr/X11R6/include/X11/extensions/render.h:
+
+../render/picture.h:
+
+../include/property.h:
+
+../include/opaque.h:
+
+../include/globals.h:
+
+../include/extinit.h:
+
+../include/extnsionst.h:
+
+../include/extension.h:
+
+../include/dixstruct.h:
+
+../include/client.h:
+
+../present/presentext.h:
+
+/usr/X11R6/include/X11/extensions/dpmsconst.h:
+
+/usr/X11R6/include/X11/fonts/fontstruct.h:
+
+/usr/X11R6/include/X11/fonts/font.h:
+
+/usr/X11R6/include/X11/fonts/fsmasks.h:
+
+/usr/X11R6/include/X11/fonts/fontproto.h:
+
+/usr/X11R6/include/X11/fonts/libxfont2.h:
+
+../include/dixfontstr.h:
+
+../include/servermd.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+../include/dixfont.h:
+
+../include/closure.h:
+
+../include/gcstruct.h:
+
+../include/selection.h:
+
+../include/colormapst.h:
+
+../include/cursorstr.h:
+
+dispatch.h:
+
+../include/swaprep.h:
+
+../include/swapreq.h:
+
+../Xext/xace.h:
+
+../include/inputstr.h:
+
+/usr/X11R6/include/X11/extensions/XI2proto.h:
+
+../include/xkbsrv.h:
+
+/usr/X11R6/include/X11/extensions/XKBproto.h:
+
+/usr/X11R6/include/X11/extensions/XKB.h:
+
+../include/xkbstr.h:
+
+../include/xkbfile.h:
+
+../xfixes/xfixesint.h:
+
+/usr/X11R6/include/X11/extensions/xfixesproto.h:
+
+/usr/X11R6/include/X11/extensions/xfixeswire.h:
+
+/usr/X11R6/include/X11/extensions/shapeconst.h:
+
+../xfixes/xfixes.h:
+
+../Xi/xibarriers.h:

@@ -1,0 +1,37 @@
+#define STRING 257
+#define NUMBER 258
+#define RUN 259
+#define FUNCTION 260
+#define FUNCTIONTYPE 261
+#define TEST 262
+#define TESTTYPE 263
+#define LINESTYLE 264
+#define LINESTYLETYPE 265
+#define CAPSTYLE 266
+#define CAPSTYLETYPE 267
+#define JOINSTYLE 268
+#define JOINSTYLETYPE 269
+#define ROUND 270
+#define SOLID 271
+#define FILLSTYLE 272
+#define FILLSTYLETYPE 273
+#define FILLRULE 274
+#define FILLRULETYPE 275
+#define ARCMODE 276
+#define ARCMODETYPE 277
+#define FOREGROUND 278
+#define BACKGROUND 279
+#define LINEWIDTH 280
+#define PLANEMASK 281
+#define DASHLIST 282
+#define PERCENT 283
+#define FONT 284
+#ifndef YYSTYPE_DEFINED
+#define YYSTYPE_DEFINED
+typedef union
+{
+  int num;
+  char *ptr;
+} YYSTYPE;
+#endif /* YYSTYPE_DEFINED */
+extern YYSTYPE yylval;

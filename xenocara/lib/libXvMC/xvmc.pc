@@ -1,0 +1,12 @@
+prefix=/usr/X11R6
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: XvMC
+Description: The XvMC Library
+Version: 1.0.13
+Requires: videoproto xextproto
+Requires.private: x11 >= 1.6 xext xv
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXvMC

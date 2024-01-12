@@ -1,0 +1,5 @@
+# $OpenBSD: Makefile.bsd-wrapper,v 1.3 2006/11/28 19:04:48 matthieu Exp $
+
+CONFIGURE_ARGS= --datadir=/etc
+
+.include <bsd.xorg.mk>

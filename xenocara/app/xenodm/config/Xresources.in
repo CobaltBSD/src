@@ -1,0 +1,128 @@
+! $OpenBSD: Xresources.in,v 1.4 2022/11/07 17:12:06 matthieu Exp $
+!
+!
+!
+!
+!
+
+
+
+
+xlogin*login.translations: #override \
+	<Key>F1: set-session-argument(failsafe) finish-field()\n\
+	<Key>Left: move-backward-character()\n\
+	<Key>Right: move-forward-character()\n\
+	<Key>Home: move-to-begining()\n\
+	<Key>End: move-to-end()\n\
+	Ctrl<Key>KP_Enter: set-session-argument(failsafe) finish-field()\n\
+	<Key>KP_Enter: set-session-argument() finish-field()\n\
+	Ctrl<Key>Return: set-session-argument(failsafe) finish-field()\n\
+	<Key>Return: set-session-argument() finish-field()
+
+xlogin*greeting: CLIENTHOST
+xlogin*namePrompt: \040\040\040\040\040\040\040Login:
+xlogin*fail: Login incorrect or forbidden
+
+#if WIDTH > 800
+xlogin*greetFace:       DejaVu Sans Condensed-22:bold:italic:dpi=75
+xlogin*face:            DejaVu Sans Condensed-16:dpi=75
+xlogin*promptFace:      DejaVu Sans Condensed-16:bold:dpi=75
+xlogin*failFace:        DejaVu Sans Condensed-16:bold:dpi=75
+#else
+xlogin*greetFace:       DejaVu Sans Condensed-18:bold:italic:dpi=75
+xlogin*face:            DejaVu Sans Condensed-12:dpi=75
+xlogin*promptFace:      DejaVu Sans Condensed-12:bold:dpi=75
+xlogin*failFace:        DejaVu Sans Condensed-12:bold:dpi=75
+#endif
+
+#if !(defined(bpp1) || defined(bpp4) || defined(bpp8) || defined(bpp15))
+# if PLANES < 4
+#  ifndef bpp1
+#   define bpp1
+#  endif
+# else
+#  if PLANES > 4
+#   if PLANES > 8
+#    ifndef bpp15
+#     define bpp15
+#    endif
+#   else
+#    ifndef bpp8
+#     define bpp8
+#    endif bpp8
+#   endif
+#  else
+#   ifndef bpp4
+#    define bpp4
+#   endif
+#  endif
+# endif
+#endif  /* If manual override */
+
+#ifndef bpp1
+xlogin*borderWidth: 1
+xlogin*frameWidth: 2
+xlogin*innerFramesWidth: 0
+
+xlogin.Login.sepWidth: 0
+
+! top/left border
+xlogin*hiColor: #445566
+
+! bottom/right border
+xlogin*shdColor: #445566
+
+! 'Welcome to..' text color
+xlogin*greetColor: #ded866
+#if defined(bpp4) || defined(bpp8) || defined(bpp15)
+! flood fill
+xlogin*background: #596a79
+xlogin*inpColor: #798a99
+#endif
+xlogin*failColor: #ff4d29
+
+! 'Login:' and 'Password:'
+*Foreground: #eeeeff
+
+! border/shadow
+*Background: #000000
+#else
+xlogin*borderWidth: 3
+xlogin*frameWidth: 5
+xlogin*innerFramesWidth: 1
+xlogin*shdColor: white
+xlogin*hiColor: white
+xlogin*greetColor: white
+xlogin*background: black
+xlogin*failColor: white
+xlogin*promptColor: white
+*Foreground: white
+*Background: black
+#endif
+#ifdef bpp1
+xlogin*logoFileName: @XENODM_PIXMAPDIR@/OpenBSD_1bpp.xpm
+#endif
+#ifdef bpp4
+xlogin*logoFileName: @XENODM_PIXMAPDIR@/OpenBSD_4bpp.xpm
+#endif
+#ifdef bpp8
+xlogin*logoFileName: @XENODM_PIXMAPDIR@/OpenBSD_8bpp.xpm
+#endif
+#ifdef bpp15
+xlogin*logoFileName: @XENODM_PIXMAPDIR@/OpenBSD_15bpp.xpm
+#endif
+
+xlogin*useShape: true
+xlogin*logoPadding: 10
+
+! uncomment to disable logins
+! xlogin.Login.allowRootLogin:	false
+
+XConsole*background:	black
+XConsole*foreground:	white
+XConsole*borderWidth:	2
+XConsole*borderColor:   grey
+XConsole.text.geometry:	480x130
+XConsole.verbose:	true
+XConsole*iconic:	true
+XConsole*font:		fixed

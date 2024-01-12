@@ -1,0 +1,12 @@
+prefix=/usr/X11R6
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Xi
+Description: X Input Extension Library
+Version: 1.8.1
+Requires: inputproto
+Requires.private: x11 xext xfixes
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXi

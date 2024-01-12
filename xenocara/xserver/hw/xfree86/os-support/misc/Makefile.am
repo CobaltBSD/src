@@ -1,0 +1,17 @@
+
+noinst_LTLIBRARIES = libmisc.la
+
+libmisc_la_SOURCES = SlowBcopy.c
+
+#AM_LDFLAGS = -r
+
+AM_CPPFLAGS = $(XORG_INCS)
+
+if I386_VIDEO
+NOSSE_CFLAGS = -mno-sse
+endif
+
+AM_CFLAGS = $(XORG_CFLAGS) $(DIX_CFLAGS) $(NOSSE_CFLAGS)
+
+
+EXTRA_DIST = $(I386_SRCS) $(PORTIO_SRCS)

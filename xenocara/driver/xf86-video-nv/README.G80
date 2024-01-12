@@ -1,0 +1,11 @@
+This xf86-video-nv driver package contains support for the NVIDIA GeForce 8
+series of graphics processors.
+
+There are a few caveats of which to be aware:
+ - The XVideo extension is not supported.
+ - The RENDER extension is not accelerated by this driver.
+
+Bugs should be reported at
+  https://gitlab.freedesktop.org/xorg/driver/xf86-video-nv
+Please be sure to state the platform & OS. Also attach a copy of your Xorg log
+file and provide a detailed description of your problem and how to reproduce it.

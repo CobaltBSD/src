@@ -1,0 +1,189 @@
+src/FreeType/fttools.lo: src/FreeType/fttools.c config.h \
+  include/libxfontint.h /usr/X11R6/include/X11/fonts/FSproto.h \
+  /usr/X11R6/include/X11/fonts/FS.h /usr/X11R6/include/X11/Xdefs.h \
+  /usr/X11R6/include/X11/fonts/fsmasks.h /usr/X11R6/include/X11/Xmd.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xos.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/sys/types.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/machine/endian.h /usr/include/string.h \
+  /usr/include/sys/_null.h /usr/include/strings.h /usr/include/fcntl.h \
+  /usr/include/unistd.h /usr/include/sys/unistd.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h /usr/include/time.h \
+  /usr/include/sys/_time.h /usr/X11R6/include/X11/Xarch.h \
+  include/X11/fonts/fontmisc.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/include/stdlib.h /usr/include/stdio.h \
+  /usr/X11R6/include/X11/fonts/fontstruct.h \
+  /usr/X11R6/include/X11/Xproto.h /usr/X11R6/include/X11/Xprotostr.h \
+  /usr/X11R6/include/X11/fonts/font.h \
+  /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/fonts/fontproto.h include/X11/fonts/fontutil.h \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/stdint.h \
+  include/X11/fonts/libxfont2.h /usr/include/stdarg.h \
+  /usr/include/ctype.h /usr/X11R6/include/freetype2/ft2build.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftheader.h \
+  /usr/X11R6/include/freetype2/freetype/freetype.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftconfig.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftoption.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftstdlib.h \
+  /usr/include/stddef.h /usr/include/setjmp.h \
+  /usr/include/machine/setjmp.h \
+  /usr/X11R6/include/freetype2/freetype/config/integer-types.h \
+  /usr/X11R6/include/freetype2/freetype/config/public-macros.h \
+  /usr/X11R6/include/freetype2/freetype/config/mac-support.h \
+  /usr/X11R6/include/freetype2/freetype/fttypes.h \
+  /usr/X11R6/include/freetype2/freetype/ftsystem.h \
+  /usr/X11R6/include/freetype2/freetype/ftimage.h \
+  /usr/X11R6/include/freetype2/freetype/fterrors.h \
+  /usr/X11R6/include/freetype2/freetype/ftmoderr.h \
+  /usr/X11R6/include/freetype2/freetype/fterrdef.h \
+  /usr/X11R6/include/freetype2/freetype/ftsnames.h \
+  /usr/X11R6/include/freetype2/freetype/ftparams.h \
+  /usr/X11R6/include/freetype2/freetype/ttnameid.h src/FreeType/ft.h
+
+config.h:
+
+include/libxfontint.h:
+
+/usr/X11R6/include/X11/fonts/FSproto.h:
+
+/usr/X11R6/include/X11/fonts/FS.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/X11R6/include/X11/fonts/fsmasks.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xos.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/strings.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+include/X11/fonts/fontmisc.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/stdio.h:
+
+/usr/X11R6/include/X11/fonts/fontstruct.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+/usr/X11R6/include/X11/fonts/font.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/fonts/fontproto.h:
+
+include/X11/fonts/fontutil.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/stdint.h:
+
+include/X11/fonts/libxfont2.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/ctype.h:
+
+/usr/X11R6/include/freetype2/ft2build.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftheader.h:
+
+/usr/X11R6/include/freetype2/freetype/freetype.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftconfig.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftoption.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftstdlib.h:
+
+/usr/include/stddef.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+/usr/X11R6/include/freetype2/freetype/config/integer-types.h:
+
+/usr/X11R6/include/freetype2/freetype/config/public-macros.h:
+
+/usr/X11R6/include/freetype2/freetype/config/mac-support.h:
+
+/usr/X11R6/include/freetype2/freetype/fttypes.h:
+
+/usr/X11R6/include/freetype2/freetype/ftsystem.h:
+
+/usr/X11R6/include/freetype2/freetype/ftimage.h:
+
+/usr/X11R6/include/freetype2/freetype/fterrors.h:
+
+/usr/X11R6/include/freetype2/freetype/ftmoderr.h:
+
+/usr/X11R6/include/freetype2/freetype/fterrdef.h:
+
+/usr/X11R6/include/freetype2/freetype/ftsnames.h:
+
+/usr/X11R6/include/freetype2/freetype/ftparams.h:
+
+/usr/X11R6/include/freetype2/freetype/ttnameid.h:
+
+src/FreeType/ft.h:

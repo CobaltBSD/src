@@ -1,0 +1,256 @@
+Screen.o: Screen.c xnest-config.h ../../include/dix-config.h \
+  ../../include/xkb-config.h /usr/X11R6/include/X11/X.h \
+  /usr/X11R6/include/X11/Xmd.h /usr/X11R6/include/X11/Xproto.h \
+  /usr/X11R6/include/X11/Xprotostr.h ../../include/scrnintstr.h \
+  ../../include/screenint.h ../../include/misc.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xdefs.h /usr/include/stddef.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_null.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/stdint.h \
+  /usr/include/pthread.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/include/sys/time.h \
+  /usr/include/sys/select.h /usr/include/time.h /usr/include/sys/_time.h \
+  /usr/include/sys/signal.h /usr/include/machine/signal.h \
+  /usr/include/sys/siginfo.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/sched.h ../../include/os.h \
+  /usr/include/stdarg.h /usr/include/stdlib.h /usr/include/string.h \
+  /usr/include/strings.h /usr/include/stdio.h ../../include/Xprintf.h \
+  /usr/include/signal.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/include/math.h /usr/include/assert.h /usr/include/ctype.h \
+  ../../include/regionstr.h ../../include/miscstruct.h \
+  /usr/X11R6/include/pixman-1/pixman.h \
+  /usr/X11R6/include/pixman-1/pixman-version.h /usr/include/inttypes.h \
+  /usr/include/sys/stdint.h ../../include/colormap.h \
+  ../../include/window.h ../../include/region.h ../../include/cursor.h \
+  ../../include/privates.h ../../include/dix.h ../../include/callback.h \
+  ../../include/gc.h ../../include/pixmap.h \
+  /usr/X11R6/include/X11/extensions/randr.h ../../include/input.h \
+  ../../include/xkbrules.h ../../include/events.h ../../include/list.h \
+  /usr/X11R6/include/X11/extensions/XI2.h ../../Xext/geext.h \
+  /usr/X11R6/include/X11/extensions/geproto.h \
+  /usr/X11R6/include/X11/extensions/ge.h \
+  /usr/X11R6/include/X11/extensions/XI.h ../../include/resource.h \
+  ../../include/dixaccess.h ../../include/validate.h ../../mi/mi.h \
+  /usr/X11R6/include/X11/fonts/font.h \
+  /usr/X11R6/include/X11/fonts/fsmasks.h ../../mi/micmap.h \
+  ../../include/colormapst.h Xnest.h /usr/X11R6/include/X11/Xlib.h \
+  /usr/X11R6/include/X11/Xutil.h /usr/X11R6/include/X11/keysym.h \
+  /usr/X11R6/include/X11/keysymdef.h \
+  /usr/X11R6/include/X11/extensions/shape.h \
+  /usr/X11R6/include/X11/extensions/shapeconst.h Display.h Screen.h \
+  XNGC.h GCOps.h Drawable.h XNWindow.h XNPixmap.h XNFont.h Color.h \
+  XNCursor.h ../../mi/mipointrst.h ../../mi/mipointer.h Visual.h \
+  Events.h Init.h Args.h
+
+xnest-config.h:
+
+../../include/dix-config.h:
+
+../../include/xkb-config.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+../../include/scrnintstr.h:
+
+../../include/screenint.h:
+
+../../include/misc.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/stdint.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/sys/siginfo.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/sched.h:
+
+../../include/os.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/stdio.h:
+
+../../include/Xprintf.h:
+
+/usr/include/signal.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/math.h:
+
+/usr/include/assert.h:
+
+/usr/include/ctype.h:
+
+../../include/regionstr.h:
+
+../../include/miscstruct.h:
+
+/usr/X11R6/include/pixman-1/pixman.h:
+
+/usr/X11R6/include/pixman-1/pixman-version.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+../../include/colormap.h:
+
+../../include/window.h:
+
+../../include/region.h:
+
+../../include/cursor.h:
+
+../../include/privates.h:
+
+../../include/dix.h:
+
+../../include/callback.h:
+
+../../include/gc.h:
+
+../../include/pixmap.h:
+
+/usr/X11R6/include/X11/extensions/randr.h:
+
+../../include/input.h:
+
+../../include/xkbrules.h:
+
+../../include/events.h:
+
+../../include/list.h:
+
+/usr/X11R6/include/X11/extensions/XI2.h:
+
+../../Xext/geext.h:
+
+/usr/X11R6/include/X11/extensions/geproto.h:
+
+/usr/X11R6/include/X11/extensions/ge.h:
+
+/usr/X11R6/include/X11/extensions/XI.h:
+
+../../include/resource.h:
+
+../../include/dixaccess.h:
+
+../../include/validate.h:
+
+../../mi/mi.h:
+
+/usr/X11R6/include/X11/fonts/font.h:
+
+/usr/X11R6/include/X11/fonts/fsmasks.h:
+
+../../mi/micmap.h:
+
+../../include/colormapst.h:
+
+Xnest.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/X11R6/include/X11/Xutil.h:
+
+/usr/X11R6/include/X11/keysym.h:
+
+/usr/X11R6/include/X11/keysymdef.h:
+
+/usr/X11R6/include/X11/extensions/shape.h:
+
+/usr/X11R6/include/X11/extensions/shapeconst.h:
+
+Display.h:
+
+Screen.h:
+
+XNGC.h:
+
+GCOps.h:
+
+Drawable.h:
+
+XNWindow.h:
+
+XNPixmap.h:
+
+XNFont.h:
+
+Color.h:
+
+XNCursor.h:
+
+../../mi/mipointrst.h:
+
+../../mi/mipointer.h:
+
+Visual.h:
+
+Events.h:
+
+Init.h:
+
+Args.h:

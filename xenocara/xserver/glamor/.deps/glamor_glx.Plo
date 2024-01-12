@@ -1,0 +1,66 @@
+glamor_glx.lo: glamor_glx.c /usr/X11R6/include/epoxy/glx.h \
+  /usr/X11R6/include/epoxy/gl.h /usr/X11R6/include/epoxy/common.h \
+  /usr/include/stdbool.h /usr/X11R6/include/epoxy/gl_generated.h \
+  /usr/include/inttypes.h /usr/include/sys/stdint.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/machine/_types.h /usr/include/stddef.h \
+  /usr/include/sys/_null.h /usr/include/sys/_types.h \
+  /usr/X11R6/include/X11/Xlib.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/X11R6/include/X11/X.h \
+  /usr/X11R6/include/X11/Xfuncproto.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/X11R6/include/X11/Xutil.h /usr/X11R6/include/X11/keysym.h \
+  /usr/X11R6/include/X11/keysymdef.h \
+  /usr/X11R6/include/epoxy/glx_generated.h glamor_context.h
+
+/usr/X11R6/include/epoxy/glx.h:
+
+/usr/X11R6/include/epoxy/gl.h:
+
+/usr/X11R6/include/epoxy/common.h:
+
+/usr/include/stdbool.h:
+
+/usr/X11R6/include/epoxy/gl_generated.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/X11R6/include/X11/Xutil.h:
+
+/usr/X11R6/include/X11/keysym.h:
+
+/usr/X11R6/include/X11/keysymdef.h:
+
+/usr/X11R6/include/epoxy/glx_generated.h:
+
+glamor_context.h:

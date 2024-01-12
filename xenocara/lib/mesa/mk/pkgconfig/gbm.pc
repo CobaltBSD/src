@@ -1,0 +1,9 @@
+prefix=/usr/X11R6
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: gbm
+Description: Mesa gbm library
+Version: 23.1.9
+Libs: -L${libdir} -lgbm
+Cflags: -I${includedir}

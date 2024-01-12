@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+sdkdir=@sdkdir@
+
+Name: xorg-mouse
+Description: X.Org mouse input driver for non-evdev OS'es
+Version: @PACKAGE_VERSION@
+Cflags: -I${sdkdir}

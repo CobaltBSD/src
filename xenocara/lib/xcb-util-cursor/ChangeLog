@@ -1,0 +1,521 @@
+commit 3d7e713e85af18d7e52cafdc9d20a2715048dee7
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Tue Oct 18 09:58:51 2022 -0700
+
+    xcb-util-cursor 0.1.4
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 738e534b2f9aef1d904b71b23c36e9844050cb69
+Author: Mihail Konev <k.mvc@ya.ru>
+Date:   Thu Jan 26 13:52:49 2017 +1000
+
+    autogen: add default patch prefix
+    
+    Signed-off-by: Mihail Konev <k.mvc@ya.ru>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 63c57d4f7b26581375df0d9888d41b1028c23123
+Author: Emil Velikov <emil.l.velikov@gmail.com>
+Date:   Mon Mar 9 12:00:52 2015 +0000
+
+    autogen.sh: use quoted string variables
+    
+    Place quotes around the $srcdir, $ORIGDIR and $0 variables to prevent
+    fall-outs, when they contain space.
+    
+    Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
+    Reviewed-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 778404a17ccd5b40240f9612030985a55a560ffd
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Jan 24 10:32:07 2017 +1000
+
+    autogen.sh: use exec instead of waiting for configure to finish
+    
+    Syncs the invocation of configure with the one from the server.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 7fda90f679f2947e1461b40f0ea46b41c0970d95
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 21:39:32 2014 -0700
+
+    autogen.sh: Honor NOCONFIGURE=1
+    
+    See http://people.gnome.org/~walters/docs/build-api.txt
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5082184aae8f91b26358eede77338afbf5ba48e5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 21:38:41 2014 -0700
+
+    configure: Drop AM_MAINTAINER_MODE
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5df962f6450bcefe70da26b6ec34f45b853ea512
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Jul 20 14:24:18 2022 -0700
+
+    gitlab CI: add a basic build test
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 4cc525e107fafa71aaa2d1bdc80c3495b641d53d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Jul 20 14:21:54 2022 -0700
+
+    Update m4 to xorg/util/xcb-util-m4@c617eee22ae5c285e79e81
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 186fbd9c6faa817f5faf7b7fd287aa9af4dcd143
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jun 18 10:16:46 2022 -0700
+
+    Use AC_CONFIG_FILES to replace the deprecated AC_OUTPUT with parameters
+    
+    configure.ac:37: warning: AC_OUTPUT should be used without arguments.
+    configure.ac:37: You should run autoupdate.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 3892bf22557a8203027714ef18693e347947c7ac
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jun 18 10:16:33 2022 -0700
+
+    Build xz tarballs instead of bzip2
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 2a655a15f83c5623f65fa8e0676f71094991ea29
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Feb 17 10:51:21 2019 -0800
+
+    Add README.md to EXTRA_DIST
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit f692153dd0a9e2b9e0a03cfda91f5147c7e7b5be
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Feb 17 10:27:56 2019 -0800
+
+    Update README for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit f75e4be03d284539eda5e0dae291da41fc576a44
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Tue Jun 17 23:51:19 2014 +0200
+
+    Fix out-of-source builds
+    
+    When building something out-of-source, make's VPATH mechanism is used so that
+    files in the source directory are also found. This makes make automatically
+    check that other directory for needed files and use those when needed.
+    
+    However, make doesn't magically copy those files over. We have to explicitly use
+    the file that make found. Do so by using $< for refering to shape_to_id.gperf
+    instead of hardcoding the name of the source file.
+    
+    This fixes out-of-source git builds.
+    
+    Out-of-source release builds already worked before this, because releases come
+    with a pre-generated shape_to_id.c.
+    
+    This fixes https://bugs.freedesktop.org/show_bug.cgi?id=80153
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 947eaba9ff0bf6e6b595cd5a065b5f126611fdb7
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Sun Jul 9 12:03:06 2017 +0200
+
+    documentation: Call xcb_free_cursor() when done
+    
+    The documentation for xcb_cursor_load_cursor() say that the resulting
+    cursor must be freed, but the example in the documentation does not do
+    so. It does not matter much for this example, but I think it is a good
+    idea to use it to hint to this requirement. Also, the example already
+    uses xcb_cursor_context_free(), so it tries to clean up after itself.
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 95b9a8fd876fdbbc854cdf3d90317be3846c7417
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Thu May 12 09:53:03 2016 +0200
+
+    set version to 0.1.3
+
+commit 085606514a37726b2527d646cd022e06b1fb0d79
+Author: Uli Schlachter <uli.schlachter@informatik.uni-oldenburg.de>
+Date:   Tue May 10 12:01:47 2016 +0200
+
+    Add a --with-cursorpath option to configure
+    
+    This works (hopefully) the same way as the same option does for libXcursor.
+    
+    Signed-off-by: Uli Schlachter <uli.schlachter@informatik.uni-oldenburg.de>
+
+commit 8eb844d39a06f42019dede515c70e7a0b155357d
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Wed Mar 25 23:06:23 2015 +0100
+
+    set version to 0.1.2
+
+commit cf26479ece9ab9e04616bc10ba674d88a284e5b0
+Author: Martin Gräßlin < <mgraesslin@kde.org>
+Date:   Tue Mar 17 18:41:07 2015 +0100
+
+    Perform safety check before trying to load glyph cursor
+    
+    The passed in cursor name to xcb_cursor_load_cursor might not match
+    one of the predefined font cursor values. Without the check the
+    call to create glyph cursor will fail with a BadValue error, but
+    the library returns the id allocated for the xcb_cursor_t. A user
+    of the library gets a value which looks like a valid cursor, but
+    when using it for e.g. a cursor value in xcb_create_window it raises
+    a BadCursor error.
+
+commit f03cc278c6cce0cf721adf9c3764d3c5fba63392
+Author: Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+Date:   Sat Apr 5 15:50:28 2014 -0700
+
+    darwin: Use OSByteOrder.h rather than CF.
+    
+    Signed-off-by: Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+
+commit a08bbf0e20995d29cbf890957c898059d4a9ece2
+Author: Niclas Zeising <zeising@daemonic.se>
+Date:   Mon Aug 12 13:53:10 2013 +0200
+
+    Check submodules before running autoconf.
+    
+    Exit early with an informative message if the submodules are missing,
+    since they are needed.  Without this autoconf throws a bunch of
+    uninformative errors which does not point to the actual problem.
+    This was taken from util-keysyms.
+    
+    Signed-off-by: Niclas Zeising <zeising@daemonic.se>
+    Reviewed-By: Arnaud Fontaine <arnau@debian.org>
+
+commit d25806902ee6050ec3d52480d0bc8f4889942350
+Author: Marcus Crestani <crestani@informatik.uni-tuebingen.de>
+Date:   Mon Dec 23 23:30:04 2013 +0100
+
+    Use CFSwapInt32LittleToHost from CoreFoundation.h on Mac OS X to implement le32toh.
+
+commit f557760c56ba4eb44063936d8fa49473532e21c6
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Nov 12 21:47:50 2013 +0100
+
+    set version to 0.1.1
+
+commit c6c04f73ebc307f04326de042e496bca84682f63
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Nov 9 15:02:38 2013 +0100
+
+    Bugfix: Properly load cursor files where not all cursors are suitable
+    
+    This fixes https://bugs.freedesktop.org/show_bug.cgi?id=71060
+
+commit c453d4baceaead514c814b825cdd9b517c6bcd8c
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Thu Nov 7 22:00:21 2013 +0100
+
+    handle read() errors (Thanks psychon)
+
+commit 0bde33d9a11e73c1e798b40c453fa0593f8f706b
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Sun Oct 13 11:55:48 2013 +0200
+
+    Fail the build if gperf is needed, but not found
+    
+    The rule that cursor/Makefile.am uses for calling gperf can be found on the
+    internet[0]. That page explains three cases that should be handled:
+    
+    1. gperf succeeded
+    2. gperf failed
+    3. gperf is missing
+    
+    The reasoning for the third case is:
+    
+      If $(GPERF) does not answer to --version, it is certainly missing, and missing
+      already suggested to install Gperf. Then remove the temporary output file, and
+      let the compilation proceed by updating the timestamp of the output file.
+      That's a best effort, essentially helping users who get the project with
+      broken timestamps.
+    
+    However, this assumes that the user is building from a tarball which already
+    contains a working version of the output C file. When building from git, this
+    file does not exist and instead of updating the timestamp of the output file,
+    this Makefile rule would create the output file.
+    
+    Thus, the following four cases need to be handled:
+    
+    1. gperf succeeded
+    2. gperf failed
+    3. gperf is missing and the output file already exists
+    4. gperf is missing and the output file is missing, too
+    
+    For the third case, the above reasoning applies. However, in the fourth case,
+    the build would continue and produce a broken library. For xcb-util-cursor this
+    means that linking to this library would fail with "undefined reference to
+    `cursor_shape_to_id'". So in this case the build should fail.
+    
+    [0]: http://www.lrde.epita.fr/~akim/ccmp/doc/gnuprog2/Using-Gperf-with-the-GNU-Build-System.html
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 0d84049a454bc613c38c26a8e78b0398ec704385
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Sun Oct 13 11:47:27 2013 +0200
+
+    Use $(AM_V_GEN) when calling gperf
+    
+    This adds support for automake's silent mode to the gperf rule. In silent mode,
+    make will not print the whole command lines, but only a short version of what it
+    does.
+    
+    For this rule, "GEN shape_to_id.c" will be printed.
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 3097d12ba67a51faa4507b6868e3b99f3c0e1096
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Oct 5 21:32:28 2013 -0700
+
+    Use LE_32 macro from <sys/byteorder.h> on Solaris versions without le32toh()
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 7de51b81885a3b6dbb719a63f776783c0e307ab7
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Thu Sep 19 18:08:20 2013 +0200
+
+    Check exact RENDER version that the server supports
+    
+    RENDER's CreateCursor request was added in version 0.5 and CreateAnimCursor was
+    added in version 0.8. Hence, just having the RENDER extension is not enough and
+    we need to check the exact version that the server provides.
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 8f3279a2b3711b6f311c5a31d77c6a8c05c4c3ac
+Author: Uli Schlachter <psychon@znc.in>
+Date:   Thu Sep 19 17:47:22 2013 +0200
+
+    Fix memleak with broken resource databases
+    
+    If someone e.g. defines Xcursor.theme twice in the resource information, this
+    would cause c->rm[RM_XCURSOR_THEME] to be set via strdup() twice which means
+    that the first pointer is leaked.
+    
+    Fix this by freeing the old value in this case.
+    
+    Signed-off-by: Uli Schlachter <psychon@znc.in>
+
+commit 021c7b741d94d776948774f576c71a40ba8a932a
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Wed Aug 21 19:54:41 2013 +0200
+
+    set version to 0.1.0
+
+commit 72d3e9f999c958b6b74f868fcb3f64117a57ac32
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Wed Aug 21 08:05:33 2013 +0200
+
+    Bugfix: Use xhot/yhot, don’t hardcode the value (Thanks tenkainen)
+    
+    In early development, I hardcoded these to make debugging easier, but
+    then forgot to use the actual variables :).
+
+commit 9a30b01e383fd14cad4a525e3c21ff5c20ba605e
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sun Aug 18 19:12:30 2013 +0200
+
+    kill typedef, that is done in xcb_cursor, only define struct (Thanks Niclas)
+
+commit 6a09059f67217f15573fd88f44d57623a5f1402d
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Mon Aug 12 09:07:02 2013 +0200
+
+    Silence compiler warning (Thanks Niclas Zeising)
+
+commit 37f1e431279998966caabebae3daf7e44d901768
+Author: Niclas Zeising <zeising@daemonic.se>
+Date:   Sat Aug 10 16:11:40 2013 +0200
+
+    Fix build on FreeBSD (and possibly other BSDs)
+    
+    FreeBSD have the le32toh macro in <sys/endian.h>, and this file is not
+    indirectly included by any other header in util-cursor.  Add a configure
+    check that checks for <endian.h> (Linux) and <sys/endian.h> (FreeBSD),
+    and include the right file based on this check.
+    
+    Signed-off-by:  Niclas Zeising <zeising@daemonic.se>
+
+commit 73ea12734b8ecf520938620eedba1e87416a7132
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jul 13 08:19:18 2013 +0200
+
+    add COPYING file
+
+commit c7eff39a5fb3552de57e52f737ea7ae59b1ef895
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Fri Jul 12 19:57:44 2013 +0200
+
+    don’t define xcb_cursor_context_t twice (Thanks Thomas)
+    
+    This fixes a compilation problem on NetBSD
+
+commit c7168980ec549c98bbfc13cf08d4edcbed62f34a
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 23:02:34 2013 +0200
+
+    set version to 0.0.99
+
+commit dd1a1841991dcec716ef4b03e5b6d0fae324a80f
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:50:55 2013 +0200
+
+    fix package name
+
+commit c5991d41793e68b5f4fe7bf781f72cfc7920432c
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:49:18 2013 +0200
+
+    fix README
+
+commit e0166e72fa2672dd31d1e4a142e069487d1891b0
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:45:48 2013 +0200
+
+    catch integer overflows (Thanks psychon)
+
+commit e3887bd2d89876fcbd31edc75ea0848245ce2eed
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:31:32 2013 +0200
+
+    Fix memory leak (Thanks psychon)
+
+commit 4f3d815089e9587bb5adcdb1c40fe3683113ea3d
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:30:17 2013 +0200
+
+    Clarify that pict_format is a pointer into pf_reply
+    
+    …and therefore does not need to be freed in xcb_cursor_context_free()
+
+commit 33e35665b182cc8b92375f5b712f79c2a6390532
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:26:32 2013 +0200
+
+    don’t call xcb_render_ when !render_present (Thanks psychon)
+
+commit 807bef904f2b5b04aa80fb730753c604a07b29ee
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:25:45 2013 +0200
+
+    add comment to clarify how the fallback works
+
+commit 867986d6239dabec63dc8290ebdb241142ef6567
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Tue Jul 9 22:19:56 2013 +0200
+
+    add cursor.h and shape_to_id.gperf to EXTRA_DIST (Thanks psychon)
+    
+    This makes “make distcheck” work
+
+commit 3b9ecf058f382c393189c6ace6165e2457e6b618
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sun Jan 13 19:19:48 2013 +0100
+
+    fix an ISO C mixed declarations/code warning
+
+commit b7308e26ecb6c297a796dbc612f33e4c6f08b502
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sun Jan 13 19:18:33 2013 +0100
+
+    gperf: fix lookup type by making it const
+
+commit 4137fb70dd5217437e91d16e5cf24b24244b63bd
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sun Jan 13 19:02:05 2013 +0100
+
+    ensure that RENDER is present, otherwise fallback immediately
+
+commit 087a1fe9ce9ca11101363bf83324317ef6079faf
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sun Jan 13 18:50:03 2013 +0100
+
+    let the caller pass the xcb_screen_t to xcb_cursor_context_new
+    
+    This is necessary because we don’t know which screen to use, while the
+    caller does.
+
+commit acb0aa701a21eaaabae7667db02e83d5d3a82027
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 12 10:43:47 2013 +0100
+
+    add "extern C" for using this library from C++
+
+commit d3867c695c22ebe01115e6d08bb79331d67af020
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 12 10:41:45 2013 +0100
+
+    add copyright/license to every .c and .h file
+
+commit f523ea91de628e1ad695c6b3acd7732cb0aa9e0c
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 12 10:37:48 2013 +0100
+
+    xcb_cursor.h: change c to ctx in xcb_cursor_load_cursor() for consistency
+
+commit 1edfb343a7d058eeffc0d345ca5d28d08a4dbcd7
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 12 10:36:39 2013 +0100
+
+    add documentation and license
+
+commit 1b10b5c330d3078273238adefa70874bf7982cea
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 12 10:03:19 2013 +0100
+
+    swap parameter order for xcb_cursor_context_new for consistency with other XCB APIs
+
+commit 744bf0be78761f27c40df55dbb051261ef862682
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Mon Jan 7 19:35:25 2013 +0100
+
+    avoid overlinking by using Requires.private (Thanks psychon)
+
+commit 5ec001f7149f3811c7e5c19880256c9d09e265c6
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Mon Jan 7 19:23:16 2013 +0100
+
+    update .gitignore (-ewmh files, +generated shape_to_id.c)
+
+commit 6982fe4744c0c61f2dcf5a806c3cf9f7709ba7fd
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Mon Jan 7 19:22:45 2013 +0100
+
+    free(NULL) is okay according to ISO C (Thanks psychon)
+
+commit d653b31867ada2cfb4f2452cf780346f02aa7571
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Mon Jan 7 19:21:05 2013 +0100
+
+    change soname to 0
+
+commit 7648f277af93dec341178ee033d9b8f46be9361c
+Author: Michael Stapelberg <michael@stapelberg.de>
+Date:   Sat Jan 5 16:48:13 2013 +0100
+
+    Initial commit

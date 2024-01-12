@@ -1,0 +1,139 @@
+util.o: util.c /usr/include/time.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/sys/_time.h /usr/include/string.h /usr/include/strings.h \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/stdlib.h \
+  /usr/include/sys/types.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/machine/endian.h \
+  /usr/include/math.h /usr/include/sys/limits.h \
+  /usr/include/machine/limits.h /usr/include/stdarg.h \
+  /usr/X11R6/include/freetype2/ft2build.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftheader.h \
+  /usr/X11R6/include/freetype2/freetype/freetype.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftconfig.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftoption.h \
+  /usr/X11R6/include/freetype2/freetype/config/ftstdlib.h \
+  /usr/include/stddef.h /usr/include/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/stdio.h \
+  /usr/include/setjmp.h /usr/include/machine/setjmp.h \
+  /usr/X11R6/include/freetype2/freetype/config/integer-types.h \
+  /usr/X11R6/include/freetype2/freetype/config/public-macros.h \
+  /usr/X11R6/include/freetype2/freetype/config/mac-support.h \
+  /usr/X11R6/include/freetype2/freetype/fttypes.h \
+  /usr/X11R6/include/freetype2/freetype/ftsystem.h \
+  /usr/X11R6/include/freetype2/freetype/ftimage.h \
+  /usr/X11R6/include/freetype2/freetype/fterrors.h \
+  /usr/X11R6/include/freetype2/freetype/ftmoderr.h \
+  /usr/X11R6/include/freetype2/freetype/fterrdef.h \
+  /usr/X11R6/include/freetype2/freetype/ftbdf.h \
+  /usr/X11R6/include/X11/Xos.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/include/fcntl.h /usr/include/unistd.h /usr/include/sys/unistd.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h \
+  /usr/X11R6/include/X11/Xarch.h /usr/X11R6/include/X11/Xfuncproto.h \
+  fonttosfnt.h config.h
+
+/usr/include/time.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/_time.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/math.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/stdarg.h:
+
+/usr/X11R6/include/freetype2/ft2build.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftheader.h:
+
+/usr/X11R6/include/freetype2/freetype/freetype.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftconfig.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftoption.h:
+
+/usr/X11R6/include/freetype2/freetype/config/ftstdlib.h:
+
+/usr/include/stddef.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/stdio.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+/usr/X11R6/include/freetype2/freetype/config/integer-types.h:
+
+/usr/X11R6/include/freetype2/freetype/config/public-macros.h:
+
+/usr/X11R6/include/freetype2/freetype/config/mac-support.h:
+
+/usr/X11R6/include/freetype2/freetype/fttypes.h:
+
+/usr/X11R6/include/freetype2/freetype/ftsystem.h:
+
+/usr/X11R6/include/freetype2/freetype/ftimage.h:
+
+/usr/X11R6/include/freetype2/freetype/fterrors.h:
+
+/usr/X11R6/include/freetype2/freetype/ftmoderr.h:
+
+/usr/X11R6/include/freetype2/freetype/fterrdef.h:
+
+/usr/X11R6/include/freetype2/freetype/ftbdf.h:
+
+/usr/X11R6/include/X11/Xos.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+fonttosfnt.h:
+
+config.h:

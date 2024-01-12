@@ -1,0 +1,91 @@
+src/libnurbs/internals/coveandtiler.lo: \
+  src/libnurbs/internals/coveandtiler.cc \
+  src/libnurbs/interface/glimports.h src/libnurbs/interface/mystdlib.h \
+  /usr/include/c++/v1/stdlib.h /usr/include/c++/v1/__config \
+  /usr/include/c++/v1/__config_site /usr/include/sys/endian.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/pthread.h /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h src/libnurbs/interface/mystdio.h \
+  src/libnurbs/internals/myassert.h /usr/include/assert.h \
+  src/libnurbs/internals/coveandtiler.h \
+  src/libnurbs/internals/trimregion.h src/libnurbs/internals/trimline.h \
+  src/libnurbs/internals/trimvertex.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/jarcloc.h src/libnurbs/internals/arc.h \
+  src/libnurbs/internals/bufpool.h src/include/gluos.h \
+  src/libnurbs/internals/pwlarc.h src/libnurbs/internals/nurbsconsts.h \
+  src/libnurbs/internals/gridline.h src/libnurbs/internals/uarray.h \
+  src/libnurbs/internals/gridvertex.h \
+  src/libnurbs/internals/gridtrimvertex.h \
+  src/libnurbs/internals/backend.h
+
+src/libnurbs/interface/glimports.h:
+
+src/libnurbs/interface/mystdlib.h:
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+src/libnurbs/interface/mystdio.h:
+
+src/libnurbs/internals/myassert.h:
+
+/usr/include/assert.h:
+
+src/libnurbs/internals/coveandtiler.h:
+
+src/libnurbs/internals/trimregion.h:
+
+src/libnurbs/internals/trimline.h:
+
+src/libnurbs/internals/trimvertex.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/jarcloc.h:
+
+src/libnurbs/internals/arc.h:
+
+src/libnurbs/internals/bufpool.h:
+
+src/include/gluos.h:
+
+src/libnurbs/internals/pwlarc.h:
+
+src/libnurbs/internals/nurbsconsts.h:
+
+src/libnurbs/internals/gridline.h:
+
+src/libnurbs/internals/uarray.h:
+
+src/libnurbs/internals/gridvertex.h:
+
+src/libnurbs/internals/gridtrimvertex.h:
+
+src/libnurbs/internals/backend.h:

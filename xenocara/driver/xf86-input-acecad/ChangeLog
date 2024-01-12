@@ -1,0 +1,1086 @@
+commit ba7205b258a92886e2b2b269bd92a607b50a9984
+Author: Cyril Brulebois <kibi@debian.org>
+Date:   Thu May 5 00:23:24 2011 +0200
+
+    acecad 1.5.0
+    
+    Signed-off-by: Cyril Brulebois <kibi@debian.org>
+
+commit f8e87eaf4031774ad319bff3756494728614d73d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 2 10:44:20 2010 +1000
+
+    The driver doesn't need libXext
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit db1153d0d463da2e1e894beebbcb293141fa3ac5
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Dec 2 10:36:48 2010 +1000
+
+    Bump to 1.4.99
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 802dd194dc8a571f600e05a93505681ae1ce13c7
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Thu Nov 25 13:01:53 2010 +1000
+
+    Add mode field to InitValuatorAxisStruct
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit f85c4b580c074f7054eac98753d1f4e91f08305e
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:26:47 2010 +1000
+
+    Adjust to new PreInit for ABI 12.
+    
+    Most of the init is now handled by the server, not by the driver.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit ca93073692a4b8fab32945d76a1d1d16a435c800
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:33:01 2010 +1000
+
+    Use a local variable for history_size.
+    
+    Field was removed from InputInfoRec in ABI and the server hasn't actually
+    accessed this field for quite a while.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 053f56d3086082f8335cef906baba23ef8482a73
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:23:19 2010 +1000
+
+    Purge close_proc, hasn't been called by the server for ages.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit b4e69d500dc0087bedafd7221abcb8e62800b84a
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:20:00 2010 +1000
+
+    Move default_options up, preparation work for ABI 12.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit eab975ab3e576a6d223df07f0d9501e7bed317f0
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:10:08 2010 +1000
+
+    Remove libc wrapper usage for xcalloc, xfree, etc.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit a48b52684e184cac7979247c4a5af4250a9aa809
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:08:41 2010 +1000
+
+    Replace LocalDevicePtr with InputInfoPtr.
+    
+    LocalDevicePtr was removed with input ABI 12, but InputInfoPtr has been
+    around for years anyway.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 4e8963e7b157aa61331824e57c16f467b2570c6b
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 10 10:04:41 2010 +1000
+
+    Remove usage of XI86_POINTER_CAPABLE.
+    
+    Flag was a write-only flag in both the server and the driver has now been
+    removed from the server.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit e282087cfe70917232ff520929ccbdbe6b4c521e
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Oct 27 22:19:19 2010 -0700
+
+    Remove refcnt field from InputDriverRec.
+    
+    Wasn't used in the server and is now removed.
+    
+    Fixes compiler error:
+    "acecad.c", line 111: too many struct/union initializers
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 96a383c95f8d97b966249eccb31734375df2c295
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jun 9 16:34:03 2010 -0400
+
+    config: requires RANDR through xf86.h
+    
+    The xf86.h file contains external declarations specific to RANDR
+    Will not compile if this extension is not installed.
+    Because this is an optional extension, XORG_DRIVER_CHECK_EXT
+    must be used.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit af91ec0384790896ccece958fbd6aeb192102691
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jun 9 16:32:39 2010 -0400
+
+    config: requires xext, kb and input extensions through xf86.h
+    
+    The xf86.h file includes headers from these protocols.
+    Will not compile if these extensions are not installed.
+    Because these extensions are always defined in the server, XORG_DRIVER_CHECK_EXT
+    should not be used.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit e0ae1a1068508dabe046c124c480591371573b31
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu May 27 19:26:56 2010 -0400
+
+    config: use AC_PROG_INSTALL now supplied by XORG_DEFAULT_OPTIONS
+    
+    It depends on util-macros 1.8
+    The existing statement can now be removed from the configuration file.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 23d6e6ad46a4636bf47be127eb770458d45904db
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu May 27 19:25:22 2010 -0400
+
+    config: upgrade to util-macros 1.8 for additional man page support
+    
+    Use MAN_SUBST now supplied in XORG_MANPAGE_SECTIONS
+    The value of MAN_SUBST is the same for all X.Org packages.
+    
+    Use AC_PROG_SED now supplied by XORG_DEFAULT_OPTIONS
+    The existing statement can now be removed from the configuration file.
+    
+    Use Automake recommened $() for makefile variables.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit bb15c68091a78871196aa9366b22c00589601fb4
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon May 10 20:40:45 2010 -0400
+
+    config: acecad does not use the input protocol
+    
+    There is no need to PKG_CHECK_MODULES inputproto
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 25cf54dc5973be1427daf33e9bc6d907ccebc596
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon May 10 21:17:43 2010 -0400
+
+    config: AC_PROG_SED is required explicitly on Solaris
+    
+    It sets the SED env variable with an appropriate sed program path
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 72b78672b172453f14811a3c1877a88292b496b3
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sat Apr 17 19:04:02 2010 -0400
+
+    man: Use Autoconf provided $(AM_V_GEN)$(SED)
+    
+    Enables silent rule and use platform appropriate version of sed.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit e2795bba90fb0b332d6ba8c3f453e4f6359fb24e
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Fri Apr 16 15:09:19 2010 -0400
+
+    config: optional extension check for inputproto not required
+    
+    The check should be in PKG_CHECK_MODULES permanently.
+    
+    The XORG_DRIVER_CHECK_EXT will add inputproto to PKG_CHECK_MODULES
+    only if the extension is available. By definition, this extension
+    is always available and the acecad driver cannot function without it.
+    
+    This is evidenced by the absence of XINPUT conditional code.
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 6751ab441bd35916926e24607599509a610a00be
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Apr 15 20:01:51 2010 -0400
+
+    config: remove extension check for unused RANDR extension
+    
+    The randr protocol is not used, no randr*.h are included.
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit a86cb44b1dfe5ccfb05879ca49caf4288df540e4
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Apr 15 16:41:35 2010 -0400
+
+    config: fix checking for extensions section
+    
+    A hidden dependency on statement order was discovered.
+    The REQUIRE_MODULES variable was removed but needed.
+    Comments added to clarify the situation.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit e9770dfe4e54993c2c53922fe9b37976e4e147cd
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Apr 12 16:42:08 2010 -0400
+
+    config: remove AC_PROG_CC as it overrides AC_PROG_C_C99
+    
+    XORG_STRICT_OPTION from XORG_DEFAULT_OPTIONS calls
+    AC_PROG_C_C99. This sets gcc with -std=gnu99.
+    If AC_PROG_CC macro is called afterwards, it resets CC to gcc.
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 35fd1d69c7377d26eae631033b93bccd1b7fd1d7
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sat Apr 10 22:13:17 2010 -0400
+
+    config: fix warnings and layout
+    
+    Minor upgrades. Layout and comment statements.
+    Remove AC_PROG_CC as it overrides AC_PROG_C_C99 from
+    XORG_STRICT_OPTION.
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 47dc3a9b851de8dd4b915ca8da43e7c744ee1730
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Apr 15 08:41:27 2010 -0400
+
+    config: replace deprecated AM_CONFIG_HEADER with AC_CONFIG_HEADERS
+    
+    Regroup AC statements at the top.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 9071703d43771a57bab00e33238fd0f99e9ce302
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sat Apr 10 20:41:06 2010 -0400
+
+    config: update AC_PREREQ statement to 2.60
+    
+    Unrelated to the previous patches, the new value simply reflects
+    the reality that the minimum level for autoconf to configure
+    all x.org modules is 2.60 dated June 2006.
+    
+    ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.60.tar.gz
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 0b601a14627538877ee89492e4b884da8152ff4c
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sat Apr 10 19:46:47 2010 -0400
+
+    config: simplify configuration regarding sysfs headers and library.
+    
+    Replace deprecated AC_HEADER_CHECK with AC_CHECK_HEADERS
+    AC_CHECK_LIB ensures sysfs library is present and adds -lsysfs
+    AC_CHECK_HEADERS verifies sysfs and linux input headers are present
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 64a899b00564fd16250068da1eab1e3dacdd3477
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Apr 12 09:13:39 2010 -0400
+
+    config: add conditional inclusion of config.h
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit d0a76a2343f8e3c07db3de7874fc8c2f38f98f09
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Fri Apr 9 14:12:28 2010 -0400
+
+    config: remove AH_TOP autoheader statement
+    
+    The generated config.h does not need to include xorg-server.h
+    for the content it provides.
+    Add #include <xorg-server.h> in .[hc] files as needed.
+    
+    Acked-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit b64d7594acf3e41f8ac0868d972be0e75fdcb35b
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Feb 11 10:08:07 2010 -0500
+
+    config: move CWARNFLAGS from configure.ac to Makefile.am
+    
+    Compiler warning flags should be explicitly set in the makefile
+    rather than being merged with other packages compiler flags.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 1119b9057b41435cfdde6822e3a637a2c18e7ca1
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Jan 15 15:13:24 2010 -0800
+
+    Update Sun license notices to current X.Org standard form
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit cf02cd53e7152c4effe036abb8b2849b88f4f54b
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Tue Dec 15 22:01:02 2009 -0500
+
+    configure.ac: remove unused sdkdir=$(pkg-config...) statement
+    
+    The sdkdir variable isn't use, so remove the statement.
+    
+    Acked-by: Dan Nicholson <dbn.lists@gmail.com>
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 276cfbdc35ec63da046391a07a760a6844f9db6b
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Nov 23 09:25:05 2009 -0500
+
+    Makefile.am: add ChangeLog and INSTALL on MAINTAINERCLEANFILES
+    
+    Now that the INSTALL file is generated.
+    Allows running make maintainer-clean.
+
+commit 258301f0346a343b27ea716ff60099eddd1a02ad
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Oct 28 14:41:08 2009 -0400
+
+    INSTALL, NEWS, README or AUTHORS files are missing/incorrect #24206
+    
+    Automake 'foreign' option is specified in configure.ac.
+    Remove from Makefile.am
+
+commit cb547fb807f05a7e0a45ebfabaf5d02802296788
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Oct 28 14:09:09 2009 -0400
+
+    INSTALL, NEWS, README or AUTHORS files are missing/incorrect #24206
+    
+    Add missing INSTALL file. Use standard GNU file on building tarball
+    README may have been updated
+    Remove AUTHORS file as it is empty and no content available yet.
+    Remove NEWS file as it is empty and no content available yet.
+
+commit 3f64aba434c97ee7c6433994375b3038201d805a
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Oct 26 12:54:20 2009 -0400
+
+    Several driver modules do not have a ChangeLog target in Makefile.am #23814
+    
+    The git generated ChangeLog replaces the hand written one.
+    Update configure.ac to xorg-macros level 1.3.
+    Use XORG_DEFAULT_OPTIONS which replaces four XORG_* macros
+    Update Makefile.am to add ChangeLog target if missing
+    Remove ChangeLog from EXTRA_DIST or *CLEAN variables
+    This is a pre-req for the INSTALL_CMD
+
+commit 934a53decdb9d0d8890e7d6d6b67d4c0c64fbc4f
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Oct 22 12:34:16 2009 -0400
+
+    .gitignore: use common defaults with custom section # 24239
+    
+    Using common defaults will reduce errors and maintenance.
+    Only the very small or inexistent custom section need periodic maintenance
+    when the structure of the component changes. Do not edit defaults.
+
+commit 0f7ea63f28fb5314a58f9179bab6269f5184579f
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 11 12:06:19 2009 +1000
+
+    Remove some unused crap from configure
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit da1d7acc20a1b9ef4450b40781f1f207d9fa4e3d
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:44:10 2009 +1000
+
+    acecad 1.4.0
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit c51255043e97ff65adebb7527c6b5b68fa2ff038
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Fri Sep 11 11:54:31 2009 +1000
+
+    Require xorg-macros 1.3 for XORG_DEFAULT_OPTIONS
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit f6d158802c2a3a0083d110428699027939276e44
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:33:41 2009 +1000
+
+    Remove redefinition of read()
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 26c7872b49674d40a8d6b74915257c90a9708dd0
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:32:08 2009 +1000
+
+    Remove unused code from TearDownProc
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit b54f57f070ae02d480857d0616b879809cc652df
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:30:30 2009 +1000
+
+    unifdef XFree86LOADER, this isn't optional anymore anyway.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 2bd6c562d123cbbe613ebbd90eb4af1d1525d347
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:28:28 2009 +1000
+
+    Remove RCS tags
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 1a9ad110aa6df430fbf9ded35d8dbb8a75ee1872
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Wed Sep 9 12:27:32 2009 +1000
+
+    remove un-used _ACECAD_C_ define
+
+commit e7c779b05b92ae1fb4a2891727d85a309d53b832
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Sep 7 11:12:13 2009 -0400
+
+    xf86-input-acecad: Remove unused .cvsignore file #23776
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit a87f59f431c86272e45fdc3ed328fd30be1db2ae
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Mon Jun 22 13:36:54 2009 +1000
+
+    Cope with ABI_XINPUT_VERSION 7 - requires button/axes labels.
+    
+    We don't have an atom for relative pressure, so if the device is set to
+    relative, we export the axis as REL_Z instead.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 8da028291921a3948486c60ad8c7a52c4f431a56
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Mon May 11 19:25:11 2009 -0700
+
+    Fill in COPYING file, add SubmittingPatches URL to README
+
+commit 1685d3b518cf5fe4cc6a8fb3e3c28beb9b3ddb82
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Feb 24 13:22:46 2009 +1000
+
+    acecad 1.3.0
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 61ad1d4470491bd49484de0b6e4eb65a7a51c799
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Mon Feb 2 18:02:43 2009 -0200
+
+    Janitor: Correct make distcheck and minor configure.ac cleanup.
+
+commit 482471e4fe445da6d5307d3a16e53de6afa143e8
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Jan 29 15:09:23 2009 -0800
+
+    Add README with pointers to mailing list, bugzilla & git repos
+
+commit ef3446502993c8492149fd319a49f6bd894efb7a
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Jan 9 16:09:43 2009 -0800
+
+    Remove xorgconfig & xorgcfg from See Also list in man page
+
+commit b9497ba77692f2d44a9a1339ae2d0ff436abed70
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Fri Nov 28 04:48:50 2008 -0200
+
+    Correct wrong check for Linux libsysfs.
+    
+      This patch was the original one, and the previous test was a wrong
+    attempt to simplify the change.
+      Triggered by tinderbox build.
+
+commit 36675d65ddc1ed35190f5fdbb18d5b460c7ba972
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Fri Nov 28 01:45:54 2008 -0200
+
+    Dont dlopen libsysfs.so, instead, link with it when available.
+
+commit 791cbbf9df621d9712731990271bf3b53076673a
+Author: Peter Hutterer <peter@cs.unisa.edu.au>
+Date:   Mon May 26 22:00:23 2008 +0930
+
+    Check for XINPUT ABI 3.
+
+commit 33e64334db17ed3d2307e3ac465450c5c9b39ad9
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Sun Mar 16 03:01:23 2008 -0300
+
+    Compile warning fixes.
+    
+    Don't call xf86usleep, just call usleep directly.
+    Remove unused variables.
+    
+    Signed-off-by: Peter Hutterer <peter@cs.unisa.edu.au>
+
+commit 60270d38257797a82eff74a56d1561068a6c348e
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Feb 10 08:52:46 2008 +0100
+
+    Bump to 1.2.2
+
+commit 7cabee107798341c6c78632f56518a722ed15f03
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Feb 9 22:32:13 2008 +0100
+
+    acecad: fix blotchy input in Inkscape and the Gimp by not pretending to be the core pointer by default
+
+commit 079e56633f700b2a0e0240501d31e4a9e5007a4f
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Feb 9 19:51:57 2008 +0100
+
+    acecad: improve handling of botched input versions
+
+commit bf27c55a83a83fea4afe0499d1b2d592110e945a
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Oct 28 01:12:28 2007 +0200
+
+    acecad: fake device limits == screen limits in xserver 1.4 for xinput
+    
+    xserver 1.4 does not do automatic coordinate scaling, so we have to do
+    it manually. But this breaks xinput clients that do their own scaling
+    using the device limits as reference. Pretend that they are the same as the
+    screen limits to work around this.
+
+commit 3089bc76c7e6a829caff4cb86ca3948401e1b6f3
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Oct 27 13:08:04 2007 +0200
+
+    acecad: set type_name to XI_TABLET
+
+commit 0ee57c9d8048c3e80356a3eab18b6871a21a3a96
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Oct 26 21:00:19 2007 +0200
+
+    acecad: do our own scaling with USB device since it's not done in the kernel and ConverProc() isn't called automatically by X
+
+commit 253ea9de2321bccede3f0d74ee6a6f6b403e80ae
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Oct 26 20:12:19 2007 +0200
+
+    acecad: don't crash when xf86IsCorePointer is not defined
+
+commit 38ba390f775e2f6001c8887328c5b925f623308a
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Fri Sep 7 02:17:29 2007 +0200
+
+    Bump to 1.2.1
+
+commit 8bcc6d22889cc40c6b7d1582f87d4b2a816167ab
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Tue Aug 28 17:31:54 2007 -0700
+
+    Make compatible with new input ABI
+
+commit 171d4c8dc6136aa8c14aedd0ee107d6ba957de04
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Mon Jul 9 11:03:00 2007 +0200
+
+    Don't crash X when the tablet wasn't found.
+    
+    X would crash when switching to console if the acecad module was loaded but the tablet had not been configured.
+    
+    Fix by properly freeing structures before returning NULL in PreInit()
+
+commit c69e2c95b9eb2381709c9de14957d24ab919b5bc
+Author: Matthieu Herrb <matthieu@deville.herrb.com>
+Date:   Wed May 30 23:34:13 2007 -0600
+
+    fix build on BSD systems.
+
+commit 62bce174e7a3c896fabe40813639e479d9652452
+Author: Matthieu Herrb <matthieu@deville.herrb.com>
+Date:   Wed May 30 23:33:56 2007 -0600
+
+    Add .gitignore
+
+commit 1af7e022be2bcbcf50d12c0c3847a853a911347c
+Author: Paul Vojta <vojta@Math.Berkeley.EDU>
+Date:   Mon Apr 30 11:45:53 2007 -0700
+
+    Off-by-one (and comment) fix.
+    
+    Just a quick patch:
+
+commit cc6bc3b848dfa312baf0cf4037b3e600d59a8f7e
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Apr 29 05:09:41 2007 +0200
+
+    Bump to 1.2.0.
+
+commit 405fac1dd34bbbfa8a2dd1a0ac2664871d914e1f
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Apr 29 05:02:03 2007 +0200
+
+    Simplify flag setup.
+
+commit ac08aacf4693e2ed824c15c9d243e7e9c5750cc3
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Apr 29 04:44:27 2007 +0200
+
+    More whitespace/coding style cleanups.
+
+commit 9b9b1d03609996dc3220870fa6e226c46c888c83
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sun Apr 29 04:42:04 2007 +0200
+
+    Centralize the success code for the probe routine.
+
+commit 93736ac2bf92ad342255a64120c2685f4074a0e9
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 15:32:32 2007 +0200
+
+    Keep track of device availability.
+    
+    Don't spam the log with errors about the device not being available, just inform the user when the device is available again.
+
+commit c471639adfba3e7c24c95b24da287147f86bd3d1
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 15:10:25 2007 +0200
+
+    NOTAVAIL macro to check if errno means device not available.
+    
+    Define (and use) a NOTAVAIL macro that checks errno against ENODEV, ENXIO and ENOENT, instead of checking manually against ENODEV only.
+
+commit 81e37b4b042b824654b4bf2353732741cf49bce7
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 14:42:20 2007 +0200
+
+    Make acecadAutoDev into a flag.
+    
+    Introduce AUTODEV_FLAG for the flags field in AceCadPrivateRec to tell if we are autodetecting devices or not, instead of having a separate acecadAutoDev field.
+
+commit bda0ee988acbae97dc908574c1247cf1ceb5b3c9
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 14:36:12 2007 +0200
+
+    Make acecadUSB into a flag.
+    
+    Introduce USB_FLAG for the flags field in AceCadPrivateRec to tell if we have a USB device or not, instead of having a separate acecadUSB field.
+
+commit 2b88cc3642a94a58e777d8a931f7bbe9f16e9b93
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 14:27:58 2007 +0200
+
+    More whitespace cleanup.
+
+commit 1d8e61f461fef959212d5a05cac70a590927ec20
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 14:25:22 2007 +0200
+
+    More coding style cleanups.
+
+commit e5704a3484bb8cc3f295431ff2e50e3e628db0c7
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 14:19:49 2007 +0200
+
+    Add missing newlines in a couple of messages.
+
+commit a8350a018d50f2a0e2adcf6ec8c76f6ab412dd16
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 05:29:41 2007 +0200
+
+    Whitespace cleanup.
+
+commit 46b34bec71949b815b1372464b887da134378ae8
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 05:10:39 2007 +0200
+
+    De-spammify AceCadAutoDevProbe().
+    
+    Demote X_ERRORs in AceCadAutoDevProbe() to X_WARNINGs, and add an X-style
+    verbosity parameter. This is set to 0 during initial probe, and to 4 during
+    runtime probes.
+
+commit 41941cb9e2365b27196805c22424dc9ad694806f
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 04:55:26 2007 +0200
+
+    Re-probe on device not found on input if auto-dev is active.
+    
+    If USBReadInput() fails because the device is not being found, and auto-dev is
+    active, try re-probing for the device. The only downside of this procedure is
+    that the log may get spammed a lot as long as no device can be found.
+
+commit 838980da1cf5073ce0d532f94358cfc951e3b1c4
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 03:43:04 2007 +0200
+
+    Re-probe for device if DeviceOn fails and auto-dev is active.
+    
+    If DeviceOn does not find the device and auto-dev is active, run the probe
+    again to try to find the new location of the device (if present).
+
+commit dba3190cb5e5c041c6b5811fa9efd1f0a5931fb6
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Sat Apr 28 03:09:17 2007 +0200
+
+    Device autodetection via sysfs.
+    
+    If support for sysfs is compiled in and the libsysfs library is found, the
+    acecad driver will now try to autodetect the device via sysfs at first. If this
+    fails, it will probe /dev/input/eventX devices.
+    
+    Currently the Name option is ignored during sysfs detection: the first possibly
+    valid candidate is accepted without further checks.
+
+commit 4f738d5eee947d5e4bd27f4ecdf198c5718ca53a
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Apr 27 14:40:43 2007 +0200
+
+    "Name" option to configure autodev detection string.
+    
+    The string we look for when probing event devices can now be configured with
+    the "Name" option.
+
+commit 947aa75cf284b651c77ae1f0431cae0c3c3d3d05
+Merge: 581635e 805ccfb
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Apr 27 12:23:44 2007 +0200
+
+    Merge branch 'master' into autodev
+
+commit 805ccfb003d7e8d71da18210186217583df710b1
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Apr 27 00:30:58 2007 +0200
+
+    Add autogen.sh and autogenerate ChangeLog to dist
+    
+    Get rid of the manually maintained ChangeLog and put in some rules to
+    autogenerate it from git logs, following the xorg/lib/libXi example.
+    
+    Also add ChangeLog and autogen.sh to the dist files.
+
+commit 558f80d3d4c21ddd5fa1981574c449bc4d86ddfa
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Fri Apr 27 00:01:54 2007 +0200
+
+    Add autoconf check for linux/input.h
+    
+    Since X went modular, we cannot rely on LINUX_INPUT being defined even when the
+    Linux input subsystem is available. Fix: add an autoconf rule that checks for
+    linux/input.h and define LINUX_INPUT if the header is found.
+
+commit 581635e2fc5563b2697d51e3aeec046918d8caee
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Thu Apr 26 13:33:51 2007 +0200
+
+    Initial support for device autodetection.
+    
+    When the "Device" option is missing or set to "auto-dev" the acecad module will
+    attempt autodetection of the correct device.
+    
+    Currently, it will probe all /dev/input/eventX nodes until one is found that
+    reports a device name that begins with "ACECAD".
+
+commit c6b21d102908104ffe9b6103894f8c8fcf2ae7f4
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Thu Apr 26 03:04:06 2007 +0200
+
+    Uniformize messages.
+    
+    Use xf86Msg, prepending local->name when possible and upcasing ACECAD (as per
+    their site, and to differentiate from the software company).
+    
+    Also reduce verbosity by using xf86MsgVerb with verbosity 4 for messages which
+    are not of interest for users.
+
+commit 4fb81ff8b0828294b3e1d0c63c67dca318ee7959
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Thu Apr 26 02:16:10 2007 +0200
+
+    We always have config.h.
+    
+    Quoting Alan Coopersmith from http://lists.x.org/archives/xorg/2007-April/024058.html
+    
+    > Now that we are no longer sharing source with the monolith, should
+    > all the #ifdef HAVE_CONFIG_H's be removed and just always include
+    > config.h now?
+
+commit e3499189b91725e09e25a468f21612e805dfa89d
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Tue Apr 24 22:00:47 2007 +0200
+
+    Use autoconfigured package version if possible.
+
+commit 7fe06dc37595a39e0298d9123a669d06df934c35
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Tue Apr 24 15:28:51 2007 +0200
+
+    Bump to 1.1.1.
+
+commit 7665457d70a37c3187b3dfcc54a7f15058e8acba
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Tue Apr 24 13:35:52 2007 +0200
+
+    Support 2.6.x kernels.
+
+commit 1eae0e35655ffddb8a203a51bb1e2aa53928a87e
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Tue Apr 24 12:44:58 2007 +0200
+
+    Use the proper MessageType for probed, default, info and error messages.
+
+commit 9ab58ae1001a399907458d236b1f725e3503ee90
+Author: Giuseppe Bilotta <giuseppe.bilotta@gmail.com>
+Date:   Tue Apr 24 12:38:38 2007 +0200
+
+    Clean up defines, and add an include to fix compilation when LINUX_INPUT is defined
+
+commit 190e38f513ed645b1662441a4b90eaf778878316
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Fri Apr 7 16:16:33 2006 +0000
+
+    Bump to 1.1.0.
+
+commit a128e04d9240409cf8c9a9c92671f374959c60d0
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Fri Apr 7 16:13:56 2006 +0000
+
+    Unlibcwrap and bump server version requirement.
+
+commit aaec49a8e42193e0d7f68132f01e8d802ecee27c
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Dec 21 02:29:55 2005 +0000
+
+    Update package version for X11R7 release.
+
+commit e5dd84c88172873a99f12798cc00e59c5185afc7
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Mon Dec 19 16:25:49 2005 +0000
+
+    Stub COPYING files
+
+commit 2e050d849b72a5119790641fe6b7a83f5e6f15f0
+Author: Kevin E Martin <kem@kem.org>
+Date:   Thu Dec 15 00:24:13 2005 +0000
+
+    Update package version number for final X11R7 release candidate.
+
+commit 8df008ad5451a0afc4576be121e112ae43c5a4bf
+Author: Kevin E Martin <kem@kem.org>
+Date:   Tue Dec 6 22:48:27 2005 +0000
+
+    Change *man_SOURCES ==> *man_PRE to fix autotools warnings.
+
+commit a3e290213ce7ce920145a4a7368e052f09768164
+Author: Kevin E Martin <kem@kem.org>
+Date:   Sat Dec 3 05:49:29 2005 +0000
+
+    Update package version number for X11R7 RC3 release.
+
+commit 31963eae0d36ca43f103a885430b39626021aa94
+Author: Kevin E Martin <kem@kem.org>
+Date:   Fri Dec 2 02:16:04 2005 +0000
+
+    Remove extraneous AC_MSG_RESULT.
+
+commit 295f696a950f0883c040969a7381be1b16275674
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Tue Nov 29 23:29:53 2005 +0000
+
+    Only build dlloader modules by default.
+
+commit b8075ef13db08347876dd74b06bd5d05be00d9ff
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Nov 28 22:04:05 2005 +0000
+
+    Change *mandir targets to use new *_MAN_DIR variables set by xorg-macros.m4
+        update to fix bug #5167 (Linux prefers *.1x man pages in man1 subdir)
+
+commit cab1f00c4f2d2b2a12260c078b06a30bd03b8d35
+Author: Eric Anholt <anholt@freebsd.org>
+Date:   Mon Nov 21 10:49:00 2005 +0000
+
+    Add .cvsignores for drivers.
+
+commit 9f164337b4c0ff7f3189f50033f5635550fbe598
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Nov 9 21:15:10 2005 +0000
+
+    Update package version number for X11R7 RC2 release.
+
+commit 37f29b066c955b9ef85b95f39ed4ca9c4c799da9
+Author: Kevin E Martin <kem@kem.org>
+Date:   Tue Nov 1 15:08:48 2005 +0000
+
+    Update pkgcheck depedencies to work with separate build roots.
+
+commit 0d5c65828cbda96688234ca98de51748cc6a7a9c
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Oct 19 02:47:59 2005 +0000
+
+    Update package version number for RC1 release.
+
+commit 48e99a4438d6e4c869cae23f2bcf17504b36f12b
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Tue Oct 18 00:01:50 2005 +0000
+
+    Use @DRIVER_MAN_SUFFIX@ instead of $(DRIVER_MAN_SUFFIX) in macro
+        substitutions to work better with BSD make
+
+commit 9cd8523d3047eb00e9d1f90158d932c8c9c8d511
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Mon Oct 17 22:57:25 2005 +0000
+
+    More 1.7 braindamage: define EXTRA_DIST in terms of @DRIVER_NAME@ instead
+        of indirectly
+
+commit 33d7ef77bdc4d55c01f50f9a29ac660703c0e380
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Oct 17 00:08:53 2005 +0000
+
+    Use sed & cpp to substitute variables in driver man pages
+
+commit 262151fd3f961ee1dc065943eff62e7c27823340
+Author: Daniel Stone <daniel@fooishbar.org>
+Date:   Thu Aug 18 09:03:36 2005 +0000
+
+    Update autogen.sh to one that does objdir != srcdir.
+
+commit 3e83d76e4315468df9c85b7a917508e5e0adc8e6
+Author: SÃ¸ren Sandmann Pedersen <sandmann@daimi.au.dk>
+Date:   Wed Aug 10 14:07:21 2005 +0000
+
+    Don\'t lose existing CFLAGS in all the input drivers and some of the video
+        drivers
+
+commit 81612155b583e3fbaff7af662edf7353cfb0da8e
+Author: Kevin E Martin <kem@kem.org>
+Date:   Fri Jul 29 21:22:39 2005 +0000
+
+    Various changes preparing packages for RC0:
+    - Verify and update package version numbers as needed
+    - Implement versioning scheme
+    - Change bug address to point to bugzilla bug entry form
+    - Disable loadable i18n in libX11 by default (use --enable-loadable-i18n to
+        reenable it)
+    - Fix makedepend to use pkgconfig and pass distcheck
+    - Update build script to build macros first
+    - Update modular Xorg version
+
+commit 01f7b4b23a52439aab8262d3a500f3339be04eb3
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Jul 13 20:03:20 2005 +0000
+
+    Make the module dir configurable
+
+commit b458a723e098531da7dbfac39747dc34df431831
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Jul 13 02:20:57 2005 +0000
+
+    Update all input drivers to pass distcheck
+
+commit f603ac2e59944b7f75ff82803c67f2ce02321646
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Tue Jul 12 06:15:07 2005 +0000
+
+    Build skeletons for input drivers. Should basically work.
+
+commit 0b74a6722cf7c0e24bf31720cfa4ce0eb1a479d2
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Mon Jul 11 02:37:58 2005 +0000
+
+    Prep input drivers for modularizing by adding guarded #include "config.h"
+
+commit a02a441079feb7cc208c4d4e190d3c47819fd59f
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Tue Jun 28 20:54:21 2005 +0000
+
+    Bug #1565: Don't delete the driver twice. (Stéphane VOLTZ)
+
+commit 0702e4b5b996f7ce959d2252318c5da86f6138a2
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Sat Jun 25 21:17:00 2005 +0000
+
+    Bug #3626: _X_EXPORT tags for video and input drivers.
+
+commit cb1938aa46fcab41ec663568fea22a89b32afe45
+Author: Markus Kuhn <Markus.Kuhn@cl.cam.ac.uk>
+Date:   Sat Dec 4 00:43:10 2004 +0000
+
+    Encoding of numerous files changed to UTF-8
+
+commit 08ad8a93ee169525543da9aa044939024122e67f
+Author: Egbert Eich <eich@suse.de>
+Date:   Fri Apr 23 19:54:02 2004 +0000
+
+    Merging XORG-CURRENT into trunk
+
+commit eeeab6dfebe29f84947449a2123afcf673f74cbf
+Author: Egbert Eich <eich@suse.de>
+Date:   Sun Mar 14 08:33:47 2004 +0000
+
+    Importing vendor version xf86-4_4_99_1 on Sun Mar 14 00:26:39 PST 2004
+
+commit f45bf39ec0655879f922e30ce40a4d848bbe5c53
+Author: Egbert Eich <eich@suse.de>
+Date:   Wed Mar 3 12:12:30 2004 +0000
+
+    Importing vendor version xf86-4_4_0 on Wed Mar 3 04:09:24 PST 2004
+
+commit a4df6cf595d031007f7126d321350de13d6aaac2
+Author: Egbert Eich <eich@suse.de>
+Date:   Thu Feb 26 13:36:00 2004 +0000
+
+    readding XFree86's cvs IDs
+
+commit 0a754ffa019f081a194cb28b3d12968bf4522bab
+Author: Egbert Eich <eich@suse.de>
+Date:   Thu Feb 26 09:23:33 2004 +0000
+
+    Importing vendor version xf86-4_3_99_903 on Wed Feb 26 01:21:00 PST 2004
+
+commit e50d70f38e90bde903c91dcd6f47cf01165fe977
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Tue Nov 25 19:28:46 2003 +0000
+
+    XFree86 4.3.99.16 Bring the tree up to date for the Cygwin folks
+
+commit 350b2d1c6157e75ab8e5374164cd68f9b6b5eea7
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Fri Nov 14 16:48:56 2003 +0000
+
+    XFree86 4.3.0.1
+
+commit 249fcdd8f49a8a922ee1eb88cbd8a01e8929328f
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Fri Nov 14 16:48:56 2003 +0000
+
+    Initial revision

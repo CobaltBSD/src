@@ -1,0 +1,91 @@
+src/libnurbs/internals/dataTransform.lo: \
+  src/libnurbs/internals/dataTransform.cc /usr/include/c++/v1/stdlib.h \
+  /usr/include/c++/v1/__config /usr/include/c++/v1/__config_site \
+  /usr/include/sys/endian.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_endian.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/machine/endian.h /usr/include/pthread.h \
+  /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h /usr/include/c++/v1/stdio.h \
+  /usr/include/stdio.h src/libnurbs/interface/glimports.h \
+  src/libnurbs/interface/mystdlib.h src/libnurbs/interface/mystdio.h \
+  src/libnurbs/internals/myassert.h /usr/include/assert.h \
+  src/libnurbs/internals/nurbsconsts.h \
+  src/libnurbs/internals/trimvertex.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/dataTransform.h src/libnurbs/internals/reader.h \
+  src/libnurbs/internals/bufpool.h src/include/gluos.h \
+  src/libnurbs/nurbtess/directedLine.h \
+  src/libnurbs/nurbtess/definitions.h \
+  src/libnurbs/nurbtess/sampledLine.h src/libnurbs/internals/bin.h \
+  src/libnurbs/internals/arc.h src/libnurbs/internals/pwlarc.h \
+  src/libnurbs/internals/defines.h
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/c++/v1/stdio.h:
+
+/usr/include/stdio.h:
+
+src/libnurbs/interface/glimports.h:
+
+src/libnurbs/interface/mystdlib.h:
+
+src/libnurbs/interface/mystdio.h:
+
+src/libnurbs/internals/myassert.h:
+
+/usr/include/assert.h:
+
+src/libnurbs/internals/nurbsconsts.h:
+
+src/libnurbs/internals/trimvertex.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/dataTransform.h:
+
+src/libnurbs/internals/reader.h:
+
+src/libnurbs/internals/bufpool.h:
+
+src/include/gluos.h:
+
+src/libnurbs/nurbtess/directedLine.h:
+
+src/libnurbs/nurbtess/definitions.h:
+
+src/libnurbs/nurbtess/sampledLine.h:
+
+src/libnurbs/internals/bin.h:
+
+src/libnurbs/internals/arc.h:
+
+src/libnurbs/internals/pwlarc.h:
+
+src/libnurbs/internals/defines.h:

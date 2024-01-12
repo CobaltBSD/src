@@ -1,0 +1,15 @@
+prefix=/usr/X11R6
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+xthreadlib=-pthread
+
+Name: X11
+Description: X Library
+Version: 1.8.1
+Requires: xproto kbproto
+Requires.private: xcb >= 1.11.1
+Cflags: -I${includedir} 
+Libs: -L${libdir} -lX11
+Libs.private: -pthread

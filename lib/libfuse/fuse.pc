@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: fuse
+Description: fuse filesystem library
+Version: 2.8.0
+Requires:
+Libs: -L${libdir} -lfuse
+Cflags: -I${includedir}

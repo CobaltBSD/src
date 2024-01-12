@@ -1,0 +1,75 @@
+StrToShap.lo: StrToShap.c ../config.h /usr/include/string.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_null.h /usr/include/machine/_types.h \
+  /usr/include/strings.h /usr/X11R6/include/X11/Intrinsic.h \
+  /usr/X11R6/include/X11/Xlib.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/sys/_types.h /usr/include/machine/endian.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/stddef.h \
+  /usr/X11R6/include/X11/Xutil.h /usr/X11R6/include/X11/keysym.h \
+  /usr/X11R6/include/X11/keysymdef.h /usr/X11R6/include/X11/Xresource.h \
+  /usr/include/stdint.h /usr/X11R6/include/X11/Core.h \
+  /usr/X11R6/include/X11/Composite.h /usr/X11R6/include/X11/Constraint.h \
+  /usr/X11R6/include/X11/Object.h /usr/X11R6/include/X11/RectObj.h \
+  ../include/X11/Xmu/Converters.h ../include/X11/Xmu/CharSet.h
+
+../config.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/strings.h:
+
+/usr/X11R6/include/X11/Intrinsic.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/X11R6/include/X11/Xutil.h:
+
+/usr/X11R6/include/X11/keysym.h:
+
+/usr/X11R6/include/X11/keysymdef.h:
+
+/usr/X11R6/include/X11/Xresource.h:
+
+/usr/include/stdint.h:
+
+/usr/X11R6/include/X11/Core.h:
+
+/usr/X11R6/include/X11/Composite.h:
+
+/usr/X11R6/include/X11/Constraint.h:
+
+/usr/X11R6/include/X11/Object.h:
+
+/usr/X11R6/include/X11/RectObj.h:
+
+../include/X11/Xmu/Converters.h:
+
+../include/X11/Xmu/CharSet.h:

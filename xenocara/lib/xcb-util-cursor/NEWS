@@ -1,0 +1,36 @@
+Release 0.1.3  (2016-05-12)
+===========================
+
+- Add a --with-cursorpath option to configure
+
+Release 0.1.2  (2015-03-35)
+===========================
+
+- Use CFSwapInt32LittleToHost from CoreFoundation.h on Mac OS X to implement
+  le32toh.
+- Check submodules before running autoconf.
+- darwin: Use OSByteOrder.h rather than CF.
+- Perform safety check before trying to load glyph cursorHEADmaster
+
+Release 0.1.1  (2013-11-12)
+===========================
+
+- Fix memleak with broken resource databases
+- Check exact RENDER version that the server supports
+- Use LE_32 macro from <sys/byteorder.h> on Solaris versions without le32toh()
+- Use $(AM_V_GEN) when calling gperf
+- Fail the build if gperf is needed, but not found
+- handle read() errors
+- Bugfix: Properly load cursor files where not all cursors are suitable
+
+Release 0.1.0  (2013-08-21)
+=========================
+
+- Bugfix: Use xhot/yhot, don’t hardcode the value
+- Bugfix: fix build on FreeBSD/NetBSD
+- add COPYING file
+
+Release 0.0.99 (2013-07-09)
+===========================
+
+- Initial release.

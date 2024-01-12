@@ -1,0 +1,80 @@
+xkbout.lo: xkbout.c ../config.h /usr/include/stdio.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_null.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/include/ctype.h \
+  /usr/include/stdlib.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/string.h \
+  /usr/include/strings.h /usr/X11R6/include/X11/Xlib.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/include/stddef.h /usr/X11R6/include/X11/XKBlib.h \
+  /usr/X11R6/include/X11/extensions/XKBstr.h \
+  /usr/X11R6/include/X11/extensions/XKB.h \
+  /usr/X11R6/include/X11/extensions/XKBgeom.h \
+  ../include/X11/extensions/XKMformat.h \
+  /usr/X11R6/include/X11/extensions/XKBproto.h \
+  /usr/X11R6/include/X11/Xmd.h ../include/X11/extensions/XKM.h \
+  XKBfileInt.h ../include/X11/extensions/XKBfile.h
+
+../config.h:
+
+/usr/include/stdio.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/ctype.h:
+
+/usr/include/stdlib.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/include/stddef.h:
+
+/usr/X11R6/include/X11/XKBlib.h:
+
+/usr/X11R6/include/X11/extensions/XKBstr.h:
+
+/usr/X11R6/include/X11/extensions/XKB.h:
+
+/usr/X11R6/include/X11/extensions/XKBgeom.h:
+
+../include/X11/extensions/XKMformat.h:
+
+/usr/X11R6/include/X11/extensions/XKBproto.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+../include/X11/extensions/XKM.h:
+
+XKBfileInt.h:
+
+../include/X11/extensions/XKBfile.h:

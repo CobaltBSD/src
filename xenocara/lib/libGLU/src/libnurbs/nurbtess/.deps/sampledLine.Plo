@@ -1,0 +1,87 @@
+src/libnurbs/nurbtess/sampledLine.lo: \
+  src/libnurbs/nurbtess/sampledLine.cc /usr/include/c++/v1/stdlib.h \
+  /usr/include/c++/v1/__config /usr/include/c++/v1/__config_site \
+  /usr/include/sys/endian.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_endian.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/machine/endian.h /usr/include/pthread.h \
+  /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h /usr/include/c++/v1/stdio.h \
+  /usr/include/stdio.h /usr/include/c++/v1/math.h /usr/include/math.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/c++/v1/type_traits /usr/include/c++/v1/cstddef \
+  /usr/include/c++/v1/version /usr/include/stddef.h \
+  /usr/include/c++/v1/__nullptr /usr/include/c++/v1/limits \
+  /usr/include/c++/v1/__undef_macros src/libnurbs/nurbtess/glimports.h \
+  src/libnurbs/nurbtess/mystdlib.h src/libnurbs/nurbtess/mystdio.h \
+  src/libnurbs/nurbtess/zlassert.h /usr/include/assert.h \
+  src/libnurbs/nurbtess/sampledLine.h \
+  src/libnurbs/nurbtess/definitions.h
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/c++/v1/stdio.h:
+
+/usr/include/stdio.h:
+
+/usr/include/c++/v1/math.h:
+
+/usr/include/math.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/c++/v1/type_traits:
+
+/usr/include/c++/v1/cstddef:
+
+/usr/include/c++/v1/version:
+
+/usr/include/stddef.h:
+
+/usr/include/c++/v1/__nullptr:
+
+/usr/include/c++/v1/limits:
+
+/usr/include/c++/v1/__undef_macros:
+
+src/libnurbs/nurbtess/glimports.h:
+
+src/libnurbs/nurbtess/mystdlib.h:
+
+src/libnurbs/nurbtess/mystdio.h:
+
+src/libnurbs/nurbtess/zlassert.h:
+
+/usr/include/assert.h:
+
+src/libnurbs/nurbtess/sampledLine.h:
+
+src/libnurbs/nurbtess/definitions.h:

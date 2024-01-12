@@ -1,0 +1,72 @@
+Pointer.lo: Pointer.c ../../../include/xorg-config.h \
+  ../../../include/dix-config.h ../../../include/xkb-config.h \
+  xf86Parser.h /usr/X11R6/include/X11/Xdefs.h \
+  /usr/X11R6/include/X11/Xmd.h xf86Optrec.h /usr/include/stdio.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_null.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/include/string.h \
+  /usr/include/strings.h ../common/xf86Optionstr.h \
+  ../../../include/list.h /usr/include/stddef.h \
+  /usr/X11R6/include/X11/Xfuncproto.h xf86tokens.h Configint.h \
+  /usr/include/stdarg.h configProcs.h /usr/include/stdlib.h \
+  ../../../include/Xprintf.h
+
+../../../include/xorg-config.h:
+
+../../../include/dix-config.h:
+
+../../../include/xkb-config.h:
+
+xf86Parser.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+xf86Optrec.h:
+
+/usr/include/stdio.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+../common/xf86Optionstr.h:
+
+../../../include/list.h:
+
+/usr/include/stddef.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+xf86tokens.h:
+
+Configint.h:
+
+/usr/include/stdarg.h:
+
+configProcs.h:
+
+/usr/include/stdlib.h:
+
+../../../include/Xprintf.h:

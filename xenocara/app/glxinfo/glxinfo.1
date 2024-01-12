@@ -1,0 +1,91 @@
+.\" $OpenBSD: glxinfo.1,v 1.4 2018/02/23 10:37:24 jsg Exp $
+.\" $TOG: xdpyinfo.man /main/22 1998/02/09 13:57:10 kaleb $
+.\" Copyright 1988, 1989, 1994, 1998  The Open Group
+.\"
+.\" Permission to use, copy, modify, distribute, and sell this software and its
+.\" documentation for any purpose is hereby granted without fee, provided that
+.\" the above copyright notice appear in all copies and that both that
+.\" copyright notice and this permission notice appear in supporting
+.\" documentation.
+.\"
+.\" The above copyright notice and this permission notice shall be included
+.\" in all copies or substantial portions of the Software.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+.\" OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+.\" MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+.\" IN NO EVENT SHALL THE OPEN GROUP BE LIABLE FOR ANY CLAIM, DAMAGES OR
+.\" OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+.\" ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+.\" OTHER DEALINGS IN THE SOFTWARE.
+.\"
+.\" Except as contained in this notice, the name of The Open Group shall
+.\" not be used in advertising or otherwise to promote the sale, use or
+.\" other dealings in this Software without prior written authorization
+.\" from The Open Group.
+.\"
+.\" $XFree86: xc/programs/glxinfo/glxinfo.man,v 1.5 2001/12/14 20:00:47 dawes Exp $
+.\"
+.Dd $Mdocdate: February 23 2018 $
+.Dt GLXINFO 1
+.Os
+.Sh NAME
+.Nm glxinfo
+.Nd display info about a GLX extension and OpenGL renderer
+.Sh SYNOPSIS
+.Nm glxinfo
+.Op Fl Bbhilstv
+.Op Fl display Ar displayname
+.Sh DESCRIPTION
+.Nm
+lists information about the GLX extension, OpenGL capable visuals, and the
+OpenGL renderer on an X server.
+The GLX and renderer info includes the version and extension attributes.
+The visual info lists the GLX visual attributes
+available for each OpenGL capable visual (e.g. whether the visual is double
+buffered, the component sizes, Z-buffering depth, etc).
+.Pp
+Command line options include:
+.Bl -tag -width Ds
+.It Fl B
+Brief output mode, print only the basics.
+.It Fl b
+Find the 'best' visual and print its number.
+.It Fl h
+Print a short help message.
+.It Fl i
+Force an indirect rendering context.
+.It Fl l
+Print interesting OpenGL limits.
+.It Fl s
+Print a single extension per line.
+.It Fl t
+By default the visual info is presented in a concise 80 character wide
+tabular format.
+The
+.Fl t
+option directs
+.Nm
+to produce a wider, more readable tabular format.
+.It Fl v
+Directs
+.Nm
+to generate a verbose format output style for
+the visual list similar to the info of
+.Xr xdpyinfo 1 .
+.It Fl display Ar displayname
+Specify the display to query.
+.El
+.Sh ENVIRONMENT
+.Bl -tag -width Ds -compact
+.It Ev DISPLAY
+To get the default host, display number, and screen.
+.El
+.Sh SEE ALSO
+.Xr xdpyinfo 1
+.Sh AUTHORS
+.An -nosplit
+.An Brian Paul
+.Pp
+Modifications for XFree86 added by
+.An Mark Paton .

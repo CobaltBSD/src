@@ -1,0 +1,556 @@
+.\" Copyright (c) 2015-2023 The DragonFly Project.  All rights reserved.
+.\"
+.\" This code is derived from software contributed to The DragonFly Project
+.\" by Matthew Dillon <dillon@backplane.com>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\"
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in
+.\"    the documentation and/or other materials provided with the
+.\"    distribution.
+.\" 3. Neither the name of The DragonFly Project nor the names of its
+.\"    contributors may be used to endorse or promote products derived
+.\"    from this software without specific, prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+.\" ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+.\" LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+.\" FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE
+.\" COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+.\" INCIDENTAL, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES (INCLUDING,
+.\" BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+.\" LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+.\" AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+.\" OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+.\" OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.Dd December 11, 2023
+.Dt HAMMER2 8
+.Os
+.Sh NAME
+.Nm hammer2
+.Nd hammer2 file system utility
+.Sh SYNOPSIS
+.Nm
+.Fl h
+.Nm
+.Op Fl s Ar path
+.Op Fl t Ar type
+.Op Fl u Ar uuid
+.Op Fl m Ar mem
+.Ar command
+.Op Ar argument ...
+.Sh DESCRIPTION
+The
+.Nm
+utility provides miscellaneous support functions for a
+HAMMER2 file system.
+.Pp
+The options are as follows:
+.Bl -tag -width indent
+.It Fl s Ar path
+Specify the path to a mounted HAMMER2 filesystem.
+At least one PFS on a HAMMER2 filesystem must be mounted for the system
+to act on all PFSs managed by it.
+Every HAMMER2 filesystem typically has a PFS called "LOCAL" for this purpose.
+.It Fl t Ar type
+Specify the type when creating, upgrading, or downgrading a PFS.
+Supported types are MASTER, SLAVE, SOFT_MASTER, SOFT_SLAVE, CACHE, and DUMMY.
+If not specified the pfs-create directive will default to MASTER if no
+UUID is specified, and SLAVE if a UUID is specified.
+.It Fl u Ar uuid
+Specify the cluster UUID when creating a PFS.
+If not specified, a unique, random UUID will be generated.
+Note that every PFS also has a unique pfs_id which is always generated
+and cannot be overridden with an option.
+The { pfs_clid, pfs_fsid } tuple uniquely identifies a component of a cluster.
+.It Fl m Ar mem
+Specify how much tracking memory to use for certain directives.
+At the moment, this option is only applicable to the
+.Cm bulkfree
+directive, allowing it to operate in fewer passes when given more memory.
+A nominal value for a 4TB drive with a ton of stuff on it would be around
+a gigabyte '-m 1g'.
+.El
+.Pp
+.Nm
+directives are as shown below.
+Note that most directives require you to either be CD'd into a hammer2
+filesystem, specify a path to a mounted hammer2 filesystem via the
+.Fl s
+option, or specify a path after the directive.
+It depends on the directive.
+All hammer2 filesystems have a PFS called "LOCAL" which is typically mounted
+locally on the host in order to be able to issue commands for other PFSs
+on the filesystem.
+The mount also enables PFS configuration scanning for that filesystem.
+.Bl -tag -width indent
+.\" ==== cleanup ====
+.It Cm cleanup Op path
+Perform manual cleanup passes on paths or all mounted partitions.
+.\" ==== destroy ====
+.It Cm destroy Ar path...
+Destroy the specified directory entry in a hammer2 filesystem.
+This bypasses
+all normal checks and will unconditionally destroy the directory entry.
+The underlying inode is not checked and, if it does exist, its nlinks count
+is not decremented.
+This directive should only be used to destroy a corrupted directory entry
+which no longer has a working inode.
+Unsupported unless INVARIANTS is enabled.
+.Pp
+Note that this command may desynchronize the system namecache for the
+specified entry.
+If this happens, you may have to unmount and remount the filesystem.
+.\" ==== destroy-inum ====
+.It Cm destroy-inum Ar path...
+Destroy the specified inode in a hammer2 filesystem.
+Unsupported unless INVARIANTS is enabled.
+.\" ==== emergency-mode-enable ===
+.It Cm emergency-mode-enable Ar target
+Flag emergency operations mode in the filesystem.
+This mode may be used
+as a last resort to delete files and directories from a full filesystem.
+Inode creation, file writes, and certain meta-data cleanups are disallowed
+while emergency mode is active.
+File and directory removal and mode/attr setting is still allowed.
+This mode is extremely dangerous and should only be used as a last resort.
+.Pp
+This mode allows the filesystem to modify blocks in-place when it is unable
+to allocate a copy.
+Thus it is possible to chflags and remove files and
+directories even when the filesystem is completely full.
+However, there is a price.
+This mode of operation WILL LIKELY CORRUPT ANY SNAPSHOTS related
+to this filesystem.
+The filesystem will report this condition if it encounters
+it but if you are forced to use this mode to fix a filesystem full condition
+your snapshots can get a bit dicey.
+It is usually safest to delete any related snapshots when using this mode.
+.Pp
+You can detect whether related snapshots have been corrupted by running
+a bulkfree pass and checking the console output for reported CRC errors.
+If no errors are reported, your snapshots are fine.
+If errors are reported
+you should delete related snapshots until bulkfree reports no further errors.
+.Pp
+The emergency mode will also make meta-data updates unsafe due to the lack of
+copy-on-write, causing potential harm if the system unexpectedly panics or
+loses power.
+GREAT CARE MUST BE TAKEN WHILE THIS MODE IS ACTIVE.
+.Bl -enum
+.It
+Determine that you are unable to recover space with normal file and directory
+removal commands due to
+.Er ENOSPC
+errors being returned by 'rm', or through the
+removal of snapshots (if any).  The 'bulkfree' directive must be issued to
+scan the filesystem and free up the actual space, then check with 'df'.
+Continue if you still have insufficient space and are unable to remove items
+normally.
+.It
+If you need any related snapshots, this is a good time to copy them elsewhere.
+.It
+Idle or kill any processes trying to use the filesystem.
+.It
+Issue the emergency-mode-enable directive on the filesystem.
+Once enabled, run 'sync' to update any dirty inodes which may still
+be dirty due to not being able to flush.
+Please remember that this
+directive is a LAST RESORT, is dangerous, and will likely corrupt any
+other snapshots you have based on the filesystem you are removing files
+from.
+.It
+Remove file trees as necessary with 'rm -rf' to free space, being cognizant
+of any warnings issued by the kernel on the console (via 'dmesg') while
+doing so.
+.It
+Issue the 'bulkfree' directive to actually free the space and check that
+sufficient space has been freed with 'df'.
+.It
+If bulkfree reports CHECK errors, or if you have snapshots and insufficient
+space has been freed, you will need to delete snapshots.
+Re-run bulkfree and delete snapshots until no errors are reported.
+.It
+Issue the emergency-mode-disable directive when done.
+It might also be a
+good idea to reboot after using this mode, but theoretically you should not
+have to.
+.It
+Restore services using the filesystem.
+.El
+.\" ==== emergency-mode-disable ===
+.It Cm emergency-mode-disable Ar target
+Turn off the emergency operations mode on a filesystem, restoring normal
+operation.
+.\" ==== growfs ====
+.It Cm growfs Op fspath...
+After resizing the disk partition you can issue this command on a
+mounted hammer2 filesystem to grow into the new space in the partition.
+This command is run on a live hammer2 filesystem.
+.\" ==== hash ====
+.It Cm hash Op filename...
+Compute and print the directory hash for any number of filenames.
+.\" ==== dhash ====
+.It Cm dhash Op filename...
+Compute and print the data hash for long directory entry for any number of
+filenames.
+.\" ==== pfs-list ====
+.It Cm pfs-list Op path...
+List all PFSs associated with all mounted hammer2 storage devices.
+The list may be restricted to a particular filesystem using
+.Fl s Ar mount .
+.Pp
+Note that hammer2 PFSs associated with storage devices which have not been
+mounted in any fashion will not be listed.
+At least one hammer2 label must be mounted for the PFSs on that device to be
+visible.
+.\" ==== pfs-clid ====
+.It Cm pfs-clid Ar label
+Print the cluster id for a PFS specified by name.
+.\" ==== pfs-fsid ====
+.It Cm pfs-fsid Ar label
+Print the unique filesystem id for a PFS specified by name.
+.\" ==== pfs-create ====
+.It Cm pfs-create Ar label
+Create a local PFS on the mounted HAMMER2 filesystem represented
+by the current directory, or specified via
+.Fl s Ar mount .
+If no UUID is specified the pfs-type defaults to MASTER.
+If a UUID is specified via the
+.Fl u
+option the pfs-type defaults to SLAVE.
+Other types can be specified with the
+.Fl t
+option.
+.Pp
+If you wish to add a MASTER to an existing cluster, you must first add it as
+a SLAVE and then upgrade it to MASTER to properly synchronize it.
+.Pp
+The DUMMY pfs-type is used to tie network-accessible clusters into the local
+machine when no local storage is desired.
+This type should be used on minimal H2 partitions or entirely in ram for
+netboot-centric systems to provide a tie-in point for the mount command,
+or on more complex systems where you need to also access network-centric
+clusters.
+.Pp
+The CACHE or SLAVE pfs-type is typically used when the main store is on
+the network but local storage is desired to improve performance.
+SLAVE is also used when a backup is desired.
+.Pp
+Generally speaking, you can mount any PFS element of a cluster in order to
+access the cluster via the full cluster protocol.
+There are two exceptions.
+If you mount a SOFT_SLAVE or a SOFT_MASTER then soft quorum semantics are
+employed... the soft slave or soft master's current state will always be used
+and the quorum protocol will not be used.
+The soft PFS will still be
+synchronized to masters in the background when available.
+Also, you can use
+.Sq mount -o local
+to mount ONLY a local HAMMER2 PFS and
+not run any network or quorum protocols for the mount.
+All such mounts except for a SOFT_MASTER mount will be read-only.
+Other than that, you will be mounting the whole cluster when you mount any
+PFS within the cluster.
+.Pp
+DUMMY - Create a PFS skeleton intended to be the mount point for a
+more complex cluster, probably one that is entirely network based.
+No data will be synchronized to this PFS so it is suitable for use
+in a network boot image or memory filesystem.
+This allows you to create placeholders for mount points on your local
+disk, SSD, or memory disk.
+.Pp
+CACHE - Create a PFS for caching portions of the cluster piecemeal.
+This is similar to a SLAVE but does not synchronize the entire contents of
+the cluster to the PFS.
+Elements found in the CACHE PFS which are validated against the cluster
+will be read, presumably a faster access than having to go to the cluster.
+Only local CACHEs will be updated.
+Network-accessible CACHE PFSs might be read but will not be written to.
+If you have a large hard-drive-based cluster you can set up localized
+SSD CACHE PFSs to improve performance.
+.Pp
+SLAVE - Create a PFS which maintains synchronization with and provides a
+read-only copy of the cluster.
+HAMMER2 will prioritize local SLAVEs for data retrieval after validating
+their transaction id against the cluster.
+The difference between a CACHE and a SLAVE is that the SLAVE is synchronized
+to a full copy of the cluster and thus can serve as a backup or be staged
+for use as a MASTER later on.
+.Pp
+SOFT_SLAVE - Create a PFS which maintains synchronization with and provides
+a read-only copy of the cluster.
+This is one of the special mount cases.
+A SOFT_SLAVE will synchronize with
+the cluster when the cluster is available, but can still be accessed when
+the cluster is not available.
+.Pp
+MASTER - Create a PFS which will hold a master copy of the cluster.
+If you create several MASTER PFSs with the same cluster id you are
+effectively creating a multi-master cluster and causing a quorum and
+cache coherency protocol to be used to validate operations.
+The total number of masters is stored in each PFSs making up the cluster.
+Filesystem operations will stall for normal mounts if a quorum cannot be
+obtained to validate the operation.
+MASTER nodes which go offline and return later will synchronize in the
+background.
+Note that when adding a MASTER to an existing cluster you must add the
+new PFS as a SLAVE and then upgrade it to a MASTER.
+.Pp
+SOFT_MASTER - Create a PFS which maintains synchronization with and provides
+a read-write copy of the cluster.
+This is one of the special mount cases.
+A SOFT_MASTER will synchronize with
+the cluster when the cluster is available, but can still be read AND written
+to even when the cluster is not available.
+Modifications made to a SOFT_MASTER will be automatically flushed to the
+cluster when it becomes accessible again, and vise-versa.
+Manual intervention may be required if a conflict occurs during
+synchronization.
+.\" ==== pfs-delete ====
+.It Cm pfs-delete Op label...
+Destroy a PFS by name.
+All hammer2 mount points will be checked, however this directive will refuse to
+delete a PFS whos name is duplicated on multiple mount points.
+A specific mount point may be specified to restrict the deletion via the
+.Fl s Ar mount
+option.
+.\" ==== recover ====
+.It Cm recover Ar media Ar path Ar destdir
+Recover a file or directory tree by scanning the raw media partition,
+with minimal requirements for an intact topology.  The results are written
+to the destination directory.
+.Pp
+The recovery path can be anchored at (any) root by prefixing it with a "/".
+If not anchored, any matching sub-tree will be recovered and combined into
+one place on the destination (not as separate sub-trees since that requires
+topological knowledge that might not be available).  Roots include all
+PFS roots and snapshot roots, as well as disconnected roots from COW updates
+(aka to be able to undelete a file or directory sub-tree).
+.Pp
+The path may specify a directory or file to restore.  Note that if you
+specify something like ".cshrc", then all ".cshrc" files found in the
+entire filesystem will be recovered.  Multiple references to the same
+physical inode with the same filename in the same directory are filtered out.
+.Pp
+This function is meant for catastrophic recovery or corrupted media or
+recovery for deleted files that are not otherwise available in snapshots.
+All possible versions of files will be recovered and suffixed as "*.%05d"
+with an iterator.
+.Pp
+The hammer2 recovery function is not meant to generate a fully operational
+filesystem in the target directory.  All files will be versioned and contain
+iteration suffixes.  Many files and sub-directory trees may wind up glommed
+together in one place.  However, this function will recover mtime, ownership,
+group, modes, and flags.  Recovered files are fully validated and any missing
+data will cause the file to be renamed with a ".corrupted" suffix.
+.Pp
+Memory requirements - This function needs to track inodes and paths and
+can eat a considerable amount of ram, and it tends to be random-access
+so while swap can make ends meet, it might slow the scan down drastically
+if it has to eat into it much.
+Ram consumption scales with the number of inodes found.  Call it a few
+gigabytes up to 500GB of media and approaching 64GB on busy 4TB media.
+Busy meaning, say, 50 million topological inodes turning into 1 billion
+inodes located by the media scan.
+.\" ==== recover-relaxed ====
+.It Cm recover-relaxed Ar media Ar path Ar destdir
+This version of the recover directive relaxes bref checks.  Under normal
+operation, only brefs with check codes are allowed because we get too many
+false hits otherwise.  In relaxed mode, bref's with the check code disabled
+are also allowed.
+.Pp
+You should only need to use the relaxed version if you have turned off
+CRCs on the files you want to recover.
+.\" ==== recover-file ====
+.It Cm recover-file Ar media Ar path Ar destdir
+This version of recover is the normal strict-mode recover but explicitly
+indicates that the path being recovered is a regular file and not a
+directory.  Prevents junk recursions when entries corresponding to the
+last path element appear to be directories.
+.\" ==== snapshot ====
+.It Cm snapshot Ar path Op label
+Create a snapshot of a directory.
+The snapshot will be created on the same hammer2 storage device as the
+directory.
+This can only be used on a local PFS, and is only really useful if the PFS
+contains a complete copy of what you desire to snapshot so that typically
+means a local MASTER, SOFT_MASTER, SLAVE, or SOFT_SLAVE must be present.
+Snapshots are created simply by flushing a PFS mount to disk and then copying
+the directory inode to the PFS.
+The topology is snapshotted without having to be copied or scanned and
+take no additional space.
+However, bulkfree scans may take longer.
+Snapshots are effectively separate from the cluster they came from
+and can be used as a starting point for a new cluster.
+So unless you build a new cluster from the snapshot, it will stay local
+to the machine it was made on.
+.Pp
+Snapshots can be maintained automatically with
+.Xr periodic 8 .
+See
+.Xr periodic.conf 5
+for details of enabling and configuring the functionality.
+.\" ==== snapshot-debug ====
+.It Cm snapshot-debug Ar path Op label
+Snapshot without filesystem sync.
+.\" ==== stat ====
+.It Cm stat Op path...
+Print the inode statistics, compression, and other meta-data associated
+with a list of paths.
+.\" ==== show ====
+.It Cm show Ar devpath
+Dump the radix tree for the HAMMER2 filesystem by scanning a
+block device directly.
+No mount is required.
+.\" ==== freemap ====
+.It Cm freemap Ar devpath
+Dump the freemap tree for the HAMMER2 filesystem by scanning a
+block device directly.
+No mount is required.
+.\" ==== volhdr ====
+.It Cm volhdr Ar devpath
+Dump the volume header for the HAMMER2 filesystem by scanning a
+block device directly.
+No mount is required.
+.\" ==== volume-list ====
+.It Cm volume-list Op path...
+List all volumes associated with all mounted hammer2 storage devices.
+The list may be restricted to a particular filesystem using
+.Fl s Ar mount .
+.Pp
+Note that hammer2 volumes associated with storage devices which have not been
+mounted in any fashion will not be listed.
+At least one hammer2 label must be mounted for the volumes on that device to be
+visible.
+.\" ==== setcomp ====
+.It Cm setcomp Ar mode[:level] Ar path...
+Set the compression mode as specified for any newly created elements at or
+under the path if not overridden by deeper elements.
+Available modes are none, autozero, lz4, or zlib.
+When zlib is used the compression level can be set.
+The default will be 6 which is the best trade-off between performance and
+time.
+.Pp
+newfs_hammer2 will set the default compression to lz4 which prioritizes
+speed over performance.
+Also note that HAMMER2 contains a heuristic and will not attempt to
+compress every block if it detects a sufficient amount of uncompressable
+data.
+.Pp
+Hammer2 compression is only effective when it can reduce the size of dataset
+(typically a 64KB block) by one or more powers of 2.  A 64K block which
+only compresses to 40K will not yield any storage improvement.
+.Pp
+Generally speaking you do not want to set the compression mode to
+.Sq none ,
+as this will cause blocks of all-zeros to be written as all-zero blocks,
+instead of holes.
+The
+.Sq autozero
+compression mode detects blocks of all-zeros
+and writes them as holes.
+.\" ==== setcheck ====
+.It Cm setcheck Ar check Ar path...
+Set the check code as specified for any newly created elements at or under
+the path if not overridden by deeper elements.
+Available codes are default, disabled, crc32, xxhash64, or sha192.
+.Pp
+Normally HAMMER2 does not overwrite data blocks on the media in order to ensure
+snapshot integrity.
+Replacement data blocks will be reallocated.
+However, if the compression mode is set to
+.Sq none
+and the check code is set to
+.Sq disabled
+HAMMER2 will overwrite data on the media in-place.
+In this mode of operation,
+snapshots will not be able to snapshot the data against later changes
+made to the file, and de-duplication will no longer function on any
+data related to the file.
+However, you can still recover the most recent data from previously
+taken snapshots if you accidentally remove the file.
+.\" ==== clrcheck ====
+.It Cm clrcheck Op path...
+Clear the check code override for the specified paths.
+Overrides may still be present in deeper elements.
+.\" ==== setcrc32 ====
+.It Cm setcrc32 Op path...
+Set the check code to the ISCSI 32-bit CRC for any newly created elements
+at or under the path if not overridden by deeper elements.
+.\" ==== setxxhash64 ====
+.It Cm setxxhash64 Op path...
+Set the check code to XXHASH64, a fast 64-bit hash.
+.\" ==== setsha192 ====
+.It Cm setsha192 Op path...
+Set the check code to SHA192 for any newly created elements at or under
+the path if not overridden by deeper elements.
+.\" ==== bulkfree ====
+.It Cm bulkfree Ar path
+Run a bulkfree pass on a HAMMER2 mount.
+You can specify any PFS for the mount, the bulkfree pass is run on the
+entire partition.
+Note that it takes two passes to actually free space.
+By default this directive will use up to 1/16 physical memory to track
+the freemap.
+The amount of memory used may be overridden with the
+.Op Fl m Ar mem
+option.
+.\" ==== printinode ====
+.It Cm printinode Ar path
+Dump inode.
+.\" ==== dumpchain ====
+.It Cm dumpchain Op path Op chnflags
+Dump in-memory chain topology.
+Unsupported unless INVARIANTS is enabled.
+.El
+.Sh SYSCTLS
+.Bl -tag -width indent
+.It Va vfs.hammer2.dedup_enable "(default on)"
+Enables live de-duplication.
+Any recently read data that is on-media
+(already synchronized to media) is tested against pending writes for
+compatibility.
+If a match is found, the write will reference the
+existing on-media data instead of writing new data.
+.It Va vfs.hammer2.always_compress "(default off)"
+This disables the H2 compression heuristic and forces H2 to always
+try to compress data blocks, even if they look uncompressable.
+Enabling this option reduces performance but has higher de-duplication
+repeatability.
+.It Va vfs.hammer2.bulkfree_tps "(default 5000)"
+Set bulkfree's maximum scan rate.
+This is primarily intended to limit
+I/O utilization on SSDs and CPU utilization when the meta-data is mostly
+cached in memory.
+.El
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr mount_hammer2 8 ,
+.Xr newfs_hammer2 8 ,
+.Xr sysctl 8
+.Sh HISTORY
+The
+.Nm
+utility first appeared in
+.Dx 4.1 .
+.Sh AUTHORS
+.An Matthew Dillon Aq Mt dillon@backplane.com
+.Pp
+The
+.Nm
+utility was ported to
+.Fx ,
+.Nx
+and
+.Ox
+by
+.An Tomohiro Kusumi Aq Mt tkusumi@netbsd.org .

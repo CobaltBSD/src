@@ -1,0 +1,463 @@
+commit 76de9d7a0faeb74b7d5d8b5dfcf632c6c1eae879
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jul 14 11:25:03 2019 -0700
+
+    xbacklight 1.2.3
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5172321febbd76a55f32c859996d8923333da3a1
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 9 13:23:06 2019 -0700
+
+    atof_or_die: Also die if nothing was converted
+    
+    Needed on Solaris to catch errors with strings that have no numbers
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 92de87f30c2fd25245e3e345633fe497665b5448
+Author: Roberto Ricci <rroberto2r@gmail.com>
+Date:   Sun Feb 11 17:12:14 2018 +0100
+
+    exit if conv. from string to double fails
+    
+    atof(3), whose return value is undefined on error, is used to parse
+    command line arguments, leading to undefined beavior if something else
+    than a number is specified.
+    this patch uses strtod(3) and exits on error.
+    
+    Signed-off-by: Roberto Ricci <rroberto2r@gmail.com>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit ce6001abfc93c8309fd9ece97e0f8783dd64f346
+Author: Roman Donchenko <dpb@corrigendum.ru>
+Date:   Wed Apr 3 00:09:20 2013 +0400
+
+    Properly round the new brightness value
+    
+    Previously, it was always rounded down, which meant that -dec X would
+    result in a bigger change than -inc X for the same X if rounding took place.
+    
+    Signed-off-by: Roman Donchenko <dpb@corrigendum.ru>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 31d4c5d6c10d1547d0031a36ed7c57b78d048fea
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Nov 21 16:58:46 2018 -0800
+
+    Update configure.ac bug URL for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 12274b4d4b3c76e90e9417efb1c7b2f39fc55e7a
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 16 21:09:45 2018 -0800
+
+    Update README for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 8709d1efd4b8131ddc0a04229bc148a6f473d6f0
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Mar 9 17:35:30 2018 -0800
+
+    xbacklight 1.2.2
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 67f8af194622507beeba0699ed13c9376303d293
+Author: Mihail Konev <k.mvc@ya.ru>
+Date:   Thu Jan 26 14:00:20 2017 +1000
+
+    autogen: add default patch prefix
+    
+    Signed-off-by: Mihail Konev <k.mvc@ya.ru>
+
+commit d4ba66408b6498414bb019a248bad39a1b8b7795
+Author: Emil Velikov <emil.l.velikov@gmail.com>
+Date:   Mon Mar 9 12:00:52 2015 +0000
+
+    autogen.sh: use quoted string variables
+    
+    Place quotes around the $srcdir, $ORIGDIR and $0 variables to prevent
+    fall-outs, when they contain space.
+    
+    Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
+    Reviewed-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit f74c4af2b723523d94519d81fa45d5aa825195ec
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Jan 24 10:32:07 2017 +1000
+
+    autogen.sh: use exec instead of waiting for configure to finish
+    
+    Syncs the invocation of configure with the one from the server.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+
+commit 25f2612062e733b1f7eb4bc2ccedf653ec6f052a
+Author: Nils Schneider <nils@nilsschneider.net>
+Date:   Wed Nov 4 18:03:25 2015 +0100
+
+    Use current output configuration
+    
+    Do not trigger re-enumerating output devices when changing or querying
+    the backlight.
+    
+    Re-enumerating output devices may stall Xorg at least on Intel GPUs when
+    EDID is unresponsive or contains bogus data (due to retries). When
+    working with the backlight it is safe to assume that a monitor capable
+    of setting its backlight is currently connected.
+    
+    Signed-off-by: Nils Schneider <nils@nilsschneider.net>
+    Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+commit f6277d4bf39de12c43a5dfb6db0de8e137ea7071
+Author: Nils Schneider <nils@nilsschneider.net>
+Date:   Mon Sep 28 15:20:30 2015 +0200
+
+    Use double instead of int for value
+    
+    Modern displays allow for fine grained brightness settings. For example,
+    my laptop allows for 852 brightness steps. In some situations I find it
+    useful to set the brightness below 1 percent (the minimum possible when
+    using integers).
+    
+    This patch makes xbacklight use a double instead so lower brightness
+    values like 0.12 are possible.
+    
+    Signed-off-by: Nils Schneider <nils@nilsschneider.net>
+    Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+    Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+commit 7db4876cdeaa5d25cb857bead7153ef503e993d6
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Jun 2 22:09:32 2014 -0700
+
+    autogen.sh: Honor NOCONFIGURE=1
+    
+    See http://people.gnome.org/~walters/docs/build-api.txt
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit af78be654ec08e7e651ac6c06de4fbc6dc89fc27
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Jun 2 22:09:32 2014 -0700
+
+    configure: Drop AM_MAINTAINER_MODE
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit b2a08484343f0ae9b50309d3f69eeb0931223f14
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Nov 25 22:40:43 2013 -0800
+
+    Add -version option to print program version
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 4080fb788adba0a851aff29b4dc4f5c71bf4b279
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Nov 25 22:37:45 2013 -0800
+
+    Print which option was in error along with usage message
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 8e0f47c1971f17ac37c89fb49a8f1807d25923a5
+Author: Matt Turner <mattst88@gmail.com>
+Date:   Mon Oct 7 20:43:34 2013 -0700
+
+    xbacklight 1.2.1
+    
+    Signed-off-by: Matt Turner <mattst88@gmail.com>
+
+commit a4c00b2662a4c7291627899021f10c6a6d4716f3
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Thu Jul 11 12:03:40 2013 +0200
+
+    man: replace hyphens with minus signs
+    
+    Reported-by: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+    Signed-off-by: Julien Cristau <jcristau@debian.org>
+
+commit 5d7642ffd0de1d6037f6f98b8733e8a8161e24d3
+Author: Edward Sheldrake <ejsheldrake@gmail.com>
+Date:   Sat Apr 6 13:39:38 2013 +0100
+
+    Fix reading backlight level on 64-bit systems (bug 63205)
+    
+    obviously incorrect output of "xbacklight -get":
+    51671552015166906368.000000
+    
+    valgrind reports an invalid read of size 8 at xbacklight.c:91
+    
+    https://bugs.freedesktop.org/show_bug.cgi?id=63205
+    
+    Reviewed-by: Julien Cristau <jcristau@debian.org>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 36ffc5e0eb50fdda93af3dd7dc3899622e80d3be
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Apr 6 09:45:22 2013 -0700
+
+    Combine usage message strings
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit cc2a24b51637e8f21c9c0aed73394db67a965b62
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Apr 6 09:40:53 2013 -0700
+
+    config: Add missing AC_CONFIG_SRCDIR
+    
+    Regroup AC statements under the Autoconf initialization section.
+    Regroup AM statements under the Automake initialization section.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 059c60e7a6ae7f6cdcf51b06ac733bb2392c2ec2
+Author: Matt Turner <mattst88@gmail.com>
+Date:   Tue Sep 11 14:37:18 2012 -0700
+
+    xbacklight 1.2.0
+    
+    Signed-off-by: Matt Turner <mattst88@gmail.com>
+
+commit 6f2668f2cede3598bad3feb1cae9e8de473d2531
+Author: Jon Lund Steffensen <jonlst@gmail.com>
+Date:   Sun Aug 12 10:04:08 2012 -0700
+
+    Port xbacklight to XCB
+    
+    Signed-off-by: Matt Turner <mattst88@gmail.com>
+
+commit a18911abb94ef0cfa55282b96027f501a82652a6
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 19 10:06:55 2011 -0500
+
+    config: move man pages into their own directory
+    
+    Use services provided by XORG_MANPAGE_SECTIONS.
+    Use standard Makefile for man pages.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 8bc2e5a8888de4d457870986f442b628e4795364
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Jan 13 17:15:36 2011 -0500
+
+    man: replace hard coded man page section with substitution strings
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit ae1445b4ce52ecc739faee1e69ab9f51d0ad90f3
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 16:28:02 2011 -0500
+
+    config: replace deprecated AM_CONFIG_HEADER with AC_CONFIG_HEADERS
+    
+    This silences an Autoconf warning
+
+commit 3d55286af9f597d81099f58c7236a920d02c7519
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Apr 5 20:42:20 2010 -0400
+
+    config: the file COPYING in EXTRA_DIST is redundant
+    
+    COPYING is a filename known to Automake and does not
+    need to be on EXTRA_DIST.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 30ed7c0b3f2dc131e9fa4bb53ba702b65b05b46a
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Oct 29 23:36:28 2010 -0700
+
+    xbacklight 1.1.2
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 3aab2f2e43ba5f9afbf7d20d54b70150ca6773a1
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Sep 23 10:04:24 2010 -0700
+
+    config: Remove unnecessary calls from configure.ac
+    
+    AC_PROG_CC & AC_PROG_INSTALL are provided by XORG_DEFAULT_OPTIONS now
+    PKG_CONFIG_MODULES handles AC_SUBST of the CFLAGS & LIBS variables
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 98a594c61ed407facfefc430715df09d5ccc8c6c
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Tue Jul 20 18:45:18 2010 -0400
+
+    config: update AC_PREREQ statement to 2.60
+    
+    Unrelated to the previous patches, the new value simply reflects
+    the reality that the minimum level for autoconf to configure
+    all x.org modules is 2.60 dated June 2006.
+    
+    ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.60.tar.gz
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 3a5f2d5dad2c281e49be2eb3b1cc041bd9ada715
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Jul 1 00:31:18 2010 -0700
+
+    Remove unused direct dependency on libXrender
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5b4cd1f97f578e6574c905b7630841ced0193fc4
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Jun 30 23:25:03 2010 -0700
+
+    config: upgrade to util-macros 1.8 for additional man page support
+    
+    Use MAN_SUBST now supplied in XORG_MANPAGE_SECTIONS
+    The value of MAN_SUBST is the same for all X.Org packages.
+    
+    Use AC_PROG_SED now supplied by XORG_DEFAULT_OPTIONS
+    The existing statement can now be removed from the configuration file.
+    
+    Use automake provided $(AM_V_GEN) and XORG_DEFAULT_OPTIONS provided $(SED)
+    Enables silent rule and use platform appropriate version of sed.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit cc6e442b15988076f5ebc5513654826869378eee
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Nov 26 09:19:52 2009 -0500
+
+    Makefile.am: add ChangeLog and INSTALL on MAINTAINERCLEANFILES
+    
+    Now that the INSTALL file is generated.
+    Allows running make maintainer-clean.
+
+commit 7fcffe84dccc00f4318179f5237d2937c80abc02
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Oct 28 14:09:08 2009 -0400
+
+    INSTALL, NEWS, README or AUTHORS files are missing/incorrect #24206
+    
+    Add missing INSTALL file. Use standard GNU file on building tarball
+    README may have been updated
+    Remove AUTHORS file as it is empty and no content available yet.
+    Remove NEWS file as it is empty and no content available yet.
+
+commit f634bdf93c3623f48f6e9f6baf65ff64835db0f6
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Tue Oct 27 15:07:24 2009 -0400
+
+    Deploy the new XORG_DEFAULT_OPTIONS #24242
+    
+    This macro aggregate a number of existing macros that sets commmon
+    X.Org components configuration options. It shields the configuration file from
+    future changes.
+
+commit 0fa72795f798e34dd918b51b01fd07adc098cdc5
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Oct 26 22:08:38 2009 -0400
+
+    Makefile.am: ChangeLog not required: EXTRA_DIST or *CLEANFILES #24432
+    
+    ChangeLog filename is known to Automake and requires no further
+    coding in the makefile.
+
+commit 36b4b6dba0df92071f54c32154ef8d0366029282
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Oct 22 12:34:15 2009 -0400
+
+    .gitignore: use common defaults with custom section # 24239
+    
+    Using common defaults will reduce errors and maintenance.
+    Only the very small or inexistent custom section need periodic maintenance
+    when the structure of the component changes. Do not edit defaults.
+
+commit cbf474d6751dd32154163b8997519319655f0545
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Sep 24 17:54:45 2009 -0700
+
+    xbacklight 1.1.1
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit da0d7d89130b9a9e31905897627f0c805a58b2b3
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Sep 24 17:53:43 2009 -0700
+
+    Migrate to xorg macros 1.3 & XORG_DEFAULT_OPTIONS
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 1b52fc41b59899b45dd1b06f9c1268b4458f9cd6
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Sep 24 17:43:47 2009 -0700
+
+    Add README with pointers to mailing lists, bugzilla, & git
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 5512e161157d6ac8a8d8a27fc99d596c6686b1da
+Author: Matthias Hopf <mhopf@suse.de>
+Date:   Wed Aug 19 14:38:31 2009 +0200
+
+    Use "Backlight" RandR property, fall back to legacy "BACKLIGHT".
+
+commit 97a3f5665a62ff3a606da48f3854d082f249e6a8
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Mon Jan 19 19:17:58 2009 -0200
+
+    Ansification and compile warning fixes.
+    
+      This also uses XORG_CHANGELOG and XORG_CWARNFLAGS, corrects
+    make distcheck and all gcc 4.3 and sparse warnings.
+
+commit a0dc8902b476fc2dddf02fceec7a7186d81f48fc
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Sep 6 16:27:47 2007 -0700
+
+    Man page typo ("faiding")
+
+commit 922cec4e60a4fb4db6c7333b7264cd940e763239
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Jun 21 14:51:57 2007 +0100
+
+    Update to version 1.1
+
+commit 4440d319f20d1970b2a3f94a1c4f2b5142158ce3
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Jun 21 14:50:54 2007 +0100
+
+    Add licenses (oops)
+
+commit ba34df17cfbd7bcf029b1fdc4bcd7b894a49a63d
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Jun 21 11:36:30 2007 +0100
+
+    Fix version in configure.ac
+
+commit 3000145191a00d4c9b90efb221fadb9ce37380c0
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Mar 29 23:18:14 2007 -0700
+
+    Add -time and -steps options to adjust fade
+
+commit 38c2c45514d50b825a5c74abedc30cb2272064d7
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Mar 29 22:59:29 2007 -0700
+
+    Add autogen.sh
+
+commit d52f81e43da29d94122d62c1b1be34946960033c
+Author: Keith Packard <keithp@neko.keithp.com>
+Date:   Thu Mar 29 22:56:13 2007 -0700
+
+    Initial xbacklight program

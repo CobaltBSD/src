@@ -1,0 +1,166 @@
+src/libnurbs/internals/subdivider.lo: \
+  src/libnurbs/internals/subdivider.cc \
+  src/libnurbs/interface/glimports.h src/libnurbs/interface/mystdlib.h \
+  /usr/include/c++/v1/stdlib.h /usr/include/c++/v1/__config \
+  /usr/include/c++/v1/__config_site /usr/include/sys/endian.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/pthread.h /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h src/libnurbs/interface/mystdio.h \
+  src/libnurbs/internals/myassert.h /usr/include/assert.h \
+  src/libnurbs/internals/subdivider.h src/libnurbs/internals/mysetjmp.h \
+  /usr/include/c++/v1/setjmp.h /usr/include/setjmp.h \
+  /usr/include/machine/setjmp.h src/libnurbs/internals/bin.h \
+  src/libnurbs/internals/arc.h src/libnurbs/internals/bufpool.h \
+  src/include/gluos.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/pwlarc.h src/libnurbs/internals/nurbsconsts.h \
+  src/libnurbs/internals/trimvertex.h src/libnurbs/internals/defines.h \
+  src/libnurbs/internals/flist.h src/libnurbs/internals/flistsorter.h \
+  src/libnurbs/internals/sorter.h src/libnurbs/internals/slicer.h \
+  src/libnurbs/internals/trimregion.h src/libnurbs/internals/trimline.h \
+  src/libnurbs/internals/jarcloc.h src/libnurbs/internals/gridline.h \
+  src/libnurbs/internals/uarray.h src/libnurbs/internals/mesher.h \
+  src/libnurbs/internals/hull.h src/libnurbs/internals/gridtrimvertex.h \
+  src/libnurbs/internals/gridvertex.h \
+  src/libnurbs/internals/coveandtiler.h \
+  src/libnurbs/nurbtess/primitiveStream.h \
+  src/libnurbs/nurbtess/definitions.h src/libnurbs/nurbtess/rectBlock.h \
+  src/libnurbs/nurbtess/gridWrap.h /usr/include/c++/v1/stdio.h \
+  /usr/include/stdio.h src/libnurbs/nurbtess/zlassert.h \
+  src/libnurbs/internals/arctess.h src/libnurbs/internals/trimvertpool.h \
+  src/libnurbs/internals/bezierarc.h \
+  src/libnurbs/internals/renderhints.h src/libnurbs/internals/backend.h \
+  src/libnurbs/internals/mapdesc.h src/libnurbs/internals/quilt.h \
+  src/libnurbs/internals/patchlist.h src/libnurbs/internals/patch.h \
+  src/libnurbs/internals/simplemath.h src/libnurbs/nurbtess/polyUtil.h
+
+src/libnurbs/interface/glimports.h:
+
+src/libnurbs/interface/mystdlib.h:
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+src/libnurbs/interface/mystdio.h:
+
+src/libnurbs/internals/myassert.h:
+
+/usr/include/assert.h:
+
+src/libnurbs/internals/subdivider.h:
+
+src/libnurbs/internals/mysetjmp.h:
+
+/usr/include/c++/v1/setjmp.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+src/libnurbs/internals/bin.h:
+
+src/libnurbs/internals/arc.h:
+
+src/libnurbs/internals/bufpool.h:
+
+src/include/gluos.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/pwlarc.h:
+
+src/libnurbs/internals/nurbsconsts.h:
+
+src/libnurbs/internals/trimvertex.h:
+
+src/libnurbs/internals/defines.h:
+
+src/libnurbs/internals/flist.h:
+
+src/libnurbs/internals/flistsorter.h:
+
+src/libnurbs/internals/sorter.h:
+
+src/libnurbs/internals/slicer.h:
+
+src/libnurbs/internals/trimregion.h:
+
+src/libnurbs/internals/trimline.h:
+
+src/libnurbs/internals/jarcloc.h:
+
+src/libnurbs/internals/gridline.h:
+
+src/libnurbs/internals/uarray.h:
+
+src/libnurbs/internals/mesher.h:
+
+src/libnurbs/internals/hull.h:
+
+src/libnurbs/internals/gridtrimvertex.h:
+
+src/libnurbs/internals/gridvertex.h:
+
+src/libnurbs/internals/coveandtiler.h:
+
+src/libnurbs/nurbtess/primitiveStream.h:
+
+src/libnurbs/nurbtess/definitions.h:
+
+src/libnurbs/nurbtess/rectBlock.h:
+
+src/libnurbs/nurbtess/gridWrap.h:
+
+/usr/include/c++/v1/stdio.h:
+
+/usr/include/stdio.h:
+
+src/libnurbs/nurbtess/zlassert.h:
+
+src/libnurbs/internals/arctess.h:
+
+src/libnurbs/internals/trimvertpool.h:
+
+src/libnurbs/internals/bezierarc.h:
+
+src/libnurbs/internals/renderhints.h:
+
+src/libnurbs/internals/backend.h:
+
+src/libnurbs/internals/mapdesc.h:
+
+src/libnurbs/internals/quilt.h:
+
+src/libnurbs/internals/patchlist.h:
+
+src/libnurbs/internals/patch.h:
+
+src/libnurbs/internals/simplemath.h:
+
+src/libnurbs/nurbtess/polyUtil.h:

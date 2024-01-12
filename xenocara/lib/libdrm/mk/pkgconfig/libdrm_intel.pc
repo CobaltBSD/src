@@ -1,0 +1,10 @@
+prefix=/usr/X11R6
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libdrm_intel
+Description: Userspace interface to intel kernel DRM services
+Version: 2.4.115
+Requires: libdrm
+Libs: -L${libdir} -ldrm_intel
+Cflags: -I${includedir} -I${includedir}/libdrm

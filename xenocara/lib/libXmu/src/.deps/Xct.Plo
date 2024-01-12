@@ -1,0 +1,47 @@
+Xct.lo: Xct.c ../config.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/string.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_null.h /usr/include/machine/_types.h \
+  /usr/include/strings.h ../include/X11/Xmu/Xct.h \
+  /usr/X11R6/include/X11/Xfuncproto.h /usr/include/stdio.h \
+  /usr/include/sys/_types.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h Xmuint.h /usr/include/stdlib.h
+
+../config.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/strings.h:
+
+../include/X11/Xmu/Xct.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/include/stdio.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+Xmuint.h:
+
+/usr/include/stdlib.h:

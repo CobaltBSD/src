@@ -1,0 +1,125 @@
+lisp/liblisp_a-helper.o: lisp/helper.c lisp/helper.h lisp/private.h \
+  /usr/X11R6/include/X11/Xos.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/include/sys/types.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/string.h /usr/include/sys/_null.h /usr/include/strings.h \
+  /usr/include/fcntl.h /usr/include/unistd.h /usr/include/sys/unistd.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h /usr/include/time.h \
+  /usr/include/sys/_time.h /usr/X11R6/include/X11/Xarch.h \
+  /usr/include/stdio.h /usr/include/stdlib.h /usr/include/setjmp.h \
+  /usr/include/machine/setjmp.h lisp/internal.h lisp/lisp.h lisp/mp/mp.h \
+  /usr/include/math.h /usr/include/sys/limits.h \
+  /usr/include/machine/limits.h /usr/include/float.h \
+  /usr/include/machine/_float.h /usr/include/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/ctype.h lisp/re/re.h util.h \
+  lisp/core.h lisp/string.h lisp/struct.h lisp/pathname.h lisp/package.h \
+  lisp/read.h lisp/io.h lisp/stream.h lisp/write.h lisp/hash.h \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/sys/stat.h
+
+lisp/helper.h:
+
+lisp/private.h:
+
+/usr/X11R6/include/X11/Xos.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/strings.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+/usr/include/stdio.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+lisp/internal.h:
+
+lisp/lisp.h:
+
+lisp/mp/mp.h:
+
+/usr/include/math.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/float.h:
+
+/usr/include/machine/_float.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/ctype.h:
+
+lisp/re/re.h:
+
+util.h:
+
+lisp/core.h:
+
+lisp/string.h:
+
+lisp/struct.h:
+
+lisp/pathname.h:
+
+lisp/package.h:
+
+lisp/read.h:
+
+lisp/io.h:
+
+lisp/stream.h:
+
+lisp/write.h:
+
+lisp/hash.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/sys/stat.h:

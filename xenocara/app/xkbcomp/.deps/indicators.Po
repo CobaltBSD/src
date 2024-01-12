@@ -1,0 +1,102 @@
+indicators.o: indicators.c xkbcomp.h /usr/X11R6/include/X11/Xlib.h \
+  /usr/include/sys/types.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/stddef.h \
+  /usr/include/sys/_null.h /usr/X11R6/include/X11/XKBlib.h \
+  /usr/X11R6/include/X11/extensions/XKBstr.h \
+  /usr/X11R6/include/X11/extensions/XKB.h utils.h /usr/include/stdio.h \
+  /usr/X11R6/include/X11/Xos.h /usr/include/string.h \
+  /usr/include/strings.h /usr/include/fcntl.h /usr/include/unistd.h \
+  /usr/include/sys/unistd.h /usr/include/sys/time.h \
+  /usr/include/sys/select.h /usr/include/time.h /usr/include/sys/_time.h \
+  /usr/X11R6/include/X11/Xarch.h /usr/X11R6/include/X11/Xfuncs.h \
+  config.h /usr/X11R6/include/X11/extensions/XKM.h \
+  /usr/X11R6/include/X11/extensions/XKBfile.h misc.h tokens.h expr.h \
+  vmod.h indicators.h action.h compat.h
+
+xkbcomp.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/_null.h:
+
+/usr/X11R6/include/X11/XKBlib.h:
+
+/usr/X11R6/include/X11/extensions/XKBstr.h:
+
+/usr/X11R6/include/X11/extensions/XKB.h:
+
+utils.h:
+
+/usr/include/stdio.h:
+
+/usr/X11R6/include/X11/Xos.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+config.h:
+
+/usr/X11R6/include/X11/extensions/XKM.h:
+
+/usr/X11R6/include/X11/extensions/XKBfile.h:
+
+misc.h:
+
+tokens.h:
+
+expr.h:
+
+vmod.h:
+
+indicators.h:
+
+action.h:
+
+compat.h:

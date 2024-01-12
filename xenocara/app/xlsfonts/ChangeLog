@@ -1,0 +1,822 @@
+commit 8a29554a2edd31bf6f54babad0a13abb5618a155
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Apr 3 16:39:17 2022 -0700
+
+    xlsfonts 1.0.7
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 287e5816a7326b6fe67c60f01f3f2e4cdca3e31d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Dec 3 10:48:13 2021 -0800
+
+    Build xz tarballs instead of bzip2
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit a03ab7e51a9f2239c698749df401cedf8386e721
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 13:05:36 2021 -0800
+
+    Clear -Wshadow warning from gcc
+    
+    xlsfonts.c: In function ‘do_query_font’:
+    xlsfonts.c:628:24: warning: declaration of ‘dpy’ shadows a
+     global declaration [-Wshadow]
+     do_query_font(Display *dpy, char *name)
+                            ^~~
+    In file included from xlsfonts.c:37:0:
+    dsimple.h:53:17: note: shadowed declaration is here
+     extern Display *dpy;                    /* The current display */
+                     ^~~
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 7b84a6ffa8bae2dd9fe8cb1c8bc5b0b198584d8d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 12:58:35 2021 -0800
+
+    Clear -Wsign-compare warnings from gcc
+    
+    xlsfonts.c:560:16: warning: comparison between signed and
+     unsigned integer expressions [-Wsign-compare]
+                  i <= fs->max_char_or_byte2; i++, cs++) {
+                    ^~
+    xlsfonts.c: In function ‘print_character_metrics’:
+    xlsfonts.c:611:33: warning: comparison between signed and
+     unsigned integer expressions [-Wsign-compare]
+         for (j = info->min_byte1; j <= info->max_byte1; j++) {
+                                     ^~
+    xlsfonts.c:613:45: warning: comparison between signed and
+     unsigned integer expressions [-Wsign-compare]
+             for (i = info->min_char_or_byte2; i <= info->max_char_or_byte2; i++) {
+                                                 ^~
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 3ceafc3e134069ecd46df6482e8e7d4b5a7051c3
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 12:49:54 2021 -0800
+
+    PrintProperty: replace sprintf with snprintf
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit ba4fcf04c661dd59ddd4153d442da5fe56381ab2
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Dec 3 10:30:25 2021 -0800
+
+    gitlab CI: add a basic build test
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit d8f7cc9553701f5cc53c22ee2e48041ceb19e78c
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 12:40:28 2021 -0800
+
+    Adapt to X.Org standard coding style
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit fc918002801de4bd7334867365836bd0ba94c654
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 12:12:08 2021 -0800
+
+    Fix spelling/wording issues
+    
+    Found by using:
+        codespell --builtin clear,rare,usage,informal,code,names
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit a1507b66e8e48af8a9612ff51b6d382ef0a4e0d8
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Nov 21 17:14:04 2018 -0800
+
+    Update configure.ac bug URL for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit c2807f825b73e6b8310b8281245e8ac42d550250
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 16 22:35:18 2018 -0800
+
+    Update README for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 637ba8863fa94210a7642e9460f314ec41867796
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Mar 9 17:57:46 2018 -0800
+
+    xlsfonts 1.0.6
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 30c80ba590b9ecfbc2462da394b99c46b18e9334
+Author: Mihail Konev <k.mvc@ya.ru>
+Date:   Thu Jan 26 14:00:21 2017 +1000
+
+    autogen: add default patch prefix
+    
+    Signed-off-by: Mihail Konev <k.mvc@ya.ru>
+
+commit 6dc381430b53eae2b4a13df47adf87d947c0cba7
+Author: Emil Velikov <emil.l.velikov@gmail.com>
+Date:   Mon Mar 9 12:00:52 2015 +0000
+
+    autogen.sh: use quoted string variables
+    
+    Place quotes around the $srcdir, $ORIGDIR and $0 variables to prevent
+    fall-outs, when they contain space.
+    
+    Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
+    Reviewed-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit 082555e57d3b0d9e9c53cc6ded7efb522ec121a8
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Jan 24 10:32:07 2017 +1000
+
+    autogen.sh: use exec instead of waiting for configure to finish
+    
+    Syncs the invocation of configure with the one from the server.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+
+commit 613e16765c9bfa4913c1e0c742581b217fd1d112
+Author: Niveditha Rau <niveditha.rau@oracle.com>
+Date:   Fri Apr 24 11:11:25 2015 -0700
+
+    Add -v option to synopsis in man page
+    
+    Signed-off-by: Niveditha Rau <niveditha.rau@oracle.com>
+    Reviewed-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 277fe499b981f354b29116d0a930599ad02978f8
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Apr 16 23:52:15 2015 -0700
+
+    xlsfonts 1.0.5
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 1e9f5766ab5a70da286f5271aa63901956517086
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 23:22:35 2014 -0700
+
+    Remove old CVS id tags
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit de4d0b6138f35acd12d1206cdd292376418a02c1
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 23:20:51 2014 -0700
+
+    Add -version option to print program version
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit a0b3cf16cdd208ca9b0c86631999df047cbe8817
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 23:15:25 2014 -0700
+
+    Print which option was in error along with usage message
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit f37a5d583909db89059826cf3dcfe24e7b95164e
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 22:57:15 2014 -0700
+
+    autogen.sh: Honor NOCONFIGURE=1
+    
+    See http://people.gnome.org/~walters/docs/build-api.txt
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit e3bf732adf41f30b40343bf974461ea8f34f4475
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 22:57:15 2014 -0700
+
+    configure: Drop AM_MAINTAINER_MODE
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 90e1f25565badf90b5d73cbfdbd42be5601ab304
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 31 22:56:59 2014 -0700
+
+    config: Add missing AC_CONFIG_SRCDIR
+    
+    Regroup AC statements under the Autoconf initialization section.
+    Regroup AM statements under the Automake initialization section.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 87ffdc226daff7b6999fb36ac36c45fffd3e8980
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Apr 16 16:52:41 2012 -0700
+
+    xlsfonts 1.0.4
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit b9a08309bf5dcaaf1369d81095e459ae9ccbead5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Mon Apr 16 16:47:12 2012 -0700
+
+    Combine usage message strings
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 3c66627ec29473110432ed9d5448850ca4a293bb
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 11 23:17:31 2011 -0800
+
+    Add function attributes suggested by gcc warnings
+    
+    Mark usage() with _X_NORETURN
+    Mark Fatal_Error() with _X_ATTRIBUTE_PRINTF
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 1dd99ee7d52871c998d0944311260623d131521f
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 11 23:16:53 2011 -0800
+
+    Fix gcc -Wwrite-strings warnings
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 862292d9509856cfd311f9741db059b92a5fd78a
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Jan 28 20:06:16 2011 -0800
+
+    Use _X_NORETURN from xproto 7.0.17 instead of local check
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Reviewed-by: Julien Cristau <jcristau@debian.org>
+
+commit 431c1ed9e1b445e20a9c0413c3faeee566755b4d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Jan 28 20:02:03 2011 -0800
+
+    inline Realloc() at the one place it's called
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Reviewed-by: Julien Cristau <jcristau@debian.org>
+
+commit d1dbba01539a89e1d56ca261e18ae2e31f075cfe
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Jan 28 19:57:52 2011 -0800
+
+    Remove unneeded Malloc function
+    
+    The only place it was called was in Realloc, if the initial pointer was
+    NULL, but ANSI C89 already guarantees realloc(NULL, size) will be handled
+    as malloc(size), so we don't need to handle that case ourselves.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Reviewed-by: Julien Cristau <jcristau@debian.org>
+
+commit 184f5f3948b98abd21082e0cdc302502d70c3c49
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 19 10:06:56 2011 -0500
+
+    config: move man pages into their own directory
+    
+    Use services provided by XORG_MANPAGE_SECTIONS.
+    Use standard Makefile for man pages.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 29488409e79cd74dea1d24d43911849cf3a377be
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Jan 13 11:15:47 2011 -0500
+
+    man: remove trailing spaces and tabs
+    
+    Using s/[ \t]*$//
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 4381b50d4cc6d49cddf186dbeab85de1d15e2c53
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 16:28:02 2011 -0500
+
+    config: replace deprecated AM_CONFIG_HEADER with AC_CONFIG_HEADERS
+    
+    This silences an Autoconf warning
+
+commit 59987462e79a2d2e2fe9b6b4442fe9d845b01f63
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 15:12:08 2011 -0500
+
+    config: remove unrequired AC_SUBST([*_LIBS])
+    
+    This macro is called by PKG_CHECK_MODULES
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit de09e9a73ec248f0ac3c7d00fb3f7cc1472e34fd
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 13:33:48 2011 -0500
+
+    config: remove unrequired AC_SUBST([*_CFLAGS])
+    
+    This macro is called by PKG_CHECK_MODULES
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 19e1d10ad952691087c41ffa39f2f38ac8b924c6
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 13:10:21 2011 -0500
+
+    config: remove AC_PROG_CC as it overrides AC_PROG_C_C99
+    
+    XORG_STRICT_OPTION from XORG_DEFAULT_OPTIONS calls
+    AC_PROG_C_C99. This sets gcc with -std=gnu99.
+    If AC_PROG_CC macro is called afterwards, it resets CC to gcc.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit acb9f60a6431b65da919d50b0d9438f02a2c2153
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 11:54:40 2011 -0500
+
+    config: use AC_PROG_INSTALL now supplied by XORG_DEFAULT_OPTIONS
+    
+    It depends on util-macros 1.8 or later
+    The existing statement can now be removed from the configuration file.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit e5e6e0f951ceb9991a19c9e22710d0cc4603110d
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 11:23:52 2011 -0500
+
+    config: upgrade to util-macros 1.8 for additional man page support
+    
+    Use MAN_SUBST now supplied in XORG_MANPAGE_SECTIONS
+    The value of MAN_SUBST is the same for all X.Org packages.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 053ab67df504b78cc9524f57ee556ba3a3ae9793
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Jan 12 10:21:24 2011 -0500
+
+    config: update AC_PREREQ statement to 2.60
+    
+    Unrelated to the previous patches, the new value simply reflects
+    the reality that the minimum level for autoconf to configure
+    all x.org modules in one pass is 2.60 dated June 2006.
+    
+    A version later than 2.60 can be used, but no new features from such
+    a later version can be used in configure.ac.
+    
+    Although the code in this module can be configured with a version earlier
+    than 2.60, most of code is now contained in macros from util-macros
+    which use features of version 2.60, at the present or in the future.
+    
+    ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.60.tar.gz
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 0b7dd26f5e7c3d3a780f71c74118e8adfd9ac04d
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Fri Aug 27 20:41:56 2010 -0400
+
+    Change xlsfonts DocBook XML file extension from .sgml to .xml
+    
+    This file is used as the input format for the man page.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 0e2aac955e2a3887cb2dcb356f296b58f9e3b5df
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Aug 6 11:29:09 2010 -0700
+
+    Fill in COPYING file with copyright notices from source code
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 922c6ce1384df559116d764598b81c375e9e5790
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Sat Jun 12 01:53:46 2010 +0200
+
+    Bump to 1.0.3
+
+commit 94e0301bc885226fa938d97cdea80aa0641852e4
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Sat Jun 12 01:53:24 2010 +0200
+
+    Require xorg-macros 1.4 for INSTALL_CMD
+
+commit b8a4fec22f8c625b9fa5f48ebb135a4251fb95cd
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Sat Jun 12 01:48:45 2010 +0200
+
+    Use string literals as format strings
+    
+    Allows gcc to check argument types, and avoids warnings:
+    xlsfonts.c:632: warning: format not a string literal, argument types not checked
+
+commit f21fa74b794b301c022519bb319a952642bb55fc
+Author: Julien Cristau <jcristau@debian.org>
+Date:   Sat Jun 12 01:44:28 2010 +0200
+
+    Remove _bitmap_error prototype from dsimple.c
+    
+    The function itself was dropped in
+    77c46f5ed8d96106ff117f89932ada0439193cb6.
+
+commit df4fc8e66daef31fb4d6dba92ad2b590043c2c16
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Feb 11 10:08:07 2010 -0500
+
+    config: move CWARNFLAGS from configure.ac to Makefile.am
+    
+    Compiler warning flags should be explicitly set in the makefile
+    rather than being merged with other packages compiler flags.
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 4942d87b8f285b5c297850243f2321fe52417d89
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Nov 26 09:19:54 2009 -0500
+
+    Makefile.am: add ChangeLog and INSTALL on MAINTAINERCLEANFILES
+    
+    Now that the INSTALL file is generated.
+    Allows running make maintainer-clean.
+
+commit f3b063653c915f8cf14c255ce155f9c3dcd7de5e
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Wed Oct 28 14:09:08 2009 -0400
+
+    INSTALL, NEWS, README or AUTHORS files are missing/incorrect #24206
+    
+    Add missing INSTALL file. Use standard GNU file on building tarball
+    README may have been updated
+    Remove AUTHORS file as it is empty and no content available yet.
+    Remove NEWS file as it is empty and no content available yet.
+
+commit 71409ac8501b5199683609752175d6207b909dd1
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Tue Oct 27 15:07:25 2009 -0400
+
+    Deploy the new XORG_DEFAULT_OPTIONS #24242
+    
+    This macro aggregate a number of existing macros that sets commmon
+    X.Org components configuration options. It shields the configuration file from
+    future changes.
+
+commit 509023d3d1915658768c245faeb4291c7082303b
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Mon Oct 26 22:08:39 2009 -0400
+
+    Makefile.am: ChangeLog not required: EXTRA_DIST or *CLEANFILES #24432
+    
+    ChangeLog filename is known to Automake and requires no further
+    coding in the makefile.
+
+commit db151b864af443a00c7ddb45fb950b86c786b62a
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Thu Oct 22 12:34:15 2009 -0400
+
+    .gitignore: use common defaults with custom section # 24239
+    
+    Using common defaults will reduce errors and maintenance.
+    Only the very small or inexistent custom section need periodic maintenance
+    when the structure of the component changes. Do not edit defaults.
+
+commit c275d500f99c45730a171f072499824d8bbac52f
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sun Sep 27 16:05:57 2009 -0400
+
+    Makefile.am: do not include autogen.sh in distribution #24183
+    
+    This is a private build script that should not be distributed
+
+commit 945735806c440ca4127e54fe3fd34d53e192a138
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Oct 1 14:54:26 2009 -0700
+
+    Add README with pointers to mailing lists, bugzilla, & git
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 77c46f5ed8d96106ff117f89932ada0439193cb6
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Jun 26 21:19:42 2009 -0700
+
+    Remove unused code from dsimple.c
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 74003cdc55c5ca091c0804328c3d140b2b38baa4
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Jun 26 21:08:37 2009 -0700
+
+    Remove unused Xprint support
+    
+    BUILD_PRINTSUPPORT has never been defined in autoconf/automake builds,
+    so it hasn't been built since 6.9
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 36c17f9c944955968450da73decbbb4def72a115
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Thu Jan 22 15:56:40 2009 -0200
+
+    Correct make distcheck.
+
+commit 1ac29d73633d50b37871f60db95de47fad58cd93
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Sun Mar 16 18:27:14 2008 -0300
+
+    Compile warning fixes.
+    
+      Ansify functions in dsimple.c.
+      Protect unused variables around the related ifdef.
+
+commit dae232f6b65e06c44d8f2332a9d10f68115d7c79
+Author: Branden Robinson <branden@debian.org>
+Date:   Fri Feb 11 02:14:27 2005 -0500
+
+    Do not spew usage on connection error
+    
+    General philosophy:
+    
+    The user should only be shown a usage message when:
+      * it is asked for with a --help option or the like.
+      * the command line is syntactically invalid.
+
+commit 78779cf48ec892325c4e3a9962f4a96c1c4c4b89
+Author: James Cloos <cloos@jhcloos.com>
+Date:   Thu Dec 6 15:51:08 2007 -0500
+
+    Add missing PHONY line for automatic ChangeLog generation
+
+commit c06da04f53d4f85ff67c73db3a8f24750297f1d7
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Feb 1 13:53:37 2007 -0800
+
+    Version bump: 1.0.2
+
+commit 808126e79c99595e42147413898cf4180869cdcd
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Feb 1 13:53:01 2007 -0800
+
+    Replace static ChangeLog with dist-hook to generate from git log
+
+commit f66e6d2d380457b1f8349eba3621bc3e96359a00
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Feb 1 13:25:32 2007 -0800
+
+    renamed: .cvsignore -> .gitignore
+
+commit e498d20b6de51fcb72899216553125b348103a87
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Feb 1 13:25:01 2007 -0800
+
+    Use __xorgversion__ instead of manually set date in man page .TH line
+
+commit d77488aa710457262bed09302efe8ead9c4e3c8e
+Author: Eric S. Raymond <esr@thyrsus.com>
+Date:   Tue Jan 2 19:16:13 2007 -0800
+
+    Bug 9519: Markup problems in xlsfonts.1x
+    
+    <https://bugs.freedesktop.org/show_bug.cgi?id=9519>
+
+commit a59972fe058d8e45f2550f65cf97b1be74fff833
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Dec 21 02:29:52 2005 +0000
+
+    Update package version for X11R7 release.
+
+commit 8cf29f5e347cb3a8d39c82e8987b68860f69bf30
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Mon Dec 19 16:22:45 2005 +0000
+
+    Stub COPYING files
+
+commit 41a956218a1a6527898141124278a46cd7bbb084
+Author: Kevin E Martin <kem@kem.org>
+Date:   Thu Dec 15 00:24:09 2005 +0000
+
+    Update package version number for final X11R7 release candidate.
+
+commit 21f89da6a5068e9c006b051dcc736a8387805781
+Author: Kevin E Martin <kem@kem.org>
+Date:   Tue Dec 6 22:48:23 2005 +0000
+
+    Change *man_SOURCES ==> *man_PRE to fix autotools warnings.
+
+commit 49d2ba57cada2d31438cf7f72ee3aed8e4e61230
+Author: Kevin E Martin <kem@kem.org>
+Date:   Sat Dec 3 05:49:26 2005 +0000
+
+    Update package version number for X11R7 RC3 release.
+
+commit 48b3d44f852d2109656c887b64d29592b1d8d247
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Nov 28 22:01:44 2005 +0000
+
+    Change *mandir targets to use new *_MAN_DIR variables set by xorg-macros.m4
+        update to fix bug #5167 (Linux prefers *.1x man pages in man1 subdir)
+
+commit b9a35789740814a127c698153144477966867cb7
+Author: Eric Anholt <anholt@freebsd.org>
+Date:   Mon Nov 21 10:35:02 2005 +0000
+
+    Another pass at .cvsignores for apps.
+
+commit 3cd1203fc8b834d2793b6577a705855c0f35a8b4
+Author: Eric Anholt <anholt@freebsd.org>
+Date:   Sun Nov 20 22:08:54 2005 +0000
+
+    Add/improve .cvsignore files for apps.
+
+commit a959f0c7eeece2e10520c0253fc6b72e8bf96c86
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Oct 19 02:47:55 2005 +0000
+
+    Update package version number for RC1 release.
+
+commit b005ec81035d21ecceb436bf95ad10c618110e49
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Oct 17 23:56:24 2005 +0000
+
+    Use @APP_MAN_SUFFIX@ instead of $(APP_MAN_SUFFIX) in macro substitutions to
+        work better with BSD make
+
+commit 01abfc66e7214ecb3e1e6000394ae80433033d86
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Fri Oct 14 00:25:46 2005 +0000
+
+    Use sed to fill in variables in man page
+
+commit a14dadced2dc1724a9ca0916c9cb2c0f3c46f6c7
+Author: Kevin E Martin <kem@kem.org>
+Date:   Tue Oct 4 23:57:07 2005 +0000
+
+    Add sgml file to EXTRA_DIST
+
+commit 8c64f857aefde58e1554adaedb61b695d23c7482
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Aug 1 20:25:30 2005 +0000
+
+    Install man pages to section 1 instead of section m (Patch from Donnie
+        Berkholz)
+
+commit 4d51bc1a902bfb321e82217ba7327a8d5284b2ee
+Author: Kevin E Martin <kem@kem.org>
+Date:   Fri Jul 29 21:22:36 2005 +0000
+
+    Various changes preparing packages for RC0:
+    - Verify and update package version numbers as needed
+    - Implement versioning scheme
+    - Change bug address to point to bugzilla bug entry form
+    - Disable loadable i18n in libX11 by default (use --enable-loadable-i18n to
+        reenable it)
+    - Fix makedepend to use pkgconfig and pass distcheck
+    - Update build script to build macros first
+    - Update modular Xorg version
+
+commit c1eb6f0ceb21e9a541c560db2daa67952a528de2
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Wed Jul 20 19:32:02 2005 +0000
+
+    Use a unique token for PKG_CHECK_MODULES. Otherwise, if you use a global
+        configure cache, you cache it, and the cached value is probably wrong.
+
+commit 8eab7c1c0df42316eca01fb7038efb2be1667b79
+Author: Søren Sandmann Pedersen  <sandmann@daimi.au.dk>
+Date:   Tue Jul 5 22:51:10 2005 +0000
+
+    Add build systems for xlogo, xlsatoms, xlsclients, xmag, xman, xmessage,
+        xmh, xmore. lib/Xaw/xaw.m4: Add an AM_CONDITIONAL and a shell variable
+        xaw_use_xprint symlink.sh: add some extra files for xgc, xinit,
+        xkbcomp, xlogo, xmb, and xmodmap xc/programs/xmore/xmore.c:
+        Conditionalize use of xprint
+
+commit 105875357c72e58dea0fa50c3746f8f62e2b4243
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Mon Jan 3 01:06:35 2005 +0000
+
+    xc/lib/XprintAppUtil/xpapputil.c
+    xc/lib/XprintAppUtil/xpapputil.h
+    xc/lib/XprintUtil/xprintutil.c
+    xc/lib/XprintUtil/xprintutil.h
+    xc/programs/glxgears/glxgears.c
+    xc/programs/xdbedizzy/xdbedizzy.c
+    xc/programs/xedit/Xedit-xprint.ad
+    xc/programs/xedit/commands.c
+    xc/programs/xlogo/print.c
+    xc/programs/xlsfonts/xlsfonts.c
+    xc/programs/xlsfonts/xlsfonts.man
+    xc/programs/xlsfonts/xlsfonts.sgml
+    xc/programs/xman/Xman-xprint.ad
+    xc/programs/xman/handler.c
+    xc/programs/xman/print.c
+    xc/programs/xman/print.h
+    xc/programs/xmore/XMore.ad
+    xc/programs/xmore/print.c
+    xc/programs/xmore/print.h
+    xc/programs/xmore/printdialog.c
+    xc/programs/xmore/printdialog.h
+    xc/programs/xmore/printdialogprivates.h
+    xc/programs/xmore/xmore.c
+    xc/programs/xphelloworld/xpawhelloworld/xpawhelloworld.c
+    xc/programs/xphelloworld/xphelloworld/xphelloworld.c
+    xc/programs/xphelloworld/xpsimplehelloworld/xpsimplehelloworld.c
+    xc/programs/xphelloworld/xpxmhelloworld/xpxmhelloworld.c
+    xc/programs/xphelloworld/xpxthelloworld/xpxthelloworld.c
+    xc/programs/xplsprinters/xplsprinters.c
+    //bugs.freedesktop.org/show_bug.cgi?id=1706) attachment #1615
+        (https://bugs.freedesktop.org/attachment.cgi?id=1615): XprintUtils
+        2004/Q3 update. This adds various new features to the XprintUtils
+        library including support for page resolutions where
+        X_resolution!=Y_resolution, listfonts-mode control and initial
+        framework for the COLORSPACE extension. Patch by Roland Mainz
+        <roland.mainz@nrubsig.org> and Julien Lafon <julien.lafon@gmail.com>.
+
+commit ae8577dff6379de49740660194e5e8d0b33bca58
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Fri Oct 8 02:39:41 2004 +0000
+
+    Fix for https://freedesktop.org/bugzilla/show_bug.cgi?id=1557 - Update
+        DocBook SGML+XML manual pages and docmentation and the in-tree copies
+        of the generated files (*.man, *.html) to get them properly working
+        with newer versions of the tools within the Xorg tree.
+
+commit 22ac7ab05c6917dbd36be4ea0429cef2a6e3fa0e
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Thu Oct 7 03:53:20 2004 +0000
+
+    Fix for https://freedesktop.org/bugzilla/show_bug.cgi?id=1551 - Convert
+        "xlsfonts" manual page to DocBook format (and document the new
+        functionality introduced with bug #1518).
+
+commit 856414eb1a5a20f379472b9eaa0f114c6c18d806
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Wed Oct 6 19:29:59 2004 +0000
+
+    Fix for https://freedesktop.org/bugzilla/show_bug.cgi?id=1518 - Add filter
+        support to "xlsfonts" that it can filter builtin-, glyph- and/or other
+        kinds of printer fonts (controlled by the xp-listfonts-modes attribute
+        as described in the CDE DtPrint and Xprint specifications).
+
+commit 27d3336d79d9915a1b33be561e99bd24c3b474d8
+Author: Egbert Eich <eich@suse.de>
+Date:   Fri Apr 23 19:54:58 2004 +0000
+
+    Merging XORG-CURRENT into trunk
+
+commit 0f7f8ddb0865dadf679b7e1cc468f9ff09a62f75
+Author: Egbert Eich <eich@suse.de>
+Date:   Sun Mar 14 08:35:37 2004 +0000
+
+    Importing vendor version xf86-4_4_99_1 on Sun Mar 14 00:26:39 PST 2004
+
+commit 4da443b33a3738d75fc6923169e1381e1e28240e
+Author: Egbert Eich <eich@suse.de>
+Date:   Wed Mar 3 12:13:14 2004 +0000
+
+    Importing vendor version xf86-4_4_0 on Wed Mar 3 04:09:24 PST 2004
+
+commit 5a6a9478b80ebe07a7ff05dd19d464c667349325
+Author: Egbert Eich <eich@suse.de>
+Date:   Thu Feb 26 13:36:26 2004 +0000
+
+    readding XFree86's cvs IDs
+
+commit 244f1d92d673144bd53805609f7f15744bc26c97
+Author: Egbert Eich <eich@suse.de>
+Date:   Thu Feb 26 09:24:14 2004 +0000
+
+    Importing vendor version xf86-4_3_99_903 on Wed Feb 26 01:21:00 PST 2004
+
+commit ef18ebade29f85a228da73a3ad13fe800cb7b62b
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Tue Nov 25 19:29:15 2003 +0000
+
+    XFree86 4.3.99.16 Bring the tree up to date for the Cygwin folks
+
+commit 491b5e903ad3091687ae39159aba3e434476f8d4
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Fri Nov 14 16:49:23 2003 +0000
+
+    XFree86 4.3.0.1
+
+commit eac4daf4fe3d99cc3a099067a62f791d33b8d2ca
+Author: Kaleb Keithley <kaleb@freedesktop.org>
+Date:   Fri Nov 14 15:54:54 2003 +0000
+
+    R6.6 is the Xorg base-line

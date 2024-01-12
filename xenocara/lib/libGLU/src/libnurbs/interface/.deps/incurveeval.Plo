@@ -1,0 +1,72 @@
+src/libnurbs/interface/incurveeval.lo: \
+  src/libnurbs/interface/incurveeval.cc /usr/include/c++/v1/stdlib.h \
+  /usr/include/c++/v1/__config /usr/include/c++/v1/__config_site \
+  /usr/include/sys/endian.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_endian.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/machine/endian.h /usr/include/pthread.h \
+  /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h /usr/include/c++/v1/stdio.h \
+  /usr/include/stdio.h src/libnurbs/interface/glcurveval.h \
+  src/include/gluos.h /usr/X11R6/include/GL/gl.h \
+  /usr/X11R6/include/GL/glext.h /usr/X11R6/include/KHR/khrplatform.h \
+  /usr/include/c++/v1/stdint.h /usr/include/stdint.h include/GL/glu.h \
+  src/libnurbs/internals/basiccrveval.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/displaymode.h \
+  src/libnurbs/internals/cachingeval.h
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/c++/v1/stdio.h:
+
+/usr/include/stdio.h:
+
+src/libnurbs/interface/glcurveval.h:
+
+src/include/gluos.h:
+
+/usr/X11R6/include/GL/gl.h:
+
+/usr/X11R6/include/GL/glext.h:
+
+/usr/X11R6/include/KHR/khrplatform.h:
+
+/usr/include/c++/v1/stdint.h:
+
+/usr/include/stdint.h:
+
+include/GL/glu.h:
+
+src/libnurbs/internals/basiccrveval.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/displaymode.h:
+
+src/libnurbs/internals/cachingeval.h:

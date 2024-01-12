@@ -1,0 +1,16 @@
+Release 0.3.9 (2014-06-11)
+==========================
+
+- Mark DEPTH_MASK as Unsigned int.
+- config: add bug URL to AC_INIT.
+- config: add missing COPYING file.
+- compile the library with standard xorg warning flags.
+- Fix compilation and linking issues with C++.
+
+Release 0.3.8 (2010-04-25)
+==========================
+
+- Split up renderutil into its own repository.
+- Check for malloc failure in xcb_render_util_composite_text_stream.
+- Link with -no-undefined.
+- Add AM_MAINTAINER_MODE for vendors.

@@ -1,0 +1,11 @@
+prefix=/usr/X11R6
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+dridriverdir=/usr/X11R6/lib/modules/dri
+
+Name: dri
+Description: Direct Rendering Infrastructure
+Version: 23.1.9
+Requires.private: libdrm >= 2.4.105
+Cflags: -I${includedir}

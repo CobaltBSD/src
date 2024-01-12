@@ -1,0 +1,35 @@
+src/libutil/project.lo: src/libutil/project.c src/include/gluos.h \
+  /usr/include/math.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/sys/limits.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/machine/limits.h /usr/X11R6/include/GL/gl.h \
+  /usr/X11R6/include/GL/glext.h /usr/X11R6/include/KHR/khrplatform.h \
+  /usr/include/stdint.h include/GL/glu.h src/libutil/gluint.h
+
+src/include/gluos.h:
+
+/usr/include/math.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/machine/limits.h:
+
+/usr/X11R6/include/GL/gl.h:
+
+/usr/X11R6/include/GL/glext.h:
+
+/usr/X11R6/include/KHR/khrplatform.h:
+
+/usr/include/stdint.h:
+
+include/GL/glu.h:
+
+src/libutil/gluint.h:

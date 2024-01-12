@@ -1,0 +1,12 @@
+prefix=/usr/X11R6
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Xpresent
+Description: X Present  Library
+Version: 1.0.1
+Requires: xproto presentproto >= 1.0
+Requires.private: x11 xext xfixes xrandr
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXpresent

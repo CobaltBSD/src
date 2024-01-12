@@ -1,0 +1,10 @@
+#!/bin/sh
+#	$OpenBSD: makeflist,v 1.3 2014/08/31 16:52:26 matthieu Exp $
+
+arch=$MACHINE
+listsdir=`pwd`/lists
+
+for setname in xbase xetc xfont xserv xshare 
+do
+	sh ./gensetlist $setname
+done | sort

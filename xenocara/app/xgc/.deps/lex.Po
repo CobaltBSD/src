@@ -1,0 +1,53 @@
+lex.o: lex.c /usr/include/stdio.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/sys/types.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/machine/endian.h \
+  /usr/include/string.h /usr/include/strings.h /usr/include/errno.h \
+  /usr/include/sys/errno.h /usr/include/stdlib.h /usr/include/inttypes.h \
+  /usr/include/sys/stdint.h /usr/X11R6/include/X11/X.h gram.h \
+  constants.h /usr/include/unistd.h /usr/include/sys/unistd.h
+
+/usr/include/stdio.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+/usr/X11R6/include/X11/X.h:
+
+gram.h:
+
+constants.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:

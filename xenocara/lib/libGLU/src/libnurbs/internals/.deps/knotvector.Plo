@@ -1,0 +1,57 @@
+src/libnurbs/internals/knotvector.lo: \
+  src/libnurbs/internals/knotvector.cc \
+  src/libnurbs/interface/glimports.h src/libnurbs/interface/mystdlib.h \
+  /usr/include/c++/v1/stdlib.h /usr/include/c++/v1/__config \
+  /usr/include/c++/v1/__config_site /usr/include/sys/endian.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/pthread.h /usr/include/stdlib.h /usr/include/sys/_null.h \
+  /usr/include/sys/types.h src/libnurbs/interface/mystdio.h \
+  src/libnurbs/internals/myassert.h /usr/include/assert.h \
+  src/libnurbs/internals/knotvector.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/defines.h
+
+src/libnurbs/interface/glimports.h:
+
+src/libnurbs/interface/mystdlib.h:
+
+/usr/include/c++/v1/stdlib.h:
+
+/usr/include/c++/v1/__config:
+
+/usr/include/c++/v1/__config_site:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/pthread.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/types.h:
+
+src/libnurbs/interface/mystdio.h:
+
+src/libnurbs/internals/myassert.h:
+
+/usr/include/assert.h:
+
+src/libnurbs/internals/knotvector.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/defines.h:

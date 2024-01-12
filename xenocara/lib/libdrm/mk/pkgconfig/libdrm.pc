@@ -1,0 +1,9 @@
+prefix=/usr/X11R6
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libdrm
+Description: Userspace interface to kernel DRM services
+Version: 2.4.115
+Libs: -L${libdir} -ldrm
+Cflags: -I${includedir} -I${includedir}/libdrm

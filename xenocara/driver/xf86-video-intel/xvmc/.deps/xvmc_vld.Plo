@@ -1,0 +1,264 @@
+xvmc_vld.lo: xvmc_vld.c intel_xvmc_private.h /usr/include/pthread.h \
+  /usr/include/sys/types.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/sys/time.h /usr/include/sys/select.h /usr/include/time.h \
+  /usr/include/sys/_null.h /usr/include/sys/_time.h \
+  /usr/include/sys/signal.h /usr/include/machine/signal.h \
+  /usr/include/sys/siginfo.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/sched.h /usr/include/stdio.h \
+  /usr/include/stdlib.h /usr/include/unistd.h /usr/include/sys/unistd.h \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/signal.h \
+  /usr/include/fcntl.h /usr/include/dirent.h /usr/include/sys/dirent.h \
+  /usr/include/string.h /usr/include/strings.h /usr/include/assert.h \
+  /usr/include/stdint.h /usr/X11R6/include/xf86drm.h \
+  /usr/include/stdarg.h /usr/X11R6/include/libdrm/drm.h \
+  /usr/include/sys/ioccom.h /usr/X11R6/include/libdrm/drm_mode.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xlibint.h \
+  /usr/X11R6/include/X11/Xlib.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/stddef.h \
+  /usr/X11R6/include/X11/Xproto.h /usr/X11R6/include/X11/Xmd.h \
+  /usr/X11R6/include/X11/Xprotostr.h /usr/X11R6/include/X11/XlibConf.h \
+  /usr/X11R6/include/X11/Xfuncs.h /usr/X11R6/include/X11/Xutil.h \
+  /usr/X11R6/include/X11/keysym.h /usr/X11R6/include/X11/keysymdef.h \
+  /usr/X11R6/include/xorg/fourcc.h \
+  /usr/X11R6/include/X11/extensions/Xv.h \
+  /usr/X11R6/include/X11/extensions/Xvlib.h \
+  /usr/X11R6/include/X11/extensions/XShm.h \
+  /usr/X11R6/include/X11/extensions/shm.h \
+  /usr/X11R6/include/X11/extensions/XvMC.h \
+  /usr/X11R6/include/X11/extensions/XvMClib.h \
+  /usr/X11R6/include/X11/extensions/vldXvMC.h \
+  /usr/X11R6/include/libdrm/drm_sarea.h \
+  /usr/X11R6/include/libdrm/i915_drm.h \
+  /usr/X11R6/include/libdrm/intel_bufmgr.h intel_xvmc.h \
+  intel_batchbuffer.h i830_reg.h i965_reg.h brw_defines.h brw_structs.h \
+  shader/vld/lib.g4b shader/vld/ipicture.g4b \
+  shader/vld/frame_forward.g4b shader/vld/frame_backward.g4b \
+  shader/vld/frame_f_b.g4b shader/vld/field_forward.g4b \
+  shader/vld/field_backward.g4b shader/vld/field_f_b.g4b \
+  shader/vld/lib.g4b.gen5 shader/vld/ipicture.g4b.gen5 \
+  shader/vld/frame_forward.g4b.gen5 shader/vld/frame_backward.g4b.gen5 \
+  shader/vld/frame_f_b.g4b.gen5 shader/vld/field_forward.g4b.gen5 \
+  shader/vld/field_backward.g4b.gen5 shader/vld/field_f_b.g4b.gen5 \
+  shader/mc/lib_igd.g4b shader/mc/ipicture_igd.g4b \
+  shader/mc/frame_forward_igd.g4b shader/mc/frame_backward_igd.g4b \
+  shader/mc/frame_f_b_igd.g4b shader/mc/field_forward_igd.g4b \
+  shader/mc/field_backward_igd.g4b shader/mc/field_f_b_igd.g4b \
+  shader/mc/lib_igd.g4b.gen5 shader/mc/ipicture_igd.g4b.gen5 \
+  shader/mc/frame_forward_igd.g4b.gen5 \
+  shader/mc/frame_backward_igd.g4b.gen5 shader/mc/frame_f_b_igd.g4b.gen5 \
+  shader/mc/field_forward_igd.g4b.gen5 \
+  shader/mc/field_backward_igd.g4b.gen5 shader/mc/field_f_b_igd.g4b.gen5
+
+intel_xvmc_private.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_time.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/sys/siginfo.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/sched.h:
+
+/usr/include/stdio.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/include/signal.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/dirent.h:
+
+/usr/include/sys/dirent.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/assert.h:
+
+/usr/include/stdint.h:
+
+/usr/X11R6/include/xf86drm.h:
+
+/usr/include/stdarg.h:
+
+/usr/X11R6/include/libdrm/drm.h:
+
+/usr/include/sys/ioccom.h:
+
+/usr/X11R6/include/libdrm/drm_mode.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xlibint.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+/usr/X11R6/include/X11/XlibConf.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/X11R6/include/X11/Xutil.h:
+
+/usr/X11R6/include/X11/keysym.h:
+
+/usr/X11R6/include/X11/keysymdef.h:
+
+/usr/X11R6/include/xorg/fourcc.h:
+
+/usr/X11R6/include/X11/extensions/Xv.h:
+
+/usr/X11R6/include/X11/extensions/Xvlib.h:
+
+/usr/X11R6/include/X11/extensions/XShm.h:
+
+/usr/X11R6/include/X11/extensions/shm.h:
+
+/usr/X11R6/include/X11/extensions/XvMC.h:
+
+/usr/X11R6/include/X11/extensions/XvMClib.h:
+
+/usr/X11R6/include/X11/extensions/vldXvMC.h:
+
+/usr/X11R6/include/libdrm/drm_sarea.h:
+
+/usr/X11R6/include/libdrm/i915_drm.h:
+
+/usr/X11R6/include/libdrm/intel_bufmgr.h:
+
+intel_xvmc.h:
+
+intel_batchbuffer.h:
+
+i830_reg.h:
+
+i965_reg.h:
+
+brw_defines.h:
+
+brw_structs.h:
+
+shader/vld/lib.g4b:
+
+shader/vld/ipicture.g4b:
+
+shader/vld/frame_forward.g4b:
+
+shader/vld/frame_backward.g4b:
+
+shader/vld/frame_f_b.g4b:
+
+shader/vld/field_forward.g4b:
+
+shader/vld/field_backward.g4b:
+
+shader/vld/field_f_b.g4b:
+
+shader/vld/lib.g4b.gen5:
+
+shader/vld/ipicture.g4b.gen5:
+
+shader/vld/frame_forward.g4b.gen5:
+
+shader/vld/frame_backward.g4b.gen5:
+
+shader/vld/frame_f_b.g4b.gen5:
+
+shader/vld/field_forward.g4b.gen5:
+
+shader/vld/field_backward.g4b.gen5:
+
+shader/vld/field_f_b.g4b.gen5:
+
+shader/mc/lib_igd.g4b:
+
+shader/mc/ipicture_igd.g4b:
+
+shader/mc/frame_forward_igd.g4b:
+
+shader/mc/frame_backward_igd.g4b:
+
+shader/mc/frame_f_b_igd.g4b:
+
+shader/mc/field_forward_igd.g4b:
+
+shader/mc/field_backward_igd.g4b:
+
+shader/mc/field_f_b_igd.g4b:
+
+shader/mc/lib_igd.g4b.gen5:
+
+shader/mc/ipicture_igd.g4b.gen5:
+
+shader/mc/frame_forward_igd.g4b.gen5:
+
+shader/mc/frame_backward_igd.g4b.gen5:
+
+shader/mc/frame_f_b_igd.g4b.gen5:
+
+shader/mc/field_forward_igd.g4b.gen5:
+
+shader/mc/field_backward_igd.g4b.gen5:
+
+shader/mc/field_f_b_igd.g4b.gen5:

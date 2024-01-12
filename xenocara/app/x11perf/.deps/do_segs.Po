@@ -1,0 +1,66 @@
+do_segs.o: do_segs.c x11perf.h config.h /usr/X11R6/include/X11/Xlib.h \
+  /usr/include/sys/types.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/endian.h \
+  /usr/include/sys/_endian.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xfuncproto.h \
+  /usr/X11R6/include/X11/Xosdefs.h /usr/include/stddef.h \
+  /usr/include/sys/_null.h /usr/include/stdlib.h \
+  /usr/X11R6/include/X11/Xutil.h /usr/X11R6/include/X11/keysym.h \
+  /usr/X11R6/include/X11/keysymdef.h /usr/X11R6/include/X11/Xfuncs.h \
+  /usr/include/string.h /usr/include/strings.h \
+  /usr/X11R6/include/X11/extensions/Xrender.h \
+  /usr/X11R6/include/X11/extensions/render.h \
+  /usr/X11R6/include/X11/Xdefs.h
+
+x11perf.h:
+
+config.h:
+
+/usr/X11R6/include/X11/Xlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/stdlib.h:
+
+/usr/X11R6/include/X11/Xutil.h:
+
+/usr/X11R6/include/X11/keysym.h:
+
+/usr/X11R6/include/X11/keysymdef.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/X11R6/include/X11/extensions/Xrender.h:
+
+/usr/X11R6/include/X11/extensions/render.h:
+
+/usr/X11R6/include/X11/Xdefs.h:

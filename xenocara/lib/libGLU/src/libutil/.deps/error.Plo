@@ -1,0 +1,33 @@
+src/libutil/error.lo: src/libutil/error.c src/include/gluos.h \
+  src/libutil/gluint.h /usr/include/stddef.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  include/GL/glu.h /usr/X11R6/include/GL/gl.h \
+  /usr/X11R6/include/GL/glext.h /usr/X11R6/include/KHR/khrplatform.h \
+  /usr/include/stdint.h
+
+src/include/gluos.h:
+
+src/libutil/gluint.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+include/GL/glu.h:
+
+/usr/X11R6/include/GL/gl.h:
+
+/usr/X11R6/include/GL/glext.h:
+
+/usr/X11R6/include/KHR/khrplatform.h:
+
+/usr/include/stdint.h:

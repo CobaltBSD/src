@@ -1,0 +1,79 @@
+src/libtess/sweep.lo: src/libtess/sweep.c src/include/gluos.h \
+  /usr/include/assert.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/stddef.h \
+  /usr/include/sys/_null.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/setjmp.h \
+  /usr/include/machine/setjmp.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h src/libtess/mesh.h include/GL/glu.h \
+  /usr/X11R6/include/GL/gl.h /usr/X11R6/include/GL/glext.h \
+  /usr/X11R6/include/KHR/khrplatform.h /usr/include/stdint.h \
+  src/libtess/geom.h src/libtess/tess.h src/libtess/dict.h \
+  src/libtess/priorityq.h src/libtess/priorityq-heap.h \
+  src/libtess/memalloc.h /usr/include/stdlib.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h src/libtess/sweep.h
+
+src/include/gluos.h:
+
+/usr/include/assert.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/machine/setjmp.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+src/libtess/mesh.h:
+
+include/GL/glu.h:
+
+/usr/X11R6/include/GL/gl.h:
+
+/usr/X11R6/include/GL/glext.h:
+
+/usr/X11R6/include/KHR/khrplatform.h:
+
+/usr/include/stdint.h:
+
+src/libtess/geom.h:
+
+src/libtess/tess.h:
+
+src/libtess/dict.h:
+
+src/libtess/priorityq.h:
+
+src/libtess/priorityq-heap.h:
+
+src/libtess/memalloc.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+src/libtess/sweep.h:

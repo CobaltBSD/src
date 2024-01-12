@@ -1,0 +1,12 @@
+#!/bin/sh
+# 
+# $OpenBSD: Xstartup.in,v 1.4 2018/07/15 09:53:23 matthieu Exp $
+#
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+
+if [ -f /etc/nologin ]; then
+        @bindir@/xmessage -file /etc/nologin -timeout 30 -center
+        exit 1
+fi
+exec @bindir@/sessreg -a -l $DISPLAY -u none $USER

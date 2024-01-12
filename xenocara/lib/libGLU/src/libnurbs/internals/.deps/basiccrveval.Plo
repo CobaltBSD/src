@@ -1,0 +1,16 @@
+src/libnurbs/internals/basiccrveval.lo: \
+  src/libnurbs/internals/basiccrveval.cc \
+  src/libnurbs/interface/mystdio.h src/libnurbs/internals/types.h \
+  src/libnurbs/internals/basiccrveval.h \
+  src/libnurbs/internals/displaymode.h \
+  src/libnurbs/internals/cachingeval.h
+
+src/libnurbs/interface/mystdio.h:
+
+src/libnurbs/internals/types.h:
+
+src/libnurbs/internals/basiccrveval.h:
+
+src/libnurbs/internals/displaymode.h:
+
+src/libnurbs/internals/cachingeval.h:

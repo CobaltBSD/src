@@ -1,0 +1,79 @@
+
+# $OpenBSD: 3RDPARTY,v 1.419 2023/11/02 06:09:39 jsg Exp $
+#
+Package: 	Freetype
+Version:	2.13.0
+Current Vers:	2.13.0
+Maintainer:	Freetype.org
+Archive Site:	http://download.savannah.gnu.org/releases/freetype/
+
+Package:	xterm
+Version:	378
+Current Vers:	386
+Maintainer:	Thomas E. Dickey
+Archive Site:	http://invisible-island.net/xterm/xterm.html
+
+Package:	Mesa
+Version		23.1.9
+Current Vers:	23.2.1
+Maintainer:	Brian Paul
+Archive Site:	https://archive.mesa3d.org/
+
+Package:	libdrm
+Version:	2.4.115
+Current Vers:	2.4.117
+Maintainer:	Freedesktop.org
+Archive Site:	https://dri.freedesktop.org/libdrm/
+
+Package:	libGLU
+Version:	9.0.1
+Current Vers:	9.0.3
+Maintainer:	Matt Turner
+Archive Site:	https://archive.mesa3d.org/glu/
+
+Package:	libepoxy
+Version:	1.5.9
+Current Vers:	1.5.10
+Maintainer:	Emmanuele Bassi
+Archive Site:	https://github.com/anholt/libepoxy/releases
+
+Package:	fontconfig
+Version:	2.14.2
+Current Vers:	2.14.2
+Maintainer:	Akira TAGOH
+Archive Site:	https://www.fontconfig.org/
+
+Package:	DejaVu Fonts
+Version:	2.37
+Current Vers:	2.37
+Maintainer:	Freedesktop.org
+Archive Site:	https://dejavu-fonts.github.io/
+
+Package:	xlockmore
+Version:	5.22
+Current Vers:	5.69
+Maintainer:	David A. Bagley
+Archive Site:	http://sillycycle.com/xlock/
+
+Package:	xkeyboard-config
+Version:	2.20
+Current Vers:	2.35.1
+Maintainer:	xkb@listserv.bat.ru
+Archive Site:	https://www.freedesktop.org/wiki/Software/XKeyboardConfig/
+
+Package:	ssh-ask-pass
+Version:	1.2.4.1
+Current Vers:	1.2.4.1
+Maintainer:	Jim Knoble
+Archive Site:	http://www.jmknoble.net/software/x11-ssh-askpass/
+
+Package:	fvwm
+Version:	2.2.5
+Comment:	Locally forked, newer upstream versions have incompatible
+		licensing.
+
+Packge:		xcb-util-xrm
+Version:	1.0
+Current Vers:	1.3
+Maintainer:	Ingo Buerk
+Archive Site:	https://github.com/Airblader/xcb-util-xrm

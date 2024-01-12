@@ -1,0 +1,696 @@
+commit 2ca9da7c52152add1567deb11000cf9570577b12
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jul 10 15:55:09 2022 -0700
+
+    xpr 1.1.0
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5a3ca5e4f239db8be0975052911ceae1d4e4a3dc
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Apr 2 12:11:44 2022 -0700
+
+    xdpr.man: minor corrections
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit aafb02ad1e0580775d1f25b2a2469ccd9744e8f8
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Apr 2 12:09:55 2022 -0700
+
+    man pages: remove out-of-date COPYRIGHT section
+    
+    The information previously listed here didn't match what is present in
+    the source code or the COPYING file, and the X(7) man page doesn't list
+    any license information as this had claimed.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit d028dd60ebde9d7e5aeb3f7a6e5bc3dfbd8577d5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Tue Dec 7 12:44:25 2021 -0800
+
+    Build xz tarballs instead of bzip2
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 2ce8015efcf0828208dcd4da0fcf36c66012a0b8
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Tue Nov 30 11:28:14 2021 -0800
+
+    gitlab CI: enable Static Application Security Testing (SAST)
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit f7ae6067fd186c22c4cc0a3b57d776e492a520b1
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 17:30:33 2021 -0800
+
+    gitlab CI: Use ci-fairy image template
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 0d8629839550c50edcf648a1f4391d3f2bb56b1d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Nov 28 11:59:06 2021 -0800
+
+    Fix spelling/wording issues
+    
+    Found by using:
+        codespell --builtin clear,rare,usage,informal,code,names
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 2bcbe24155c6a631ddddcab6ce6f435a7dca62bd
+Author: Matthieu Herrb <matthieu@herrb.eu>
+Date:   Mon Oct 25 11:44:27 2021 +0200
+
+    remove extra 3rd parameter to open()
+    
+    When O_CREAT is not present in flags, this parameter is ignored.
+    
+    Signed-off-by: Matthieu Herrb <matthieu@herrb.eu>
+
+commit f7d5299db57e3e6ae654e561349c54a01b417e78
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Sep 12 14:48:36 2021 -0700
+
+    gitlab CI: add a basic build test
+    
+    Based on the config from libX11
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 91c9f2bf4de6a508b537afb95d45cab750a439d0
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Aug 1 15:21:52 2021 -0700
+
+    Remove support for Digital LN03 laser printer
+    
+    This DEC printer from the early 1980's is not widely used today.
+    This was the last remaining printer using the "sixel" and "sixmap"
+    support, so those functions were removed as well.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 6c22fc002e2b5a08c8678db673afa32fefea07a3
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Aug 1 14:56:54 2021 -0700
+
+    Remove support for Digital LA100 dot matrix printer
+    
+    This DEC printer from the early 1980's is not widely used today.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 9d9a64e094e4eb8ec5f391b7dd131231f9106dd6
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Aug 1 14:46:18 2021 -0700
+
+    xpr.man: show current version in footer instead of X11R6
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 63e5e8f9e50efa30fc7c6a4a0689ceba834a1c9c
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Aug 1 14:41:15 2021 -0700
+
+    xpr.man: remove duplicate "HP" from PaintJet XL Color name
+    
+    HP is not in fact so nice that we need to name it twice.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit bcd74f809413dee8682d8c51b08f6a6360c9b9e5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Aug 1 14:29:55 2021 -0700
+
+    Use time_t instead of long with time() & ctime()
+    
+    Fixes: #1
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 26ef28fd82d610c1908ca9a8ae3fda75c52befa3
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Wed Nov 21 17:16:45 2018 -0800
+
+    Update configure.ac bug URL for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit c322eb8f9eb6caf9d9903abd04c95043dc0e0457
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 16 22:44:28 2018 -0800
+
+    Update README for gitlab migration
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit ce80499aa7cadb253a815673bf6934df8132990a
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat May 5 12:49:40 2018 -0700
+
+    Standardize indentation in validate_visual()
+    
+    Fixes gcc 7.3 warnings:
+    x2jet.c: In function ‘validate_visual’:
+    x2jet.c:1057:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+         if (depth > 8)  invalid_depth_for_visual(depth, "GrayScale");    break;
+         ^~
+    x2jet.c:1057:70: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+         if (depth > 8)  invalid_depth_for_visual(depth, "GrayScale");    break;
+                                                                          ^~~~~
+    x2jet.c:1059:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+         if (depth > 8)  invalid_depth_for_visual(depth, "StaticGray");   break;
+         ^~
+    x2jet.c:1059:70: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+         if (depth > 8)  invalid_depth_for_visual(depth, "StaticGray");   break;
+                                                                          ^~~~~
+    x2jet.c:1061:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+         if (depth > 8)  invalid_depth_for_visual(depth, "PseudoColor");  break;
+         ^~
+    x2jet.c:1061:70: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+         if (depth > 8)  invalid_depth_for_visual(depth, "PseudoColor");  break;
+                                                                          ^~~~~
+    x2jet.c:1063:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+         if (depth > 8)  invalid_depth_for_visual(depth, "StaticColor");  break;
+         ^~
+    x2jet.c:1063:70: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+         if (depth > 8)  invalid_depth_for_visual(depth, "StaticColor");  break;
+                                                                          ^~~~~
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 0b852ef27abda922ae18b8042acd18104b25d596
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Mar 9 18:17:12 2018 -0800
+
+    xpr 1.0.5
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit db63d2a499ad1e4a9cc650d3ffb6795dea7d290e
+Author: Mihail Konev <k.mvc@ya.ru>
+Date:   Thu Jan 26 14:00:21 2017 +1000
+
+    autogen: add default patch prefix
+    
+    Signed-off-by: Mihail Konev <k.mvc@ya.ru>
+
+commit 8aa5668fb698ee43fccf1d71efab88895001d669
+Author: Emil Velikov <emil.l.velikov@gmail.com>
+Date:   Mon Mar 9 12:00:52 2015 +0000
+
+    autogen.sh: use quoted string variables
+    
+    Place quotes around the $srcdir, $ORIGDIR and $0 variables to prevent
+    fall-outs, when they contain space.
+    
+    Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
+    Reviewed-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+
+commit ef05b01918be35e5837f620d337e69a9279c2a13
+Author: Peter Hutterer <peter.hutterer@who-t.net>
+Date:   Tue Jan 24 10:32:07 2017 +1000
+
+    autogen.sh: use exec instead of waiting for configure to finish
+    
+    Syncs the invocation of configure with the one from the server.
+    
+    Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+    Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+
+commit 31d433e78ea47f308119ab38f3e514303f239ab9
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Dec 5 16:36:37 2015 -0800
+
+    Fix man page references to X(1) to use __miscmansuffix__
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit a4680cc6ffde72504b1cea750c164eb0f9852c4d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Oct 24 16:46:04 2014 -0700
+
+    More constification
+    
+    Shrinks .data from 1320 bytes to 72 bytes
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit eae93f9edbbcf5494500fcc6527eccabe4e29553
+Author: Matthieu Herrb <matthieu@herrb.eu>
+Date:   Fri Aug 8 16:23:46 2014 +0200
+
+    Use strcmp() to compare strings and simplify options parser.
+    
+    Signed-off-by: Matthieu Herrb <matthieu@herrb.eu>
+    Reviewed-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 5f369174777783fb9544b81cfdfab255d7e990a8
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 21:00:47 2014 -0700
+
+    Add -version option to print program version
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 007a72af45ea48e3ed5e750b4b39e034b102d2c0
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 20:54:22 2014 -0700
+
+    Print which option was in error along with usage message
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit e31a646861007e4014d38d6a53a672d63e4f11fa
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 19:40:53 2014 -0700
+
+    Fix "missmatch" typo in error message
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 45922f222d8d91a6faff778f5ceaa34ec8728501
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 19:37:27 2014 -0700
+
+    Combine strings in usage message
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit f85404c8f41a14c907d707933ee5643876bdde4d
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 19:21:51 2014 -0700
+
+    Remove old CVS id tags
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 6ac064621493c27c6e31b15e3faf8192638262fa
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 00:30:48 2014 -0700
+
+    autogen.sh: Honor NOCONFIGURE=1
+    
+    See http://people.gnome.org/~walters/docs/build-api.txt
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 756f9df2639ef9a58cba414d8c98394173bfbed9
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 00:30:48 2014 -0700
+
+    configure: Drop AM_MAINTAINER_MODE
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 7045be285a72316388814350d3b6bcf7675a2dbd
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sun Jun 1 00:30:41 2014 -0700
+
+    This is not a GNU project, so declare it foreign.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 235b6b1ac77b6f01a3cad60fe7e1b3cbc259879f
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Nov 15 23:04:10 2013 -0800
+
+    Remove unneeded uses of <math.h> & -lm
+    
+    Can't see why they were ever needed.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+    Reviewed-by: Gaetan Nadon <memsize@videotron.ca>
+
+commit 699aa034b8368a4052aa0318d4bca74dd688a7c2
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Mar 31 16:57:47 2012 -0700
+
+    xpr 1.0.4
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit c9b09f54d783689261855bd87a2bc68bfb3d9731
+Author: Jeremy Huddleston <jeremyhu@apple.com>
+Date:   Fri Nov 11 11:32:05 2011 -0800
+
+    Use memmove rather than bcopy
+    
+    bcopy was removed in POSIX 2008.  I didn't check to see if we could
+    safely use memcpy.
+    
+    Signed-off-by: Jeremy Huddleston <jeremyhu@apple.com>
+
+commit 28eaec94f936534573907425cf0fb5198979aab3
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Oct 6 22:40:45 2011 -0700
+
+    Add _X_NORETURN to usage() & leave() as suggested by gcc -Wmissing-noreturn
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 3b8fed17575db9d8d571d240bbaebd05d4547060
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Oct 6 22:38:36 2011 -0700
+
+    Add const attributes to fix gcc -Wwrite-strings warnings
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit b7d620037e130de1b0b309119c045d4f6a6ba8c5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Oct 6 22:35:31 2011 -0700
+
+    Fix printf type warnings in LP64 builds
+    
+    x2jet.c:300:6: warning: format ‘%ld’ expects type ‘long int’, but argument 4 has type ‘CARD32’
+    x2jet.c:300:6: warning: format ‘%ld’ expects type ‘long int’, but argument 5 has type ‘CARD32’
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 787f9d6d8f6dd6663af27e3cd21facaee6bed4f5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Thu Oct 6 22:33:33 2011 -0700
+
+    Strip trailing whitespace
+    
+    Performed with: find * -type f | xargs perl -i -p -e 's{[ \t]+$}{}'
+    git diff -w & git diff -b show no diffs from this change
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit fbd4b8fe00ba600b44232619425f76a6f4fa8208
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 11:45:11 2011 -0800
+
+    Define pixel mask constant as unsigned long
+    
+    Clears Sun Studio cc warning of:
+    "x2jet.c", line 1681: warning: constant promoted to unsigned long
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 0b7c07a1667c1f7e692b7694d374f27d46c3c923
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 11:41:41 2011 -0800
+
+    Refactor invalid depth error reporting to allow printf format checking
+    
+    Clears gcc warnings:
+    x2jet.c: In function `validate_visual':
+    x2jet.c:1053: warning: format not a string literal, argument types not checked
+    x2jet.c:1055: warning: format not a string literal, argument types not checked
+    x2jet.c:1057: warning: format not a string literal, argument types not checked
+    x2jet.c:1059: warning: format not a string literal, argument types not checked
+    x2jet.c:1064: warning: format not a string literal, argument types not checked
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit a02099a6869064c8b8c04a91acf5ece8568c7389
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 11:03:40 2011 -0800
+
+    Replace gcc noreturn & printf attributes with macros from <X11/Xfuncproto.h>
+    
+    Adds dependency on x11proto 7.0.17 to get the definition of _X_NORETURN
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 303aa90258f0ceff98e389b226860f0d0afe4c12
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 10:48:47 2011 -0800
+
+    config: Replace obsolete argument to AC_OUTPUT with AC_CONFIG_FILES
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 43f7a9381d0c056ee2a3da193fa8d953e5881dcc
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 10:47:32 2011 -0800
+
+    config: Remove unnecessary calls from configure.ac
+    
+    AC_PROG_CC & AC_PROG_INSTALL are provided by XORG_DEFAULT_OPTIONS now
+    PKG_CONFIG_MODULES handles AC_SUBST of the CFLAGS & LIBS variables
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit dde63ef2968b104d6deb99a2a56f576382b763a5
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 10:47:04 2011 -0800
+
+    config: replace deprecated AM_CONFIG_HEADER with AC_CONFIG_HEADERS
+    
+    Regroup AC statements under the Autoconf initialization section.
+    Regroup AM statements under the Automake initialization section.
+    Add missing AC_CONFIG_SRCDIR
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 9ffea606516f4138d91a163038b03669ce787b4a
+Author: Gaetan Nadon <memsize@videotron.ca>
+Date:   Sat Jan 29 10:44:22 2011 -0800
+
+    config: update AC_PREREQ statement to 2.60
+    
+    Unrelated to the previous patches, the new value simply reflects
+    the reality that the minimum level for autoconf to configure
+    all x.org modules is 2.60 dated June 2006.
+    
+    ftp://ftp.gnu.org/gnu/autoconf/autoconf-2.60.tar.gz
+    
+    Signed-off-by: Gaetan Nadon <memsize@videotron.ca>
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 96c2e6761517f2d8618e3b252e4825c25b5b7627
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Sat Jan 29 10:43:20 2011 -0800
+
+    config: upgrade to util-macros 1.8 for additional man page support
+    
+    Use MAN_SUBST now supplied in XORG_MANPAGE_SECTIONS
+    The value of MAN_SUBST is the same for all X.Org packages.
+    
+    Use AC_PROG_SED now supplied by XORG_DEFAULT_OPTIONS
+    Enables use of platform appropriate version of sed.
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit 11569289123fb178e23fd1aa284e9fa10e6c1e8c
+Author: Alan Coopersmith <alan.coopersmith@oracle.com>
+Date:   Fri Aug 6 15:09:48 2010 -0700
+
+    Fill in COPYING file with copyright notices from source code
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@oracle.com>
+
+commit ae7e1530f9e60e9a8747a1d4c38579510675f023
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Oct 16 19:13:21 2009 -0700
+
+    xpr 1.0.3
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit b4d488d7586892cfb8199b82a27f982a1717be66
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Fri Oct 16 19:12:22 2009 -0700
+
+    Migrate to xorg macros 1.3 & XORG_DEFAULT_OPTIONS
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit 304cd93438d75fe8b6964fe5a7bb077f031cac9e
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Thu Oct 1 14:54:29 2009 -0700
+
+    Add README with pointers to mailing lists, bugzilla, & git
+    
+    Signed-off-by: Alan Coopersmith <alan.coopersmith@sun.com>
+
+commit f53142c6882f08b646ebe6d614bb6f14d5dcdb57
+Author: Paulo Cesar Pereira de Andrade <pcpa@mandriva.com.br>
+Date:   Thu Jan 22 17:34:02 2009 -0200
+
+    Correct make distcheck and most gcc/sparse warnings.
+    
+      Remaining warnings are due to bit/shift operations mixed with
+    addition/multiplication/etc. "1<<2-1" should be read as
+    "1 << (2 - 1)", and not "(1 << 2) - 1". The first 2 warnings
+    appear to be for a confusing case, as a few lines bellow
+    it is adding parenthesis to the shift operation, but should be
+    being parsed correctly (not added parenthesis to avoid the
+    adding them wrong, and "hiding" the warning...)
+
+commit bee786458655a081487f2caff112f85aa0c3c8de
+Author: James Cloos <cloos@jhcloos.com>
+Date:   Thu Dec 6 15:51:08 2007 -0500
+
+    Add missing PHONY line for automatic ChangeLog generation
+
+commit cceb5d7387f8dcc39000f8e27b82230e9a8f5019
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Sat Jan 27 23:50:00 2007 -0800
+
+    Version bump: 1.0.2
+
+commit b3e250641a02791204a24ee955a41ce9371e35c3
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Sat Jan 27 23:47:11 2007 -0800
+
+    Replace static ChangeLog with dist-hook to generate from git
+
+commit 028ed782e7a3e502e54f1343d66b1311cb00a900
+Author: Alan Coopersmith <alan.coopersmith@sun.com>
+Date:   Tue Jan 2 19:03:44 2007 -0800
+
+    renamed: .cvsignore -> .gitignore
+
+commit 9049071794e0cdf8d72851f52481e053f6d21ca4
+Author: Eric S. Raymond <esr@thyrsus.com>
+Date:   Tue Jan 2 19:03:09 2007 -0800
+
+    Bug 9518: Markup problems on the xdpr.1 page
+    
+    <https://bugs.freedesktop.org/show_bug.cgi?id=9518>
+
+commit c7d48ec1d3206d6eb250072fe5eb1511b43f0af2
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Dec 21 02:29:53 2005 +0000
+
+    Update package version for X11R7 release.
+
+commit b5b4935d49c92babb1ff57d25f2e4ecb5491f80f
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Mon Dec 19 16:22:46 2005 +0000
+
+    Stub COPYING files
+
+commit d3840fd1c4ee62bb3c556fec71e17fe59740ecc3
+Author: Kevin E Martin <kem@kem.org>
+Date:   Thu Dec 15 00:24:10 2005 +0000
+
+    Update package version number for final X11R7 release candidate.
+
+commit bd9c0b849104aeb68b297171246cc30bfdb6ddaa
+Author: Kevin E Martin <kem@kem.org>
+Date:   Tue Dec 6 22:48:24 2005 +0000
+
+    Change *man_SOURCES ==> *man_PRE to fix autotools warnings.
+
+commit 5597c26daba5072fd9a0c6f943a424946af98875
+Author: Kevin E Martin <kem@kem.org>
+Date:   Sat Dec 3 05:49:27 2005 +0000
+
+    Update package version number for X11R7 RC3 release.
+
+commit 9402168a108ff81c81a8137ed5882b928d9960bc
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Nov 28 22:01:46 2005 +0000
+
+    Change *mandir targets to use new *_MAN_DIR variables set by xorg-macros.m4
+        update to fix bug #5167 (Linux prefers *.1x man pages in man1 subdir)
+
+commit dfc64376daec039f564b023acc136af34a6f71ad
+Author: Eric Anholt <anholt@freebsd.org>
+Date:   Mon Nov 21 10:35:07 2005 +0000
+
+    Another pass at .cvsignores for apps.
+
+commit 84f2c29fd400a4d484622ac8b2eb7e7e90fda9b3
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Nov 21 03:14:16 2005 +0000
+
+    Change dependency from xmu to xmuu since the full xmu (with all its baggage
+        like Xt) is not needed here.
+
+commit a1e58da278e8ff4105d96c4e8068ac27e62eb13b
+Author: Eric Anholt <anholt@freebsd.org>
+Date:   Sun Nov 20 22:08:55 2005 +0000
+
+    Add/improve .cvsignore files for apps.
+
+commit e3857fb739d8f4aaa871e64585a48bff0d6537a4
+Author: Kevin E Martin <kem@kem.org>
+Date:   Wed Oct 19 02:47:56 2005 +0000
+
+    Update package version number for RC1 release.
+
+commit fa885773b5b96ec051bbc477da5b0eaff28edb3a
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Oct 17 23:56:24 2005 +0000
+
+    Use @APP_MAN_SUFFIX@ instead of $(APP_MAN_SUFFIX) in macro substitutions to
+        work better with BSD make
+
+commit 0cb5e946c3bdfb49101a6f018734a5cfe0db8f48
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Fri Oct 14 00:25:47 2005 +0000
+
+    Use sed to fill in variables in man page
+
+commit 67e02555f85d8c6374bb2618391e200aa5165cea
+Author: Alan Coopersmith <Alan.Coopersmith@sun.com>
+Date:   Mon Aug 1 20:25:32 2005 +0000
+
+    Install man pages to section 1 instead of section m (Patch from Donnie
+        Berkholz)
+
+commit ab0d5822ee12d003c1797f78dceec00c68c06be5
+Author: Kevin E Martin <kem@kem.org>
+Date:   Fri Jul 29 21:22:37 2005 +0000
+
+    Various changes preparing packages for RC0:
+    - Verify and update package version numbers as needed
+    - Implement versioning scheme
+    - Change bug address to point to bugzilla bug entry form
+    - Disable loadable i18n in libX11 by default (use --enable-loadable-i18n to
+        reenable it)
+    - Fix makedepend to use pkgconfig and pass distcheck
+    - Update build script to build macros first
+    - Update modular Xorg version
+
+commit 869f3a1bc4ff378d2c0437518b91154c43c16e87
+Author: Adam Jackson <ajax@nwnk.net>
+Date:   Wed Jul 20 19:32:03 2005 +0000
+
+    Use a unique token for PKG_CHECK_MODULES. Otherwise, if you use a global
+        configure cache, you cache it, and the cached value is probably wrong.
+
+commit e3928f9b676c1054790b5ef69b8a568e80482189
+Author: Søren Sandmann Pedersen  <sandmann@daimi.au.dk>
+Date:   Fri Jul 1 21:10:15 2005 +0000
+
+    symlink.sh: add xplsprinters.sgml xprehashprinterlist.sgml xdpr.script
+    Check in build systems for xpr, xprehashprinterlist, xplsprinters
+
+commit 5e2412e58e798657ae36bfddf643ff7da7b98e15
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Mon Nov 8 21:38:56 2004 +0000
+
+    xc/programs/xpr/x2jet.c
+    //freedesktop.org/bugzilla/show_bug.cgi?id=1795): Fix build bustage caused
+        by bug 1779, patch by Bernhard Rosenkraenzer <bero@arklinux.org>.
+
+commit aa81cc55645093145f346aa8ec490df00299c8fb
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Mon Nov 8 07:22:50 2004 +0000
+
+    xc/programs/xpr/x2jet.c
+    xc/programs/xpr/x2pmp.c
+    xc/programs/xpr/xpr.c
+    Fix various warnings, build problems in "xpr" and convert the whole source
+        from K&R style to ANSI-C.
+
+commit 9a961d11bea6be64c6f51b4f0829ff4fe2999c4a
+Author: Roland Mainz <roland.mainz@nrubsig.org>
+Date:   Sun Oct 31 02:14:06 2004 +0000
+
+    Fix for https://freedesktop.org/bugzilla/show_bug.cgi?id=631 - Uploading
+        "xpr" and "pclcomp" as they are needed for the RASTER and PCL drivers
+        on some platforms.

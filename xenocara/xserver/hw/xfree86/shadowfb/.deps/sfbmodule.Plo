@@ -1,0 +1,19 @@
+sfbmodule.lo: sfbmodule.c ../../../include/xorg-config.h \
+  ../../../include/dix-config.h ../../../include/xkb-config.h \
+  ../../../hw/xfree86/common/xf86Module.h \
+  /usr/X11R6/include/X11/Xfuncproto.h /usr/X11R6/include/X11/Xdefs.h \
+  /usr/X11R6/include/X11/Xmd.h
+
+../../../include/xorg-config.h:
+
+../../../include/dix-config.h:
+
+../../../include/xkb-config.h:
+
+../../../hw/xfree86/common/xf86Module.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/X11R6/include/X11/Xmd.h:

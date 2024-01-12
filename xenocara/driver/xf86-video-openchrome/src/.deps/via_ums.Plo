@@ -1,0 +1,396 @@
+via_ums.lo: via_ums.c ../config.h /usr/X11R6/include/xorg/xorg-server.h \
+  /usr/X11R6/include/xorg/globals.h /usr/X11R6/include/xorg/window.h \
+  /usr/X11R6/include/xorg/misc.h /usr/X11R6/include/X11/Xosdefs.h \
+  /usr/X11R6/include/X11/Xfuncproto.h /usr/X11R6/include/X11/Xmd.h \
+  /usr/X11R6/include/X11/X.h /usr/X11R6/include/X11/Xdefs.h \
+  /usr/include/stddef.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/cdefs.h /usr/include/sys/_null.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/stdint.h /usr/include/pthread.h /usr/include/sys/types.h \
+  /usr/include/sys/endian.h /usr/include/sys/_endian.h \
+  /usr/include/machine/endian.h /usr/include/sys/time.h \
+  /usr/include/sys/select.h /usr/include/time.h /usr/include/sys/_time.h \
+  /usr/include/sys/signal.h /usr/include/machine/signal.h \
+  /usr/include/sys/siginfo.h /usr/include/limits.h \
+  /usr/include/sys/limits.h /usr/include/machine/limits.h \
+  /usr/include/sys/syslimits.h /usr/include/sched.h \
+  /usr/X11R6/include/xorg/os.h /usr/include/stdarg.h \
+  /usr/include/string.h /usr/include/strings.h /usr/include/stdio.h \
+  /usr/X11R6/include/xorg/Xprintf.h /usr/include/signal.h \
+  /usr/X11R6/include/X11/Xfuncs.h /usr/include/stdlib.h \
+  /usr/include/math.h /usr/include/assert.h /usr/include/ctype.h \
+  /usr/X11R6/include/xorg/region.h /usr/X11R6/include/xorg/regionstr.h \
+  /usr/X11R6/include/xorg/miscstruct.h \
+  /usr/X11R6/include/X11/Xprotostr.h \
+  /usr/X11R6/include/pixman-1/pixman.h \
+  /usr/X11R6/include/pixman-1/pixman-version.h /usr/include/inttypes.h \
+  /usr/include/sys/stdint.h /usr/X11R6/include/xorg/screenint.h \
+  /usr/X11R6/include/X11/Xproto.h /usr/X11R6/include/xorg/extinit.h \
+  /usr/X11R6/include/xorg/extnsionst.h /usr/X11R6/include/xorg/dix.h \
+  /usr/X11R6/include/xorg/callback.h /usr/X11R6/include/xorg/gc.h \
+  /usr/X11R6/include/xorg/pixmap.h \
+  /usr/X11R6/include/X11/extensions/randr.h \
+  /usr/X11R6/include/xorg/input.h /usr/X11R6/include/xorg/xkbrules.h \
+  /usr/X11R6/include/xorg/events.h /usr/X11R6/include/xorg/list.h \
+  /usr/X11R6/include/X11/extensions/XI2.h \
+  /usr/X11R6/include/xorg/cursor.h /usr/X11R6/include/xorg/privates.h \
+  /usr/X11R6/include/xorg/resource.h /usr/X11R6/include/xorg/dixaccess.h \
+  /usr/X11R6/include/xorg/geext.h \
+  /usr/X11R6/include/X11/extensions/geproto.h \
+  /usr/X11R6/include/X11/extensions/ge.h \
+  /usr/X11R6/include/X11/extensions/XI.h \
+  /usr/X11R6/include/xorg/extension.h \
+  /usr/X11R6/include/xorg/dixstruct.h /usr/X11R6/include/xorg/client.h \
+  /usr/X11R6/include/xorg/presentext.h \
+  /usr/X11R6/include/X11/extensions/dpmsconst.h via_driver.h \
+  /usr/X11R6/include/xorg/compiler.h /usr/include/errno.h \
+  /usr/include/sys/errno.h /usr/X11R6/include/xorg/vgaHW.h \
+  /usr/X11R6/include/xorg/scrnintstr.h \
+  /usr/X11R6/include/xorg/colormap.h /usr/X11R6/include/xorg/validate.h \
+  /usr/X11R6/include/xorg/colormapst.h /usr/X11R6/include/xorg/xf86str.h \
+  /usr/X11R6/include/xorg/pixmapstr.h /usr/X11R6/include/xorg/damage.h \
+  /usr/X11R6/include/xorg/picturestr.h \
+  /usr/X11R6/include/xorg/glyphstr.h \
+  /usr/X11R6/include/X11/extensions/renderproto.h \
+  /usr/X11R6/include/X11/extensions/render.h \
+  /usr/X11R6/include/xorg/picture.h /usr/X11R6/include/xorg/xf86Module.h \
+  /usr/X11R6/include/xorg/xf86Opt.h \
+  /usr/X11R6/include/xorg/xf86Optionstr.h \
+  /usr/X11R6/include/xorg/displaymode.h \
+  /usr/X11R6/include/xorg/xf86Pci.h /usr/X11R6/include/X11/Xarch.h \
+  /usr/X11R6/include/pciaccess.h /usr/X11R6/include/xorg/xf86DDC.h \
+  /usr/X11R6/include/xorg/edid.h /usr/X11R6/include/xorg/xf86i2c.h \
+  /usr/X11R6/include/xorg/xf86.h /usr/X11R6/include/xorg/propertyst.h \
+  /usr/X11R6/include/xorg/property.h \
+  /usr/X11R6/include/xorg/xf86_OSproc.h /usr/X11R6/include/xorg/opaque.h \
+  /usr/X11R6/include/xorg/xf86cmap.h /usr/X11R6/include/xorg/xf86Crtc.h \
+  /usr/X11R6/include/xorg/randrstr.h /usr/X11R6/include/xorg/windowstr.h \
+  /usr/X11R6/include/xorg/servermd.h \
+  /usr/X11R6/include/xorg/rrtransform.h \
+  /usr/X11R6/include/X11/extensions/randrproto.h \
+  /usr/X11R6/include/xorg/xf86Modes.h \
+  /usr/X11R6/include/xorg/xorgVersion.h \
+  /usr/X11R6/include/xorg/xf86Parser.h \
+  /usr/X11R6/include/xorg/xf86Optrec.h \
+  /usr/X11R6/include/xorg/xf86Cursor.h \
+  /usr/X11R6/include/xorg/mipointer.h \
+  /usr/X11R6/include/xorg/xf86fbman.h \
+  /usr/X11R6/include/xorg/xf86RandR12.h /usr/X11R6/include/xorg/exa.h \
+  /usr/X11R6/include/xorg/gcstruct.h /usr/X11R6/include/xorg/fb.h \
+  /usr/X11R6/include/xorg/mi.h /usr/X11R6/include/X11/fonts/font.h \
+  /usr/X11R6/include/X11/fonts/fsmasks.h /usr/X11R6/include/xorg/migc.h \
+  /usr/X11R6/include/xorg/fbrop.h /usr/X11R6/include/xorg/micoord.h \
+  /usr/X11R6/include/xorg/fourcc.h /usr/X11R6/include/xorg/micmap.h \
+  compat-api.h drmmode_display.h via_3d.h via_dmabuffer.h via_3d_reg.h \
+  via_memmgr.h via_regs.h via_ums.h via_vgahw.h via_xv.h \
+  via_xv_overlay.h via_xvpriv.h /usr/X11R6/include/xorg/xf86xv.h \
+  /usr/X11R6/include/xorg/xvdix.h \
+  /usr/X11R6/include/X11/extensions/Xvproto.h
+
+../config.h:
+
+/usr/X11R6/include/xorg/xorg-server.h:
+
+/usr/X11R6/include/xorg/globals.h:
+
+/usr/X11R6/include/xorg/window.h:
+
+/usr/X11R6/include/xorg/misc.h:
+
+/usr/X11R6/include/X11/Xosdefs.h:
+
+/usr/X11R6/include/X11/Xfuncproto.h:
+
+/usr/X11R6/include/X11/Xmd.h:
+
+/usr/X11R6/include/X11/X.h:
+
+/usr/X11R6/include/X11/Xdefs.h:
+
+/usr/include/stddef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/_null.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/stdint.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/_time.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/sys/siginfo.h:
+
+/usr/include/limits.h:
+
+/usr/include/sys/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/include/sched.h:
+
+/usr/X11R6/include/xorg/os.h:
+
+/usr/include/stdarg.h:
+
+/usr/include/string.h:
+
+/usr/include/strings.h:
+
+/usr/include/stdio.h:
+
+/usr/X11R6/include/xorg/Xprintf.h:
+
+/usr/include/signal.h:
+
+/usr/X11R6/include/X11/Xfuncs.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/math.h:
+
+/usr/include/assert.h:
+
+/usr/include/ctype.h:
+
+/usr/X11R6/include/xorg/region.h:
+
+/usr/X11R6/include/xorg/regionstr.h:
+
+/usr/X11R6/include/xorg/miscstruct.h:
+
+/usr/X11R6/include/X11/Xprotostr.h:
+
+/usr/X11R6/include/pixman-1/pixman.h:
+
+/usr/X11R6/include/pixman-1/pixman-version.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+/usr/X11R6/include/xorg/screenint.h:
+
+/usr/X11R6/include/X11/Xproto.h:
+
+/usr/X11R6/include/xorg/extinit.h:
+
+/usr/X11R6/include/xorg/extnsionst.h:
+
+/usr/X11R6/include/xorg/dix.h:
+
+/usr/X11R6/include/xorg/callback.h:
+
+/usr/X11R6/include/xorg/gc.h:
+
+/usr/X11R6/include/xorg/pixmap.h:
+
+/usr/X11R6/include/X11/extensions/randr.h:
+
+/usr/X11R6/include/xorg/input.h:
+
+/usr/X11R6/include/xorg/xkbrules.h:
+
+/usr/X11R6/include/xorg/events.h:
+
+/usr/X11R6/include/xorg/list.h:
+
+/usr/X11R6/include/X11/extensions/XI2.h:
+
+/usr/X11R6/include/xorg/cursor.h:
+
+/usr/X11R6/include/xorg/privates.h:
+
+/usr/X11R6/include/xorg/resource.h:
+
+/usr/X11R6/include/xorg/dixaccess.h:
+
+/usr/X11R6/include/xorg/geext.h:
+
+/usr/X11R6/include/X11/extensions/geproto.h:
+
+/usr/X11R6/include/X11/extensions/ge.h:
+
+/usr/X11R6/include/X11/extensions/XI.h:
+
+/usr/X11R6/include/xorg/extension.h:
+
+/usr/X11R6/include/xorg/dixstruct.h:
+
+/usr/X11R6/include/xorg/client.h:
+
+/usr/X11R6/include/xorg/presentext.h:
+
+/usr/X11R6/include/X11/extensions/dpmsconst.h:
+
+via_driver.h:
+
+/usr/X11R6/include/xorg/compiler.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/usr/X11R6/include/xorg/vgaHW.h:
+
+/usr/X11R6/include/xorg/scrnintstr.h:
+
+/usr/X11R6/include/xorg/colormap.h:
+
+/usr/X11R6/include/xorg/validate.h:
+
+/usr/X11R6/include/xorg/colormapst.h:
+
+/usr/X11R6/include/xorg/xf86str.h:
+
+/usr/X11R6/include/xorg/pixmapstr.h:
+
+/usr/X11R6/include/xorg/damage.h:
+
+/usr/X11R6/include/xorg/picturestr.h:
+
+/usr/X11R6/include/xorg/glyphstr.h:
+
+/usr/X11R6/include/X11/extensions/renderproto.h:
+
+/usr/X11R6/include/X11/extensions/render.h:
+
+/usr/X11R6/include/xorg/picture.h:
+
+/usr/X11R6/include/xorg/xf86Module.h:
+
+/usr/X11R6/include/xorg/xf86Opt.h:
+
+/usr/X11R6/include/xorg/xf86Optionstr.h:
+
+/usr/X11R6/include/xorg/displaymode.h:
+
+/usr/X11R6/include/xorg/xf86Pci.h:
+
+/usr/X11R6/include/X11/Xarch.h:
+
+/usr/X11R6/include/pciaccess.h:
+
+/usr/X11R6/include/xorg/xf86DDC.h:
+
+/usr/X11R6/include/xorg/edid.h:
+
+/usr/X11R6/include/xorg/xf86i2c.h:
+
+/usr/X11R6/include/xorg/xf86.h:
+
+/usr/X11R6/include/xorg/propertyst.h:
+
+/usr/X11R6/include/xorg/property.h:
+
+/usr/X11R6/include/xorg/xf86_OSproc.h:
+
+/usr/X11R6/include/xorg/opaque.h:
+
+/usr/X11R6/include/xorg/xf86cmap.h:
+
+/usr/X11R6/include/xorg/xf86Crtc.h:
+
+/usr/X11R6/include/xorg/randrstr.h:
+
+/usr/X11R6/include/xorg/windowstr.h:
+
+/usr/X11R6/include/xorg/servermd.h:
+
+/usr/X11R6/include/xorg/rrtransform.h:
+
+/usr/X11R6/include/X11/extensions/randrproto.h:
+
+/usr/X11R6/include/xorg/xf86Modes.h:
+
+/usr/X11R6/include/xorg/xorgVersion.h:
+
+/usr/X11R6/include/xorg/xf86Parser.h:
+
+/usr/X11R6/include/xorg/xf86Optrec.h:
+
+/usr/X11R6/include/xorg/xf86Cursor.h:
+
+/usr/X11R6/include/xorg/mipointer.h:
+
+/usr/X11R6/include/xorg/xf86fbman.h:
+
+/usr/X11R6/include/xorg/xf86RandR12.h:
+
+/usr/X11R6/include/xorg/exa.h:
+
+/usr/X11R6/include/xorg/gcstruct.h:
+
+/usr/X11R6/include/xorg/fb.h:
+
+/usr/X11R6/include/xorg/mi.h:
+
+/usr/X11R6/include/X11/fonts/font.h:
+
+/usr/X11R6/include/X11/fonts/fsmasks.h:
+
+/usr/X11R6/include/xorg/migc.h:
+
+/usr/X11R6/include/xorg/fbrop.h:
+
+/usr/X11R6/include/xorg/micoord.h:
+
+/usr/X11R6/include/xorg/fourcc.h:
+
+/usr/X11R6/include/xorg/micmap.h:
+
+compat-api.h:
+
+drmmode_display.h:
+
+via_3d.h:
+
+via_dmabuffer.h:
+
+via_3d_reg.h:
+
+via_memmgr.h:
+
+via_regs.h:
+
+via_ums.h:
+
+via_vgahw.h:
+
+via_xv.h:
+
+via_xv_overlay.h:
+
+via_xvpriv.h:
+
+/usr/X11R6/include/xorg/xf86xv.h:
+
+/usr/X11R6/include/xorg/xvdix.h:
+
+/usr/X11R6/include/X11/extensions/Xvproto.h:

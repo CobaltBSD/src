@@ -1,0 +1,24 @@
+# $OpenBSD: Makefile.bsd-wrapper,v 1.15 2022/06/26 14:09:51 matthieu Exp $
+
+.include <bsd.xconf.mk>
+
+config.status:
+	AUTOMAKE_VERSION="$(AUTOMAKE_VERSION)" \
+	AUTOCONF_VERSION="$(AUTOCONF_VERSION)" \
+	ACLOCAL="aclocal -I ${X11BASE}/share/aclocal" \
+	CC="${CC}" \
+	CFLAGS="${CFLAGS}" \
+	CXX="${CXX}" \
+	CXXFLAGS="${CXXFLAGS}" \
+	PKG_CONFIG_PATH="$(PKG_CONFIG_PATH)" \
+	CONFIG_SITE=$(CONFIG_SITE) \
+		sh ${.CURDIR}/configure --prefix=${X11BASE} \
+		--datarootdir=${X11BASE} \
+		--enable-appdefaultdir=${X11BASE}/share/X11/app-defaults \
+		--enable-syslog --without-motif --without-ttf \
+		--without-gtk2 --without-gtk --without-esound \
+		--without-rplay --without-ftgl \
+		--without-opengl --without-mesa \
+		--enable-privsep
+
+.include <bsd.xorg.mk>
