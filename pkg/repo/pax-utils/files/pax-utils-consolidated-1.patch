@@ -1,0 +1,78 @@
+--- a/lddtree.sh
++++ b/lddtree.sh
+@@ -1,8 +1,10 @@
+-#!/bin/bash
++#!/usr/bin/zsh
+ # Copyright 2007-2013 Gentoo Foundation
+ # Copyright 2007-2013 Mike Frysinger <vapier@gentoo.org>
+ # Distributed under the terms of the GNU General Public License v2
+ 
++setopt sh_word_split
++
+ argv0=${0##*/}
+ 
+ : ${ROOT:=/}
+@@ -41,8 +43,8 @@
+ 	# With glibc, the NONE, SYSV, GNU, and LINUX OSABI's are compatible.
+ 	# LINUX and GNU are the same thing, as are NONE and SYSV, so normalize
+ 	# GNU & LINUX to NONE. #442024 #464380
+-	scanelf -BF '#F%a %M %D %I' "$1" | \
+-		sed -E 's: (LINUX|GNU)$: NONE:'
++	/usr/bin/scanelf -BF '#F%a %M %D %I' "$1" | \
++		/usr/bin/sed -E 's: (LINUX|GNU)$: NONE:'
+ }
+ 
+ lib_paths_fallback="${ROOT}lib* ${ROOT}usr/lib* ${ROOT}usr/local/lib*"
+--- a/meson.build
++++ b/meson.build
+@@ -73,18 +73,6 @@
+   install : false
+ )
+ 
+-if cc.get_define('__svr4__') == ''
+-  executable('pspax',
+-    'paxelf.c',
+-    'paxldso.c',
+-    'pspax.c',
+-    version_h,
+-    dependencies : [libcap],
+-    link_with : common,
+-    install : true
+-  )
+-endif
+-
+ executable('scanelf',
+   'paxelf.c',
+   'paxldso.c',
+@@ -110,15 +98,6 @@
+   install : true
+ )
+ 
+-executable('scanmacho',
+-  'paxmacho.c',
+-  'scanmacho.c',
+-  version_h,
+-  dependencies : [libcap],
+-  link_with : common,
+-  install : true
+-)
+-
+ lddtree_impl = get_option('lddtree_implementation')
+ if lddtree_impl != 'none'
+   if lddtree_impl == 'python'
+@@ -127,14 +106,10 @@
+     suffix = '.sh'
+   endif
+   install_data('lddtree' + suffix,
+-    rename : 'lddtree',
++    rename : 'ldd',
+     install_dir : get_option('bindir')
+   )
+ endif
+-install_data('symtree.sh',
+-  rename : 'symtree',
+-  install_dir : get_option('bindir')
+-)
+ 
+ subdir('man')
+ 

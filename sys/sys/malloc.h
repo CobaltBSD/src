@@ -177,12 +177,7 @@
 
 #define	M_DRM		145	/* Direct Rendering Manager */
 
-#define	M_HAMMER2	146	/* HAMMER2 */
-#define	M_HAMMER2_RBUF	147	/* HAMMER2 read buffer */
-#define	M_HAMMER2_WBUF	148	/* HAMMER2 write buffer */
-#define	M_HAMMER2_LZ4	149	/* HAMMER2 LZ4 */
-
-#define	M_LAST		150	/* Must be last type + 1 */
+#define	M_LAST		146	/* Must be last type + 1 */
 
 #define	INITKMEMNAMES { \
 	"free",		/* 0 M_FREE */ \
@@ -312,10 +307,6 @@
 	NULL,	/* 143 free */ \
 	"AGP Memory",	/* 144 M_AGP */ \
 	"DRM",	/* 145 M_DRM */ \
-	"HAMMER2", /* 146 M_HAMMER2 */ \
-	"HAMMER2 read buffer", /* 147 M_HAMMER2_RBUF */ \
-	"HAMMER2 write buffer", /* 148 M_HAMMER2_WBUF */ \
-	"HAMMER2 LZ4", /* 149 M_HAMMER2_LZ4 */ \
 }
 
 struct kmemstats {

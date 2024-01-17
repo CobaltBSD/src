@@ -1,0 +1,11 @@
+DOCUMENTATION
+ThiruValluvar, Auvaiyar, Vaigai
+===============================
+
+This file describes the documentation files included with the
+NLCI Tamil fonts - ThiruValluvar, Auvaiyar, and Vaigai.
+This information should be distributed along with the NLCI Tamil
+fonts and any derivative works.
+
+The ThiruValluvar-features.pdf file illustrates the use of OpenType and
+Graphite features. The source for this PDF file is ThiruValluvar-features.odt

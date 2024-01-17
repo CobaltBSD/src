@@ -11,7 +11,7 @@ SUBDIR= encodings \
 	misc-ethiopic misc-meltho misc-misc mutt-misc schumacher-misc \
 	screen-cyrillic sony-misc sun-misc winitzki-cyrillic \
 	xfree86-type1 ${EXTRAS} \
-	alias
+	alias base-fonts
 
 EXTRAS=	dejavu-ttf
 

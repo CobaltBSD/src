@@ -7,34 +7,30 @@
 #TODO: replace `compress` with `pigz`
 
 SUBDIR= apply at audioctl awk \
-	cal calendar cap_mkdb cdio chpass col colrm \
-	column crontab csplit ctags ctfconv ctfdump \
+	cal cap_mkdb cdio chpass \
+	crontab ctfconv ctfdump \
 	cu \
-	deroff diff3 dig du encrypt env expand file \
-	find fgen finger fmt from fstat gencat getcap \
+	du encrypt env \
+	find finger fmt fstat gencat getcap \
 	getconf getent gprof grep head hexdump id \
 	ipcrm ipcs \
 	join kdump kstat ktrace \
-	last lastcomm \
-	lndir \
+	last \
 	locate lock login look lorder \
 	m4 make \
 	mixerctl mkdep netstat \
 	newsyslog \
-	nice nm nohup pagesize passwd paste patch pctr \
+	nice nm nohup pagesize passwd patch pctr \
 	pkill \
-	pr \
 	renice rpcgen rpcinfo \
 	sdiff script sed shar signify \
-	sort spell stat su systat \
+	sort spell stat su \
 	tail tcpbench tee time \
 	top ts usbhidaction usbhidctl \
-	ul unexpand \
 	users uudecode uuencode vmstat w \
 	what which who whois xargs xinstall \
-	yacc \
 	chmod df ps sync \
-	chio mt stty test banner2 factor fortune grdc morse number primes tetris worm
+	stty test banner2 factor fortune grdc morse number primes tetris worm locale mklocale ksh ofetch login-ng unicode shsecret freq arch banner basename cat cmp comm cp cut date dd diff dirname doas echo expr false fold getopt indent hostname jot kill ln logger ls logname mkdir mktemp mv nl printenv printf pwd readlink realpath rev rm rmdir rs seq sleep split timeout touch tr true tsort tty uname unifdef uniq units unvis vis wc yes sponge hexedit
 
 .if (${YP:L} == "yes")
 .endif

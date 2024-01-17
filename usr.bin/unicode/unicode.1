@@ -1,0 +1,65 @@
+.TH UNICODE 1 
+.SH NAME
+unicode \- interpret Unicode characters
+.SH SYNOPSIS
+.B unicode
+[
+.B -nt
+]
+.IB hexmin - hexmax
+.PP
+.B unicode
+[
+.B -t
+]
+.I hex
+[
+\&...
+]
+.PP
+.B unicode
+[
+.B -n
+]
+.I characters
+.PP
+.SH DESCRIPTION
+.I Unicode
+converts between
+.SM UTF
+and character values from the Unicode Standard (see
+.MR utf (7) ).
+If given a range of hexadecimal numbers and prints a table of the specified Unicode characters \(em their values and
+.SM UTF
+representations.
+Otherwise it translates from
+.SM UTF
+to numeric value or vice versa,
+depending on the appearance of the supplied text;
+the
+.B -n
+option forces numeric output to avoid ambiguity with numeric characters.
+If converting to
+.SM UTF ,
+the characters are printed one per line unless the
+.B -t
+flag is set, in which case the output is a single string
+containing only the specified characters.
+.PP
+The output of
+.I unicode
+may be unhelpful if the characters printed are not available in the current font.
+.PP
+.SH EXAMPLES
+.TP
+.B "unicode -n p"
+Print the hex value of `p'.
+.TP
+.B "unicode 2200-22f1 | rs"
+Print a table of miscellaneous mathematical symbols.
+.TP
+.B "unicode $(jot -r 100 100 3000) | rs"
+Display a table of 100 random unicode characters
+.PP
+.SH HISTORY
+The `unicode` utility originally appeared in Plan9 First Edition in 1992. The version currently shipped with Cobalt is a rewrite.

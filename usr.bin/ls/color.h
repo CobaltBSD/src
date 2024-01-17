@@ -1,0 +1,1 @@
+int colorprint(FTSENT *p);

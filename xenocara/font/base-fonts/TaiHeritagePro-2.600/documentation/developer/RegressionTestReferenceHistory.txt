@@ -1,0 +1,16 @@
+History of what fonts are being used as the reference for the smith regression test.
+(File was in the standards folder in the SVN repo and named ReadMe_history.txt.)
+
+15 Oct 2012: /graphite/TaiHeritagePro*_Graphite.ttf (svn 376) -- but this was missing the OT code.
+
+16 Oct 2012: /OpenType/TaiHeritagePro*-OT.ttf (svn 371/372) -- latest OT, but no Graphite
+
+17 Oct 2012: /graphite/TaiHeritagePro*_Graphite.ttf (svn 389) -- although the graphite test on 10/15 finished without errors and I only need the OT test at this point, "smith test" choked on a standards font without graphite. So I had Sharon recompile her version with both Graphite and OT.
+
+12 Sep 2013: Version 2.500 (the official release from the fall of 2012) was installed for testing 2.510.
+
+October 2016: Version 2.510 was installed to test the reorganization of the OT tables.
+
+March 2017: Version 2.510 build from svn506. The version number should be 2.518, but it didn't seem to update. This is the last VOLT version, installed to test the conversion of the OT code to FEA.
+
+Sept 11, 2017: Version 2.6 built on 2017/08/16. Last version built with old version of raw Bold ttf. Used to compare font built with new bold ttf.

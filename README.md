@@ -26,6 +26,7 @@ Cobalt is still in early development.
 * Fix building the libc and kernel using tinycc
 * Replace idesk with a C alternative
 * Figure out what to do about Mesa's GLSL compiler, which is the only other unavoidable C++ component
+* Xlib backend for NeoSurf
 
 ## Directories
 `distrib` - Various scripts and Makefiles related to the packaging of Cobalt

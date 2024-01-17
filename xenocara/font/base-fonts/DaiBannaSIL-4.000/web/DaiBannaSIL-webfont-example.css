@@ -1,0 +1,86 @@
+/*
+This file is from the Dai Banna SIL project (https://software.sil.org/daibanna/).
+Copyright (c) 1998-2022 SIL International (http://www.sil.org/)
+with Reserved Font Name "SIL".
+This Font Software is licensed under the SIL Open Font License,
+Version 1.1 (http://scripts.sil.org/OFL).
+*/
+
+@font-face {
+  font-family: DaiBannaSIL-L;
+  font-weight: 300;
+  src: url(DaiBannaSIL-Light.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-LI;
+  font-weight: 300;
+  font-style: italic;
+  src: url(DaiBannaSIL-LightItalic.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-R;
+  font-weight: 400;
+  src: url(DaiBannaSIL-Regular.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-I;
+  font-weight: 400;
+  font-style: italic;
+  src: url(DaiBannaSIL-Italic.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-M;
+  font-weight: 500;
+  src: url(DaiBannaSIL-Medium.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-MI;
+  font-weight: 500;
+  font-style: italic;
+  src: url(DaiBannaSIL-MediumItalic.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-SB;
+  font-weight: 600;
+  src: url(DaiBannaSIL-SemiBold.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-SBI;
+  font-weight: 600;
+  font-style: italic;
+  src: url(DaiBannaSIL-SemiBoldItalic.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-B;
+  font-weight: 700;
+  src: url(DaiBannaSIL-Bold.woff2);
+}
+@font-face {
+  font-family: DaiBannaSIL-BI;
+  font-weight: 700;
+  font-style: italic;
+  src: url(DaiBannaSIL-BoldItalic.woff2);
+}
+
+/* set body font */
+body {
+  font-family: DaiBannaSIL-R, sans-serif;
+    /* fall back to sans serif so that it's really obvious if the fonts don't load */
+}
+
+/* different weights */
+.daibanna-L { font-family: DaiBannaSIL-L; }
+.daibanna-LI { font-family: DaiBannaSIL-LI; }
+.daibanna-R { font-family: DaiBannaSIL-R; }
+.daibanna-I { font-family: DaiBannaSIL-I; }
+.daibanna-M { font-family: DaiBannaSIL-M; }
+.daibanna-MI { font-family: DaiBannaSIL-MI; }
+.daibanna-SB { font-family: DaiBannaSIL-SB; }
+.daibanna-SBI { font-family: DaiBannaSIL-SBI; }
+.daibanna-B { font-family: DaiBannaSIL-B; }
+.daibanna-BI { font-family: DaiBannaSIL-BI; }
+
+/* remove bold styling from heading */
+h1 {
+  font-weight: normal;
+}

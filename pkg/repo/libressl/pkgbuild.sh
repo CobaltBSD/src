@@ -11,7 +11,7 @@ src_prepare() {
 }
 
 src_configure() {
-	./configure --prefix=/usr --with-openssldir=/etc/ssl --enable-nc --disable-tests --disable-asm #TODO asm?
+	./configure --prefix=/usr --with-openssldir=/etc/ssl --enable-nc --disable-tests --disable-asm
 }
 
 src_compile() {

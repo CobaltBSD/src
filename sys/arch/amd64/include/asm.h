@@ -169,10 +169,10 @@
 # define RETGUARD_SYMBOL(x)
 #endif
 
-#define	ENTRY(y)	_ENTRY(y); _PROF_PROLOGUE
+#define	ENTRY(y)	_ENTRY(y); endbr64; _PROF_PROLOGUE
 #define	NENTRY(y)	_NENTRY(y)
 #define	ASENTRY(y)	_NENTRY(y); endbr64; _PROF_PROLOGUE
-#define	ENTRY_NB(y)	_ENTRY_NB(y); _PROF_PROLOGUE
+#define	ENTRY_NB(y)	_ENTRY_NB(y); endbr64; _PROF_PROLOGUE
 #define	END(y)		.size y, . - y
 
 #define	STRONG_ALIAS(alias,sym)						\

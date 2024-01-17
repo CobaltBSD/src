@@ -1,0 +1,10 @@
+prefix=/usr/X11R6
+exec_prefix=${prefix}
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+xcbincludedir=${pc_sysrootdir}${datadir}/xcb
+PYTHON_PREFIX=@PYTHON_PREFIX@
+
+Name: XCB Proto
+Description: X protocol descriptions for XCB
+Version: 1.15.2

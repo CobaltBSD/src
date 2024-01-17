@@ -302,10 +302,7 @@ distrib:
 	release allarchs kernels release-sets m4 install-mtree \
 	bootblocks do-release ${ALL_KERNELS}
 
-SUBDIR+= etc.alpha etc.amd64 etc.arm64 etc.armv7
-SUBDIR+= etc.hppa etc.i386 etc.landisk etc.loongson etc.luna88k
-SUBDIR+= etc.macppc etc.octeon etc.powerpc64 etc.riscv64
-SUBDIR+= etc.sparc64
+SUBDIR+= etc.amd64
 
 .include <bsd.subdir.mk>
 .include <bsd.prog.mk>

@@ -1,0 +1,94 @@
+FONTLOG
+Dai Banna SIL
+=============
+
+This file provides detailed information on the Dai Banna SIL fonts.
+This information should be distributed along with the Dai Banna SIL fonts and any derivative works.
+
+## About this project
+
+This project provides a free and open font family for the New Tai Lue (Xishuangbanna Dai) script.
+The New Tai Lue script is used by approximately 300,000 people who speak the Xishuangbanna Dai language in Yunnan, China. It is a simplification of the Tai Tham (Old Tai Lue) script as used for this language for hundreds of years.
+
+It uses Graphite technology to support complex script behaviours like intersyllabic line breaking in spaceless text. (NB: Only basic break opportunities are accounted for in the current release. Breaking behaviours for numbers and special CCV structures have yet to be added.)
+
+The previous weights in two families (Dai Banna SIL Light and Dai Banna SIL Book) are now included in one family (Dai Banna SIL) with an additional weight (Medium).
+
+## ChangeLog
+
+(This should list both major and minor changes, most recent first.)
+
+### 23 Aug 2022 (SIL WSTech team) Dai Banna SIL version 4.000
+- Switched to a single family with a wider range of weights.
+- Replaced many Latin glyphs with Gentium Plus at 92%
+  The Latin glyphs that were kept were designed especially
+  for the Dai Banna characters.
+- Imported missing Latin characters, with the same settings.
+
+### 17 Feb 2021 (SIL) Dai Banna SIL version 3.000
+- Use visual instead of logical order for left vowels.
+  This encoding was changed in Unicode 8.0
+
+### 21 Feb 2011 (AYWC) Dai Banna SIL version 2.200
+- Added support for Unicode 5.2 additions
+- Renamed 'Oblique' fonts to 'Italic' (for user-friendliness)
+- Added .notdef, NULL, and CR to masters
+- Fixed open contours: 0020, 005F, 00A0, 2009, 200B, 2060
+- Corrected connection types of CJK punctuation
+- Design changes: 19D2, 19D4
+- Added 19AA, 19AB
+
+### 5 Jun 2008 (AYWC) Dai Banna SIL version 2.1
+- Moved E380 to 19D1 NEW TAI LUE DIGIT ONE as per FPDAM5
+- Moved 19D1 to 19DA NEW TAI LUE THAM DIGIT ONE as per PDAM6.2
+
+### 16 Nov 2007 (AYWC) Dai Banna SIL version 2.0b
+- OFL 1.1
+- Added line-breaking rules
+- Added CJK punctuation: 3000..3002, 3008..300B
+- Added full-width forms: FF01, FF08, FF09, FF0C, FF0E, FF1A, FF1B, FF1F
+- Added alternate digit one at E380 (PUA)
+- Added 25CC and support for reordrant vowels
+- Updated to Unicode 5.0
+
+### 17 Mar 2000 (SIL) SIL Dai Banna version 1.000
+- Initial freeware release
+
+## Information for Contributors
+
+We welcome contributions to this font project, such as new glyphs, enhanced
+smart font code, or bug fixes. The best way to begin the process is to file an
+issue in the Github project (https://github.com/silnrsi/font-daibannasil/issues)
+or respond to an existing issue and express your interest. Then we can begin
+to correspond with you regarding what all might be required and discuss how to
+best submit your contributions.
+
+To enable us to accept contributions in a way that honors your contribution
+and respects your copyright while preserving long-term flexibility for open
+source licensing, you would also need to agree to the SIL International
+Contributor License Agreement for Font Software (v1.0) prior to sending us
+your contribution. To read more about this requirement and find out how to
+submit the required form, please visit the CLA information page
+(https://software.sil.org/fontcla).
+
+## Acknowledgements
+
+(Here is where contributors can be acknowledged.
+If you make modifications be sure to add your name (N), email (E), web-address (W) and description (D).
+This list is sorted by last name in alphabetical order.)
+
+N: Adrian Cheuk, Victor Gaultney, Martin Hosken, Julie Remington, Bobby de Vos
+E: https://software.sil.org/daibanna/#contact
+W: https://software.sil.org/daibanna/
+D: SIL designers and font engineers
+
+The original, non-Unicode font package (SIL Dai Banna) was developed with assistance from the Research Centre for the Minority Languages of China, Institute of Ethonology and Anthropology, Chinese Academy of Social Sciences located in Beijing, China.
+
+Subsequent, Unicode releases (Dai Banna SIL) were developed with valuable input from Ms. YU Kanglong, Chief Editor, Dai News Department, Xishuangbanna Daily. Xishuangbanna Daily, established since 1957, is the largest newspaper company in Yunnan, China that publishes in the New Tai Lue script.
+
+The Dai Banna SIL project is maintained by SIL International, a global,
+faith-based nonprofit that works with local communities around the world
+to develop language solutions that expand possibilities for a better life.
+
+For more information or support please visit:
+https://software.sil.org/daibanna/

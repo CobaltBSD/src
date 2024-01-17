@@ -1,0 +1,14 @@
+Tai Heritage Pro work flow used by SIL:
+(efffective 2017)
+
+FILES FOUND IN SOURCE FOLDER:
+1. Edit glyphs in FontLab
+2. Export glyphs from FontLab to a bare ttf file (i.e. with no smart font code)
+3. Export Attachment Points from FontLab to an xml file
+4. Edit Graphite code in TaiHeritageRules.gdh
+5. Edit OT code in TaiHeritagePro-<weight>.fea
+
+FILES FOUND IN PROJECTS'S ROOT FOLDER
+6. Edit wscript file to configure the Smith build process.
+
+7. Build with Smith.

@@ -1,0 +1,30 @@
+1.0-pre2 - Jan 17 2024
+* Removed several unused third-party components
+* Added p11-kit and related scripts for generating a certificate trust store
+* Replaced picom with compton
+* Replaced `ldd` with lddtree.sh from Gentoo's pax-utils
+* Various other additions and changes made to the third party components and
+their build scripts
+* Added `pbm`, a CobaltBSD-tailored fork of NetPBM for image processing
+* Removed experimental HAMMER2 support due to significant instability
+* All packages now install in /usr, instead of another prefix
+* Added `ofetch`, a unique neofetch-like utility for CobaltBSD
+* Added `login-ng`, a TUI version of `login`
+* Merged the core utilities with what was formerly the `cbase` repository
+* Ported sbase's version of the `sponge` utility
+* Added near-complete unicode coverage to xenocara
+* Replaced `file` with the more accurate GNU `file`.
+* Removed several unnecessary utilities
+
+1.0-pre1 (forked from OpenBSD) - Jan 11 2024
+* Removed all GNU/LLVM components except for binutils
+* Main compiler switched to TinyCC
+* Added initial LuaJIT
+* Added a number of tarred third-party components for ease of maintenance
+* Added a pseudo-package manager, `pkg`.
+* Added HAMMER2 to the kernel
+* Removed various router-centric daemons and clients
+* Switched main shell from ksh to Zsh
+* Added OpenBSD xenocara to the source tree
+* Consolidated all binaries in /usr
+* Removed the `games` directory, with a few being relocated to usr.bin

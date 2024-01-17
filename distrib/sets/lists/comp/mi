@@ -913,10 +913,6 @@
 ./usr/include/getopt.h
 ./usr/include/glob.h
 ./usr/include/grp.h
-./usr/include/hammer2
-./usr/include/hammer2/hammer2_disk.h
-./usr/include/hammer2/hammer2_ioctl.h
-./usr/include/hammer2/hammer2_mount.h
 ./usr/include/histedit.h
 ./usr/include/icdb.h
 ./usr/include/ifaddrs.h

@@ -6,7 +6,7 @@ LICENSE='.' #TODO
 SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.gz"
 
 src_configure() {
-	muon setup -Dprefix=/usr -Dbuildtype=release -Dwrap_mode=nofallback -Dbestline=disabled build
+	muon setup -Dprefix=/usr -Dbuildtype=release -Dwrap_mode=nofallback -Dbestline=disabled -Dlibpkgconf=enabled build
 }
 
 src_compile() {

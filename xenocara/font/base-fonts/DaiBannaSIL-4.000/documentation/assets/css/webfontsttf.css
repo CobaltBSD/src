@@ -1,0 +1,27 @@
+/*
+This file is from the Dai Banna SIL project (https://software.sil.org/daibanna/).
+Copyright (c) 1998-2022 SIL International (http://www.sil.org/),
+with Reserved Font Name "SIL".
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+*/
+@font-face {
+    font-family: DaiBannaSIL-R;
+    src: url("../../../results/DaiBannaSIL-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: DaiBannaSIL-I;
+    src: url("../../../results/DaiBannaSIL-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: DaiBannaSIL-B;
+    src: url("../../../results/DaiBannaSIL-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: DaiBannaSIL-BI;
+    src: url("../../../results/DaiBannaSIL-BoldItalic.ttf") format("truetype");
+}
+
+.daibanna-R { font-family: DaiBannaSIL-R; }
+.daibanna-B { font-family: DaiBannaSIL-B; }
+.daibanna-I { font-family: DaiBannaSIL-I; }
+.daibanna-BI { font-family: DaiBannaSIL-BI; }

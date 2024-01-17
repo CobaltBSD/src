@@ -1,0 +1,16 @@
+.TH FREQ 1
+.SH NAME
+freq \- print histogram of character frequencies
+.SH SYNOPSIS
+.B freq
+.SH DESCRIPTION
+.I Freq
+reads the given files (default standard input)
+and prints histograms of the character frequencies. Each byte counts as a character;
+.PP
+Each non-zero entry of the table is printed preceded by the byte value,
+in decimal, octal, hex, and
+character (if printable).
+.PP
+.SH HISTORY
+The `freq` utility originally appeared in Plan9 First Edition in 1992. The version currently shipped with Cobalt is a rewrite.

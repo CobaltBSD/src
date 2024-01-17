@@ -3,6 +3,8 @@
 
 .include <bsd.own.mk>
 
+#TODO: ld.so
+
 SUBDIR= getty login_chpass \
 	login_lchpass login_passwd login_reject \
 	reorder_kernel \

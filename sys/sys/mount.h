@@ -258,15 +258,6 @@ struct fusefs_args {
 };
 
 /*
- * Arguments to mount HAMMER2 file systems
- */
-struct hammer2_args {
-	char		*fspec;
-	struct export_args export_info;	/* network export information */
-	int		hflags;		/* extended hammer2 mount flags */
-};
-
-/*
  * file system statistics
  */
 
@@ -282,7 +273,6 @@ union mount_info {
 	struct msdosfs_args msdosfs_args;
 	struct ntfs_args ntfs_args;
 	struct tmpfs_args tmpfs_args;
-	struct hammer2_args hammer2_args;
 	char __align[160];	/* 64-bit alignment and room to grow */
 };
 
@@ -335,7 +325,6 @@ struct statfs {
 #define	MOUNT_UDF	"udf"		/* UDF */
 #define	MOUNT_TMPFS	"tmpfs"		/* tmpfs */
 #define	MOUNT_FUSEFS	"fuse"		/* FUSE */
-#define	MOUNT_HAMMER2	"hammer2"	/* HAMMER2 */
 
 /*
  * Structure per mounted file system.  Each mounted file system has an
@@ -569,7 +558,6 @@ extern	const struct vfsops ntfs_vfsops;
 extern	const struct vfsops udf_vfsops;
 extern	const struct vfsops fusefs_vfsops;
 extern	const struct vfsops tmpfs_vfsops;
-extern	const struct vfsops hammer2_vfsops;
 
 #include <net/radix.h>
 #include <sys/socket.h>		/* XXX for AF_MAX */

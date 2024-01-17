@@ -24,9 +24,9 @@ CLEANFILES+=	assym.h machine
 SACFLAGS+=-nostdinc -fno-builtin -fpack-struct
 
 .include <bsd.own.mk>
-#.if ${COMPILER_VERSION:Mclang}
-#NO_INTEGR_AS=	-no-integrated-as
-#.endif
+.if ${COMPILER_VERSION:Mclang}
+NO_INTEGR_AS=	-no-integrated-as
+.endif
 
 .if !make(clean) && !make(cleandir) && !make(includes) && !make(libdep) && \
     !make(sadep) && !make(salibdir) && !make(obj)

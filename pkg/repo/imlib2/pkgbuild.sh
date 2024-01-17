@@ -10,7 +10,7 @@ src_prepare() {
 }
 
 src_configure() {
-	CC='cc -I/usr/X11R6/include' ./configure --prefix=/usr --disable-static --disable-amd64 #TODO enable asm
+	CC='cc -I/usr/X11R6/include' ./configure --prefix=/usr --disable-static --disable-amd64 --with-jpeg --with-png
 }
 
 src_compile() {
@@ -19,5 +19,10 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${DEST}" install
-	#TODO: should at least require libjpeg and libpng?
+
+	# Imlib2 is for some reason adding junk to the loader names, thus giving us another mess to clean up.
+	cd "${DEST}/usr/lib/imlib2/loaders"
+	for I in `find . -name "*.so.0.0"`; do
+		mv -v ${I} ${I%%.so.0.0}.so
+	done
 }

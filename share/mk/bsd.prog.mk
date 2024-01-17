@@ -152,7 +152,7 @@ afterinstall:
 .if !target(realinstall)
 realinstall:
 .  if defined(PROG)
-	${INSTALL} ${INSTALL_COPY} ${INSTALL_STRIP} \
+	${INSTALL} -D ${INSTALL_COPY} ${INSTALL_STRIP} \
 	    -o ${BINOWN} -g ${BINGRP} \
 	    -m ${BINMODE} ${PROG} ${DESTDIR}${BINDIR}/${PROG}
 .  endif

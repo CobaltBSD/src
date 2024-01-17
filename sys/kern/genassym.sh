@@ -169,7 +169,7 @@ END {
 		printf("return(0); }\n");
 	}
 }
-' ccoccode=$ccode > $TMPC || exit 1
+' ccode=$ccode > $TMPC || exit 1
 
 if [ $ccode = 1 ] ; then
 	"$@" -x c $TMPC -o $TMP && $TMP

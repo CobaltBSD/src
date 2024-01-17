@@ -517,8 +517,7 @@ vn_ioctl(struct file *fp, u_long com, caddr_t data, struct proc *p)
 
 		} else if (com == FIONBIO || com == FIOASYNC)	/* XXX */
 			error = 0;				/* XXX */
-		if (error != ENOTTY)
-			break;
+		break;
 
 	case VFIFO:
 	case VCHR:

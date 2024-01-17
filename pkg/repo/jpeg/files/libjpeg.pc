@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: libjpeg
+Description: The portable JPEG reference library
+Version: 6b
+Libs: -L${libdir} -ljpeg
+Cflags: -I${includedir}
