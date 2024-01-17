@@ -17,7 +17,6 @@ More detailed information about this project can be found at [CobaltBSD.github.i
 ## Features
 * 100% written in C: No C++ compilation is required to build, and Cobalt will compile successfully in TinyCC.
 * Easy extensibility and application development provided by LuaJIT interfaces.
-* Your data is better protected by the advanced HAMMER2 filesystem, adapted from DragonflyBSD.
 * Excellent multimedia support and acceleration provided by ffmpeg
 * Ships with NeoSurf, a fork of the NetSurf web browser designed to better protect your anonymity online.
 * Small: The entire installed operating system, including necessary compilation tools, is around 500MB.
