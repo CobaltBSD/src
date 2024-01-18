@@ -1,0 +1,14 @@
+#! /bin/bash
+# This script tests: pamsumm
+# Also requires:
+
+
+for type in -sum -min -max -mean
+  do
+  pamsumm -brief $type testgrid.pbm
+  done
+
+for type in -sum -min -max -mean
+  do
+  pamsumm -brief $type testimg.ppm
+  done

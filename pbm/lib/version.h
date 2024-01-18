@@ -1,0 +1,1 @@
+#define NETPBM_VERSION "10.73.43"

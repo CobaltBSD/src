@@ -1,0 +1,22 @@
+#! /bin/bash
+# This script tests: pnmtile
+# Also requires: pnmcat
+
+
+# Test 1.  Should print 4228632379 259
+pnmtile 40 50 testgrid.pbm | cksum
+
+tmpdir=${tmpdir:-/tmp}
+
+# Test 2.  Compare 2x2 tile images produced by pnmtile and pnmcat
+# Should print 0
+testimg2_ppm=${tmpdir}/testimg2.ppm
+testimg4_ppm=${tmpdir}/testimg4.ppm
+
+pnmtile 454 298 testimg.ppm > ${testimg4_ppm} &&
+pnmcat -lr testimg.ppm testimg.ppm > ${testimg2_ppm} &&
+pnmcat -tb ${testimg2_ppm} ${testimg2_ppm} | \
+cmp -s - ${testimg4_ppm}
+echo $?
+
+rm ${testimg2_ppm} ${testimg4_ppm}

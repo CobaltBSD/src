@@ -1,0 +1,362 @@
+Contents
+========
+
+1. Running the tests
+  1.1 Standard test procedure
+  1.2 Summary report
+  1.3 Prerequisites
+  1.4 Repeatability
+  1.5 Execution time
+  1.6 Testing package in designated directory
+  1.7 Pre-packaging check
+  1.8 Post-install check
+  1.9 Skipping test items
+  1.10 Valgrind
+  
+2. Troubleshooting
+  2.1 Missing programs
+  2.2 Broken programs
+  2.3 Color name file
+  2.4 Multiple versions
+  2.5 System dependent issues
+
+3. Reporting test failures
+
+------------------------------------------------------------------------------
+
+1. Running the tests
+====================
+
+1.1 Standard test procedure
+===========================
+
+The recommended method of running the tests is after packaging:
+
+   make
+   make package
+   make check
+
+To capture the output do:
+
+   make check 2>&1 | less
+
+Or:
+
+   make check > check.log  2>&1
+
+
+
+1.2 Summary report
+==================
+
+Like most other test routines, these produce much output.  A summary will
+appear at the end:
+
+  Test summary:
+  ==================
+  SUCCESS 83
+  FAILURE 1
+  TOTAL TESTABLE 84
+  ==================
+  All tests done.
+  Sat, 08 Jun 2013 09:30:33 +0000
+  make: *** [check] Error 1
+
+
+
+1.3 Prerequisites
+=================
+
+The tests require the Bash command shell.  The script Execute-Tests has
+some expressions unique to bash.  Quite old versions work, at least back
+to bash v. 2.05b.
+
+The tests also use the following utilities:
+
+ - sh
+ - awk
+ - perl
+
+ - cat
+ - cksum
+ - cmp
+ - cp
+ - cut
+ - date
+ - dirname
+ - egrep
+ - fgrep
+ - grep
+ - file
+ - head
+ - mkdir
+ - mktemp
+ - rm
+ - sed
+ - seq
+ - tee
+ - tr
+ - uniq
+
+
+
+1.4 Repeatability
+=================
+
+The current version of the test package produces identical results if
+you run "make check" repeatedly.  The tests contain no random elements;
+some Netpbm programs use randomness internally, but the tests seed
+their random number generators with fixed values so that they too have
+repeatable results.
+
+
+
+1.5 Execution time
+==================
+
+Currently "make check" takes no more time to execute than "make package",
+and much less than "make".
+
+
+
+1.6 Testing package in designated directory
+===========================================
+
+If you specify the package directory when you do "make package",
+you must do the same with "make check":
+
+   make
+   make package pkgdir=/tmp/package
+   make check pkgdir=/tmp/package
+
+
+
+1.7 Pre-packaging check
+=======================
+
+You can run the tests to check executables after compilation, before
+packaging.  This feature is intended for developers.
+
+   make check-tree
+
+This test method is incompatible with merge build.
+
+Currently this test method reports several errors when Netpbm is compiled in a
+separate build directory.
+
+
+
+1.8 Post-install check
+======================
+
+You can run the tests after installation.  Run this way, the tests are of
+programs in the default search path.
+
+  make check-install
+
+Make sure to set RGBDEF if the color dictionary file rgb.txt is in
+a non-standard location.  This must be an absolute path.  
+
+  RGBDEF=/etc/colors/rgb.txt make check-install
+
+
+
+1.9 Skipping test items
+=======================
+
+The file test/Test-Order is a list of tests which are run.  If you want to
+skip any test, remove the line or comment it out with a "#".
+
+The variable "target", a comma-separated list of Netpbm programs
+provides another way to run only select tests.  For example to run
+only the test scripts which examine giftopnm and pamtogif, do:
+
+  make check target=giftopnm,pamtogif
+
+
+
+1.10 Valgrind
+============
+
+You can run the whole test under Valgrind.  This is an advanced feature
+intended for programmers who work on Netpbm code.
+
+To turn on Valgrind, set VALGRIND_TESTS to "on":
+
+  make check VALGRIND_TESTS="on"
+
+Valgrind version 3.6.0 or newer is required.  For information on
+valgrind, visit http://www.valgrind.org/ .
+
+Valgrind results are output to files, one per process in the directory
+/tmp/netpbm-test/valgrind .  The file name consists of the test script
+name, process ID and the suffix ".vout", e.g.: "ppmmake.18420.vout" .
+
+Valgrind errors are not reported in the summary report and do not
+influence the success/failure count in any way.  The following awk
+one-liner will report ".vout" files with a positive error count in
+the ERROR SUMMARY line:
+
+  awk '/ERROR SUMMARY/ && $4>0 {print FILENAME}' \
+       /tmp/netpbm-test/valgrind/*.vout  
+
+
+You can add or alter valgrind options by editing this line in
+test/Execute-Tests:
+
+  vg_command_base="valgrind --trace-children=yes"
+
+To run "valgrind --track-origins=yes", you must make two changes in
+config.mk:
+
+  - Add -g to CFLAGS
+  - Turn stripping off: STRIPFLAG =
+
+Valgrind significantly increases execution time.  If ordinary
+"make check" requires 10 seconds, "make check VALGRIND_TESTS=on"
+will require roughly 12 minutes, maybe more.  You should consider
+either setting "target=..." or paring down the items in Test-Order.
+In the latter case, you probably don't need to run "all-in-place.test"
+and "legacy-names.test".
+
+The option "--trace-children-skip" is used to prevent valgrind from
+stepping into child processes that are not relevant.  This option
+appears in valgrind v. 3.6.0.  If you wish to conduct valgrind tests
+with an older version, comment out the line in Execute-Tests with
+"--trace-children-skip".
+
+
+
+2. Troubleshooting
+==================
+
+2.1 Missing programs
+====================
+
+The first two tests run, "all-in-place.test" and "legacy-names.test"
+detect missing programs.
+
+If you work around a build glitch with "make --keep-going" you
+will get a few errors here.
+
+A wholesale failure with "all-in-place.test" indicates a systemic
+problem, such as a misconfigured dynamic library or a directory-wide
+permission issue.  This kind of failure is known to happen when N is
+set too high with "make -jN" (overambitious parallel make.) 
+
+The current test routines assume a typical build configuration - they are
+not aware of the actual configuration you chose.  If a choice you make
+during configure causes "make" to skip compilation of certain programs,
+the test routines won't know and will report failures.
+
+For details read 'Netpbm Library Prerequisites':
+http://netpbm.sourceforge.net/prereq.html .
+
+
+
+2.2 Broken programs
+===================
+
+Broken programs will invariably lead to failures.  Certain programs
+(for instance, image generators 'pbmmake' and 'pgmmake') are used in
+numerous test scripts.  Problems in them will lead to multiple failures.
+
+To aid you in this situation each test routine lists the necessary programs
+near the top.
+
+Each test routine comes in two parts, a ".test" file which is a
+shell script and a ".ok" file which denotes its proper output.
+When a test fails, a ".out" file will be produced in the
+/tmp/netpbm-test/ directory.  By comparing ".ok" and ".out" you
+can tell exactly what went wrong.  Often one does not need to
+go this far; the error messages tell enough.
+
+
+
+2.3 Color dictionary file
+=========================
+
+If you get the following error message, it indicates a problem with
+the color dictionary file rgb.txt.
+
+  ppmmake: can't open color names dictionary file from the path '/usr/share/
+  netpbm/rgb.txt:/usr/lib/X11/rgb.txt:/usr/share/X11/rgb.txt:/usr/X11R6/lib/
+  X11/rgb.txt' and Environment variable RGBDEF not set.  Set RGBDEF to the
+  pathname of your rgb.txt file or don't use color names.
+
+This is highly unlikely to occur with "make check" right after packaging,
+but may appear in the post-installation check "make check-install".
+
+To check manually after installation, execute the following and see
+whether the proper output or the error message appears:
+
+   ppmmake red 1 1 -plain
+
+Proper output:
+
+   P3
+   1 1
+   255
+   255 0 0
+
+The simple remedy is properly setting the environment value RGBDEF to
+the location of rgb.txt.
+
+RGBDEF must be an absolute path.  The following will not work:
+
+  RGBDEF=./lib/rgb.txt make check-install
+
+If you want to hardcode the path, modify RGB_DB_PATH in pm_config.h
+and run "make" again.  Note that running "configure" will cause
+pm_config.h to be overwritten; changes by editing will be lost.
+
+
+
+2.4 Multiple versions
+=====================
+
+If multiple versions of Netpbm executables are installed on your
+system, you should do a post-installation check to ensure that
+the newly built version is in place and in working condition.
+
+The test routines can test binaries other than the intended
+target, for example pre-compiled binaries distributed in .rpm
+or .deb format.  If the default binary search path gives priority
+to a directory that contains programs from such a source, you should
+expect multiple failures due to missing features, etc. with
+"make check-install".
+
+Netpbm distributed with Debian or Ubuntu is called "Netpbm-Free" and
+is based on a fork which broke off in 2002.  There are many differences.
+Many tests will fail.  However, the test framework itself is valid for
+these distributions.  The following procedure will allow you to run
+the tests on installed Netpbm programs, regardless of the version:
+
+   ./configure           # accept the defaults
+   make check-install
+
+
+2.5 System dependent issues
+===========================
+
+The tests have worked on x86 and x86_64 GNU/Linux systems, with several
+versions of GCC and Clang.  Reports from users of other systems including Mac
+OS, Sun SPARC and BSD and compilers other than GCC are highly welcome.
+
+Floating point math precision seems to be an issue.  Some discrepancies
+have been observed between x86 32 bit and 64 bit; the tests are written to
+work around them as much as possible.  The use of the "--fast-math"
+flag by default may also be a factor.
+
+The current test framework checks whether the random number generator
+is the one from glibc and skips certain tests if a different one is
+detected.
+
+
+
+3. Reporting test failures
+==========================
+
+When reporting problems with the tests, please give both
+the output of "make check" and the contents of the "netpbm-test"
+directory.

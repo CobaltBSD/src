@@ -1,0 +1,31 @@
+#! /bin/bash
+# This script tests: pbmtomacp macptopbm
+# Also requires: pnmcrop pbmpage pbmupc pnmpad
+
+tmpdir=${tmpdir:-/tmp}
+temp1_pbm=${tmpdir}/temp1.ppm
+temp2_pbm=${tmpdir}/temp2.ppm
+
+
+# Test 1. Should produce 2425386270 41 twice
+# Because Macpaint files are fixed size (576 x 720 pixels)
+# pbmtomacp automatically adds padding when input is smaller.
+
+pbmtomacp testgrid.pbm | macptopbm | tee ${temp1_pbm} | \
+    pnmcrop | cksum
+
+pbmtomacp ${temp1_pbm} | macptopbm | pnmcrop | cksum
+
+
+#Test 2. Should produce 2329957971 51851
+pbmpage 1 | pbmtomacp | macptopbm | cksum
+
+
+#Test 3. Should produce 2907103393 5086 twice
+pbmupc 0 12345 67890 | pnmpad -black -t 44 -b 20 -l 100 -r 251 | pbmtomacp | macptopbm | \
+    tee ${temp2_pbm} | \
+    pnmcrop | pnmcrop | cksum
+
+pbmtomacp ${temp2_pbm} | macptopbm | pnmcrop | pnmcrop | cksum
+
+rm ${temp1_pbm} ${temp2_pbm}

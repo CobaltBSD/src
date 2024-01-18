@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: pbmupc
+# Also requires:
+
+
+for type in -s1 -s2
+do
+pbmupc $type 0 72890 00011
+done | cksum

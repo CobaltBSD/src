@@ -1,0 +1,53 @@
+#! /bin/bash
+# This script tests: pamcrater pamshadedrelief
+# Also requires: pamstack pamvalidate pamcut pamflip
+
+
+# We use the undocumented --test and --radius options of pamcrater.
+# pamcrater --test --radius=N
+# The above draws a single crater of radius N.
+# The resulting image should be symmetric.
+
+tmpdir=${tmpdir:-/tmp}
+
+test_pam=${tmpdir}/test.pam
+testshaded_pam=${tmpdir}/testshaded_pam
+test10_pam=${tmpdir}/test10.pam
+test50_pam=${tmpdir}/test50.pam
+test100_pam=${tmpdir}/test100.pam
+test150_pam=${tmpdir}/test150.pam
+
+# Test 1.  Should print 4 three times
+
+pamcrater --test --radius=10 > $test10_pam
+pamcrater --test --radius=50 > $test50_pam
+pamcrater --test --radius=100 > $test100_pam
+pamcrater --test --radius=150 > $test150_pam
+
+pamstack ${test10_pam} ${test50_pam} ${test100_pam} ${test150_pam} |
+  pamvalidate > ${test_pam}
+
+for i in 1 10 70
+  do
+  ( pamcut -top=$((128 + $i)) -height=1 ${test_pam} | cksum &&
+    pamcut -top=$((128 - $i)) -height=1 ${test_pam} | cksum &&
+    pamcut -left=$((128 + $i)) -width=1 ${test_pam} | pamflip -xy | cksum &&
+    pamcut -left=$((128 - $i)) -width=1 ${test_pam} | pamflip -xy | cksum
+  ) | uniq -c | awk '{print $1}'
+  done
+
+rm ${test_pam} ${test10_pam} ${test50_pam}
+
+# Test 2.  Should print 2 three times
+
+pamshadedrelief ${test100_pam} > ${testshaded_pam}
+
+( pamcut -top=$((128 + 12)) -height=1  ${testshaded_pam} | cksum &&
+  pamcut -top=$((128 - 12)) -height=1  ${testshaded_pam} | cksum &&
+  pamcut -top=$((128 + 31)) -height=1  ${testshaded_pam} | cksum &&
+  pamcut -top=$((128 - 31)) -height=1  ${testshaded_pam} | cksum &&
+  pamcut -top=$((128 + 99)) -height=1  ${testshaded_pam} | cksum &&
+  pamcut -top=$((128 - 99)) -height=1  ${testshaded_pam} | cksum
+) | uniq -c | awk '{print $1}'
+
+rm ${testshaded_pam} ${test100_pam}

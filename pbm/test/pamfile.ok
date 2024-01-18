@@ -1,0 +1,5 @@
+testimg.ppm:	PPM raw, 227 by 149  maxval 255
+testgrid.pbm:	PBM raw, 14 by 16
+stdin:	PGM raw, 227 by 149  maxval 255
+stdin:	PAM, 227 by 149 by 1 maxval 255
+    Tuple type: GRAYSCALE

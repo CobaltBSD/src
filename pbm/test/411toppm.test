@@ -1,0 +1,13 @@
+#! /bin/bash
+# This script tests: 411toppm
+# Also requires:
+
+
+# Test 1. should produce: 240376509 9229
+# The above value is what 411toppm has been always producing.
+# 411toppm's author Steve Allen says he was not able to obtain accurate
+# specifications for the .411 format.  Technically, the above can change.
+#
+# See comment at head of source file 411toppm.c.
+
+head -c 4608 /dev/zero | 411toppm -quiet | cksum

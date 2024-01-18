@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: ppmmake
+# Also requires:
+
+
+ppmmake rgb:ff/80/80 50 100 -maxval=5 | cksum
+ppmmake red 50 50  | cksum

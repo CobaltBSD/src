@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: pgmbentley
+# Also requires: pgmramp
+
+
+# Test. Should produce 4127286153 16399
+pgmramp -rect 128 128 | pgmbentley | cksum

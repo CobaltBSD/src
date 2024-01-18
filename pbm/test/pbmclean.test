@@ -1,0 +1,19 @@
+#! /bin/bash
+# This script tests: pbmclean
+# Also requires: pbmmake pbmpage pnmmargin pnmpad
+
+
+tmpdir=${tmpdir:-/tmp}
+test_pbm=${tmpdir}/test.pbm
+
+pbmmake -g 3 3 | pnmmargin -black 2 > ${test_pbm}
+
+for n in 1 2 3 4 5 6 7 8
+do
+pbmclean -min=$n -black -plain ${test_pbm}
+done
+
+rm ${test_pbm}
+
+# Should print 760076056 4210813
+pbmpage 1 | pbmclean -black | cksum

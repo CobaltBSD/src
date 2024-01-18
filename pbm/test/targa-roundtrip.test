@@ -1,0 +1,18 @@
+#! /bin/bash
+# This script tests: pamtotga tgatoppm
+# Also requires: ppmtopgm pgmtopbm pamchannel
+
+
+#Test 1: Should print 2425386270 41, cksum of testgrid.pbm
+
+pamtotga -mono testgrid.pbm | \
+  tgatoppm | ppmtopgm | \
+  pgmtopbm -threshold -val 0.5 | cksum
+
+#Test 2:  Should produce 1571496937 33838, cksum of testimg.red
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | \
+  pamtotga -cmap | tgatoppm | ppmtopgm | cksum
+
+#Test 3: Should print 1926073387 101484, cksum of testimg.ppm
+
+pamtotga -rgb testimg.ppm | tgatoppm | cksum

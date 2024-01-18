@@ -1,0 +1,97 @@
+#! /bin/bash
+# This script tests: pgmramp pamgauss pgmkernel pbmmake pbmpscale
+# Also requires: pamflip
+
+
+# All tests print "ok" upon success, cksum results otherwise.
+# The "$3>0" is a kludge for preventing false positives with empty files.
+
+# All test images are square and have the symmetries of the square (Dih4).
+# The sole exception is ell.pgm which is a rectangle (Dih2, also called
+# "Klein four-group".)
+
+# Example symmetric square PGM image:
+# P2
+# 5 5
+# 6
+# 1 2 3 2 1
+# 2 4 5 4 2
+# 3 5 6 5 3
+# 2 4 5 4 2
+# 1 2 3 2 1
+
+## Failure with this test indicates that a generator or editor which
+## should produce symmetric output images isn't doing so.
+
+tmpdir=${tmpdir:-/tmp}
+
+# Test 1.
+rect_pgm=${tmpdir}/rect.pgm
+
+pgmramp -rect 31 31 > ${rect_pgm}
+
+( for op in -null -tb -lr -r90
+    do pamflip $op ${rect_pgm} | cksum
+    done ) | uniq -c | \
+  awk '$1==4 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${rect_pgm}
+
+# Test 2.
+circle_pgm=${tmpdir}/circle.pgm
+pgmramp -ell 63 63 > ${circle_pgm}
+
+( for op in -null -tb -lr -r90
+    do pamflip $op ${circle_pgm} | cksum
+    done ) | uniq -c | \
+  awk '$1==4 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${circle_pgm}
+
+# Test 3.
+gauss_pgm=${tmpdir}/gauss.pgm
+pamgauss -sigma=0.1 -tupletype=GRAYSCALE 25 25 > ${gauss_pgm}
+
+( for op in -null -tb -lr -r90
+    do pamflip $op ${gauss_pgm} | cksum
+    done ) | uniq -c | \
+  awk '$1==4 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${gauss_pgm}
+
+# Test 4.
+kernel_pgm=${tmpdir}/kernel.pgm
+pgmkernel 15 15 > ${kernel_pgm}
+
+( for op in -null -tb -lr -r90
+    do pamflip $op ${kernel_pgm} | cksum
+    done ) | uniq -c | \
+  awk '$1==4 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${kernel_pgm}
+
+# Test 5.
+# Should print "ok" 7 times.
+pscale_pbm=${tmpdir}/pscale.pbm
+for size in `seq 1 7`
+do
+pbmmake -g 5 5 | pbmpscale $size > ${pscale_pbm}
+
+( for op in -null -tb -lr -r90
+    do pamflip $op ${pscale_pbm} | cksum
+    done ) | uniq -c | \
+  awk '$1==4 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${pscale_pbm}
+done
+
+# Test 6.
+ell_pgm=${tmpdir}/ell.pgm
+pgmramp -ell 101 33 > ${ell_pgm}
+
+( for op in -null -tb -lr
+  do pamflip $op ${ell_pgm} | cksum
+  done ) | uniq -c | \
+  awk '$1==3 && $3>0 { print "ok"; exit }; { print }'
+
+rm ${ell_pgm}

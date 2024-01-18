@@ -1,0 +1,20 @@
+#! /bin/bash
+# This script tests: ppmforge
+# Also requires:
+
+# Use small x y values to avoid floating point issues.
+
+
+testrandom -q
+case $? in
+   81)
+      # Test 1: Should print: 3634219838 196623
+      ppmforge -night -seed 1 | cksum
+      ;;
+
+   8[02-9] | 90)
+       echo "Skipping: random number generator is not glibc." 1>&2
+       exit 80;;
+
+   *)  exit 1;;  # testrandom failed
+esac

@@ -1,0 +1,10 @@
+#! /bin/bash
+# This script tests: ppmtoyuv yuvtoppm
+# Also requires: pamgradient
+
+
+# Should produce 1904478375 253455
+
+pamgradient rgb:00/ff/ff rgb:ff/ff/00 \
+                            rgb:ff/00/00 rgb:00/ff/00 352 240 | \
+    ppmtoyuv | yuvtoppm 352 240 | cksum

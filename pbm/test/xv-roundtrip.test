@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: pamtoxvmini xvminitoppm
+# Also requires: pamdepth
+
+# Test.  Should print 2418728144 101484
+
+pamdepth 3 testimg.ppm | pamtoxvmini | xvminitoppm | cksum

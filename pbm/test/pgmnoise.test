@@ -1,0 +1,23 @@
+#! /bin/bash
+# This script tests: pgmnoise
+# Also requires:
+
+
+# We first check whether random number generator is glibc rand().
+# If not, this test is skipped.
+
+testrandom
+
+case $? in
+   81)
+        # Should print: 1663614689 10015
+        pgmnoise --randomseed=0 100 100 | cksum ;;
+
+        # Any additional tests go here.
+
+   8[02-9] | 90)
+        echo "Skipping: random number generator is not glibc." 1>&2
+        exit 80;;
+
+   *)   exit 1;;  # testrandom failed
+esac

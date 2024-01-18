@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: pamtofits fitstopnm
+# Also requires:
+
+
+# Should produce 1926073387 101484, cksum of testimg.ppm
+pamtofits testimg.ppm | fitstopnm | cksum

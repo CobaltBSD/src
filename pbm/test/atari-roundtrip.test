@@ -1,0 +1,32 @@
+#! /bin/bash
+# This script tests: ppmtopi1 pi1toppm ppmtoneo neotoppm
+# Also requires: pgmramp pamscale pbmmake pamenlarge rgb3toppm pamdepth
+
+
+# Atari pi1 and neo files have the following characteristics:
+# Size: 320x200
+# Maxval: 7
+# Color palette: at most 16 entries
+
+tmpdir=${tmpdir:-/tmp}
+t_red=${tmpdir}/t.red
+t_grn=${tmpdir}/t.grn
+t_blu=${tmpdir}/t.blu
+t_ppm=${tmpdir}/t.ppm
+
+pgmramp -lr -maxval=3 4 1 | \
+  pamscale -xscale=80 -yscale=200 -nomix  > ${t_red}
+pbmmake -g 16 10 | pamenlarge 20  > ${t_grn}
+pbmmake -g  8  5 | pamenlarge 40  > ${t_blu}
+rgb3toppm ${t_red} ${t_grn} ${t_blu} | pamdepth 7 > ${t_ppm}
+
+#Test 0.  Should print: 3583332118 192013
+cksum < ${t_ppm}
+
+#Test 1.  Should print: 3583332118 192013
+ppmtopi1 ${t_ppm} | pi1toppm | cksum
+
+#Test 2.  Should print: 3583332118 192013
+ppmtoneo ${t_ppm} | neotoppm | cksum
+
+rm ${t_red} ${t_grn} ${t_blu} ${t_ppm}

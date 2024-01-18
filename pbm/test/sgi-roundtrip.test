@@ -1,0 +1,43 @@
+#! /bin/bash
+# This script tests: pnmtosgi sgitopnm
+# Also requires: rgb3toppm
+
+
+a_sgi=${tmpdir}/a.sgi
+a_red=${tmpdir}/a.red
+a_grn=${tmpdir}/a.grn
+a_blu=${tmpdir}/a.blu
+
+# Test 1.  Should produce 1926073387 101484 twice
+pnmtosgi -rle testimg.ppm | tee ${a_sgi} | sgitopnm  | cksum
+sgitopnm -channel=0  ${a_sgi} > ${a_red}
+sgitopnm -channel=1  ${a_sgi} > ${a_grn}
+sgitopnm -channel=2  ${a_sgi} > ${a_blu}
+rgb3toppm ${a_red} ${a_grn} ${a_blu} | cksum
+rm ${a_sgi} ${a_red} ${a_grn} ${a_blu}
+
+b_sgi=${tmpdir}/b.sgi
+b_red=${tmpdir}/b.red
+b_grn=${tmpdir}/b.grn
+b_blu=${tmpdir}/b.blu
+
+# Test 2.  Should produce 1926073387 101484 twice
+pnmtosgi -verbatim testimg.ppm | tee ${b_sgi} | sgitopnm  | cksum
+sgitopnm -channel=0  ${b_sgi} > ${b_red}
+sgitopnm -channel=1  ${b_sgi} > ${b_grn}
+sgitopnm -channel=2  ${b_sgi} > ${b_blu}
+rgb3toppm ${b_red} ${b_grn} ${b_blu} | cksum
+rm ${b_sgi} ${b_red} ${b_grn} ${b_blu}
+
+# Test 3.  Should produce 2425386270 41 twice
+pnmtosgi testgrid.pbm | sgitopnm | cksum             # Defaults to -rle
+pnmtosgi -verbatim testgrid.pbm | sgitopnm | cksum
+
+
+testgrid_pgm=${tmpdir}/testgrid.pgm
+
+# Test 4. Should produce 2394972481 463 twice
+pamdepth 65535 testgrid.pbm | pamtopnm | tee ${testgrid_pgm} | \
+  pnmtosgi -rle | sgitopnm | cksum
+pnmtosgi -verbatim ${testgrid_pgm} | sgitopnm | cksum
+rm ${testgrid_pgm}

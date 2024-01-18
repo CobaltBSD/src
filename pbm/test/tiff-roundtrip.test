@@ -1,0 +1,23 @@
+#! /bin/bash
+# This script tests: pamtotiff tifftopnm
+# Also requires:
+
+
+# Failure message
+## Second test fails if Netpbm was built without the flate library
+
+pamtotiff testimg.ppm 1<>${tmpdir}/test1.tiff &&
+  tifftopnm ${tmpdir}/test1.tiff | cksum
+
+# test flate compression
+pamtotiff -flate testimg.ppm 1<>${tmpdir}/test2.tiff &&
+  tifftopnm ${tmpdir}/test2.tiff | cksum
+
+pamtotiff testgrid.pbm 1<>${tmpdir}/test3.tiff &&
+  tifftopnm ${tmpdir}/test3.tiff | cksum
+
+# test G4 compression
+pamtotiff -g4 testgrid.pbm 1<>${tmpdir}/test4.tiff &&
+  tifftopnm ${tmpdir}/test4.tiff | cksum
+
+rm ${tmpdir}/test[1234].tiff

@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: pamtopnm
+#
+
+
+pamtopnm -plain testimg.ppm | \
+  pamtopnm | cksum
+pamtopnm -plain testgrid.pbm | \
+  pamtopnm | cksum

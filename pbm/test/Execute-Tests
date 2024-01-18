@@ -1,0 +1,308 @@
+#! /bin/bash
+
+# See if PBM_TEST_PATH is set.
+# PBM_TEST_PATH is the list of directories with the Netpbm programs
+# you want to test.
+#
+# (1) check-tree: set to a long list of directories which contain
+# the relevant executables.
+#
+# (2) check-package: set to the [package]/bin directory.
+# 
+# (3) check-install: empty string.  Executables will be sought from
+# the default execution path ($PATH).
+#
+# You can set it here by de-commenting and modifying the next line:
+#export PBM_TEST_PATH="/usr/local/bin/"
+
+case ${CHECK_TYPE} in
+tree)
+    echo
+    echo "Checking programs in source tree" ;;
+package)  if [ -z $PBM_TEST_PATH ]
+  then
+    echo "Error: PBM_TEST_PATH is not set."
+    exit 1
+  elif [ ! -d $PBM_TEST_PATH ]
+    then
+    echo
+    echo "Error: No directory named $PBM_TEST_PATH."
+    echo
+    echo "You must run \"make package\" before this test."
+    echo
+    echo "If you specified the package directory for \"make package\""
+    echo "you must do the same for \"make check\"."
+    echo
+  exit 1
+  fi ;;
+install)
+  echo
+  echo "Programs in the default execution path:"
+  echo $PATH
+  echo "will be tested." ;;
+*)
+  echo "Invalid test type: ${CHECK_TYPE}"
+  exit 1 ;;
+esac
+
+# Set srcdir, which is the directory which contains Execute-Tests (this
+# script), programs that run the test, including *.test and helpers that they
+# invoke, the list of tests to run ('Test-Order'), and *.ok files that
+# indicate the expected results of tests.
+
+srcdir=$(dirname $0)
+
+# Set tmpdir, which is used in some of the test scripts.  By default
+# this is created by mktemp.  The user can override and specify tmpdir,
+# but in this case it must be an existing directory and must not be
+# either $srcdir or current work.
+
+if [ -z $tmpdir ]
+  then
+    tmpdir_created=$(mktemp -d "${TMPDIR:-/tmp}/netpbm.XXXXXXXX") || exit 1;
+  export tmpdir=${tmpdir_created}
+  else
+  tmpdir_created="";
+  if [ ! -d ${tmpdir} ]
+     then echo "Specified temporary directory $tmpdir does not exist."
+     exit 1;
+  elif [ ${tmpdir} -ef ${srcdir} ]
+     then echo "Temporary directory must not be $srcdir."
+     exit 1;
+  elif [ ${tmpdir} -ef $PWD ]
+     then echo "Temporary directory must not be current directory."
+     exit 1;
+  fi
+fi
+
+# If necessary set the RGBDEF environment variable.
+#export RGBDEF=/etc/rgb.txt
+#export RGBDEF=/usr/local/netpbm/lib/rgb.txt
+#export RGBDEF=/usr/share/emacs/*/etc/rgb.txt
+
+
+# Declare arrays used to count and report test results.
+# "UNEXPECTED SUCCESS" and "EXPECTED FAILURE" are not used now;
+# they are reserved for future expansion.
+declare -a array=(0 0 0 0 0)
+
+# Older versions of bash get confused when array elements contain
+# spaces.
+
+status[0]="SUCCESS"
+status[1]="FAILURE"
+status[2]="UNEXPECTED SUCCESS"
+status[3]="EXPECTED FAILURE"
+status[4]="NOT TESTABLE"
+
+
+
+# Copy test image files to the current work directory
+
+if [ ! -f ./testgrid.pbm ]
+  then cp -v ${srcdir}/testgrid.pbm ./testgrid.pbm
+fi
+
+if [ ! -f ./testimg.ppm ]
+  then cp -v ${srcdir}/testimg.ppm  ./testimg.ppm 
+fi
+
+# The block-bin directory
+#
+# This directory contains dummy executables with the names of the
+# Netpbm programs that are to be tested.  These dummy executables
+# exist to prevent execution of programs (typically from a previous
+# installation of Netpbm) in the default path during the tests.
+# They report error when accessed and nothing else.
+# The directory is placed in PATH between PBM_TEST_PATH and
+# default PATH.
+
+# Create block-bin.  If it already exists, erase and create anew.
+
+if [ ! -z $PBM_TEST_PATH ]
+  then
+  blockbin=$PWD/block-bin
+  if [ -d  $blockbin ]
+    then rm -rf $blockbin
+  fi
+  mkdir $blockbin
+  cp ${srcdir}/BLOCK $blockbin/BLOCK
+  chmod +x $blockbin/BLOCK
+
+# Populate the block-bin directory using all-in-place.ok and
+# legacy-names.ok which together make a complete list of programs.
+
+  sed 's/: ok$//' \
+       ${srcdir}/all-in-place.ok ${srcdir}/legacy-names.ok | \
+     tr ' ' '\n' | while read prog
+    do
+    ln -s $blockbin/BLOCK $blockbin/$prog
+    done
+
+  testpath=$PBM_TEST_PATH:$blockbin:$PATH:$BUILDDIR/test
+else
+# We don't need block-bin when testing after installation.
+  testpath=$PATH:$BUILDDIR/test
+fi
+
+
+
+# Execute the tests, as described in the "Test-Order" file.
+#
+# Each test outputs a ".out" file, which is compared against a
+# corresponding ".ok" file.  For example the output from "pbmmake.test"
+# is "pbmmake.out" and when this matches "pbmmake.ok" we declare the
+# test a success.
+# In the error case the ".out" file is retained in the current work
+# directory.
+#
+# All tests are self-contained.
+#
+# By default the tests are executed in the order described in the
+# file Test-Order.  Copy this file from the source directory
+# to the work directory.
+
+
+# Provision for running programs under valgrind.
+# Note that valgrind tests consume time.
+#
+# Output from valgrind must be redirected in some manner because some
+# tests examine standard error (fd2) output.  Here we use --log-file.
+# (See below)
+
+if [ -z $VALGRIND_TESTS ]
+  then VALGRIND_TESTS="off";
+elif [ $VALGRIND_TESTS = "on" ]
+  then
+  valdir=$PWD/valgrind;
+  mkdir $valdir
+ 
+  vg_command_base="valgrind --trace-children=yes";
+
+  for i in awk cat cksum cmp cp cut date dirname egrep fgrep file grep gs \
+    head mkdir mktemp perl rm sed seq sh tee testrandom tr uniq
+
+    # Tell valgrind not to probe execution of the above programs.
+
+    do vg_skip=$vg_skip"/*/"$i","; done;
+
+  vg_command_base=$vg_command_base" --trace-children-skip="$vg_skip;
+  #
+  # If using an older version of valgrind (< v.3.6) that does not
+  # support --trace-children-skip=... , comment out the above line
+  # and let valgrind probe execution of all programs listed above.
+  # This greatly increases execution time.
+
+fi
+
+
+# Provision for running only chosen tests.
+# The string "target" is a comma-separated list of target programs.
+# When set only tests for programs in the list will be run.
+# 
+# The --no-clobber version comes useful when the user wants a modified
+# (pared-down) version of Test-Order.
+
+if [ ! -z $target ]
+  then
+  echo $target | sed 's/,/\n/g' | \
+                 sed -e 's/^/# This script tests: .*\\</' -e 's/$/\\>/' \
+                     -e '/^$/q' | \
+                 grep -f - ${srcdir}/*.test -l | \
+                   while read i ; do echo ${i##*/} ; done | \
+                 grep -f - ${srcdir}/Test-Order > ./Test-Order ;
+  if [ ! -s ./Test-Order ]
+    then echo;
+         echo "Error: No testable program names in target: "$target;
+         echo; exit 1
+  fi
+else 
+       cp ${srcdir}/Test-Order ./Test-Order ;
+       #cp --no-clobber ${srcdir}/Test-Order ./Test-Order ;
+fi
+
+echo
+
+for tname in `grep -v "^#" ./Test-Order | fgrep ".test"`
+do
+echo == $tname ==
+
+# If running tests under valgrind, complete vg_command by prepending
+# the valgrind output file, which is test-specific.
+  
+if [ $VALGRIND_TESTS = "on" ]
+  then
+  vg_command="$vg_command_base --log-file=${valdir}/${tname%.test}.%p.vout"
+fi
+
+# Execute a single test and test its result.
+
+PATH=${testpath} $vg_command ${srcdir}/$tname > ${tname%.test}.out;
+let result=$?
+case $result in
+0)   cmp -s ${tname%.test}.out ${srcdir}/${tname%.test}.ok ;
+     if [ $? -eq 0 ]
+        then let result=0;  rm  ${tname%.test}.out ;
+        else let result=1;
+             grep "^##" ${srcdir}/$tname  # Print failure message.
+     fi ;;
+80) let result=4 ;;
+*)  let result=1 ;;
+esac
+
+# Report whether a single test succeeded or failed.
+# Increment counters.
+
+echo $tname: ${status[${result}]}; echo
+let array[${result}]=${array[${result}]}+1
+let total_scripts=${total_scripts}+1
+
+done
+
+# Erase temporary bin directory and its contents.
+
+rm -rf ${srcdir}/bin
+
+
+# Erase temporary directory and its contents, if it was created.
+
+if [ -n $tmpdir_created ]
+    then rm -rf $tmpdir_created
+fi
+
+
+# Erase test image files in the current (work) directory.
+# (Do not erase them if we are working from the source directory.)
+
+if [ ! $PWD -ef ${srcdir} ]
+    then rm ./testimg.ppm ./testgrid.pbm
+fi
+
+
+# Calculate success / failure totals and print a summary report.
+# Report date and time of completion.
+
+echo "Test summary:"
+echo ==================
+
+for s in 0 1 2 3 4
+  do
+    if [[ ${array[${s}]} -gt 0 || s -eq 1 ]]
+    then echo ${status[${s}]} ${array[${s}]}
+    fi
+  done
+
+let total_testable=${total_scripts}-${array[4]}
+echo "TOTAL TESTABLE" $total_testable
+
+echo ==================
+echo "All tests done."
+date -u +"%a, %d %b %Y %H:%M:%S %z"
+
+
+# Exit with status 0 if all possible tests succeeded, 1 otherwise.
+
+if [[ ${array[0]} -eq ${total_testable} ]]
+then exit 0
+else exit 1
+fi

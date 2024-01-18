@@ -1,0 +1,11 @@
+#! /bin/bash
+# This script tests: pbmminkowski
+# Also requires: pbmmake pnmmargin pnmpad
+
+
+pbmmake -w 1 1 | pnmmargin -b 1 | \
+  pbmminkowski
+echo
+pbmmake -g 3 3 | pbmminkowski
+echo
+pbmminkowski testgrid.pbm

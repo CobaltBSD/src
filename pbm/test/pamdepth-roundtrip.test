@@ -1,0 +1,13 @@
+#! /bin/bash
+# This script tests: pamdepth pgmtopbm
+# Also requires:
+
+
+for i in 300 500 1023 4095 5000 16383 65535
+do
+pamdepth $i testimg.ppm | \
+  pamdepth 255 | cksum
+done
+
+pamdepth 255 testgrid.pbm | pamdepth 1 | \
+  pgmtopbm -th -val=0.5 | cksum

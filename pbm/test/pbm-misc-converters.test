@@ -1,0 +1,40 @@
+#! /bin/bash
+# This script tests: pbmto10x pbmto4425 pbmtoascii pbmtobbnbg
+# This script tests: pbmtodjvurle pbmtoepson pbmtogo pbmtoibm23xx
+# This script tests: pbmtolj pbmtoln03 pbmtomatrixorbital pbmtonokia
+# This script tests: pbmtoplot pbmtoptx pbmtozinc
+# Also requires: pbmpage
+
+# Note: one-way test.
+# These converters do not have counterparts that work in the opposite
+# direction.  We check whether the output is unchanged from older
+# versions.
+
+pbmto10x             testgrid.pbm | cksum
+pbmto4425            testgrid.pbm | cksum
+pbmtoascii           testgrid.pbm | cksum
+pbmtoascii -2x4      testgrid.pbm | cksum
+pbmtobbnbg         < testgrid.pbm | cksum
+pbmtodjvurle         testgrid.pbm | cksum
+pbmtoepson           testgrid.pbm | cksum
+pbmtoepson -protocol=escp   testgrid.pbm | cksum
+pbmtoepson -protocol=escp9  testgrid.pbm | cksum
+pbmtoepson -nonadjacent     testgrid.pbm | cksum
+pbmtogo              testgrid.pbm | cksum
+pbmtoibm23xx -xres=60 -yres=60 testgrid.pbm | cksum
+pbmtolj              testgrid.pbm | cksum
+pbmtolj  -packbits   testgrid.pbm | cksum
+pbmtolj  -compress   testgrid.pbm | cksum
+pbmtoln03            testgrid.pbm | cksum
+pbmtomatrixorbital < testgrid.pbm | cksum
+pbmtonokia -fmt HEX_NOL testgrid.pbm | cksum
+pbmtonokia -fmt HEX_NGG testgrid.pbm | cksum
+pbmtonokia -fmt HEX_NPM testgrid.pbm | cksum
+pbmtonokia -fmt NOL  testgrid.pbm | cksum
+pbmtonokia -fmt NGG  testgrid.pbm | cksum
+pbmtonokia -fmt NPM  testgrid.pbm | cksum
+pbmtoplot            testgrid.pbm | cksum
+pbmtoptx             testgrid.pbm | cksum
+pbmtozinc            testgrid.pbm | cksum
+
+(pbmpage 1; pbmpage 2; pbmpage 3) | pbmtoppa | cksum

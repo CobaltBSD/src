@@ -1,0 +1,12 @@
+#! /bin/bash
+# This script tests: pamdice pamundice
+# Also requires:
+
+
+tmpdir=${tmpdir:-/tmp}
+fname_stem=${tmpdir}/a
+
+pamdice testimg.ppm -outstem=${fname_stem} -width=50 -height=40
+pamundice ${fname_stem}_%1d_%1a.ppm -down=4 -across=5 | cksum
+
+rm ${fname_stem}_?_?.ppm

@@ -1,0 +1,22 @@
+#! /bin/bash
+# This script tests: pgmtoppm
+# Also requires: pamseq pamtopnm pgmramp
+
+
+tmpdir=${tmpdir:-/tmp}
+
+test_pgm=${tmpdir}/test.pgm
+palette=${tmpdir}/palette
+
+pgmramp -maxval=5 -lr 256 1 >${test_pgm}
+pamseq 3 5 -tupletype=RGB | pamtopnm \
+  >${palette}
+
+# Test 1.
+pgmtoppm green ${test_pgm} | cksum
+
+pgmtoppm yellow-blue ${test_pgm} | cksum
+
+pgmtoppm -map=${palette} ${test_pgm} | cksum
+
+rm ${test_pgm} ${palette}

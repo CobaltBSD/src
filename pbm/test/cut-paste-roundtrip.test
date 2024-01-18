@@ -1,0 +1,52 @@
+#! /bin/bash
+# This script tests: pamcut pnmpaste
+# Also requires: pbmmake pnmpad
+
+base_ppm=${tmpdir}/base.ppm
+
+# Test 1. Should produce 2999529086 101484
+# (Make a modified base image to prevent false positives.)
+
+pbmmake -g 100 70 | \
+pnmpaste -replace - 50 40 testimg.ppm | tee ${base_ppm} | cksum
+
+# Test 2. Should produce 1926073387 101484
+
+pamcut 50 40 100 70 testimg.ppm | \
+pnmpaste -replace - 50 40 ${base_ppm} | cksum
+
+rm ${base_ppm}
+
+
+basewhite_pbm=${tmpdir}/basewhite.pbm
+baseblack_pbm=${tmpdir}/baseblack.pbm
+part_pbm=${tmpdir}/part.pbm
+
+# Test 3. Should produce 514843768 41
+# (Make a modified base image to prevent false positives.)
+
+pbmmake -w 5 7 |
+pnmpaste -replace - 7 9 testgrid.pbm | tee ${basewhite_pbm} | cksum
+
+# Test 4. Should produce 1880210648 41
+# (Another modified base image with target area black.)
+
+pbmmake -b 5 7 |
+pnmpaste -replace - 7 9 ${basewhite_pbm} | tee ${baseblack_pbm} | cksum
+
+
+# Test 5. Should produce 2425386270 41 six times.
+
+pamcut 7 9 5 7 testgrid.pbm > ${part_pbm}
+
+pnmpaste -replace ${part_pbm} 7 9 ${basewhite_pbm}  | cksum
+pnmpaste -and     ${part_pbm} 7 9 ${basewhite_pbm}  | cksum
+pnmpaste -or      ${part_pbm} 7 9 ${baseblack_pbm}  | cksum
+pnmpad -left 3 -white ${part_pbm} |\
+              pnmpaste -and - 4 9 ${basewhite_pbm}  | cksum
+pnmpad -left 7 -right 2 -top 1 -black ${part_pbm} |\
+              pnmpaste -or  - 0 8 ${baseblack_pbm}  | cksum
+pnmpaste -xor     ${part_pbm} 7 9 testgrid.pbm  |\
+              pnmpaste -xor ${part_pbm} 7 9 | cksum
+
+rm ${part_pbm} ${basewhite_pbm} ${baseblack_pbm}

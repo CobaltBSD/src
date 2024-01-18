@@ -1,0 +1,18 @@
+#! /bin/bash
+# This script tests: pbmmake
+# Also requires:
+
+
+for i in `seq 1 8`
+do
+for color in -w -b -g
+do
+pbmmake -plain $color $i $i | tr -d '\n'; echo
+done
+done
+for i in `seq 8 5 98`
+do
+ ( pbmmake -w $i $i ;
+  pbmmake -b $i $i ;
+  pbmmake  -g $i $i ) | cksum
+done

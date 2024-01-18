@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: ppmdither
+# Also requires:
+
+
+ppmdither testimg.ppm | cksum
+ppmdither -red 2 -green 2 -blue 2 testimg.ppm | cksum
+ppmdither -dim 2 testimg.ppm | cksum

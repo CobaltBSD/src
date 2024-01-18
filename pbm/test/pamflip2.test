@@ -1,0 +1,17 @@
+#! /bin/bash
+# This script tests: pamflip
+# Also requires:
+
+
+# Failure message
+## Failure with this test indicates a problem with pamflip transpositions
+## (90 degree flips) when input is PBM.  This operation is done by an
+## optional SSE routine.  If you make a wrong choice during configure,
+## this test will fail.
+
+# Test 1.  Should print 490797850 37
+pamflip -cw testgrid.pbm | cksum
+# Test 1.  Should print 3727293411 37
+pamflip -ccw testgrid.pbm | cksum
+# Test 2.  Should print 3511745816 37
+pamflip -xy testgrid.pbm | cksum

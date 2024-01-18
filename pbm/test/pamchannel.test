@@ -1,0 +1,32 @@
+#! /bin/bash
+# This script tests: pamchannel
+# Also requires: pamtopnm
+
+
+# Extract planes one by one.
+# Convert output to pgm to make it identical to ppmtorgb3 output.
+
+# $ ppmtorgb3 testimg.ppm ; cksum testimg.{red,grn,blu}
+#
+# 1571496937 33838 testimg.red
+# 394856971 33838 testimg.grn
+# 3164158573 33838 testimg.blu
+
+
+# Test 1. red channel
+# Should produce 1571496937 33838
+
+pamchannel -infile testimg.ppm 0 | \
+  pamtopnm --assume | cksum
+
+# Test 2. green channel
+# Should produce  394856971 33838
+
+pamchannel -infile testimg.ppm -tupletype="GRAYSCALE" 1 | \
+  pamtopnm | cksum
+
+# Test 3. blue channel
+# Should produce 3164158573 33838
+
+pamchannel -infile testimg.ppm 2 | \
+  pamtopnm --assume | cksum

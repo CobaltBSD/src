@@ -1,0 +1,132 @@
+#! /bin/bash
+# Tests whether the executable files listed below are in place.
+
+# We test with the methods used in all-in-place.test.
+# The sole exception is hpcdtoppm.  We just confirm that it exists.
+
+# Failure message
+## If all-in-place.test succeeds and this test fails, a likely cause is a
+## problem with symbolic links.
+##
+## Important: This test checks obsoleted names.
+## Programs here do not appear in other tests.
+
+
+# Skip this test if CHECK_TYPE = tree
+
+if [ ${CHECK_TYPE} = tree ]
+  then echo "Skipping." 1>&2
+  exit 80;
+fi
+
+
+function testExitStatus () {
+
+# This function takes 3 positional parameters:
+#   $1: filename
+#   $2: expected exit status   (In some cases we expect error.)
+#   $3: actual exit status
+
+    case $3 in
+      126) if [ ! -x $1 ]
+             then echo $1": NOT EXECUTABLE";
+             else echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;
+           fi ;;
+      127) type -p $1 > /dev/null
+           if [ $? -ne 0 ]
+             then echo $1": NO SUCH FILE";
+             else echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;
+           fi ;;
+      88)  echo $1": NO SUCH FILE" ;;
+      $2)  echo $1": ok" ;;
+      *)   echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;;
+    esac
+
+}
+
+
+# Test programs which have the --version flag.
+# See showVersion() in lib/libpm.c for the standard version announcement.
+
+ordinary_testprogs="\
+  bmptoppm \
+  gemtopbm \
+  icontopbm \
+  pamfixtrunc \
+  pamrgbatopng \
+  pbmtoicon \
+  pgmedge \
+  pgmnorm \
+  pgmoil \
+  pgmslice \
+  pngtopnm \
+  pnmarith \
+  pnmcomp \
+  pnmcut \
+  pnmdepth \
+  pnmenlarge \
+  pnmfile \
+  pnmflip \
+  pnminterp \
+  pnmscale \
+  pnmsplit \
+  pnmtofits \
+  pnmtopnm \
+  pnmtotiff \
+  ppmnorm \
+  ppmtogif \
+  ppmtojpeg \
+  ppmtompeg \
+  ppmtotga \
+  ppmtouil \
+"
+
+for i in $ordinary_testprogs
+  do
+    $i --version  2>&1 | \
+    egrep -v \
+    "(Using libnetpbm|Compiled|(BSD|SYSV|MSDOS|AMIGA) defined|RGB_?ENV=)" \
+      1>&2;
+    testExitStatus $i 0 ${PIPESTATUS[0]}
+  done
+
+
+# Test pgmcrater
+
+pgmcrater -number 1 -xsize 15 -ysize 15 -randomseed 1 > /dev/null
+testExitStatus pgmcrater 0 $?
+
+
+# Test pbmtox10bm, pnmnoraw, pnmtoplainpnm, ppmquantall, ppmrainbow
+# with trivial input.
+
+$i ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+tmpdir=${tmpdir:-/tmp}
+test_pbm=${tmpdir}/test.pbm
+
+cat > ${test_pbm} <<EOF
+P1
+1 1
+1
+EOF
+
+for i in pbmtox10bm pnmnoraw pnmtoplainpnm
+  do
+    $i ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+    testExitStatus $i 0 $?
+  done
+
+for i in ppmquant ppmquantall
+  do
+    $i 2 ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+    testExitStatus $i 0 $?
+  done
+
+
+rm ${test_pbm}
+
+
+# Test hpcdtoppm.  Simply confirm its existence.
+
+type -p hpcdtoppm > /dev/null
+testExitStatus hpcdtoppm 0 $?

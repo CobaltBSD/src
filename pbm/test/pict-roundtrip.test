@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: picttoppm ppmtopict
+# Also requires: pamseq pamdepth pamtopnm pnmremap
+
+
+#Test.  Should print 984199586 101484
+pamseq 3 5 -tupletype=RGB | pamdepth 255 | pamtopnm | \
+  pnmremap -mapfile=- testimg.ppm | ppmtopict | picttoppm | cksum

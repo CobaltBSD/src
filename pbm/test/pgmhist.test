@@ -1,0 +1,12 @@
+#! /bin/bash
+# This script tests: pgmhist
+# Also requires: pgmramp
+
+
+# Ignore differences in spaces.
+
+pgmramp -maxval=8 -lr 8 2 | pgmhist | \
+  sed -e 's/  */ /g' -e 's/ *$//'
+
+pgmhist testgrid.pbm | \
+  sed -e 's/  */ /g' -e 's/ *$//'

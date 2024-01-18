@@ -1,0 +1,16 @@
+#! /bin/bash
+# This script tests: pbmtopi3 pi3topbm
+# Also requires: pbmmake pamcut
+
+
+# The pi3 image format specifies a fixed image size of 640x400.
+# Pbmtopi3 rejects images that do not conform.
+
+# Test
+# Should print: 3139449799 32011
+pbmmake -g 640 400 | pbmtopi3 | pi3topbm | cksum
+
+# Test 2.
+# Should print: 2425386270 41
+pamcut -pad 0 0 640 400 testgrid.pbm | \
+  pbmtopi3 | pi3topbm | pamcut 0 0 14 16 | cksum

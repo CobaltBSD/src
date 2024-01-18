@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: ppmhist
+# Also requires: pgmramp
+
+
+pgmramp -maxval=8 -lr 8 2 | ppmhist -sort=rgb
+ppmhist -map -sort=rgb testimg.ppm | cksum

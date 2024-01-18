@@ -1,0 +1,11 @@
+#! /bin/bash
+# This script tests: pnmtojbig jbigtopnm
+# Also requires: pamchannel pamtopnm
+
+
+# Test 1.  Should print 2425386270 41
+pnmtojbig testgrid.pbm | jbigtopnm | cksum
+
+# Test 2.  Should print 1571496937 33838
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | pamtopnm | \
+  pnmtojbig | jbigtopnm | cksum

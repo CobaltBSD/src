@@ -1,0 +1,59 @@
+#! /bin/bash
+# This script tests: ppmchange
+# Also requires: ppmrainbow pgmramp
+
+
+#  Failure message
+## If this test fails and ppmchange-roundtrip.test succeeds,
+## the probably cause is a problem with one of the options of
+## ppmchange: -closeness or -remainder.
+
+tmpdir=${tmpdir:-/tmp}
+rainbow_ppm=${tmpdir}/rainbow.ppm
+
+# Explicit values for intermediate colors: rgb.txt may be defining them
+# in unusual ways.
+
+brown=rgb:67/43/00
+cyan=rgb:00/ff/ff
+yellow=rgb:ff/ff/00
+gray=rgb:7f/7f/7f
+
+
+# Test 1. Should print 811868957 60
+pgmramp -lr 8 8 | ppmchange black black  white white  $gray $gray \
+  -close=10 -remainder=blue | cksum
+
+
+# Test 2. Should print 1008787190 613
+
+ppmrainbow -tmpdir=$tmpdir -width=200 -height=1 red green blue | \
+  tee ${rainbow_ppm} | \
+  ppmchange red $brown   green $brown   blue $brown | cksum
+
+
+# Test 3. Should print 3885709071 613
+
+ppmchange red $brown   green $cyan   blue $yellow \
+  -closeness=25 ${rainbow_ppm} | cksum
+
+
+# Test 4. Should print 2101746192 613
+
+ppmchange red rgb:64/00/01 rgb:00/ff/00 rgb:00/32/02 blue blue \
+  -remainder=black -closeness=25 ${rainbow_ppm} | cksum
+
+rm ${rainbow_ppm}
+
+
+# cksum ${rainbow_ppm}
+# 1983174784 613 rainbow.ppm
+
+# ppmchange red rgb:64/00/01 rgb:00/ff/00 rgb:00/32/02 blue blue \
+#   -remainder=black -closeness=25  ${rainbow_ppm} | \
+#   pphist -sort=rgb -noheader
+#
+#     0     0     0	    0	     75
+#     0     0   255	   29	     42
+#     0    50     2	   30	     42
+#   100     0     1	   30	     41

@@ -1,0 +1,35 @@
+#! /bin/bash
+# This script tests: pamflip
+# Also requires:
+
+
+pamflip -lr testimg.ppm | pamflip -lr | cksum
+pamflip -tb testimg.ppm | pamflip -tb | cksum
+pamflip -r180 testimg.ppm | \
+  pamflip -r180 | cksum
+pamflip -xy testimg.ppm | pamflip -xy | cksum
+pamflip -r90 testimg.ppm | \
+  pamflip -r90 | \
+  pamflip -r90 | \
+  pamflip -r90 | cksum
+pamflip -r270 testimg.ppm | \
+  pamflip -r270 | \
+  pamflip -r270 | \
+  pamflip -r270 | cksum
+
+pamflip -lr testgrid.pbm | \
+  pamflip -lr | cksum
+pamflip -tb testgrid.pbm | \
+  pamflip -tb | cksum
+pamflip -r180 testgrid.pbm | \
+  pamflip -r180 | cksum
+pamflip -xy testgrid.pbm | \
+  pamflip -xy | cksum
+pamflip -r90 testgrid.pbm | \
+  pamflip -r90 | \
+  pamflip -r90 | \
+  pamflip -r90 | cksum
+pamflip -r270 testgrid.pbm | \
+  pamflip -r270 | \
+  pamflip -r270 | \
+  pamflip -r270 | cksum

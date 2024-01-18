@@ -1,0 +1,26 @@
+#! /bin/bash
+# This script tests: pnminvert
+# Also requires: pbmmake pamchannel pamtopnm
+
+
+# Test 1.  Should print 1240379484 41
+pnminvert testgrid.pbm | cksum
+
+# Test 2.  Should print 1416115901 101484
+pnminvert testimg.ppm | cksum
+
+# Test 3.  Should print 1174803406 33838
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | pamtopnm | \
+  pnminvert | cksum
+
+# Test 4.  Should print 2595564405 14
+pbmmake -w 7 7 | pnminvert | cksum
+
+# Test 5.  Should print 2595564405 14
+pbmmake -b 7 7 | cksum
+
+# Test 6.  Should print 2595564405 14
+pbmmake -b 7 7 | pnminvert | pnminvert | cksum
+
+# Test 7.  Should print 2896726098 15
+pbmmake -g 8 8 | pnminvert | cksum

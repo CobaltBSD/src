@@ -1,0 +1,16 @@
+#! /bin/bash
+# This script tests: g3topbm pbmtog3
+# Also requires: pnmcrop
+
+
+pbmtog3 -nofixedwidth testgrid.pbm | \
+g3topbm -width=14 | cmp -s - testgrid.pbm
+echo $?
+
+pbmtog3 -nofixedwidth -reversebits testgrid.pbm | \
+g3topbm -width=14 -reversebits | cmp -s - testgrid.pbm
+echo $?
+
+pbmtog3 testgrid.pbm | \
+g3topbm  | pnmcrop -white -right -bottom | \
+ cmp -s - testgrid.pbm ; echo $?

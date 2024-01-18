@@ -1,0 +1,45 @@
+#! /bin/bash
+# This script tests: ppmtopcx pcxtoppm
+# Also requires: pnmremap
+
+
+tmpdir=${tmpdir:-/tmp}
+pcxstd_ppm=${tmpdir}/pcxstd_ppm
+testpcx_ppm=${tmpdir}/test-pcx.ppm
+
+cat > ${pcxstd_ppm} << EOF
+P3
+16 1
+255
+  0   0   0
+  0   0 170
+  0 170   0
+  0 170 170
+170   0   0
+170   0 170
+170 170   0
+170 170 170
+ 85  85  85
+ 85  85 255
+ 85 255  85
+ 85 255 255
+255  85  85
+255  85 255
+255 255  85
+255 255 255
+EOF
+
+# Test 1. Should print 1926073387 101484
+ppmtopcx testimg.ppm | pcxtoppm | cksum
+
+# Test 2.  Should print 369063776 101484 three times
+pnmremap testimg.ppm -mapfile=${pcxstd_ppm} | tee ${testpcx_ppm} | cksum
+ppmtopcx -stdpalette -packed ${testpcx_ppm} | pcxtoppm | cksum
+ppmtopcx -stdpalette -packed -8bit ${testpcx_ppm} | pcxtoppm | cksum
+
+rm ${testpcx_ppm} ${pcxstd_ppm}
+
+# Test 3. Should print 829921912 685 which is the
+# result of:
+# pgmtoppm < testgrid.pbm | cksum
+ppmtopcx -stdpalette -packed testgrid.pbm | pcxtoppm | cksum

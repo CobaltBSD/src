@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: ppmbrighten
+# Also requires:
+
+
+ppmbrighten -v 100 testimg.ppm | cksum
+ppmbrighten -v 100 -normalize testimg.ppm | cksum
+ppmbrighten -s 100 -v -50 testimg.ppm | cksum

@@ -1,0 +1,22 @@
+#! /bin/bash
+# This script tests: ppmdmkfont ppmddumpfont ppmdcfont
+# Also requires:
+
+
+# Test 1. Should produce: 2726488777 48129
+ppmdmkfont | ppmddumpfont 2>&1 | cksum
+
+# Test 2. Should produce: 2845495212 75033
+ppmdmkfont | ppmdcfont | cksum
+
+# There is a strange glitch in output when ppmdcfont is compiled by
+# clang version 3.2.  Optimization (-O3) seems to be a factor.
+# 
+# 3171,3173c3171,3173
+# <     0x01,
+# <     95,
+# <     32
+# ---
+# >     0x00,
+# >     0,
+# >     0

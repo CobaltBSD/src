@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: ppmtoxpm xpmtoppm
+# Also requires: pgmtopbm ppmtopgm
+
+
+#ppmtoxpm -hexonly testimg.ppm | \
+# xpmtoppm  | cksum
+ppmtoxpm testgrid.pbm | xpmtoppm | \
+  ppmtopgm | pgmtopbm -th -value=0.5 | cksum

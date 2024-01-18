@@ -1,0 +1,66 @@
+#! /bin/bash
+# This script tests: giftopnm pamtogif
+# Also requires: ppmtorgb3 rgb3toppm pbmmake pnminvert
+
+
+tmpdir=${tmpdir:-/tmp}
+
+# Test 1. Break up input image into three monochrome planes,
+# maxval 255.  Transform each plane to gif and back to pgm.
+# Reassemble the planes.  Result should be identical to input.
+# Should print 1926073387 101484
+
+test_ppm=${tmpdir}/testimg.ppm
+
+cp testimg.ppm ${tmpdir} &&
+ppmtorgb3 ${test_ppm}
+
+test_red=${tmpdir}/testimg.red
+test_grn=${tmpdir}/testimg.grn
+test_blu=${tmpdir}/testimg.blu
+out_red=${tmpdir}/out.red
+out_grn=${tmpdir}/out.grn
+#out_blu=${tmpdir}/out.blu
+
+pamtogif ${test_red} | giftopnm > ${out_red} &&
+pamtogif ${test_grn} | giftopnm > ${out_grn} &&
+pamtogif ${test_blu} | giftopnm | \
+  rgb3toppm ${out_red} ${out_grn} - | \
+  cksum
+
+rm ${test_ppm} ${test_grn} ${test_blu} ${out_red} ${out_grn}
+
+
+# Test 2. Should produce 1571496937 33838
+# which is the result of cksum testimg.red
+# four times
+
+test_gif=${tmpdir}/testimg.gif
+
+pamtogif ${test_red} | giftopnm | cksum
+pamtogif -interlace ${test_red} | giftopnm | cksum
+pamtogif -sort ${test_red} | tee ${test_gif} | \
+  giftopnm | cksum
+echo "junk" >> ${test_gif} && \
+  giftopnm -image=1 -quitearly ${test_gif} | cksum
+
+rm  ${test_gif} ${test_red}
+
+
+# Test 3. Should produce 2425386270 41 five times.
+
+pamtogif testgrid.pbm | giftopnm | cksum
+pamtogif -nolzw testgrid.pbm | giftopnm | cksum
+pamtogif -transparent=black testgrid.pbm | giftopnm | cksum
+pamtogif -alpha=testgrid.pbm testgrid.pbm | giftopnm | cksum
+pamtogif -transparent=white testgrid.pbm | giftopnm -alpha=- | \
+  pnminvert | cksum
+
+# Test 4.
+# In this gif file the code length changes after the last image data.
+# Image data: 3 bits, end code 4 bits.
+# Should produce P1 4 1 0 1 0 1
+
+pbmmake -g 4 1 | \
+  pamtogif | giftopnm -plain | \
+  tr '\n' ' '

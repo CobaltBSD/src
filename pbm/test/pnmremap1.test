@@ -1,0 +1,26 @@
+#! /bin/bash
+# This script tests: pnmremap
+# Also requires: pamseq pamtopnm
+
+
+tmpdir=${tmpdir:-/tmp}
+palette=${tmpdir}/palette
+#palette255=${tmpdir}/palette255
+
+pamseq 3 5 -tupletype=RGB | pamtopnm > ${palette}
+#pamdepth 255 ${palette} > ${palette255}
+
+# Test 1. Floyd-Steinberg
+# This fails with older versions of Netpbm and x86-64.
+# May also fail on other non-Intel architectures.
+# v. 10.59.2
+# x86-32: 2667816854 101482
+# x86-64: 3602410851 101482
+
+pnmremap -mapfile=${palette} -floyd -norandom \
+ testimg.ppm | cksum
+
+#pnmremap -mapfile=${palette255} -floyd -norandom \
+# testimg.ppm | cksum
+
+rm ${palette} # ${palette255}

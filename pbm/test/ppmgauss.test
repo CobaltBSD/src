@@ -1,0 +1,12 @@
+#! /bin/bash
+# This script tests: pamgauss
+# Also requires:
+
+
+for i in `seq 3 11`
+do
+for s in `seq 1 9`
+do
+pamgauss $i $i -sigma=.$s | cksum
+done
+done

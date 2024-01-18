@@ -1,0 +1,34 @@
+#! /bin/bash
+# This script tests: pambackground
+# Also requires: pamgradient pamseq pbmmake pnmmargin pnmremap pnmtile pnmpad
+
+
+tmpdir=${tmpdir:-/tmp}
+
+# Test 1.
+# Should produce: 2155020792 451
+pbmmake -g 23 11 | pnmmargin -black 2 | pambackground | cksum
+
+
+# Test 2.
+# Should produce: 2514682516 33871
+ibmttl_pam=${tmpdir}/ibmttl.pam
+
+pamseq 3 1 > ${ibmttl_pam} && \
+pnmremap -quiet -mapfile ${ibmttl_pam} testimg.ppm | pambackground | cksum
+rm ${ibmttl_pam}
+
+
+# Test 3.
+# Should produce: 2667595257 17328
+pamgradient rgb:01/01/01 rgb:ff/7f/00 rgb:00/ff/7f rgb:fe/fe/fe 10 10 | \
+pnmmargin -white 2 | pnmtile 144 120 | pambackground | cksum
+
+
+# pamgradient rgb:01/01/01 rgb:ff/7f/00  rgb:00/ff/7f rgb:fe/fe/fe 10 10 | \
+# pnmmargin -white 2 | pnmtile 144 120 | cksum
+# should produce: 3147800256 51855
+# Above input image is a "wall" with 12x10 "windows".
+
+# pnmremap -mapfile ${ibmttl_pam} testimg.ppm | cksum
+# should produce : 452672747 101517

@@ -1,0 +1,10 @@
+#! /bin/bash
+# This script tests: pamtopam
+# Also requires:
+
+
+pamtopam < testimg.ppm  | sed '/ENDHDR/q'
+pamtopam < testgrid.pbm | sed '/ENDHDR/q'
+
+pamtopam < testimg.ppm   | cksum
+pamtopam < testgrid.pbm  | cksum

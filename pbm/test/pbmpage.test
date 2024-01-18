@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: pbmpage
+# Also requires:
+
+
+pbmpage 1 | cksum
+pbmpage 2 | cksum
+pbmpage 3 | cksum

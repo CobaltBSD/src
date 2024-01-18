@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: hdifftopam pamtohdiff
+# Also requires:
+
+
+pamtohdiff testimg.ppm | \
+  hdifftopam -pnm | cksum

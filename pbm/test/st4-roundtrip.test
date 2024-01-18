@@ -1,0 +1,14 @@
+#! /bin/bash
+# This script tests: pgmtost4 st4topgm
+# Also requires: pamchannel pamtopnm pamcut
+
+
+# Input image of pgmtost4 must by 192x165
+
+# Should produce 185194654 31695 which is the output of:
+# pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | \
+#   pamtopnm | pamcut -pad 0 0 192 165 | cksum
+
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | \
+  pamtopnm | pamcut -pad 0 0 192 165 | \
+  pgmtost4 | st4topgm - | cksum

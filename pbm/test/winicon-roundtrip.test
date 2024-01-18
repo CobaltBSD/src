@@ -1,0 +1,13 @@
+#! /bin/bash
+# This script tests: pamtowinicon winicontopam
+# Also requires: pamcut pnmtile pamtopnm ppmtopgm pgmtopbm
+
+
+pamcut --left=30 --width=48 --height=48 testimg.ppm | \
+pamtowinicon | winicontopam | \
+  pamtopnm | cksum
+
+pnmtile 32 32 testgrid.pbm | \
+pamtowinicon | winicontopam | \
+  pamtopnm | ppmtopgm | \
+  pgmtopbm  -th -val=0.5 | cksum

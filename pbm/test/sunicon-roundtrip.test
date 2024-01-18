@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: pbmtosunicon sunicontopnm
+# Also requires: pamcut
+
+# Width of Sun icons are multiples of 8.
+
+# Test.  Should print: 2425386270 41
+pbmtosunicon testgrid.pbm | sunicontopnm | pamcut 1 0 14 16 | cksum

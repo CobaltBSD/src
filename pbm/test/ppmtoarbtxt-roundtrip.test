@@ -1,0 +1,34 @@
+#! /bin/bash
+# This script tests: ppmtoarbtxt
+# Also requires: pnminvert pamtopnm
+
+# Test.  Invert colors.
+# Should print 1926073387 101484
+
+tmpdir=${tmpdir:-/tmp}
+headskl=${tmpdir}/headskl
+bodyskl=${tmpdir}/bodyskl
+inv_ppm=${tmpdir}/inv.ppm
+
+cat > ${headskl} << EOF
+P3
+#(width) #(height)
+255
+
+EOF
+
+cat > ${bodyskl} << EOF
+#(ired %d 255 0) #(igreen %d 255 0) #(iblue %d 255 0)
+
+EOF
+
+ppmtoarbtxt ${bodyskl} -hd ${headskl} testimg.ppm | tee ${inv_ppm} |
+  pnminvert | cksum
+
+
+# Test 2.
+
+cat ${inv_ppm} | ppmtoarbtxt ${bodyskl} -hd ${headskl} | pamtopnm | cksum
+
+
+rm ${bodyskl} ${headskl}

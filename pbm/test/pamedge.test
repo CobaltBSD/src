@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: pamedge
+# Also requires: pbmpscale pbmtext pgmtopbm pgmtopgm ppmtopgm
+
+
+pbmtext " F " -nom | pbmpscale 5 | \
+pgmtopgm | pamedge | \
+ppmtopgm | pgmtopbm -th -val=.5 -plain

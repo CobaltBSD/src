@@ -1,0 +1,9 @@
+CFLAGS=-I../lib/util -I../lib
+LDFLAGS=-L../lib -lpbm -lm
+
+all: pamaddnoise pambackground pamcomp pamcut pamdice pamditherbw pamedge pamenlarge pamfunc pammasksharpen pamperspective pamrecolor pamrubber pamscale pamsistoaglyph pamstretch pamthreshold pamundice pamwipeout pbmclean pbmmask pbmpscale pbmreduce pgmdeshadow pgmenhance pgmmedian pnmalias pnmcat pnmconvol pnmcrop pnmgamma pnmhisteq pnminvert pnmmontage pnmnlfilt pnmnorm pnmpad pnmpaste pnmremap pnmrotate pnmscalefixed pnmshear pnmsmooth pnmstitch pnmtile ppmbrighten ppmchange ppmcolormask ppmdim ppmdist ppmdither ppmdraw ppmflash ppmlabel ppmmix specialty/pamdeinterlace specialty/pammixinterlace specialty/pamoil specialty/pampaintspill specialty/pampop9 specialty/pbmlife specialty/pgmabel specialty/pgmbentley specialty/pgmmorphconv specialty/pnmindex specialty/pnmmercator specialty/ppm3d specialty/ppmglobe specialty/ppmntsc specialty/ppmrelief specialty/ppmshift specialty/ppmspread specialty/ppmtv
+	${MAKE} -C pamflip
+
+clean:
+	rm -fv pamaddnoise pambackground pamcomp pamcut pamdice pamditherbw pamedge pamenlarge pamfunc pammasksharpen pamperspective pamrecolor pamrubber pamscale pamsistoaglyph pamstretch pamthreshold pamundice pamwipeout pbmclean pbmmask pbmpscale pbmreduce pgmdeshadow pgmenhance pgmmedian pnmalias pnmcat pnmconvol pnmcrop pnmgamma pnmhisteq pnminvert pnmmontage pnmnlfilt pnmnorm pnmpad pnmpaste pnmremap pnmrotate pnmscalefixed pnmshear pnmsmooth pnmstitch pnmtile ppmbrighten ppmchange ppmcolormask ppmdim ppmdist ppmdither ppmdraw ppmflash ppmlabel ppmmix specialty/pamdeinterlace specialty/pammixinterlace specialty/pamoil specialty/pampaintspill specialty/pampop9 specialty/pbmlife specialty/pgmabel specialty/pgmbentley specialty/pgmmorphconv specialty/pnmindex specialty/pnmmercator specialty/ppm3d specialty/ppmglobe specialty/ppmntsc specialty/ppmrelief specialty/ppmshift specialty/ppmspread specialty/ppmtv
+	${MAKE} -C pamflip clean

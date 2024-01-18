@@ -1,0 +1,17 @@
+#! /bin/bash
+# This script tests: ppmrough
+# Also requires:
+
+testrandom -q
+case $? in
+   81)
+      # Should print: 378403602 30015
+      ppmrough  -randomseed 1 | cksum
+      ;;
+
+   8[02-9] | 90)
+       echo "Skipping: random number generator is not glibc." 1>&2
+       exit 80;;
+
+   *)  exit 1;;  # testrandom failed
+esac

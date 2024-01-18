@@ -1,0 +1,35 @@
+#! /bin/bash
+# This script tests: ppmpat
+# Also requires:
+
+# TODO: Write tests for squig and poles.  It appears that they are
+# sensitive to differences in floating point math.
+
+testrandom -q
+case $? in
+   81)
+       # Test 1. Should print: 4008533639 781
+       ppmpat --randomseed=0 -g2 16 16 | cksum
+
+       # Test 2. Should print: 2448908863 9613
+       ppmpat --randomseed=0 -g2 64 50 | cksum
+
+       # Test 3. Should print: 2698433077 1549
+       ppmpat --randomseed=0 -madras 32 16 | cksum
+
+       # Test 4. Should print: 3705929501 781
+       ppmpat --randomseed=0 -tartan 16 16 | cksum
+
+       # Test 5. Should print: 2219119109 36015
+       ppmpat --randomseed=0 -camo 100 120 | cksum
+
+       # Test 6. Should print: 3436846137 16813
+       ppmpat --randomseed=0 -anticamo 80 70 | cksum
+       ;;
+
+   8[02-9] | 90)
+       echo "Skipping: random number generator is not glibc." 1>&2
+       exit 80;;
+
+   *)  exit 1;;  # testrandom failed
+esac

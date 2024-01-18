@@ -1,0 +1,51 @@
+#! /bin/bash
+# This script tests: ppmcie
+# Also requires: pamsumm pamsharpness
+
+
+# Failure message
+## Ppmcie is sensitive to system factors.  If this test fails, please
+## run the program and visually examine the output.
+
+tmpdir=${tmpdir:-/tmp}
+
+# Test 1. Should print 955840041 786447
+# Without -nolabel -noaxes -nowpoint -noblack older versions of
+# Netpbm produce slightly different charts.
+# Output from "ppmcie | cksum" :
+# v. 10.35.86: 288356530 786447
+# v. 10.59.2 : 2292601420 786447
+
+ppmcie_ppm=${tmpdir}/ppmcie.ppm
+
+ppmcie -nolabel -noaxes -nowpoint -noblack \
+ > ${ppmcie_ppm}
+
+# There is a slight difference in the output depending on whether ppmcie
+# is compiled with SSE features are turned on or off.
+# Note that Gcc turns on SSE,SSE2 on by default for x86-64.
+
+# Output from "cksum ppmcie.ppm":
+# v. 10.59.2
+# x86 32 bit: 955840041 786447
+# x86 64 bit: 4208660683 786447
+
+# Test 1.  Measure mean value
+# v. 10.59.2
+# x86 32 bit: 38.660173
+# x86 64 bit: 38.681432
+
+pamsumm --mean --brief ${ppmcie_ppm} | \
+  awk '{ if(38.65 < $1 && $1 <38.69) print "ok"; else print $1}'
+
+# Test 2.  Measure image sharpness
+# v. 10.59.2
+# x86 32 bit: 0.002476
+# x86 64 bit: 0.002478
+
+pamsharpness ${ppmcie_ppm} 2>&1 | \
+  awk 'NF==3 && $1=="Sharpness" \
+       {if (0.002475 < $3 && $3 < 0.002479) print "ok"; else print $3}
+       NF>0 && NF!=3 {print "error"}'
+
+rm ${ppmcie_ppm}

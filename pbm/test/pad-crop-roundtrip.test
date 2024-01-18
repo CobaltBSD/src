@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: pnmcrop pnmmargin
+# Also requires: pnmpad
+
+
+pnmmargin -white 10 testimg.ppm | \
+  pnmcrop | cksum
+pnmmargin -white 10 testgrid.pbm | \
+  pnmcrop | cksum

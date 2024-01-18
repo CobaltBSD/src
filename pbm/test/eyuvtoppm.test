@@ -1,0 +1,8 @@
+#! /bin/bash
+# This script tests: eyuvtoppm
+# Also requires:
+
+
+# Should produce 1719878124 253455
+
+head -c 126720 /dev/zero |  eyuvtoppm -quiet | cksum

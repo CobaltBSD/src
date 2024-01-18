@@ -1,0 +1,25 @@
+#! /bin/bash
+# This script tests: pnmremap
+# Also requires: pamdepth pamseq pamtopnm
+
+
+tmpdir=${tmpdir:-/tmp}
+palette=${tmpdir}/palette
+palette255=${tmpdir}/palette255
+
+pamseq 3 5 -tupletype=RGB | pamtopnm > ${palette}
+pamdepth 255 ${palette} > ${palette255}
+
+# Test 2. Default (unmodified quantization)
+pnmremap -mapfile=${palette} -nofloyd \
+testimg.ppm | cksum
+
+# Test 3. Use first color in palette for missing colors
+pnmremap -mapfile=${palette255} -nofloyd \
+ -firstisdefault testimg.ppm | cksum
+
+# Test 4. Use black for missing colors
+pnmremap -mapfile=${palette255} -nofloyd \
+-missingcolor=black testimg.ppm | cksum
+
+rm ${palette} ${palette255}

@@ -1,0 +1,60 @@
+#! /bin/bash
+# This script tests: pbmtoepsi pbmtopsg3 pbmtolps psidtopgm pstopnm
+# Also requires: gs pnmcrop
+
+
+# This script is for testing alternative (or minor) utilities that
+# read/write Postscript and encapsulated Postscript:
+# pbmtoepsi, pbmtopsg3, pbmtolps and psidtopgm.
+#
+# We keep these tests separate from those for pnmtops and pstopnm
+# which are far more popular.
+#
+# pbmtopsg3 and pbmtolps produce output that require pstopnm for decoding.
+#
+# Failure message
+## If ps-roundtrip.test succeeds and this test fails, it is most likely
+## a problem with one of the alternate Postscipt utilities:
+## pbmtoepsi, pbmtopsg3, pbmtolps or psidtopgm.
+## If both tests fail it indicates a problem with pstopnm or gs.
+
+# pstopnm does not use libnetpbm functions for output.
+# Output is filtered through at least one Netpbm program.
+
+# Test 1. Should print: 2425386270 41
+testgrid1_ps=${tmpdir}/testgrid1.ps
+
+pbmtopsg3 -dpi=72 testgrid.pbm \
+     > ${testgrid1_ps} && \
+pstopnm -xborder=0 -yborder=0 -llx=0 -lly=-16 -urx=14 \
+    -dpi=72 -stdout -quiet -pbm ${testgrid1_ps} | \
+    pnmcrop | cksum
+
+rm ${testgrid1_ps}
+
+
+# Test 2. Should print: 2425386270 41
+testgrid2_ps=${tmpdir}/testgrid2.ps
+
+pbmtolps -dpi 72 testgrid.pbm \
+     > ${testgrid2_ps} && \
+pstopnm -xborder=0 -yborder=0 -dpi=72 -stdout \
+    -quiet ${testgrid2_ps} -pbm | \
+  pnmcrop | cksum
+
+rm ${testgrid2_ps}
+
+# Test 3. Should print: 2916080186 235
+# Output is pgm maxval=1 with black and white inverted.
+#
+testgrid_epsi=${tmpdir}/testgrid.epsi
+
+pbmtoepsi testgrid.pbm > ${testgrid_epsi} && \
+xysizebps=`awk  '/BeginPreview/ {print $2,$3,$4}' \
+    ${testgrid_epsi}` && \
+awk '/^%%BeginPreview:/ { p=1; next } /^%%EndImage/ { p=0; next } \
+  p==1 && /%[ \t0-9a-fA-F]+/ { print substr($0,2); next } \
+  p==1 {print "!"$0}' \
+    ${testgrid_epsi} | psidtopgm $xysizebps | cksum
+
+rm ${testgrid_epsi}

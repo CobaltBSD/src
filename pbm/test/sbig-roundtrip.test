@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: pgmtosbig sbigtopgm
+# Also requires: pamchannel pamtopnm
+
+
+# Should produce 1571496937 33838, cksum of testimg.red
+
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | pamtopnm | \
+  pgmtosbig | sbigtopgm | cksum

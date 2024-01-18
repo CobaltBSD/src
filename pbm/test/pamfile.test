@@ -1,0 +1,9 @@
+#! /bin/bash
+# This script tests: pamfile
+# Also requires: pamchannel pamtopnm
+
+
+pamfile testimg.ppm
+pamfile testgrid.pbm
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | pamtopnm | pamfile
+pamchannel -tupletype="GRAYSCALE" -infile=testimg.ppm 0 | pamfile

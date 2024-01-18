@@ -1,0 +1,10 @@
+#! /bin/bash
+# This script tests: pnmcat
+# Also requires:
+
+
+pnmcat -lr testgrid.pbm testgrid.pbm | cksum
+pnmcat -tb testgrid.pbm testgrid.pbm | cksum
+
+pnmcat -lr testimg.ppm testimg.ppm | cksum
+pnmcat -tb testimg.ppm testimg.ppm | cksum

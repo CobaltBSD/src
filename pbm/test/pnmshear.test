@@ -1,0 +1,22 @@
+#! /bin/bash
+# This script tests: pnmshear
+# Also requires: pbmmake pnmpad
+
+
+# Test.  Should produce 598644601 24
+
+pbmmake -g 7 7 | pnmpad -white -top 1 | \
+   pnmshear 45 -noantialias | cksum
+
+# Output of above, in pbm plain format
+#
+# P1
+# 15 8
+# 000000000000000
+# 010101000000000
+# 010101010000000
+# 000101010000000
+# 000101010100000
+# 000001010100000
+# 000001010101000
+# 000000010101000

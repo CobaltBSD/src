@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: pbmtoatk atktopbm
+# Also requires:
+
+
+# Should print 2425386270 41, cksum of testgrid.pbm
+pbmtoatk testgrid.pbm | atktopbm | cksum

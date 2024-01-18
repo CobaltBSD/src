@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: ppmtoleaf leaftoppm
+# Also requires:
+
+
+# Should produce 1926073387 101484, cksum of testimg.ppm
+ppmtoleaf testimg.ppm | leaftoppm | cksum

@@ -1,0 +1,37 @@
+As an open source project, Netpbm has been written and otherwise supported by
+myriad people from all over.  Most of them have made isolated contributions
+such as a single program, a single new feature, or a single bug fix.  To save
+clerical effort, we do not list them here and instead refer you to the HISTORY
+file.  This file lists people who have made broad contributions that wouldn't
+be well summarized by the HISTORY file.
+
+Jef Poskanzer had the original idea for what is now Netpbm and wrote dozens of
+programs and the original library code, as well as inventing and designing the
+PNM formats and writing documentation.  Jef's code contributions stopped in
+1991 and because of rewrites, there is not much of Jef's code still remaining,
+with what does remain being mostly obsolete.  Nonetheless, the impact of that
+original code is enormous, as everything in Netpbm today is derived in some
+way from Jef's work.
+
+Bryan Henderson has been maintaining Netpbm since 1999 and has written more
+code, in lines, than anyone else.  Most of that is just rewriting old code in
+a more maintainable style.  But Bryan has also fixed more bugs than anyone,
+since the normal bug reporting procedure is to tell the maintainer, and Bryan
+normally fixes bugs reported that way himself.  Bryan has also added many
+features and whole programs at the suggestion of users.  Bryan has written
+most of the documentation, whether by writing manuals for programs whose
+authors declined to do so or by rewriting manuals to make them more clear when
+users had trouble using Netpbm.
+
+Akira F Urushibata has made myriad contributions since 2004.  Much of the PBM
+processing code is his, as he rewrote existing programs to be much faster, in
+particular by using special bit-processing machine instructions.  He also
+created the entire test framework and regression test suite and runs those
+regression tests and other tests regularly, and often develops fixes for the
+bugs found.  Nobody else has done significant alpha testing of Netpbm except
+where developers have done it to test code they just wrote.  This testing has
+turned up many bugs in code going all the way back to 1989.
+
+Scott Pakin has contributed numerous programs over the years including the
+fairly significant work 'pamstereogram'.
+

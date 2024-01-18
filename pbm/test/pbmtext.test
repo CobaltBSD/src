@@ -1,0 +1,12 @@
+#! /bin/bash
+# This script tests: pbmtext
+# Also requires:
+
+
+for i in 0123456789 abcdefghijk lmnopqrst uzwxyz ABCDEFGHIJK LMNOPQRST UVWXYZ
+do
+for flags in "" "-nom" "-builtin fixed"
+do
+echo $i | pbmtext $flags | cksum
+done
+done

@@ -1,0 +1,10 @@
+#! /bin/bash
+# This script tests: pamtopnm
+# Also requires: pgmtopgm ppmtoppm
+
+pamtopnm -plain testgrid.pbm
+
+pgmtopgm < testgrid.pbm | pamtopnm -plain
+
+ppmtoppm < testgrid.pbm | pamtopnm -plain | \
+  head -n11

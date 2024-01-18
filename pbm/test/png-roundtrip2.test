@@ -1,0 +1,22 @@
+#! /bin/bash
+# This script tests: pngtopam pamtopng
+# Also requires:
+
+# Failure message
+## If this test fails and pnm-roundtrip.test succeeds, it indicates
+## some problem with pamtopng.
+##
+## If both tests fail, the likely cause is a problem with pngtopam.
+## It is also possible that there is some problem in libpng.
+
+# Test 1.  Should print 1926073387 101484 twice
+for flags in "" -gamma=.45
+  do
+  pamtopng testimg.ppm $flags | pngtopam | cksum
+  done
+
+# Test 2.  Should print 2425386270 41 twice
+for flags in "" -gamma=.45
+  do
+  pamtopng testgrid.pbm $flags | pngtopam | cksum
+  done

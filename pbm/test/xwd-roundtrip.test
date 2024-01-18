@@ -1,0 +1,16 @@
+#! /bin/bash
+# This script tests: pnmtoxwd xwdtopnm
+# Also requires: pamchannel pamtopnm pamdepth
+
+
+# Test 1.  Should produce 1571496937 33838, cksum of testimg.red
+pamchannel -infile=testimg.ppm -tupletype="GRAYSCALE" 0 | pamtopnm | \
+  pnmtoxwd | xwdtopnm | pamdepth 255 | cksum
+
+# Test 2.  Should produce 1926073387 101484
+pnmtoxwd --quiet  testimg.ppm | \
+  xwdtopnm --quiet | pamdepth 255 | cksum
+
+# Test 3.  Should produce 2425386270 41
+pnmtoxwd --quiet  testgrid.pbm | \
+  xwdtopnm | cksum

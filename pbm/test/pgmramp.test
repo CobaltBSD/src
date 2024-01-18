@@ -1,0 +1,15 @@
+#! /bin/bash
+# This script tests: pgmramp
+# Also requires:
+
+
+for type in -lr -tb -rectangle -ellipse -diagonal
+do
+pgmramp -maxval=6 $type 4 4 -plain
+done
+
+for type in -lr -tb -rectangle -ellipse
+do pgmramp $type 256 256 | cksum
+done
+
+pgmramp -diagonal -maxval=510 256 256 | cksum

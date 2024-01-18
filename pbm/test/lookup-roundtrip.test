@@ -1,0 +1,12 @@
+#! /bin/bash
+# This script tests: pamlookup pamunlookup
+# Also requires: ppmhist
+
+tmpdir=${tmpdir:-/tmp}
+mapfile=${tmpdir}/mapfile
+
+ppmhist testimg.ppm -map > ${mapfile}
+
+# Test.  Should produce 1926073387 101484
+pamunlookup -lookupfile=${mapfile} testimg.ppm |\
+  pamlookup -lookupfile=${mapfile} | cksum

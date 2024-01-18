@@ -1,0 +1,23 @@
+   tiles:	1
+ x-edges:	2
+ y-edges:	2
+vertices:	4
+    area:	1
+perimeter:	4
+ eulerchi:	1
+
+   tiles:	5
+ x-edges:	10
+ y-edges:	10
+vertices:	16
+    area:	5
+perimeter:	20
+ eulerchi:	1
+
+   tiles:	56
+ x-edges:	112
+ y-edges:	112
+vertices:	224
+    area:	56
+perimeter:	224
+ eulerchi:	56

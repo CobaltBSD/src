@@ -1,0 +1,429 @@
+#! /bin/bash
+# Tests whether the executable files listed below are in place.
+
+# We test by actually running all the executables.
+
+# Failure message
+# See Netpbm Library Prerequisites
+# http://netpbm.sourceforge.net/prereq.html
+# if make succeeds but this test fails.
+
+function testExitStatus () {
+
+# This function takes 3 positional parameters:
+#   $1: filename
+#   $2: expected exit status   (In some cases we expect error.)
+#   $3: actual exit status
+
+    case $3 in
+      126) if [ ! -x $1 ]
+             then echo $1": NOT EXECUTABLE";
+             else echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;
+           fi ;;
+      127) type -p $1 > /dev/null
+           if [ $? -ne 0 ]
+             then echo $1": NO SUCH FILE";
+             else echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;
+           fi ;;
+      88)  echo $1": NO SUCH FILE" ;;
+      $2)  echo $1": ok" ;;
+      *)   echo $1": ERROR: "$3;    echo $1": error: "$3 1>&2 ;;
+    esac
+
+}
+
+
+# Test programs which have the --version flag.
+# See showVersion() in lib/libpm.c for the standard version announcement.
+
+ordinary_testprogs="\
+  411toppm \
+  asciitopgm \
+  atktopbm \
+  avstopam \
+  bioradtopgm \
+  bmptopnm \
+  brushtopbm \
+  cameratopam \
+  cistopbm \
+  cmuwmtopbm \
+  ddbugtopbm \
+  escp2topbm \
+  eyuvtoppm \
+  fitstopnm \
+  fstopgm \
+  g3topbm \
+  gemtopnm \
+  giftopnm \
+  gouldtoppm \
+  hdifftopam \
+  hipstopgm \
+  ilbmtoppm \
+  imgtoppm \
+  infotopam \
+  jbigtopnm \
+  jpeg2ktopam \
+  jpegtopnm \
+  leaftoppm \
+  lispmtopgm \
+  macptopbm \
+  mdatopbm \
+  mgrtopbm \
+  mrftopbm \
+  mtvtoppm \
+  neotoppm \
+  palmtopnm \
+  pamaddnoise \
+  pamarith \
+  pambackground \
+  pambayer \
+  pamchannel \
+  pamcomp \
+  pamcrater \
+  pamcut \
+  pamdeinterlace \
+  pamdepth \
+  pamdice \
+  pamditherbw \
+  pamedge \
+  pamendian \
+  pamenlarge \
+  pamexec \
+  pamfile \
+  pamfix \
+  pamflip \
+  pamfunc \
+  pamgauss \
+  pamgradient \
+  pamlookup \
+  pammasksharpen \
+  pammixinterlace \
+  pammosaicknit \
+  pamoil \
+  pampaintspill \
+  pamperspective \
+  pampick \
+  pampop9 \
+  pamrecolor \
+  pamrubber \
+  pamscale \
+  pamseq \
+  pamshadedrelief \
+  pamsharpmap \
+  pamsharpness \
+  pamsistoaglyph \
+  pamslice \
+  pamsplit \
+  pamstack \
+  pamstereogram \
+  pamstretch \
+  pamsumm \
+  pamsummcol \
+  pamthreshold \
+  pamtilt \
+  pamtoavs \
+  pamtodjvurle \
+  pamtofits \
+  pamtogif \
+  pamtohdiff \
+  pamtohtmltbl \
+  pamtojpeg2k \
+  pamtompfont \
+  pamtooctaveimg \
+  pamtopam \
+  pamtopdbimg \
+  pamtopfm \
+  pamtopng \
+  pamtopnm \
+  pamtosrf \
+  pamtosvg \
+  pamtotga \
+  pamtotiff \
+  pamtouil \
+  pamtowinicon \
+  pamtoxvmini \
+  pamundice \
+  pamunlookup \
+  pamvalidate \
+  pamwipeout \
+  pamx \
+  pbmclean \
+  pbmlife \
+  pbmmake \
+  pbmmask \
+  pbmminkowski \
+  pbmpage \
+  pbmpscale \
+  pbmreduce \
+  pbmtext \
+  pbmtextps \
+  pbmto10x \
+  pbmto4425 \
+  pbmtoascii \
+  pbmtoatk \
+  pbmtobbnbg \
+  pbmtocis \
+  pbmtocmuwm \
+  pbmtodjvurle \
+  pbmtoepsi \
+  pbmtoepson \
+  pbmtoescp2 \
+  pbmtog3 \
+  pbmtogem \
+  pbmtogo \
+  pbmtoibm23xx \
+  pbmtolj \
+  pbmtoln03 \
+  pbmtolps \
+  pbmtomacp \
+  pbmtomatrixorbital \
+  pbmtomda \
+  pbmtomgr \
+  pbmtomrf \
+  pbmtonokia \
+  pbmtopgm \
+  pbmtopi3 \
+  pbmtopk \
+  pbmtoplot \
+  pbmtoppa \
+  pbmtopsg3 \
+  pbmtoptx \
+  pbmtosunicon \
+  pbmtowbmp \
+  pbmtoxbm \
+  pbmtoybm \
+  pbmtozinc \
+  pbmupc \
+  pc1toppm \
+  pcxtoppm \
+  pdbimgtopam \
+  pfmtopam \
+  pgmabel \
+  pgmbentley \
+  pgmdeshadow \
+  pgmenhance \
+  pgmhist \
+  pgmkernel \
+  pgmmake \
+  pgmmedian \
+  pgmminkowski \
+  pgmmorphconv \
+  pgmnoise \
+  pgmramp \
+  pgmtexture \
+  pgmtofs \
+  pgmtolispm \
+  pgmtopbm \
+  pgmtopgm \
+  pgmtoppm \
+  pgmtosbig \
+  pgmtost4 \
+  pi1toppm \
+  pi3topbm \
+  picttoppm \
+  pjtoppm \
+  pktopbm \
+  pngtopam \
+  pnmalias \
+  pnmcat \
+  pnmcolormap \
+  pnmconvol \
+  pnmcrop \
+  pnmgamma \
+  pnmhisteq \
+  pnmhistmap \
+  pnmindex \
+  pnminvert \
+  pnmmercator \
+  pnmmontage \
+  pnmnlfilt \
+  pnmnorm \
+  pnmpad \
+  pnmpaste \
+  pnmpsnr \
+  pnmremap \
+  pnmrotate \
+  pnmscalefixed \
+  pnmshear \
+  pnmsmooth \
+  pnmstitch \
+  pnmtile \
+  pnmtoddif \
+  pnmtofiasco \
+  pnmtojbig \
+  pnmtojpeg \
+  pnmtopalm \
+  pnmtopclxl \
+  pnmtopng \
+  pnmtops \
+  pnmtorast \
+  pnmtorle \
+  pnmtosgi \
+  pnmtosir \
+  pnmtotiffcmyk \
+  pnmtoxwd \
+  ppm3d \
+  ppmbrighten \
+  ppmchange \
+  ppmcie \
+  ppmcolormask \
+  ppmcolors \
+  ppmdcfont \
+  ppmddumpfont \
+  ppmdim \
+  ppmdist \
+  ppmdither \
+  ppmdmkfont \
+  ppmdraw \
+  ppmflash \
+  ppmforge \
+  ppmglobe \
+  ppmhist \
+  ppmlabel \
+  ppmmake \
+  ppmmix \
+  ppmntsc \
+  ppmpat \
+  ppmrelief \
+  ppmrough \
+  ppmshift \
+  ppmspread \
+  ppmtoacad \
+  ppmtoapplevol \
+  ppmtoarbtxt \
+  ppmtoascii \
+  ppmtobmp \
+  ppmtoeyuv \
+  ppmtoicr \
+  ppmtoilbm \
+  ppmtoleaf \
+  ppmtolj \
+  ppmtomitsu \
+  ppmtoneo \
+  ppmtopcx \
+  ppmtopgm \
+  ppmtopi1 \
+  ppmtopict \
+  ppmtopj \
+  ppmtopjxl \
+  ppmtoppm \
+  ppmtopuzz \
+  ppmtorgb3 \
+  ppmtosixel \
+  ppmtospu \
+  ppmtoterm \
+  ppmtowinicon \
+  ppmtoxpm \
+  ppmtoyuv \
+  ppmtoyuvsplit \
+  ppmtv \
+  ppmwheel \
+  psidtopgm \
+  pstopnm \
+  qrttoppm \
+  rasttopnm \
+  rawtopgm \
+  rawtoppm \
+  rgb3toppm \
+  rlatopam \
+  rletopnm \
+  sbigtopgm \
+  sgitopnm \
+  sirtopnm \
+  sldtoppm \
+  spctoppm \
+  spottopgm \
+  sputoppm \
+  srftopam \
+  st4topgm \
+  sunicontopnm \
+  svgtopam \
+  tgatoppm \
+  thinkjettopbm \
+  tifftopnm \
+  wbmptopbm \
+  winicontopam \
+  winicontoppm \
+  xbmtopbm \
+  ximtoppm \
+  xpmtoppm \
+  xvminitoppm \
+  xwdtopnm \
+  ybmtopbm \
+  yuvsplittoppm \
+  yuvtoppm \
+  yuy2topam \
+  zeisstopnm \
+"
+
+for i in $ordinary_testprogs
+  do
+    $i --version  2>&1 | \
+    egrep -v \
+    "(Using libnetpbm|Compiled|(BSD|SYSV|MSDOS|AMIGA) defined|RGB_?ENV=)" \
+      1>&2;
+    testExitStatus $i 0 ${PIPESTATUS[0]}
+  done
+
+
+# Test fiascotopnm, which has a unique -v flag.
+fiascotopnm -v 2> /dev/null
+    testExitStatus fiascotopnm 2 $?
+
+
+# Test manweb and pnmmargin, which have --help.
+manweb --help > /dev/null
+    testExitStatus manweb 0 $?
+
+pnmmargin --help 2> /dev/null
+    testExitStatus pnmmargin 1 $?
+
+
+# Test anytopnm, pnmnoraw, pnmquant, pnmquantall
+# ppmrainbow, ppmshadow, ppmtomap
+# with trivial input.
+
+$i ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+tmpdir=${tmpdir:-/tmp}
+test_pbm=${tmpdir}/test.pbm
+
+cat > ${test_pbm} <<EOF
+P1
+1 1
+1
+EOF
+
+for i in anytopnm ppmtomap ppmshadow
+  do
+    $i ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+    testExitStatus $i 0 $?
+  done
+
+for i in pnmquant pnmquantall
+  do
+    $i 2 ${tmpdir}/test.pbm > /dev/null 2> /dev/null;
+    testExitStatus $i 0 $?
+  done
+
+rm ${test_pbm}
+    ppmrainbow rgb:00/00/00 rgb:ff/ff/ff \
+    -tmpdir=${tmpdir} -width=2 -height=2 > /dev/null
+    testExitStatus ppmrainbow 0 $?
+
+
+# Test ppmfade with corrupt input.
+# Prevent the creation of output files by setting base to /dev/null.
+# Exit status should be 50.
+    ppmfade -f /dev/zero -base /dev/null > /dev/null 2> /dev/null
+    testExitStatus ppmfade 50 $?
+
+
+# Test pamstretch-gen and pcdovtoppm with no input.
+# These two programs write a usage message on standout in this case.
+# Exit status should be 1.
+
+for i in pamstretch-gen pcdovtoppm
+  do
+     $i > /dev/null
+     testExitStatus $i 1 $?
+  done

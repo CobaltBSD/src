@@ -1,0 +1,7 @@
+#! /bin/bash
+# This script tests: ppmtopgm
+# Also requires:
+
+
+# Test 1. Should produce 2871603838 33838
+ppmtopgm testimg.ppm | cksum

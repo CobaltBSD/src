@@ -1,0 +1,28 @@
+#! /bin/bash
+# This script tests: ppmtoilbm ilbmtoppm
+# Also requires: pamseq pamdepth pamtopnm pnmremap
+
+#Test. 1  Should produce 829921912 685 four times
+#Output is PPM raw, 14 by 16  maxval 255
+ppmtoilbm testgrid.pbm | ilbmtoppm | cksum
+ppmtoilbm -aga testgrid.pbm | ilbmtoppm | cksum
+ppmtoilbm -ham6 testgrid.pbm | ilbmtoppm | cksum
+ppmtoilbm -ham8 testgrid.pbm | ilbmtoppm | cksum
+
+
+#Test. 2  Should produce 1926073387 101484 three times
+ppmtoilbm testimg.ppm | ilbmtoppm | cksum
+ppmtoilbm -24force testimg.ppm | ilbmtoppm | cksum
+ppmtoilbm -dcbits 8 8 8 -nocompress testimg.ppm | ilbmtoppm | cksum
+
+
+#Test. 3  Should print 984199586 101484
+pamseq 3 5 -tupletype=RGB | pamdepth 255 | pamtopnm | \
+  pnmremap -mapfile=- testimg.ppm | ppmtoilbm | ilbmtoppm | cksum
+
+
+#Test. 4 Should print 2059976475 661 twice
+pamseq 3 5 -tupletype=RGB | pamtopnm | \
+  ppmtoilbm -compress | ilbmtoppm | cksum
+pamseq 3 5 -tupletype=RGB | pamtopnm | \
+  ppmtoilbm -nocompress | ilbmtoppm | cksum

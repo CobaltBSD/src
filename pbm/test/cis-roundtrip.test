@@ -1,0 +1,14 @@
+#! /bin/bash
+# This script tests: pbmtocis cistopbm
+# Also requires: pbmmake pamcut
+
+
+# Output images produced by pbmtocis are of fixed size,
+# either 128x96 or 256x192.
+# Smaller input images are padded, larger ones are cropped.
+
+# Test 1. Should print 2631579683 1546
+pbmmake -g 128 96 | pbmtocis | cistopbm | cksum
+
+# Test 2. Should print 2425386270 41
+pbmtocis testgrid.pbm | cistopbm | pamcut 0 0 14 16 | cksum
