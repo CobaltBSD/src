@@ -30,16 +30,16 @@
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-.include <bsd.own.mk>
+#.include <bsd.own.mk>
 
-SRCS=	dhclient.c clparse.c dispatch.c bpf.c options.c \
-	conflex.c log.c packet.c  \
-	parse.c privsep.c kroute.c
+OBJS=	dhclient.o clparse.o dispatch.o bpf.o options.o \
+	conflex.o log.o packet.o \
+	parse.o privsep.o kroute.o
 
 PROG=	dhclient
-LDADD+=	-lutil
-DPADD+= ${LIBUTIL}
+LIBS=	-lutil
 MAN=	dhclient.8 dhclient.conf.5 dhclient.leases.5
+BINDIR=${SBINDIR}
 
 CFLAGS+=-Wall
 CFLAGS+=-Wstrict-prototypes -Wmissing-prototypes
@@ -47,4 +47,4 @@ CFLAGS+=-Wmissing-declarations
 CFLAGS+=-Wshadow -Wpointer-arith -Wcast-qual
 CFLAGS+=-Wsign-compare
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

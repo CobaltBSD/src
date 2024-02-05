@@ -25,10 +25,10 @@
 #include <errno.h>
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "pnm.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pnm.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 enum bg_choice {BG_BLACK, BG_WHITE, BG_DEFAULT, BG_SIDES};
 

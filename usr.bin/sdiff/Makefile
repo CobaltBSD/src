@@ -1,10 +1,7 @@
-#	$OpenBSD: Makefile,v 1.5 2017/09/05 06:27:38 otto Exp $
-
 PROG=sdiff
-SRCS=common.c edit.c sdiff.c
-COPTS+=-Wall -Wextra -Wno-sign-compare
+MAN=sdiff.1
+OBJS=common.o edit.o sdiff.o
+CFLAGS+=-Wall -Wextra -Wno-sign-compare
+LIBS=	-lutil
 
-LDADD+=	-lutil
-DPADD+=	${LIBUTIL}
-
-.include <bsd.prog.mk>
+include cobalt.prog.mk

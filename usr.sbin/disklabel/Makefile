@@ -1,5 +1,3 @@
-#	$OpenBSD: Makefile,v 1.70 2021/09/20 20:23:44 deraadt Exp $
-
 PROG=	disklabel
 SRCS=	disklabel.c dkcksum.c editor.c manual.c
 DPADD=	${LIBUTIL}
@@ -30,3 +28,4 @@ CFLAGS+= -DSUN_CYLCHECK -DSUN_AAT0
 .endif
 
 .include <bsd.prog.mk>
+#TODO

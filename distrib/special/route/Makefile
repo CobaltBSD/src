@@ -7,5 +7,5 @@ CFLAGS+=	-Wall -DSMALL
 
 route.o tags: keywords.h
 
-.PATH:  ${.CURDIR}/../../../sbin/route
+.PATH:  ${.CURDIR}/../../../usr.sbin/route
 .include <bsd.prog.mk>

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 
 echo -e \
 	"\e[0;30mDARK GRAY (\\\e[0;30m)\n" \

@@ -1,9 +1,8 @@
-#	$OpenBSD: Makefile,v 1.4 1997/04/27 20:56:56 millert Exp $
-
 PROG=	units
+MAN=	units.1
 
 beforeinstall:
-	${INSTALL} ${INSTALL_COPY} -o ${BINOWN} -g ${BINGRP} -m 444 \
-	    ${.CURDIR}/units.lib ${DESTDIR}/usr/share/misc
+	${INSTALL} ${INSTALL_COPY} -D -o ${BINOWN} -g ${BINGRP} -m 444 \
+	    ${CURDIR}/units.lib ${DESTDIR}/usr/share/misc/units.lib
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

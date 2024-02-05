@@ -2,7 +2,7 @@
 
 PROG=	dhcpleased
 COPTS+=	-DSMALL
-.PATH:  ${.CURDIR}/../../../sbin/dhcpleased
+.PATH:  ${.CURDIR}/../../../usr.sbin/dhcpleased
 SRCS=	bpf.c checksum.c dhcpleased.c engine.c frontend.c
 
 LDADD+=	-levent -lutil

@@ -11,8 +11,8 @@
 */
 
 #include <limits.h>
-#include "pbm.h"
-#include "mallocvar.h"
+#include <pbm/pbm.h>
+#include <pbm/util/mallocvar.h>
 
 int
 main( argc, argv )

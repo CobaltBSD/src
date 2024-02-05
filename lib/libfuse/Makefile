@@ -43,3 +43,4 @@ beforeinstall:
 	    -m ${SHAREMODE} ${.OBJDIR}/${PC_FILES} ${DESTDIR}/usr/lib/pkgconfig/
 
 .include <bsd.lib.mk>
+#TODO

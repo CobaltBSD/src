@@ -7,13 +7,13 @@
 #include <assert.h>
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "ppm.h"
-#include "ppmdraw.h"
-#include "ppmdfont.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/ppm.h>
+#include <pbm/ppmdraw.h>
+#include <pbm/ppmdfont.h>
 
 static bool verbose;
 

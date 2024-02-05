@@ -15,8 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "pam.h"
-#include "mallocvar.h"
+#include <pbm/pam.h>
+#include <pbm/util/mallocvar.h>
 
 static void 
 convertRow(struct pam const inpam, tuple ** const tuples,

@@ -1,6 +1,5 @@
-#	$OpenBSD: Makefile,v 1.2 1997/09/21 11:43:08 deraadt Exp $
-
 PROG=	accton
+BINDIR= ${SBINDIR}
 MAN=	accton.8
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

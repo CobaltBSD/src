@@ -1,14 +1,11 @@
-#	$OpenBSD: Makefile,v 1.10 2010/07/20 02:05:15 deraadt Exp $
-
 PROG=	ifstated
-SRCS=	ifstated.c log.c parse.y
-CFLAGS+= -Wall -I${.CURDIR}
+OBJS=	ifstated.o log.o parse.o
+CFLAGS+= -Wall
 CFLAGS+= -Wstrict-prototypes -Wmissing-prototypes
 CFLAGS+= -Wmissing-declarations
 CFLAGS+= -Wshadow -Wpointer-arith -Wcast-qual
-YFLAGS=
 MAN= ifstated.8 ifstated.conf.5
-LDADD+=-levent
-DPADD+= ${LIBEVENT}
+LIBS=-levent
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk
+#TODO

@@ -1,13 +1,7 @@
-#	$OpenBSD: Makefile,v 1.4 2017/07/10 21:30:37 espie Exp $
-#	$NetBSD: Makefile,v 1.11 2003/08/01 17:04:04 lukem Exp $
-
-BINDIR=/usr/bin
-
-.include <bsd.own.mk>
-
 PROG=		mklocale
-SRCS=		yacc.y lex.l
-CPPFLAGS+=	-I. -I${.CURDIR} -I${.CURDIR}/../libc -I${.CURDIR}/../libc/include
-YHEADER=	1
+OBJS=		yacc.tab.o lex.o
+CFLAGS+=	-I. -I${CURDIR} -I${CURDIR}/../libc -I${CURDIR}/../libc/include
+CLEANFILES += yacc.tab.c yacc.tab.h lex.yy.c
+MAN=mklocale.1
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

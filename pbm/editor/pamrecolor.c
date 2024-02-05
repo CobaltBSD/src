@@ -30,10 +30,10 @@
 #include <math.h>
 #include <assert.h>
 
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "pam.h"
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
 
 /* Two numbers less than REAL_EPSILON apart are considered equal. */
 #define REAL_EPSILON 0.00001

@@ -6,6 +6,6 @@ CFLAGS+=-DNO_CONV
 PROG=	dd
 SRCS=	args.c conv.c dd.c misc.c position.c
 
-.PATH:	${.CURDIR}/../../../bin/dd
+.PATH:	${.CURDIR}/../../../usr.bin/dd
 
 .include <bsd.prog.mk>

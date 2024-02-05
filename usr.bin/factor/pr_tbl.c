@@ -1,0 +1,1 @@
+../primes/pr_tbl.c

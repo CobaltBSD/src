@@ -1,103 +1,80 @@
-#ifndef _JOB_H_
-#define _JOB_H_
+/* Definitions for managing subprocesses in GNU Make.
+Copyright (C) 1992-2023 Free Software Foundation, Inc.
+This file is part of GNU Make.
 
-/*	$OpenBSD: job.h,v 1.38 2020/06/03 12:41:39 espie Exp $	*/
-/*	$NetBSD: job.h,v 1.5 1996/11/06 17:59:10 christos Exp $ */
+GNU Make is free software; you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3 of the License, or (at your option) any later
+version.
 
-/*
- * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
- * Copyright (c) 1988, 1989 by Adam de Boor
- * Copyright (c) 1989 by Berkeley Softworks
- * All rights reserved.
- *
- * This code is derived from software contributed to Berkeley by
- * Adam de Boor.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the University nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- *
- *	from: @(#)job.h 8.1 (Berkeley) 6/6/93
- */
+GNU Make is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-/*-
- * job.h --
- *	Definitions pertaining to the running of jobs.
- */
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Job_Make(gn);
- *	register a new job running commands associated with building gn.
- */
-extern void Job_Make(GNode *);
-/* Job_Init(maxproc);
- *	setup job handling framework
- */
-extern void Job_Init(int);
+#include "output.h"
 
-/* save signal mask at start */
-extern void Sigset_Init(void);
+/* Structure describing a running or dead child process.  */
 
-/* interface with the normal build in make.c */
-/* okay = can_start_job();
- *	can we run new jobs right now ?
- */
-extern bool can_start_job(void);
+#define VMSCHILD
 
-/* finished = Job_Empty();
- *	wait until all jobs are finished after we build everything.
- */
-extern bool Job_Empty(void);
+#define CHILDBASE                                               \
+    char *cmd_name;       /* Allocated copy of command run.  */ \
+    char **environment;   /* Environment for commands. */       \
+    VMSCHILD                                                    \
+    struct output output  /* Output for this child.  */
 
-extern void Job_Wait(void);
-extern void Job_AbortAll(void);
-extern void print_errors(void);
 
-/* handle_running_jobs();
- *	wait until something happens, like a job finishing running a command
- *	or a signal coming in.
- */
-extern void handle_running_jobs(void);
-/* loop_handle_running_jobs();
- *	handle running jobs until they're finished.
- */
-extern void loop_handle_running_jobs(void);
-extern void reset_signal_mask(void);
+struct childbase
+  {
+    CHILDBASE;
+  };
 
-/* handle_all_signals();
- *	if a signal was received, react accordingly.
- *	By displaying STATUS info, or by aborting running jobs for a fatal
- *	signals. Relies on Job_Init() for setting up handlers.
- */
-extern void handle_all_signals(void);
+struct child
+  {
+    CHILDBASE;
 
-extern void determine_expensive_job(Job *);
-extern Job *runningJobs, *errorJobs, *availableJobs;
-extern void debug_job_printf(const char *, ...);
-extern void handle_one_job(Job *);
-extern int check_dying_signal(void);
+    struct child *next;         /* Link in the chain.  */
 
-extern const char *basedirectory;
+    struct file *file;          /* File being remade.  */
 
-extern bool	sequential;	/* True if we are running one single-job */
+    char *sh_batch_file;        /* Script file for shell commands */
+    char **command_lines;       /* Array of variable-expanded cmd lines.  */
+    char *command_ptr;          /* Ptr into command_lines[command_line].  */
 
-#endif /* _JOB_H_ */
+    unsigned int  command_line; /* Index into command_lines.  */
+
+    pid_t pid;                  /* Child process's ID number.  */
+
+    unsigned int  remote:1;     /* Nonzero if executing remotely.  */
+    unsigned int  noerror:1;    /* Nonzero if commands contained a '-'.  */
+    unsigned int  good_stdin:1; /* Nonzero if this child has a good stdin.  */
+    unsigned int  deleted:1;    /* Nonzero if targets have been deleted.  */
+    unsigned int  recursive:1;  /* Nonzero for recursive command ('+' etc.)  */
+    unsigned int  jobslot:1;    /* Nonzero if it's reserved a job slot.  */
+    unsigned int  dontcare:1;   /* Saved dontcare flag.  */
+  };
+
+extern struct child *children;
+
+/* A signal handler for SIGCHLD, if needed.  */
+void child_handler (int sig);
+int is_bourne_compatible_shell(const char *path);
+void new_job (struct file *file);
+void reap_children (int block, int err);
+void start_waiting_jobs (void);
+void free_childbase (struct childbase* child);
+
+char **construct_command_argv (char *line, char **restp, struct file *file,
+                               int cmd_flags, char** batch_file);
+
+pid_t child_execute_job (struct childbase *child, int good_stdin, char **argv);
+
+pid_t exec_command (char **argv, char **envp);
+
+void unblock_all_sigs (void);
+
+extern unsigned int job_slots_used;
+extern unsigned int jobserver_tokens;

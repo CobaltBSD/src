@@ -5,10 +5,10 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pnm.h>
 
 #define MAX_WIDTHHEIGHT ((INT_MAX)-10)
     /* The maximum width or height value we can handle without risking

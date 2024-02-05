@@ -1,20 +1,13 @@
-#	$OpenBSD: Makefile,v 1.15 2016/03/30 06:38:45 jmc Exp $
-
-.include <bsd.own.mk>
-
 PROG=	chpass
-#SRCS=	chpass.c edit.c field.c table.c util.c getpwent.c
-SRCS=	chpass.c edit.c field.c table.c util.c
+OBJS=	chpass.o edit.o field.o table.o util.o getpwent.o
 BINOWN=	root
 BINMODE=4555
-#.PATH:	${.CURDIR}/../../pkg/dist/cblibc/libc/gen
-LINKS=	${BINDIR}/chpass ${BINDIR}/chfn ${BINDIR}/chpass ${BINDIR}/chsh
-#CFLAGS+=-I${.CURDIR}/../../pkg/dist/cblibc/libc/include
-DPADD+= ${LIBUTIL}
-LDADD+= -lutil
+SYMLINKS=	${BINDIR}/chfn ${BINDIR}/chpass ${BINDIR}/chsh
+LIBS= -lutil
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk
 
-#getpwent.o: getpwent.c
-#	${COMPILE.c} -UYP -D'DEF_WEAK(x)=asm("")' \
-#	    ${.CURDIR}/../../pkg/dist/cblibc/libc/gen/getpwent.c
+getpwent.o:
+	$(CC) -I${CURDIR}/../../lib/libc/include -c -UYP -D'DEF_WEAK(x)=asm("")' \
+	    ${CURDIR}/../../lib/libc/gen/getpwent.c
+

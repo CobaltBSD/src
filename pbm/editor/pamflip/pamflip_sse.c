@@ -19,10 +19,10 @@
 
 #include <assert.h>
 
-#include "pm_config.h"
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "pam.h"
+#include <pbm/pm_config.h>
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pam.h>
 
 #include "config.h"  /* Defines SSE_PBM_XY_FLIP */
 #include "flip.h"

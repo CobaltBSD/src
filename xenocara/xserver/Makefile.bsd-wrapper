@@ -1,34 +1,22 @@
-# $OpenBSD: Makefile.bsd-wrapper,v 1.69 2020/08/28 02:20:19 jsg Exp $
+include cobalt.xconf.mk
 
-.include <bsd.xconf.mk>
-
-DIST= ${.CURDIR}
-
-# Machines for which we don't build the Xorg Xserver
-NO_XORG_MACHINES=	alpha landisk octeon
-
-.for M in ${NO_XORG_MACHINES} 
-NO_XORG_${M} = --disable-xorg
-.endfor
-NO_XORG_OPTION=${NO_XORG_${MACHINE}}
-
-.if ${XENOCARA_BUILD_GL:L} != "yes"
-GLX_OPTION=	--disable-glx --disable-glamor
-.else
+#.if ${XENOCARA_BUILD_GL:L} != "yes"
+#GLX_OPTION=	--disable-glx --disable-glamor
+#.else
 GLX_OPTION=	--enable-glamor
 KDRIVE_OPTION=	--enable-kdrive
-.endif
+#.endif
 
-.if ${XENOCARA_BUILD_DRI:L} == "yes"
+#.if ${XENOCARA_BUILD_DRI:L} == "yes"
 DRI_OPTION=	--enable-dri --enable-dri2
-.else
-DRI_OPTION=	--disable-dri --disable-dri2 --disable-dri3 --disable-libdrm
-.endif
+#.else
+#DRI_OPTION=	--disable-dri --disable-dri2 --disable-dri3 --disable-libdrm
+#.endif
 
 XKB_PATH=	${X11BASE}/share/X11/xkb
 XKB_RULES=	base
 
-CONFIGURE_ARGS=	--localstatedir=/var --sysconfdir=/etc/X11 \
+CONFIGURE_ARGS+=	--localstatedir=/var --sysconfdir=/etc/X11 \
 		--with-xkb-path=${XKB_PATH} \
 		--with-xkb-output=/var/db/xkb \
 		--with-default-xkb-rules=${XKB_RULES} \
@@ -37,11 +25,11 @@ CONFIGURE_ARGS=	--localstatedir=/var --sysconfdir=/etc/X11 \
 		${KDRIVE_OPTION} \
 		--enable-xcsecurity --disable-xdm-auth-1 \
 		--without-fop --without-xmlto --without-xsltproc \
-		--disable-dmx ${NO_XORG_OPTION} \
+		--disable-dmx \
 		--disable-unit-tests \
 		${DRI_OPTION}
 
-afterinstall:
-	-chown -h ${BINOWN}:${BINGRP} ${DESTDIR}${BINDIR}/X
+#afterinstall:
+#	-chown -h ${BINOWN}:${BINGRP} ${DESTDIR}${BINDIR}/X
 
-.include <bsd.xorg.mk>
+include cobalt.xorg.mk

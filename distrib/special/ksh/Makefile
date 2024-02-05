@@ -7,10 +7,10 @@ SRCS=	alloc.c c_ksh.c c_sh.c c_test.c c_ulimit.c edit.c emacs.c eval.c \
 	vi.c
 
 DEFS=	-Wall -DEMACS -DSMALL
-CFLAGS+=${DEFS} -I. -I${.CURDIR}/../../../bin/ksh -I${.CURDIR}/../../../lib/libc/gen
+CFLAGS+=${DEFS} -I. -I${.CURDIR}/../../../usr.bin/ksh -I${.CURDIR}/../../../lib/libc/gen
 
 LINKS=	${BINDIR}/ksh ${BINDIR}/rksh
 LINKS+=	${BINDIR}/ksh ${BINDIR}/sh
 
-.PATH:  ${.CURDIR}/../../../bin/ksh
+.PATH:  ${.CURDIR}/../../../usr.bin/ksh
 .include <bsd.prog.mk>

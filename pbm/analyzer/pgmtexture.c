@@ -51,9 +51,9 @@
 #include <assert.h>
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "pgm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pgm.h>
 
 #define RADIX 2.0
 #define EPSILON 0.000000001

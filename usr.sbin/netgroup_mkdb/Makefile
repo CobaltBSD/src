@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.3 2015/09/10 18:59:34 deraadt Exp $
-
 PROG=	netgroup_mkdb
-SRCS=	netgroup_mkdb.c util.c str.c stringlist.c
+OBJS=	netgroup_mkdb.o util.o str.o stringlist.o
 MAN=	netgroup_mkdb.8
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

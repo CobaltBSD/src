@@ -8,3 +8,4 @@ SRCS=	dir.c inode.c main.c pass1.c pass1b.c pass2.c pass3.c pass4.c \
 CFLAGS+= -I${.CURDIR}/../fsck
 
 .include <bsd.prog.mk>
+#TODO

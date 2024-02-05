@@ -1,10 +1,7 @@
-#	$OpenBSD: Makefile,v 1.24 2015/02/12 01:49:02 claudio Exp $
-
 PROG=	netstat
-SRCS=	if.c inet.c inet6.c main.c mbuf.c mroute.c route.c \
-	unix.c mroute6.c net80211.c show.c
-LDADD=	-lkvm -lutil
-DPADD=	${LIBKVM} ${LIBUTIL}
+OBJS=	if.o inet.o inet6.o main.o mbuf.o mroute.o route.o \
+	unix.o mroute6.o net80211.o show.o
+LIBS=	-lkvm -lutil
 CFLAGS+=	-Wall
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

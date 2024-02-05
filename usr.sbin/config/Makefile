@@ -1,18 +1,17 @@
-#	$OpenBSD: Makefile,v 1.17 2015/09/25 03:17:02 guenther Exp $
-
-.include <bsd.own.mk>
-
 PROG=	config
-SRCS=	files.c gram.y hash.c main.c mkheaders.c mkioconf.c mkmakefile.c \
-	mkswap.c pack.c scan.l sem.c util.c \
-	ukc.c misc.c ukcutil.c cmd.c
-SRCS+=  exec_elf.c
+OBJS=	files.o gram.tab.o hash.o main.o mkheaders.o mkioconf.o mkmakefile.o \
+	mkswap.o pack.o scan.o sem.o util.o \
+	ukc.o misc.o ukcutil.o cmd.o
+OBJS+=  exec_elf.o
 
-CFLAGS+=-I${.CURDIR} -I.
+#CFLAGS+=-I${.CURDIR} -I.
 
-LDADD=	-lkvm
-DPADD=	${LIBKVM}
+LIBS=	-lkvm
 
 MAN=	config.8
 
-.include <bsd.prog.mk>
+BINDIR=${SBINDIR}
+
+CLEANFILES+=gram.tab.c gram.tab.h scan.yy.c
+
+include cobalt.prog.mk

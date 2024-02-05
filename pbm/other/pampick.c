@@ -12,11 +12,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
-#include "nstring.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/mallocvar.h>
 
 
 struct uintSet {

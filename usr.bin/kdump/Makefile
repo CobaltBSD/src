@@ -1,16 +1,16 @@
-#	$OpenBSD: Makefile,v 1.39 2023/11/20 17:48:27 kn Exp $
-
-LDSTATIC=${STATIC}
+LDFLAGS+=-static
 PROG=	kdump
-SYS_DIR=${.CURDIR}/../../sys
-CFLAGS+=-I${.CURDIR}/../ktrace -I${.CURDIR} -I${SYS_DIR}
-SRCS=	kdump.c ioctl.c kdump_subr.c subr.c ktrstruct.c
-.PATH:	${.CURDIR}/../ktrace
+SYS_DIR=${CURDIR}/../../sys
+CFLAGS+=-I${CURDIR}/../ktrace -I${SYS_DIR}
+OBJS=	kdump.o ioctl.o kdump_subr.o subr.o ktrstruct.o
 CLEANFILES+=ioctl.c kdump_subr.c
+MAN=kdump.1
 
-ioctl.c: ${.CURDIR}/Makefile ${.CURDIR}/mkioctls
+include cobalt.prog.mk
+
+ioctl.c: ${CURDIR}/Makefile ${CURDIR}/mkioctls
 	CC="${CC}" \
-	/bin/sh ${.CURDIR}/mkioctls \
+	/bin/sh ${CURDIR}/mkioctls \
 	    ${SYS_DIR}/dev/biovar.h \
 	    ${SYS_DIR}/dev/efi/efiio.h \
 	    ${SYS_DIR}/dev/ipmi.h \
@@ -52,7 +52,5 @@ ioctl.c: ${.CURDIR}/Makefile ${.CURDIR}/mkioctls
 	    ${SYS_DIR}/sys/videoio.h \
 		> ioctl.c
 
-kdump_subr.c: ${.CURDIR}/mksubr
-	sh ${.CURDIR}/mksubr ${SYS_DIR} > ${.TARGET}
-
-.include <bsd.prog.mk>
+kdump_subr.c: ${CURDIR}/mksubr
+	sh ${CURDIR}/mksubr ${SYS_DIR} > $@

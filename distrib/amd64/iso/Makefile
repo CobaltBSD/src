@@ -1,4 +1,5 @@
-#	$OpenBSD: Makefile,v 1.46 2023/04/24 17:07:33 krw Exp $
+OSrev=1.0
+MACHINE=amd64
 
 FS=		install${OSrev}.img
 FSSIZE=		1359872
@@ -72,10 +73,10 @@ ${CDROM}: ${BASE} ${XBASE}
 	cp -p ${RELDIR}/cdboot ${.OBJDIR}/cd-dir/${OSREV}/${MACHINE}/cdboot
 
 	mkhybrid -a -R -T -L -l -d -D -N -o ${.OBJDIR}/${CDROM} \
-	    -A "OpenBSD ${OSREV} ${MACHINE} Install CD" \
-	    -P "Copyright (c) `date +%Y` Theo de Raadt, The OpenBSD project" \
-	    -p "Theo de Raadt <deraadt@openbsd.org>" \
-	    -V "OpenBSD/${MACHINE}   ${OSREV} Install CD" \
+	    -A "CobaltBSD ${OSREV} ${MACHINE} Install CD" \
+	    -P "Copyright (c) `date +%Y` Gary Sneed, The CobaltBSD project" \
+	    -p "Gary Sneed <tbd@tbd>" \
+	    -V "CobaltBSD/${MACHINE}   ${OSREV} Install CD" \
 	    -b ${OSREV}/${MACHINE}/cdbr -c ${OSREV}/${MACHINE}/boot.catalog \
 	    ${.OBJDIR}/cd-dir
 

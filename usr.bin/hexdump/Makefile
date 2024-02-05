@@ -1,8 +1,6 @@
-#	$OpenBSD: Makefile,v 1.2 1996/06/26 05:34:16 deraadt Exp $
-
 PROG=	hexdump
-SRCS=	conv.c display.c hexdump.c hexsyntax.c odsyntax.c parse.c
+OBJS=	conv.o display.o hexdump.o hexsyntax.o odsyntax.o parse.o
 MAN=	hexdump.1 od.1
-LINKS=	${BINDIR}/hexdump ${BINDIR}/od
+SYMLINKS=	${BINDIR}/od
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

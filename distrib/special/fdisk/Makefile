@@ -47,5 +47,5 @@ CFLAGS += -DHAS_MBR
 CFLAGS += -fno-builtin-memcpy
 .endif
 
-.PATH:  ${.CURDIR}/../../../sbin/fdisk
+.PATH:  ${.CURDIR}/../../../usr.sbin/fdisk
 .include <bsd.prog.mk>

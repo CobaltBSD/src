@@ -1,7 +1,0 @@
-#! /bin/bash
-# This script tests: pamtopam pamtopnm
-# Also requires:
-
-
-pamtopam < testimg.ppm | pamtopnm | cksum
-pamtopam < testgrid.pbm | pamtopnm | cksum

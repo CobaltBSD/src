@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.2 1997/09/21 11:43:50 deraadt Exp $
-
 PROG=	kvm_mkdb
-SRCS=	kvm_mkdb.c nlist.c testdb.c
+OBJS=	kvm_mkdb.o nlist.o testdb.o
 MAN=	kvm_mkdb.8
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

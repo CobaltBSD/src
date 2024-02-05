@@ -1,7 +1,0 @@
-#! /bin/bash
-# This script tests: bmptopnm ppmtobmp
-# Also requires:
-
-
-ppmtobmp testimg.ppm | bmptopnm | cksum
-ppmtobmp testgrid.pbm | bmptopnm | cksum

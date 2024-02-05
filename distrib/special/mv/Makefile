@@ -3,5 +3,5 @@
 PROG=	mv
 SRCS=	mv.c cp.c rm.c
 
-.PATH:  ${.CURDIR}/../../../bin/mv
+.PATH:  ${.CURDIR}/../../../usr.bin/mv
 .include <bsd.prog.mk>

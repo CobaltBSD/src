@@ -24,12 +24,12 @@
 #include <sys/stat.h>
 
 
-#include "pm_config.h"
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "pnm.h"
+#include <pbm/pm_config.h>
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/pnm.h>
 
 struct cmdlineInfo {
     /* All the information the user supplied in the command line,

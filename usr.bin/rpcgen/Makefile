@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.4 1997/10/11 21:10:40 deraadt Exp $
-
 PROG=	rpcgen
-SRCS=	rpc_clntout.c rpc_cout.c rpc_hout.c rpc_main.c rpc_parse.c rpc_scan.c \
-	rpc_svcout.c rpc_util.c rpc_sample.c rpc_tblout.c
+MAN=	rpcgen.1
+OBJS=	rpc_clntout.o rpc_cout.o rpc_hout.o rpc_main.o rpc_parse.o rpc_scan.o \
+	rpc_svcout.o rpc_util.o rpc_sample.o rpc_tblout.o
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

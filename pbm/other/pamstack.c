@@ -14,11 +14,11 @@
 
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
 
 #define MAX_INPUTS 16
     /* The most input PAMs we allow user to specify */

@@ -3,9 +3,9 @@
 PROG=	mount_ext2fs
 SRCS=	mount_ext2fs.c getmntopts.c
 
-MOUNT=	${.CURDIR}/../../../sbin/mount
+MOUNT=	${.CURDIR}/../../../usr.sbin/mount
 CFLAGS+= -I${MOUNT}
 .PATH:	${MOUNT}
 
-.PATH:  ${.CURDIR}/../../../sbin/mount_ext2fs
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount_ext2fs
 .include <bsd.prog.mk>

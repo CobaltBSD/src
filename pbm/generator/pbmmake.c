@@ -11,10 +11,10 @@
 **
 */
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "pbm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pbm.h>
 
 enum color {COLOR_BLACK, COLOR_WHITE, COLOR_GRAY};
 

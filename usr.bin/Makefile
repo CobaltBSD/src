@@ -1,10 +1,4 @@
-#	$OpenBSD: Makefile,v 1.168 2022/06/29 08:39:49 job Exp $
-
-.include <bsd.own.mk>
-
-# tail tcpbench tee time timeout
-# top touch tr true ts tsort tty usbhidaction usbhidctl
-#TODO: replace `compress` with `pigz`
+#stty test banner2 factor fortune grdc morse number primes tetris worm locale mklocale ksh ofetch login-ng unicode shsecret freq arch banner basename cat cmp comm cp cut date dd diff dirname doas echo expr false fold getopt indent hostname jot kill ln logger ls logname mkdir mktemp mv nl printenv printf pwd readlink realpath rev rm rmdir rs seq sleep split timeout touch tr true tsort tty uname unifdef uniq units unvis vis wc yes sponge hexedit
 
 SUBDIR= apply at audioctl awk \
 	cal cap_mkdb cdio chpass \
@@ -18,21 +12,19 @@ SUBDIR= apply at audioctl awk \
 	last \
 	locate lock login look lorder \
 	m4 make \
-	mixerctl mkdep netstat \
+	mixerctl netstat \
 	newsyslog \
 	nice nm nohup pagesize passwd patch pctr \
 	pkill \
 	renice rpcgen rpcinfo \
 	sdiff script sed shar signify \
-	sort spell stat su \
-	tail tcpbench tee time \
-	top ts usbhidaction usbhidctl \
+	sort spell spellprog stat su \
+	tail tcpbench tee time timeout \
+	ts usbhidaction usbhidctl \
 	users uudecode uuencode vmstat w \
 	what which who whois xargs xinstall \
 	chmod df ps sync \
-	stty test banner2 factor fortune grdc morse number primes tetris worm locale mklocale ksh ofetch login-ng unicode shsecret freq arch banner basename cat cmp comm cp cut date dd diff dirname doas echo expr false fold getopt indent hostname jot kill ln logger ls logname mkdir mktemp mv nl printenv printf pwd readlink realpath rev rm rmdir rs seq sleep split timeout touch tr true tsort tty uname unifdef uniq units unvis vis wc yes sponge hexedit
+	stty test banner2 factor fortune morse number primes tetris locale mklocale ofetch login-ng unicode shsecret freq arch banner basename cat cmp comm cp cut date dd diff dirname doas echo expr false fold getopt indent hostname jot kill ln logger ls logname mkdir mktemp mv nl printenv printf pwd readlink realpath rev rm rmdir rs seq sleep split timeout touch tr true tsort tty uname unifdef uniq units unvis vis wc yes sponge
 
-.if (${YP:L} == "yes")
-.endif
-
-.include <bsd.subdir.mk>
+include cobalt.subdir.mk
+#TODO

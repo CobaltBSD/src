@@ -48,7 +48,7 @@
 #include <string.h>
 #include <unistd.h>
 #include "config.h"
-#include "gram.h"
+#include "gram.tab.h"
 
 int	yyline;
 const char *yyfile;

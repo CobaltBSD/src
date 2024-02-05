@@ -1,10 +1,8 @@
-#	$OpenBSD: Makefile,v 1.17 2020/06/22 02:08:43 dlg Exp $
-
 PROG=	ifconfig
-SRCS=	ifconfig.c brconfig.c sff.c
+OBJS=	ifconfig.o brconfig.o sff.o
 MAN=	ifconfig.8
+BINDIR=${SBINDIR}
 
-LDADD=	-lutil -lm
-DPADD=	${LIBUTIL}
+LIBS=	-lutil -lm
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

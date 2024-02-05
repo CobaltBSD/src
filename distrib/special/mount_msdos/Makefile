@@ -3,9 +3,9 @@
 PROG=	mount_msdos
 SRCS=	mount_msdos.c getmntopts.c
 
-MOUNT=	${.CURDIR}/../../../sbin/mount
+MOUNT=	${.CURDIR}/../../../usr.sbin/mount
 CFLAGS+= -I${MOUNT}
 .PATH:	${MOUNT}
 
-.PATH:  ${.CURDIR}/../../../sbin/mount_msdos
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount_msdos
 .include <bsd.prog.mk>

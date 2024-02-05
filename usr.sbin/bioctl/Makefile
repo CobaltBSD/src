@@ -1,19 +1,17 @@
-#	$OpenBSD: Makefile,v 1.14 2017/07/09 21:23:19 espie Exp $
-
 PROG=	bioctl
+BINDIR=${SBINDIR}
 
-LDADD=	-lutil
-DPADD=	${LIBUTIL}
+LIBS=	-lutil
 
-CDIAGFLAGS=     -Wall
-CDIAGFLAGS+=    -Wpointer-arith
-CDIAGFLAGS+=    -Wno-uninitialized
-CDIAGFLAGS+=    -Wstrict-prototypes
-CDIAGFLAGS+=    -Wmissing-prototypes
-CDIAGFLAGS+=    -Wunused
-CDIAGFLAGS+=    -Wsign-compare
-CDIAGFLAGS+=    -Wshadow
+CFLAGS=     -Wall
+CFLAGS+=    -Wpointer-arith
+CFLAGS+=    -Wno-uninitialized
+CFLAGS+=    -Wstrict-prototypes
+CFLAGS+=    -Wmissing-prototypes
+CFLAGS+=    -Wunused
+CFLAGS+=    -Wsign-compare
+CFLAGS+=    -Wshadow
 
 MAN=	bioctl.8
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

@@ -12,8 +12,8 @@
 
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "pgm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pgm.h>
 
 
 static unsigned int const N = 4;

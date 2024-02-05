@@ -2,10 +2,10 @@
 #include <string.h>
 #include <limits.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
 
 enum function {FN_ADD, FN_SUBTRACT, FN_MULTIPLY, FN_DIVIDE, FN_DIFFERENCE,
                FN_MINIMUM, FN_MAXIMUM, FN_MEAN, FN_COMPARE,

@@ -1,7 +1,6 @@
-# $OpenBSD: Makefile,v 1.6 2015/03/17 17:45:13 millert Exp $
-
 PROG=	sort
+MAN=	sort.1
 
-SRCS=	bwstring.c coll.c file.c mem.c radixsort.c sort.c vsort.c
+OBJS=	bwstring.o coll.o file.o mem.o radixsort.o sort.o vsort.o
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

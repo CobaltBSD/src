@@ -11,10 +11,10 @@
 ** implied warranty.
 */
 
-#include "pm_c_util.h"
-#include "ppm.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/ppm.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 #define MULTI   1000
 

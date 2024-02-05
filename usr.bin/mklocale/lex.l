@@ -39,7 +39,7 @@
 
 #include "../../lib/libc/locale/runetype.h"
 #include "ldef.h"
-#include "yacc.h"
+#include "yacc.tab.h"
 
 int yylex(void);
 %}

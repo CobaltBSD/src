@@ -36,10 +36,10 @@
 #include <math.h>
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "ppm.h"
-#include "mallocvar.h"
-#include "shhopt.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/ppm.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
 
 static double const hugeVal = 1e50;
 

@@ -1,1 +1,0 @@
-/home/tmp/new/src/cobaltbsd/xenocara/lib/mesa/mk/libintel_dev/../../src/intel/dev/i915/intel_device_info.c

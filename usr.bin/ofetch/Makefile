@@ -1,5 +1,3 @@
 PROG=	ofetch
 
-SRCS=	main.c
-
-.include <bsd.prog.mk>
+include cobalt.prog.mk

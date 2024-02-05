@@ -26,11 +26,11 @@
 */
 
 
-#include "pm_c_util.h"
-#include "pgm.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "nstring.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pgm.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
 
 enum medianMethod {MEDIAN_UNSPECIFIED, SELECT_MEDIAN, HISTOGRAM_SORT_MEDIAN};
 #define MAX_MEDIAN_TYPES      2

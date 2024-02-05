@@ -3,6 +3,6 @@
 PROG=	restore
 SRCS=	main.c interactive.c restore.c dirs.c symtab.c tape.c utilities.c
 
-.PATH:	${.CURDIR}/../../../sbin/restore
+.PATH:	${.CURDIR}/../../../usr.sbin/restore
 
 .include <bsd.prog.mk>

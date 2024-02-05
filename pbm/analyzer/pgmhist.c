@@ -13,10 +13,10 @@
 #include <assert.h>
 #include <limits.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pgm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pgm.h>
 
 
 

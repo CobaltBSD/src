@@ -2,7 +2,7 @@
 
 PROG=	ping
 COPTS+=	-DSMALL
-.PATH:  ${.CURDIR}/../../../sbin/ping
+.PATH:  ${.CURDIR}/../../../usr.sbin/ping
 
 LDADD=	-lm
 DPADD=	${LIBM}

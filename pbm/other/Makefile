@@ -1,7 +1,19 @@
-CFLAGS=-I../lib/util -I../lib
-LDFLAGS=-L../lib -lpbm -lm
+PROGS=pamarith pambayer pamchannel pamdepth pamendian pamexec pamfix pampick pamsplit pamstack pamvalidate pnmcolormap ppmdcfont ppmddumpfont
 
-all: pamarith pambayer pamchannel pamdepth pamendian pamexec pamfix pamlookup pampick pamsplit pamstack pamsummcol pamunlookup pamvalidate pnmcolormap ppmdcfont ppmddumpfont ppmdmkfont
+all: ${PROGS}
+	$(MAKE) -C pamx
+
+.c:
+	$(CC) -lpbm -lm $< -o $@
 
 clean:
-	rm -fv pamarith pambayer pamchannel pamdepth pamendian pamexec pamfix pamlookup pampick pamsplit pamstack pamsummcol pamunlookup pamvalidate pnmcolormap ppmdcfont ppmddumpfont ppmdmkfont
+	rm -fv ${PROGS}
+	$(MAKE) -C pamx clean
+
+install: ${PROGS}
+	for P in ${PROGS}; do \
+		$(INSTALL) -D -c -s \
+			-o root -g bin \
+			-m 555 $$P ${DESTDIR}/usr/bin/$$P; \
+	done
+	$(MAKE) -C pamx install

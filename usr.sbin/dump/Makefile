@@ -12,11 +12,11 @@
 #	TDEBUG			trace out the process forking
 
 PROG=	dump
+BINDIR=${SBINDIR}
 LINKS=	${BINDIR}/dump ${BINDIR}/rdump
 CFLAGS+=-DRDUMP
-DPADD+=	${LIBUTIL}
-LDADD+=	-lutil
-SRCS=	itime.c main.c optr.c dumprmt.c tape.c traverse.c
+LIBS=	-lutil
+OBJS=	itime.o main.o optr.o dumprmt.o tape.o traverse.o
 MAN=	dump.8
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

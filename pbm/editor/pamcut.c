@@ -13,10 +13,10 @@
 #include <limits.h>
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 #define UNSPEC INT_MAX
     /* UNSPEC is the value we use for an argument that is not specified

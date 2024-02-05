@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.3 1997/09/21 11:43:30 deraadt Exp $
-
 PROG=	chroot
+BINDIR=${SBINDIR}
 MAN=	chroot.8
-LDSTATIC=	${STATIC}
+LDFLAGS+=	-static
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

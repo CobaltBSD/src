@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "mallocvar.h"
-#include "pam.h"
+#include <pbm/util/mallocvar.h>
+#include <pbm/pam.h>
 
 int const max_skips = 3;      /* Maximum number of consecutive skips */
 

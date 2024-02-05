@@ -1,11 +1,9 @@
-#	$OpenBSD: Makefile,v 1.5 2017/06/12 18:51:53 espie Exp $
-
 PROG=		ldattach
-SRCS=		ldattach.c atomicio.c
+OBJS=		ldattach.o atomicio.o
 MAN=		ldattach.8
+BINDIR=${SBINDIR}
 
 CFLAGS+=	-Wall
-CDIAGFLAGS=
-LDADD+=		-lutil
+LIBS=		-lutil
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

@@ -1,748 +1,861 @@
-/*	$OpenBSD: dir.c,v 1.69 2023/09/04 11:35:11 espie Exp $ */
-/*	$NetBSD: dir.c,v 1.14 1997/03/29 16:51:26 christos Exp $	*/
+/* Directory hashing for GNU Make.
+Copyright (C) 1988-2023 Free Software Foundation, Inc.
+This file is part of GNU Make.
 
-/*
- * Copyright (c) 1999 Marc Espie.
- *
- * Extensive code changes for the OpenBSD project.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE OPENBSD PROJECT AND CONTRIBUTORS
- * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OPENBSD
- * PROJECT OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-/*
- * Copyright (c) 1988, 1989, 1990 The Regents of the University of California.
- * Copyright (c) 1988, 1989 by Adam de Boor
- * Copyright (c) 1989 by Berkeley Softworks
- * All rights reserved.
- *
- * This code is derived from software contributed to Berkeley by
- * Adam de Boor.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the University nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
+GNU Make is free software; you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3 of the License, or (at your option) any later
+version.
 
-#include <sys/stat.h>
-#include <dirent.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ohash.h>
-#include "defines.h"
-#include "dir.h"
-#include "lst.h"
-#include "memory.h"
-#include "buf.h"
-#include "gnode.h"
-#include "arch.h"
-#include "targ.h"
-#include "error.h"
-#include "str.h"
-#include "timestamp.h"
+GNU Make is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/*	A search path consists of a Lst of PathEntry structures. A Path
- *	structure has in it the name of the directory and a hash table of all
- *	the files in the directory. This is used to cut down on the number of
- *	system calls necessary to find implicit dependents and their like.
- *	Since these searches are made before any actions are taken, we need not
- *	worry about the directory changing due to creation commands. If this
- *	hampers the style of some makefiles, they must be changed.
- *
- *	A list of all previously-read directories is kept in the
- *	knownDirectories cache.
- *
- *	The need for the caching of whole directories is brought about by
- *	the multi-level transformation code in suff.c, which tends to search
- *	for far more files than regular make does. In the initial
- *	implementation, the amount of time spent performing "stat" calls was
- *	truly astronomical. The problem with hashing at the start is,
- *	of course, that pmake doesn't then detect changes to these directories
- *	during the course of the make. Three possibilities suggest themselves:
- *
- *	    1) just use stat to test for a file's existence. As mentioned
- *	       above, this is very inefficient due to the number of checks
- *	       engendered by the multi-level transformation code.
- *	    2) use readdir() and company to search the directories, keeping
- *	       them open between checks. I have tried this and while it
- *	       didn't slow down the process too much, it could severely
- *	       affect the amount of parallelism available as each directory
- *	       open would take another file descriptor out of play for
- *	       handling I/O for another job. Given that it is only recently
- *	       that UNIX OS's have taken to allowing more than 20 or 32
- *	       file descriptors for a process, this doesn't seem acceptable
- *	       to me.
- *	    3) record the mtime of the directory in the PathEntry structure and
- *	       verify the directory hasn't changed since the contents were
- *	       hashed. This will catch the creation or deletion of files,
- *	       but not the updating of files. However, since it is the
- *	       creation and deletion that is the problem, this could be
- *	       a good thing to do. Unfortunately, if the directory (say ".")
- *	       were fairly large and changed fairly frequently, the constant
- *	       rehashing could seriously degrade performance. It might be
- *	       good in such cases to keep track of the number of rehashes
- *	       and if the number goes over a (small) limit, resort to using
- *	       stat in its place.
- *
- *	An additional thing to consider is that pmake is used primarily
- *	to create C programs and until recently pcc-based compilers refused
- *	to allow you to specify where the resulting object file should be
- *	placed. This forced all objects to be created in the current
- *	directory. This isn't meant as a full excuse, just an explanation of
- *	some of the reasons for the caching used here.
- *
- *	One more note: the location of a target's file is only performed
- *	on the downward traversal of the graph and then only for terminal
- *	nodes in the graph. This could be construed as wrong in some cases,
- *	but prevents inadvertent modification of files when the "installed"
- *	directory for a file is provided in the search path.
- *
- *	Another data structure maintained by this module is an mtime
- *	cache used when the searching of cached directories fails to find
- *	a file. In the past, Dir_FindFile would simply perform an access()
- *	call in such a case to determine if the file could be found using
- *	just the name given. When this hit, however, all that was gained
- *	was the knowledge that the file existed. Given that an access() is
- *	essentially a stat() without the copyout() call, and that the same
- *	filesystem overhead would have to be incurred in Dir_MTime, it made
- *	sense to replace the access() with a stat() and record the mtime
- *	in a cache for when Dir_MTime was actually called.  */
+#include "makeint.h"
+#include "hash.h"
+#include "filedef.h"
+#include "dep.h"
+#include "debug.h"
 
+#ifdef  HAVE_DIRENT_H
+# include <dirent.h>
+# define NAMLEN(dirent) strlen((dirent)->d_name)
+#else
+# define dirent direct
+# define NAMLEN(dirent) (dirent)->d_namlen
+# ifdef HAVE_SYS_DIR_H
+#  include <sys/dir.h>
+# endif
+#endif
 
-/* several data structures exist to handle caching of directory stuff.
- *
- * There is a global hash of directory names (knownDirectories), and each
- * read directory is kept there as one PathEntry instance. Such a structure
- * only contains the file names.
- *
- * There is a global hash of timestamps (modification times), so care must
- * be taken of giving the right file names to that structure.
- *
- * XXX A set of similar structure should exist at the Target level to properly
- * take care of VPATH issues.
- */
+/* In GNU systems, <dirent.h> defines this macro for us.  */
+#ifdef _D_NAMLEN
+# undef NAMLEN
+# define NAMLEN(d) _D_NAMLEN(d)
+#endif
 
+#if defined (POSIX) && !defined (__GNU_LIBRARY__)
+/* Posix does not require that the d_ino field be present, and some
+   systems do not provide it. */
+# define REAL_DIR_ENTRY(dp) 1
+# define FAKE_DIR_ENTRY(dp)
+#else
+# define REAL_DIR_ENTRY(dp) (dp->d_ino != 0)
+# define FAKE_DIR_ENTRY(dp) (dp->d_ino = 1)
+#endif /* POSIX */
 
-/* each directory is cached into a PathEntry structure. */
-struct PathEntry {
-	int refCount;		/* ref-counted, can participate to
-				 * several paths */
-	struct ohash files;	/* hash of name of files in the directory */
-	char name[1];		/* directory name */
-};
-
-/* PathEntry kept on knownDirectories */
-static struct ohash_info dir_info = {
-	offsetof(struct PathEntry, name), NULL, hash_calloc, hash_free,
-	element_alloc
-};
-
-static struct ohash   knownDirectories;	/* cache all open directories */
-
-
-/* file names kept in a path entry */
-static struct ohash_info file_info = {
-	0, NULL, hash_calloc, hash_free, element_alloc
-};
-
-
-/* Global structure used to cache mtimes.  XXX We don't cache an mtime
- * before a caller actually looks up for the given time, because of the
- * possibility a caller might update the file and invalidate the cache
- * entry, and we don't look up in this cache except as a last resort.
- */
-struct file_stamp {
-	struct timespec mtime;		/* time stamp... */
-	char name[1];			/* ...for that file.  */
-};
-
-static struct ohash mtimes;
-
-
-static struct ohash_info stamp_info = {
-	offsetof(struct file_stamp, name), NULL, hash_calloc, hash_free,
-	element_alloc
-};
-
-
-
-static LIST   theDefaultPath;		/* main search path */
-Lst	      defaultPath= &theDefaultPath;
-struct PathEntry *dot; 			/* contents of current directory */
-
-
-
-/* add_file(path, name): add a file name to a path hash structure. */
-static void add_file(struct PathEntry *, const char *);
-/* n = find_file_hashi(p, name, end, hv): retrieve name in a path hash
- * 	structure. */
-static char *find_file_hashi(struct PathEntry *, const char *, const char *,
-    uint32_t);
-
-/* stamp = find_stampi(name, end): look for (name, end) in the global
- *	cache. */
-static struct file_stamp *find_stampi(const char *, const char *);
-/* record_stamp(name, timestamp): record timestamp for name in the global
- * 	cache. */
-static void record_stamp(const char *, struct timespec);
-
-static bool read_directory(struct PathEntry *);
-/* p = DirReaddiri(name, end): read an actual directory, caching results
- * 	as we go.  */
-static struct PathEntry *create_PathEntry(const char *, const char *);
-/* Debugging: show a dir name in a path. */
-static void DirPrintDir(void *);
-
-/***
- *** timestamp handling
- ***/
-
-static void
-record_stamp(const char *file, struct timespec t)
+#ifdef HAVE_CASE_INSENSITIVE_FS
+static const char *
+downcase (const char *filename)
 {
-	unsigned int slot;
-	const char *end = NULL;
-	struct file_stamp *n;
+  static PATH_VAR (new_filename);
+  char *df;
 
-	slot = ohash_qlookupi(&mtimes, file, &end);
-	n = ohash_find(&mtimes, slot);
-	if (n)
-		n->mtime = t;
-	else {
-		n = ohash_create_entry(&stamp_info, file, &end);
-		n->mtime = t;
-		ohash_insert(&mtimes, slot, n);
-	}
+  if (filename == NULL)
+    return NULL;
+
+  df = new_filename;
+  while (*filename != '\0')
+    {
+      *df++ = tolower ((unsigned char)*filename);
+      ++filename;
+    }
+
+  *df = '\0';
+
+  return new_filename;
+}
+#endif /* HAVE_CASE_INSENSITIVE_FS */
+
+/* Never have more than this many directories open at once.  */
+
+#define MAX_OPEN_DIRECTORIES 10
+
+static unsigned int open_directories = 0;
+
+/* Hash table of directories.  */
+
+#ifndef DIRECTORY_BUCKETS
+#define DIRECTORY_BUCKETS 199
+#endif
+
+struct directory_contents
+  {
+    dev_t dev;                  /* Device and inode numbers of this dir.  */
+# ifdef VMS_INO_T
+    ino_t ino[3];
+# else
+    ino_t ino;
+# endif
+    struct hash_table dirfiles; /* Files in this directory.  */
+    unsigned long counter;      /* command_count value when last read. */
+    DIR *dirstream;             /* Stream reading this directory.  */
+  };
+
+static struct directory_contents *
+clear_directory_contents (struct directory_contents *dc)
+{
+  dc->counter = 0;
+  if (dc->dirstream)
+    {
+      --open_directories;
+      closedir (dc->dirstream);
+      dc->dirstream = NULL;
+    }
+  if (dc->dirfiles.ht_vec != NULL)
+    hash_free (&dc->dirfiles, 1);
+
+  return NULL;
 }
 
-static struct file_stamp *
-find_stampi(const char *file, const char *efile)
+static unsigned long
+directory_contents_hash_1 (const void *key_0)
 {
-	return ohash_find(&mtimes, ohash_qlookupi(&mtimes, file, &efile));
+  const struct directory_contents *key = key_0;
+  unsigned long hash;
+
+# ifdef VMS_INO_T
+  hash = (((unsigned int) key->dev << 4)
+          ^ ((unsigned int) key->ino[0]
+             + (unsigned int) key->ino[1]
+             + (unsigned int) key->ino[2]));
+# else
+  hash = ((unsigned int) key->dev << 4) ^ (unsigned int) key->ino;
+# endif
+  return hash;
 }
 
-/***
- *** PathEntry handling
- ***/
-
-static void
-add_file(struct PathEntry *p, const char *file)
+static unsigned long
+directory_contents_hash_2 (const void *key_0)
 {
-	unsigned int	slot;
-	const char	*end = NULL;
-	char		*n;
-	struct ohash 	*h = &p->files;
+  const struct directory_contents *key = key_0;
+  unsigned long hash;
 
-	slot = ohash_qlookupi(h, file, &end);
-	n = ohash_find(h, slot);
-	if (n == NULL) {
-		n = ohash_create_entry(&file_info, file, &end);
-		ohash_insert(h, slot, n);
-	}
+# ifdef VMS_INO_T
+  hash = (((unsigned int) key->dev << 4)
+          ^ ~((unsigned int) key->ino[0]
+              + (unsigned int) key->ino[1]
+              + (unsigned int) key->ino[2]));
+# else
+  hash = ((unsigned int) key->dev << 4) ^ (unsigned int) ~key->ino;
+# endif
+
+  return hash;
 }
 
-static char *
-find_file_hashi(struct PathEntry *p, const char *file, const char *efile,
-    uint32_t hv)
-{
-	struct ohash 	*h = &p->files;
+/* Sometimes it's OK to use subtraction to get this value:
+     result = X - Y;
+   But, if we're not sure of the type of X and Y they may be too large for an
+   int (on a 64-bit system for example).  So, use ?: instead.
+   See Savannah bug #15534.
 
-	return ohash_find(h, ohash_lookup_interval(h, file, efile, hv));
+   NOTE!  This macro has side-effects!
+*/
+
+#define MAKECMP(_x,_y)  ((_x)<(_y)?-1:((_x)==(_y)?0:1))
+
+static int
+directory_contents_hash_cmp (const void *xv, const void *yv)
+{
+  const struct directory_contents *x = xv;
+  const struct directory_contents *y = yv;
+  int result;
+
+# ifdef VMS_INO_T
+  result = MAKECMP(x->ino[0], y->ino[0]);
+  if (result)
+    return result;
+  result = MAKECMP(x->ino[1], y->ino[1]);
+  if (result)
+    return result;
+  result = MAKECMP(x->ino[2], y->ino[2]);
+  if (result)
+    return result;
+# else
+  result = MAKECMP(x->ino, y->ino);
+  if (result)
+    return result;
+# endif
+
+  return MAKECMP(x->dev, y->dev);
 }
 
-static bool
-read_directory(struct PathEntry *p)
+/* Table of directory contents hashed by device and inode number.  */
+static struct hash_table directory_contents;
+
+struct directory
+  {
+    const char *name;           /* Name of the directory.  */
+    unsigned long counter;      /* command_count value when last read.
+                                   Used for non-existent directories.  */
+
+    /* The directory's contents.  This data may be shared by several
+       entries in the hash table, which refer to the same directory
+       (identified uniquely by 'dev' and 'ino') under different names.  */
+    struct directory_contents *contents;
+  };
+
+static unsigned long
+directory_hash_1 (const void *key)
 {
-	DIR *d;
-	struct dirent *dp;
-
-	if (DEBUG(DIR)) {
-		printf("Caching %s...", p->name);
-		fflush(stdout);
-	}
-
-	if ((d = opendir(p->name)) == NULL)
-		return false;
-
-	ohash_init(&p->files, 4, &file_info);
-
-	while ((dp = readdir(d)) != NULL) {
-		if (dp->d_name[0] == '.' &&
-		    (dp->d_name[1] == '\0' ||
-		    (dp->d_name[1] == '.' && dp->d_name[2] == '\0')))
-			continue;
-		add_file(p, dp->d_name);
-	}
-	(void)closedir(d);
-	if (DEBUG(DIR))
-		printf("done\n");
-	return true;
+  return_ISTRING_HASH_1 (((const struct directory *) key)->name);
 }
 
-/* Read a directory, either from the disk, or from the cache.  */
-static struct PathEntry *
-create_PathEntry(const char *name, const char *ename)
+static unsigned long
+directory_hash_2 (const void *key)
 {
-	struct PathEntry *p;
-	unsigned int slot;
-
-	slot = ohash_qlookupi(&knownDirectories, name, &ename);
-	p = ohash_find(&knownDirectories, slot);
-
-	if (p == NULL) {
-		p = ohash_create_entry(&dir_info, name, &ename);
-		p->refCount = 0;
-		if (!read_directory(p)) {
-			free(p);
-			return NULL;
-		}
-		ohash_insert(&knownDirectories, slot, p);
-	}
-	p->refCount++;
-	return p;
+  return_ISTRING_HASH_2 (((const struct directory *) key)->name);
 }
 
-char *
-PathEntry_name(struct PathEntry *p)
+static int
+directory_hash_cmp (const void *x, const void *y)
 {
-	return p->name;
+  return_ISTRING_COMPARE (((const struct directory *) x)->name,
+                          ((const struct directory *) y)->name);
 }
 
-/* Side Effects: cache the current directory */
-void
-Dir_Init(void)
+/* Table of directories hashed by name.  */
+static struct hash_table directories;
+
+
+/* Hash table of files in each directory.  */
+
+struct dirfile
+  {
+    const char *name;           /* Name of the file.  */
+    size_t length;
+    short impossible;           /* This file is impossible.  */
+    unsigned char type;
+  };
+
+static unsigned long
+dirfile_hash_1 (const void *key)
 {
-	char *dotname = ".";
-
-	Static_Lst_Init(defaultPath);
-	ohash_init(&knownDirectories, 4, &dir_info);
-	ohash_init(&mtimes, 4, &stamp_info);
-
-
-	dot = create_PathEntry(dotname, dotname+1);
-
-	if (!dot)
-		Fatal("Can't access current directory");
+  return_ISTRING_HASH_1 (((struct dirfile const *) key)->name);
 }
 
-/*-
- *-----------------------------------------------------------------------
- * Dir_MatchFilesi --
- *	Given a pattern and a PathEntry structure, see if any files
- *	match the pattern and add their names to the 'expansions' list if
- *	any do. This is incomplete -- it doesn't take care of patterns like
- *	src / *src / *.c properly (just *.c on any of the directories), but it
- *	will do for now.
- *-----------------------------------------------------------------------
- */
-void
-Dir_MatchFilesi(const char *word, const char *eword, struct PathEntry *p,
-    Lst expansions)
+static unsigned long
+dirfile_hash_2 (const void *key)
 {
-	unsigned int search; 	/* Index into the directory's table */
-	const char *entry; 	/* Current entry in the table */
-
-	for (entry = ohash_first(&p->files, &search); entry != NULL;
-	     entry = ohash_next(&p->files, &search)) {
-		/* See if the file matches the given pattern. We follow the UNIX
-		 * convention that dot files will only be found if the pattern
-		 * begins with a dot (the hashing scheme doesn't hash . or ..,
-		 * so they won't match `.*'.  */
-		if (*word != '.' && *entry == '.')
-			continue;
-		if (Str_Matchi(entry, strchr(entry, '\0'), word, eword))
-			Lst_AtEnd(expansions,
-			    p == dot  ? estrdup(entry) :
-			    Str_concat(p->name, entry, '/'));
-	}
+  return_ISTRING_HASH_2 (((struct dirfile const *) key)->name);
 }
 
-/*-
- * Side Effects:
- *	If the file is found in a directory which is not on the path
- *	already (either 'name' is absolute or it is a relative path
- *	[ dir1/.../dirn/file ] which exists below one of the directories
- *	already on the search path), its directory is added to the end
- *	of the path on the assumption that there will be more files in
- *	that directory later on.
- */
-char *
-Dir_FindFileComplexi(const char *name, const char *ename, Lst path,
-    bool checkCurdirFirst)
+static int
+dirfile_hash_cmp (const void *xv, const void *yv)
 {
-	struct PathEntry *p;	/* current path member */
-	char *p1;	/* pointer into p->name */
-	const char *p2;	/* pointer into name */
-	LstNode ln;	/* a list element */
-	char *file;	/* the current filename to check */
-	char *temp;	/* index into file */
-	const char *basename;
-	bool hasSlash;
-	struct stat stb;/* Buffer for stat, if necessary */
-	struct file_stamp *entry;
-			/* Entry for mtimes table */
-	uint32_t hv;	/* hash value for last component in file name */
-	char *q;	/* Str_dupi(name, ename) */
-
-	/* Find the final component of the name and note whether name has a
-	 * slash in it */
-	basename = Str_rchri(name, ename, '/');
-	if (basename) {
-		hasSlash = true;
-		basename++;
-	} else {
-		hasSlash = false;
-		basename = name;
-	}
-
-	hv = ohash_interval(basename, &ename);
-
-	if (DEBUG(DIR))
-		printf("Searching for %s...", name);
-	/* Unless checkCurDirFirst is false, we always look for
-	 * the file in the current directory before anywhere else
-	 * and we always return exactly what the caller specified. */
-	if (checkCurdirFirst &&
-	    (!hasSlash || (basename - name == 2 && *name == '.')) &&
-	    find_file_hashi(dot, basename, ename, hv) != NULL) {
-		if (DEBUG(DIR))
-			printf("in '.'\n");
-		return Str_dupi(name, ename);
-	}
-
-	/* Then, we look through all the directories on path, seeking one
-	 * containing the final component of name and whose final
-	 * component(s) match name's initial component(s).
-	 * If found, we concatenate the directory name and the
-	 * final component and return the resulting string.  */
-	for (ln = Lst_First(path); ln != NULL; ln = Lst_Adv(ln)) {
-		p = Lst_Datum(ln);
-		if (DEBUG(DIR))
-			printf("%s...", p->name);
-		if (find_file_hashi(p, basename, ename, hv) != NULL) {
-			if (DEBUG(DIR))
-				printf("here...");
-			if (hasSlash) {
-				/* If the name had a slash, its initial
-				 * components and p's final components must
-				 * match. This is false if a mismatch is
-				 * encountered before all of the initial
-				 * components have been checked (p2 > name at
-				 * the end of the loop), or we matched only
-				 * part of one of the components of p along
-				 * with all the rest of them (*p1 != '/').  */
-				p1 = p->name + strlen(p->name) - 1;
-				p2 = basename - 2;
-				while (p2 >= name && p1 >= p->name &&
-				    *p1 == *p2) {
-					p1--;
-					p2--;
-				}
-				if (p2 >= name ||
-				    (p1 >= p->name && *p1 != '/')) {
-					if (DEBUG(DIR))
-						printf("component mismatch -- continuing...");
-					continue;
-				}
-			}
-			file = Str_concati(p->name, strchr(p->name, '\0'), basename,
-			    ename, '/');
-			if (DEBUG(DIR))
-				printf("returning %s\n", file);
-			return file;
-		} else if (hasSlash) {
-			/* If the file has a leading path component and that
-			 * component exactly matches the entire name of the
-			 * current search directory, we assume the file
-			 * doesn't exist and return NULL.  */
-			for (p1 = p->name, p2 = name; *p1 && *p1 == *p2;
-			    p1++, p2++)
-				continue;
-			if (*p1 == '\0' && p2 == basename - 1) {
-				if (DEBUG(DIR))
-					printf("has to be here but isn't -- returning NULL\n");
-				return NULL;
-			}
-		}
-	}
-
-	/* We didn't find the file on any existing member of the path.
-	 * If the name doesn't contain a slash, end of story.
-	 * If it does contain a slash, however, it could be in a subdirectory
-	 * of one of the members of the search path. (eg., for path=/usr/include
-	 * and name=sys/types.h, the above search fails to turn up types.h
-	 * in /usr/include, even though /usr/include/sys/types.h exists).
-	 *
-	 * We only perform this look-up for non-absolute file names.
-	 *
-	 * Whenever we score a hit, we assume there will be more matches from
-	 * that directory, and append all but the last component of the
-	 * resulting name onto the search path. */
-	if (!hasSlash) {
-		if (DEBUG(DIR))
-			printf("failed.\n");
-		return NULL;
-	}
-
-	if (*name != '/') {
-		bool checkedDot = false;
-
-		if (DEBUG(DIR))
-			printf("failed. Trying subdirectories...");
-		for (ln = Lst_First(path); ln != NULL; ln = Lst_Adv(ln)) {
-			p = Lst_Datum(ln);
-			if (p != dot)
-				file = Str_concati(p->name,
-				    strchr(p->name, '\0'), name, ename, '/');
-			else {
-				/* Checking in dot -- DON'T put a leading
-				* ./ on the thing.  */
-				file = Str_dupi(name, ename);
-				checkedDot = true;
-			}
-			if (DEBUG(DIR))
-				printf("checking %s...", file);
-
-			if (stat(file, &stb) == 0) {
-				struct timespec mtime;
-
-				ts_set_from_stat(stb, mtime);
-				if (DEBUG(DIR))
-					printf("got it.\n");
-
-				/* We've found another directory to search.
-				 * We know there is a slash in 'file'. We
-				 * call Dir_AddDiri to add the new directory
-				 * onto the existing search path. Once that's
-				 * done, we return the file name, knowing that
-				 * should a file in this directory ever be
-				 * referenced again in such a manner, we will
-				 * find it without having to do numerous
-				 * access calls.  */
-				temp = strrchr(file, '/');
-				Dir_AddDiri(path, file, temp);
-
-				/* Save the modification time so if it's
-				* needed, we don't have to fetch it again.  */
-				if (DEBUG(DIR))
-					printf("Caching %s for %s\n",
-					    time_to_string(&mtime), file);
-				record_stamp(file, mtime);
-				return file;
-			} else
-				free(file);
-		}
-
-		if (DEBUG(DIR))
-			printf("failed. ");
-
-		if (checkedDot) {
-			/* Already checked by the given name, since . was in
-			 * the path, so no point in proceeding...  */
-			if (DEBUG(DIR))
-				printf("Checked . already, returning NULL\n");
-			return NULL;
-		}
-	}
-
-	/* Didn't find it that way, either. Last resort: look for the file
-	 * in the global mtime cache, then on the disk.
-	 * If this doesn't succeed, we finally return a NULL pointer.
-	 *
-	 * We cannot add this directory onto the search path because
-	 * of this amusing case:
-	 * $(INSTALLDIR)/$(FILE): $(FILE)
-	 *
-	 * $(FILE) exists in $(INSTALLDIR) but not in the current one.
-	 * When searching for $(FILE), we will find it in $(INSTALLDIR)
-	 * b/c we added it here. This is not good...  */
-	q = Str_dupi(name, ename);
-	if (DEBUG(DIR))
-		printf("Looking for \"%s\"...", q);
-
-	entry = find_stampi(name, ename);
-	if (entry != NULL) {
-		if (DEBUG(DIR))
-			printf("got it (in mtime cache)\n");
-		return q;
-	} else if (stat(q, &stb) == 0) {
-		struct timespec mtime;
-
-		ts_set_from_stat(stb, mtime);
-		if (DEBUG(DIR))
-			printf("Caching %s for %s\n", time_to_string(&mtime), 
-			    q);
-		record_stamp(q, mtime);
-		return q;
-	} else {
-	    if (DEBUG(DIR))
-		    printf("failed. Returning NULL\n");
-	    free(q);
-	    return NULL;
-	}
+  const struct dirfile *x = xv;
+  const struct dirfile *y = yv;
+  int result = (int) (x->length - y->length);
+  if (result)
+    return result;
+  return_ISTRING_COMPARE (x->name, y->name);
 }
+
+#ifndef DIRFILE_BUCKETS
+#define DIRFILE_BUCKETS 107
+#endif
+
+static int dir_contents_file_exists_p (struct directory *dir,
+                                       const char *filename);
+static struct directory *find_directory (const char *name);
+
+/* Find the directory named NAME and return its 'struct directory'.  */
+
+static struct directory *
+find_directory (const char *name)
+{
+  struct directory *dir;
+  struct directory **dir_slot;
+  struct directory dir_key;
+  struct directory_contents *dc;
+  struct directory_contents **dc_slot;
+  struct directory_contents dc_key;
+
+  struct stat st;
+  int r;
+
+  dir_key.name = name;
+  dir_slot = (struct directory **) hash_find_slot (&directories, &dir_key);
+  dir = *dir_slot;
+
+  if (!HASH_VACANT (dir))
+    {
+      unsigned long ctr = dir->contents ? dir->contents->counter : dir->counter;
+
+      /* No commands have run since we parsed this directory so it's good.  */
+      if (ctr == command_count)
+        return dir;
+
+      DB (DB_VERBOSE, ("Directory %s cache invalidated (count %lu != command %lu)\n",
+                       name, ctr, command_count));
+
+      if (dir->contents)
+        clear_directory_contents (dir->contents);
+    }
+  else
+    {
+      /* The directory was not found.  Create a new entry for it.  */
+      size_t len = strlen (name);
+
+      dir = xmalloc (sizeof (struct directory));
+      dir->name = strcache_add_len (name, len);
+      hash_insert_at (&directories, dir, dir_slot);
+    }
+
+  dir->contents = NULL;
+  dir->counter = command_count;
+
+  /* See if the directory exists.  */
+  EINTRLOOP (r, stat (name, &st));
+
+  if (r < 0)
+    /* Couldn't stat the directory; nothing else to do.  */
+    return dir;
+
+  /* Search the contents hash table; device and inode are the key.  */
+
+  memset (&dc_key, '\0', sizeof (dc_key));
+  dc_key.dev = st.st_dev;
+# ifdef VMS_INO_T
+  dc_key.ino[0] = st.st_ino[0];
+  dc_key.ino[1] = st.st_ino[1];
+  dc_key.ino[2] = st.st_ino[2];
+# else
+  dc_key.ino = st.st_ino;
+# endif
+  dc_slot = (struct directory_contents **) hash_find_slot (&directory_contents, &dc_key);
+  dc = *dc_slot;
+
+  if (HASH_VACANT (dc))
+    {
+      /* Nope; this really is a directory we haven't seen before.  */
+      /* Enter it in the contents hash table.  */
+      dc = xcalloc (sizeof (struct directory_contents));
+      *dc = dc_key;
+
+      hash_insert_at (&directory_contents, dc, dc_slot);
+    }
+
+  /* Point the name-hashed entry for DIR at its contents data.  */
+  dir->contents = dc;
+
+  /* If the contents have changed, we need to reseed.  */
+  if (dc->counter != command_count)
+    {
+      if (dc->counter)
+        clear_directory_contents (dc);
+
+      dc->counter = command_count;
+
+      ENULLLOOP (dc->dirstream, opendir (name));
+      if (dc->dirstream == NULL)
+        /* Couldn't open the directory: mark this by setting files to NULL.  */
+        dc->dirfiles.ht_vec = NULL;
+      else
+        {
+          hash_init (&dc->dirfiles, DIRFILE_BUCKETS,
+                     dirfile_hash_1, dirfile_hash_2, dirfile_hash_cmp);
+          /* Keep track of how many directories are open.  */
+          ++open_directories;
+          if (open_directories == MAX_OPEN_DIRECTORIES)
+            /* We have too many directories open already.
+               Read the entire directory and then close it.  */
+            dir_contents_file_exists_p (dir, NULL);
+        }
+    }
+
+  return dir;
+}
+
+/* Return 1 if the name FILENAME is entered in DIR's hash table.
+   FILENAME must contain no slashes.  */
+
+static int
+dir_contents_file_exists_p (struct directory *dir,
+                            const char *filename)
+{
+  struct dirfile *df;
+  struct dirent *d;
+  struct directory_contents *dc = dir->contents;
+
+  if (dc == NULL || dc->dirfiles.ht_vec == NULL)
+    /* The directory could not be stat'd or opened.  */
+    return 0;
+
+#ifdef HAVE_CASE_INSENSITIVE_FS
+  filename = downcase (filename);
+#endif
+
+  if (filename != NULL)
+    {
+      struct dirfile dirfile_key;
+
+      if (*filename == '\0')
+        {
+          /* Checking if the directory exists.  */
+          return 1;
+        }
+      dirfile_key.name = filename;
+      dirfile_key.length = strlen (filename);
+      df = hash_find_item (&dc->dirfiles, &dirfile_key);
+      if (df)
+        return !df->impossible;
+    }
+
+  /* The file was not found in the hashed list.
+     Try to read the directory further.  */
+
+  if (dc->dirstream == NULL)
+    {
+        /* The directory has been all read in.  */
+        return 0;
+    }
+
+  while (1)
+    {
+      /* Enter the file in the hash table.  */
+      size_t len;
+      struct dirfile dirfile_key;
+      struct dirfile **dirfile_slot;
+
+      ENULLLOOP (d, readdir (dc->dirstream));
+      if (d == NULL)
+        {
+          if (errno)
+            OSS (fatal, NILF, "readdir %s: %s", dir->name, strerror (errno));
+          break;
+        }
+
+      if (!REAL_DIR_ENTRY (d))
+        continue;
+
+      len = NAMLEN (d);
+      dirfile_key.name = d->d_name;
+      dirfile_key.length = len;
+      dirfile_slot = (struct dirfile **) hash_find_slot (&dc->dirfiles, &dirfile_key);
+        {
+          df = xmalloc (sizeof (struct dirfile));
+          df->name = strcache_add_len (d->d_name, len);
+#ifdef HAVE_STRUCT_DIRENT_D_TYPE
+          df->type = d->d_type;
+#endif
+          df->length = len;
+          df->impossible = 0;
+          hash_insert_at (&dc->dirfiles, df, dirfile_slot);
+        }
+      /* Check if the name matches the one we're searching for.  */
+      if (filename != NULL && patheq (d->d_name, filename))
+        return 1;
+    }
+
+  /* If the directory has been completely read in,
+     close the stream and reset the pointer to nil.  */
+  if (d == NULL)
+    {
+      --open_directories;
+      closedir (dc->dirstream);
+      dc->dirstream = NULL;
+    }
+
+  return 0;
+}
+
+/* Return 1 if the name FILENAME in directory DIRNAME
+   is entered in the dir hash table.
+   FILENAME must contain no slashes.  */
+
+int
+dir_file_exists_p (const char *dirname, const char *filename)
+{
+  return dir_contents_file_exists_p (find_directory (dirname),
+                                     filename);
+}
+
+/* Return 1 if the file named NAME exists.  */
+
+int
+file_exists_p (const char *name)
+{
+  const char *dirend;
+  const char *dirname;
+  const char *slash;
+
+#ifndef NO_ARCHIVES
+  if (ar_name (name))
+    return ar_member_date (name) != (time_t) -1;
+#endif
+
+  dirend = strrchr (name, '/');
+  if (dirend == NULL)
+    return dir_file_exists_p (".", name);
+
+  slash = dirend;
+  if (dirend == name)
+    dirname = "/";
+  else
+    {
+      char *p;
+      p = alloca (dirend - name + 1);
+      memcpy (p, name, dirend - name);
+      p[dirend - name] = '\0';
+      dirname = p;
+    }
+  slash++;
+  return dir_file_exists_p (dirname, slash);
+}
+
+/* Mark FILENAME as 'impossible' for 'file_impossible_p'.
+   This means an attempt has been made to search for FILENAME
+   as an intermediate file, and it has failed.  */
 
 void
-Dir_AddDiri(Lst path, const char *name, const char *ename)
+file_impossible (const char *filename)
 {
-	struct PathEntry	*p;
+  const char *dirend;
+  const char *p = filename;
+  struct directory *dir;
+  struct dirfile *new;
 
-	p = create_PathEntry(name, ename);
-	if (p == NULL)
-		return;
-	if (p->refCount == 1)
-		Lst_AtEnd(path, p);
-	else if (!Lst_AddNew(path, p))
-		return;
+  dirend = strrchr (p, '/');
+  if (dirend == NULL)
+    dir = find_directory (".");
+  else
+    {
+      const char *dirname;
+      const char *slash = dirend;
+      if (dirend == p)
+        dirname = "/";
+      else
+        {
+          char *cp;
+          cp = alloca (dirend - p + 1);
+          memcpy (cp, p, dirend - p);
+          cp[dirend - p] = '\0';
+          dirname = cp;
+        }
+      dir = find_directory (dirname);
+      filename = p = slash + 1;
+    }
+
+  if (dir->contents == NULL)
+    /* The directory could not be stat'd.  We allocate a contents
+       structure for it, but leave it out of the contents hash table.  */
+    dir->contents = xcalloc (sizeof (struct directory_contents));
+
+  if (dir->contents->dirfiles.ht_vec == NULL)
+    hash_init (&dir->contents->dirfiles, DIRFILE_BUCKETS,
+               dirfile_hash_1, dirfile_hash_2, dirfile_hash_cmp);
+
+  /* Make a new entry and put it in the table.  */
+
+  new = xmalloc (sizeof (struct dirfile));
+  new->length = strlen (filename);
+  new->name = strcache_add_len (filename, new->length);
+  new->impossible = 1;
+  hash_insert (&dir->contents->dirfiles, new);
+}
+
+/* Return nonzero if FILENAME has been marked impossible.  */
+
+int
+file_impossible_p (const char *filename)
+{
+  const char *dirend;
+  struct directory_contents *dir;
+  struct dirfile *dirfile;
+  struct dirfile dirfile_key;
+
+  dirend = strrchr (filename, '/');
+  if (dirend == NULL)
+    dir = find_directory (".")->contents;
+  else
+    {
+      const char *dirname;
+      const char *slash = dirend;
+      if (dirend == filename)
+        dirname = "/";
+      else
+        {
+          char *cp;
+          cp = alloca (dirend - filename + 1);
+          memcpy (cp, filename, dirend - filename);
+          cp[dirend - filename] = '\0';
+          dirname = cp;
+        }
+      dir = find_directory (dirname)->contents;
+      filename = slash + 1;
+    }
+
+  if (dir == NULL || dir->dirfiles.ht_vec == NULL)
+    /* There are no files entered for this directory.  */
+    return 0;
+
+#ifdef HAVE_CASE_INSENSITIVE_FS
+  filename = downcase (filename);
+#endif
+
+  dirfile_key.name = filename;
+  dirfile_key.length = strlen (filename);
+  dirfile = hash_find_item (&dir->dirfiles, &dirfile_key);
+  if (dirfile)
+    return dirfile->impossible;
+
+  return 0;
 }
 
-void *
-Dir_CopyDir(void *p)
+/* Return the already allocated name in the
+   directory hash table that matches DIR.  */
+
+const char *
+dir_name (const char *dir)
 {
-	struct PathEntry *q = p;
-	q->refCount++;
-	return p;
+  return find_directory (dir)->name;
 }
+
+/* Print the data base of directories.  */
 
 void
-Dir_Destroy(void *pp)
+print_dir_data_base (void)
 {
-	struct PathEntry *p = pp;
+  unsigned int files;
+  unsigned int impossible;
+  struct directory **dir_slot;
+  struct directory **dir_end;
 
-	if (--p->refCount == 0) {
-		ohash_remove(&knownDirectories,
-		    ohash_qlookup(&knownDirectories, p->name));
-		free_hash(&p->files);
-		free(p);
-	}
+  puts (_("\n# Directories\n"));
+
+  files = impossible = 0;
+
+  dir_slot = (struct directory **) directories.ht_vec;
+  dir_end = dir_slot + directories.ht_size;
+  for ( ; dir_slot < dir_end; dir_slot++)
+    {
+      struct directory *dir = *dir_slot;
+      if (! HASH_VACANT (dir))
+        {
+          if (dir->contents == NULL)
+            printf (_("# %s: could not be stat'd.\n"), dir->name);
+          else if (dir->contents->dirfiles.ht_vec == NULL)
+#ifdef WINDOWS32
+            printf (_("# %s (key %s, mtime %s): could not be opened.\n"),
+                    dir->name, dir->contents->path_key,
+                    make_ulltoa ((unsigned long long)dir->contents->mtime, buf));
+#elif defined(VMS_INO_T)
+            printf (_("# %s (device %d, inode [%d,%d,%d]): could not be opened.\n"),
+                    dir->name, dir->contents->dev,
+                    dir->contents->ino[0], dir->contents->ino[1],
+                    dir->contents->ino[2]);
+#else
+            printf (_("# %s (device %ld, inode %ld): could not be opened.\n"),
+                    dir->name, (long) dir->contents->dev, (long) dir->contents->ino);
+#endif
+          else
+            {
+              unsigned int f = 0;
+              unsigned int im = 0;
+              struct dirfile **files_slot;
+              struct dirfile **files_end;
+
+              files_slot = (struct dirfile **) dir->contents->dirfiles.ht_vec;
+              files_end = files_slot + dir->contents->dirfiles.ht_size;
+              for ( ; files_slot < files_end; files_slot++)
+                {
+                  struct dirfile *df = *files_slot;
+                  if (! HASH_VACANT (df))
+                    {
+                      if (df->impossible)
+                        ++im;
+                      else
+                        ++f;
+                    }
+                }
+#ifdef WINDOWS32
+              printf (_("# %s (key %s, mtime %s): "),
+                      dir->name, dir->contents->path_key,
+                      make_ulltoa ((unsigned long long)dir->contents->mtime, buf));
+#elif defined(VMS_INO_T)
+              printf (_("# %s (device %d, inode [%d,%d,%d]): "),
+                      dir->name, dir->contents->dev,
+                      dir->contents->ino[0], dir->contents->ino[1],
+                      dir->contents->ino[2]);
+#else
+              printf (_("# %s (device %ld, inode %ld): "), dir->name,
+                      (long)dir->contents->dev, (long)dir->contents->ino);
+#endif
+              if (f == 0)
+                fputs (_("No"), stdout);
+              else
+                printf ("%u", f);
+              fputs (_(" files, "), stdout);
+              if (im == 0)
+                fputs (_("no"), stdout);
+              else
+                printf ("%u", im);
+              fputs (_(" impossibilities"), stdout);
+              if (dir->contents->dirstream == NULL)
+                puts (".");
+              else
+                puts (_(" so far."));
+              files += f;
+              impossible += im;
+            }
+        }
+    }
+
+  fputs ("\n# ", stdout);
+  if (files == 0)
+    fputs (_("No"), stdout);
+  else
+    printf ("%u", files);
+  fputs (_(" files, "), stdout);
+  if (impossible == 0)
+    fputs (_("no"), stdout);
+  else
+    printf ("%u", impossible);
+  printf (_(" impossibilities in %lu directories.\n"), directories.ht_fill);
+}
+
+/* Hooks for globbing.  */
+
+/* Structure describing state of iterating through a directory hash table.  */
+
+struct dirstream
+  {
+    struct directory_contents *contents; /* The directory being read.  */
+    struct dirfile **dirfile_slot; /* Current slot in table.  */
+  };
+
+/* Forward declarations.  */
+static void *open_dirstream (const char *);
+static struct dirent *read_dirstream (void *);
+
+static void *
+open_dirstream (const char *directory)
+{
+  struct dirstream *new;
+  struct directory *dir = find_directory (directory);
+
+  if (dir->contents == NULL || dir->contents->dirfiles.ht_vec == NULL)
+    /* DIR->contents is nil if the directory could not be stat'd.
+       DIR->contents->dirfiles is nil if it could not be opened.  */
+    return NULL;
+
+  /* Read all the contents of the directory now.  There is no benefit
+     in being lazy, since glob will want to see every file anyway.  */
+
+  dir_contents_file_exists_p (dir, NULL);
+
+  new = xmalloc (sizeof (struct dirstream));
+  new->contents = dir->contents;
+  new->dirfile_slot = (struct dirfile **) new->contents->dirfiles.ht_vec;
+
+  return new;
 }
 
-/*-
- *-----------------------------------------------------------------------
- * Dir_Concat --
- *	Concatenate two paths, adding the second to the end of the first.
- *	Makes sure to avoid duplicates.
+static struct dirent *
+read_dirstream (void *stream)
+{
+  static char *buf;
+  static size_t bufsz;
+
+  struct dirstream *const ds = (struct dirstream *) stream;
+  struct directory_contents *dc = ds->contents;
+  struct dirfile **dirfile_end = (struct dirfile **) dc->dirfiles.ht_vec + dc->dirfiles.ht_size;
+
+  while (ds->dirfile_slot < dirfile_end)
+    {
+      struct dirfile *df = *ds->dirfile_slot++;
+      if (! HASH_VACANT (df) && !df->impossible)
+        {
+          /* The glob interface wants a 'struct dirent', so mock one up.  */
+          struct dirent *d;
+          size_t len = df->length + 1;
+          size_t sz = sizeof (*d) - sizeof (d->d_name) + len;
+          if (sz > bufsz)
+            {
+              bufsz *= 2;
+              if (sz > bufsz)
+                bufsz = sz;
+              buf = xrealloc (buf, bufsz);
+            }
+          d = (struct dirent *) buf;
+          FAKE_DIR_ENTRY (d);
+#ifdef _DIRENT_HAVE_D_NAMLEN
+          d->d_namlen = len - 1;
+#endif
+#ifdef HAVE_STRUCT_DIRENT_D_TYPE
+          d->d_type = df->type;
+#endif
+          memcpy (d->d_name, df->name, len);
+          return d;
+        }
+    }
+
+  return NULL;
+}
+
+/* On 64 bit ReliantUNIX (5.44 and above) in LFS mode, stat() is actually a
+ * macro for stat64().  If stat is a macro, make a local wrapper function to
+ * invoke it.
  *
- * Side Effects:
- *	Reference counts for added dirs are upped.
- *-----------------------------------------------------------------------
+ * On MS-Windows, stat() "succeeds" for foo/bar/. where foo/bar is a
+ * regular file; fix that here.
  */
+#if !defined(stat) && !defined(WINDOWS32)
+#  ifndef HAVE_SYS_STAT_H
+int stat (const char *path, struct stat *sbuf);
+#  endif
+# define local_stat stat
+#else
+static int
+local_stat (const char *path, struct stat *buf)
+{
+  int e;
+
+  EINTRLOOP (e, stat (path, buf));
+  return e;
+}
+#endif
+
+/* Similarly for lstat.  */
+#if !defined(lstat) && !defined(WINDOWS32)
+#  ifndef HAVE_SYS_STAT_H
+int lstat (const char *path, struct stat *sbuf);
+#  endif
+# define local_lstat lstat
+#elif defined(WINDOWS32)
+/* Windows doesn't support lstat().  */
+# define local_lstat local_stat
+#else
+static int
+local_lstat (const char *path, struct stat *buf)
+{
+  int e;
+  EINTRLOOP (e, lstat (path, buf));
+  return e;
+}
+#endif
+
 void
-Dir_Concat(Lst path1, Lst path2)
+dir_setup_glob (glob_t *gl)
 {
-	LstNode	ln;
-	struct PathEntry *p;
-
-	for (ln = Lst_First(path2); ln != NULL; ln = Lst_Adv(ln)) {
-		p = Lst_Datum(ln);
-		if (Lst_AddNew(path1, p))
-			p->refCount++;
-	}
-}
-
-static void
-DirPrintDir(void *p)
-{
-	const struct PathEntry *q = p;
-	printf("%s ", q->name);
+  gl->gl_offs = 0;
+  gl->gl_opendir = open_dirstream;
+  gl->gl_readdir = read_dirstream;
+  gl->gl_closedir = free;
+  gl->gl_lstat = local_lstat;
+  gl->gl_stat = local_stat;
 }
 
 void
-Dir_PrintPath(Lst path)
+hash_init_directories (void)
 {
-	Lst_Every(path, DirPrintDir);
+  hash_init (&directories, DIRECTORY_BUCKETS,
+             directory_hash_1, directory_hash_2, directory_hash_cmp);
+  hash_init (&directory_contents, DIRECTORY_BUCKETS,
+             directory_contents_hash_1, directory_contents_hash_2,
+             directory_contents_hash_cmp);
 }
-
-struct timespec
-Dir_MTime(GNode *gn)
-{
-	char *fullName;
-	struct stat stb;
-	struct file_stamp *entry;
-	unsigned int slot;
-	struct timespec	  mtime;
-
-	if (gn->type & OP_PHONY)
-		return gn->mtime;
-
-	if (gn->type & OP_ARCHV)
-		return Arch_MTime(gn);
-
-	if (gn->path == NULL) {
-		fullName = Dir_FindFile(gn->name, defaultPath);
-		if (fullName == NULL)
-			fullName = estrdup(gn->name);
-	} else
-		fullName = gn->path;
-
-	slot = ohash_qlookup(&mtimes, fullName);
-	entry = ohash_find(&mtimes, slot);
-	if (entry != NULL) {
-		/* Only do this once -- the second time folks are checking to
-		 * see if the file was actually updated, so we need to
-		 * actually go to the file system.	*/
-		if (DEBUG(DIR))
-			printf("Using cached time %s for %s\n",
-			    time_to_string(&entry->mtime), fullName);
-		mtime = entry->mtime;
-		free(entry);
-		ohash_remove(&mtimes, slot);
-	} else if (stat(fullName, &stb) == 0)
-		ts_set_from_stat(stb, mtime);
-	else {
-		if (gn->type & OP_MEMBER) {
-			if (fullName != gn->path)
-				free(fullName);
-			return Arch_MemMTime(gn);
-		} else
-			ts_set_out_of_date(mtime);
-	}
-	if (fullName && gn->path == NULL)
-		gn->path = fullName;
-
-	gn->mtime = mtime;
-	return gn->mtime;
-}
-

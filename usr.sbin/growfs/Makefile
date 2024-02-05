@@ -7,10 +7,10 @@
 
 PROG=   growfs
 MAN=	growfs.8
+BINDIR=${SBINDIR}
 
 #CFLAGS+=-Wall
 
-DPADD=	${LIBUTIL}
-LDADD=	-lutil
+LIBS=	-lutil
 
-.include <bsd.prog.mk>      
+include cobalt.prog.mk

@@ -14,10 +14,10 @@
 #include <math.h>
 #include <sys/time.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "ppm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/ppm.h>
 
 static pixel** PIX;
 static pixval BG_RED, BG_GREEN, BG_BLUE;

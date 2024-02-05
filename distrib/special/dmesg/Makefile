@@ -2,6 +2,6 @@
 
 PROG=	dmesg
 CFLAGS+=-DNOKVM
-.PATH:  ${.CURDIR}/../../../sbin/dmesg
+.PATH:  ${.CURDIR}/../../../usr.sbin/dmesg
 
 .include <bsd.prog.mk>

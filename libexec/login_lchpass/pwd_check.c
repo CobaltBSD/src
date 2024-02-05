@@ -1,0 +1,1 @@
+../../usr.bin/passwd/pwd_check.c

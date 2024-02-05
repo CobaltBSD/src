@@ -14,10 +14,10 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pnm.h>
 
 enum transferFunction {
     XF_EXP,

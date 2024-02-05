@@ -1,0 +1,4 @@
+#SUBDIR=	compat geometry keycodes man pc rules symbols types
+SUBDIR=	compat
+
+include cobalt.xorg.subdir.mk

@@ -1,7 +1,7 @@
 #	$OpenBSD: Makefile,v 1.3 2023/09/04 17:08:03 jca Exp $
 
-.PATH:  ${.CURDIR}/../../../bin/pax
-CFLAGS+=-DNOCPIO -DSMALL -I${.CURDIR}/../../../bin/pax
+.PATH:  ${.CURDIR}/../../../usr.bin/pax
+CFLAGS+=-DNOCPIO -DSMALL -I${.CURDIR}/../../../usr.bin/pax
 
 PROG=   pax
 SRCS=	ar_io.c ar_subs.c buf_subs.c file_subs.c ftree.c\

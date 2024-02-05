@@ -13,10 +13,10 @@
 
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
 
 #define MAX_CHANNELS 16
     /* The most channels we allow user to specify */

@@ -1,6 +1,5 @@
-#	$OpenBSD: Makefile,v 1.3 1997/09/21 11:51:50 deraadt Exp $
-
 PROG=	vis
-SRCS=	vis.c foldit.c
+MAN=	vis.1
+OBJS=	vis.o foldit.o
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

@@ -1,16 +1,15 @@
-#	$OpenBSD: Makefile,v 1.12 2017/05/28 21:59:56 tedu Exp $
-
-SRCS=	signify.c
-SRCS+=	zsig.c
-SRCS+=	fe25519.c sc25519.c
-SRCS+=	mod_ed25519.c mod_ge25519.c
-SRCS+=	crypto_api.c
+OBJS=	signify.c
+OBJS+=	zsig.c
+OBJS+=	fe25519.c sc25519.c
+OBJS+=	mod_ed25519.c mod_ge25519.c
+OBJS+=	crypto_api.c
 
 PROG=	signify
 
-LDADD=  -lutil
-DPADD=  ${LIBUTIL}
+LIBS=  -lutil
 
-COPTS+=	-Wall
+CFLAGS+=	-Wall
 
-.include <bsd.prog.mk>
+MAN=	signify.1
+
+include cobalt.prog.mk

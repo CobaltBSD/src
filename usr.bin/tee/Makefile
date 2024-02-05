@@ -1,5 +1,4 @@
-#	$OpenBSD: Makefile,v 1.3 1997/09/21 11:51:09 deraadt Exp $
-
 PROG=	tee
+MAN=	tee.1
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

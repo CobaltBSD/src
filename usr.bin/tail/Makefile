@@ -1,6 +1,5 @@
-#	$OpenBSD: Makefile,v 1.5 1999/02/03 02:09:30 millert Exp $
-
 PROG=	tail
-SRCS=	forward.c misc.c read.c reverse.c tail.c
+MAN=	tail.1
+OBJS=	forward.o misc.o read.o reverse.o tail.o
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

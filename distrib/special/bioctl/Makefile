@@ -15,5 +15,5 @@ CDIAGFLAGS+=    -Wunused
 CDIAGFLAGS+=    -Wsign-compare
 CDIAGFLAGS+=    -Wshadow
 
-.PATH:  ${.CURDIR}/../../../sbin/bioctl
+.PATH:  ${.CURDIR}/../../../usr.sbin/bioctl
 .include <bsd.prog.mk>

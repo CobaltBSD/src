@@ -3,6 +3,6 @@
 PROG=	kbd
 
 SRCS=	main.c kbd_wscons.c
-.PATH:  ${.CURDIR}/../../../sbin/kbd
+.PATH:  ${.CURDIR}/../../../usr.sbin/kbd
 
 .include <bsd.prog.mk>

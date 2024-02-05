@@ -8,11 +8,11 @@
 
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "ppm.h"
-#include "lum.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/ppm.h>
+#include <pbm/lum.h>
 
 
 

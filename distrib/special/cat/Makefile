@@ -2,5 +2,5 @@
 
 PROG=	cat
 
-.PATH:  ${.CURDIR}/../../../bin/cat
+.PATH:  ${.CURDIR}/../../../usr.bin/cat
 .include <bsd.prog.mk>

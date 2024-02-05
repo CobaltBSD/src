@@ -23,11 +23,11 @@
 #include <math.h>
 #include <time.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pam.h"
-#include "pamdraw.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
+#include <pbm/pamdraw.h>
 
 
 

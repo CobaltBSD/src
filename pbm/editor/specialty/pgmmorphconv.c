@@ -16,10 +16,10 @@
 ** implied warranty.
 */
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "pgm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pgm.h>
 
 
 

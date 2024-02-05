@@ -27,12 +27,12 @@
 #include <string.h>
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "pm_gamma.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pm_gamma.h>
+#include <pbm/pam.h>
 
 enum horizPos {BEYONDLEFT, LEFT, CENTER, RIGHT, BEYONDRIGHT};
 enum vertPos {ABOVE, TOP, MIDDLE, BOTTOM, BELOW};

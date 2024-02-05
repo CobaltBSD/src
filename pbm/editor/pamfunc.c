@@ -18,10 +18,10 @@
 
 ******************************************************************************/
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
 
 enum Function {
     FN_MULTIPLY,

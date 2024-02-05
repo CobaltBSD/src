@@ -1,7 +1,5 @@
-#	$OpenBSD: Makefile,v 1.3 1997/09/21 11:50:42 deraadt Exp $
-
 PROG=	script
-LDADD=	-lutil
-DPADD=	${LIBUTIL}
+MAN=	script.1
+LIBS=	-lutil
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

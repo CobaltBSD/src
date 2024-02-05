@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pam.h>
 
 
 

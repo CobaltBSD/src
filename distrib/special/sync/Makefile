@@ -2,5 +2,5 @@
 
 PROG=	sync
 
-.PATH:	${.CURDIR}/../../../bin/sync
+.PATH:	${.CURDIR}/../../../usr.bin/sync
 .include <bsd.prog.mk>

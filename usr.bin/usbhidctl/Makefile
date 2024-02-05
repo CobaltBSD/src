@@ -1,10 +1,7 @@
-#	$OpenBSD: Makefile,v 1.3 2019/11/15 00:06:46 jsg Exp $
-#	$NetBSD: Makefile,v 1.4 1999/05/11 21:02:25 augustss Exp $
-
 PROG=	usbhidctl
-SRCS=	usbhid.c
+MAN=	usbhidctl.1
+OBJS=	usbhid.o
 
-LDADD+=	-lusbhid
-DPADD+=	${LIBUSBHID}
+LIBS=	-lusbhid
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

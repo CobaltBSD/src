@@ -7,6 +7,6 @@ COPTS+=	-DSMALL
 LDADD=	-lutil
 DPADD=	${LIBUTIL}
 
-.PATH:  ${.CURDIR}/../../../sbin/ifconfig
+.PATH:  ${.CURDIR}/../../../usr.sbin/ifconfig
 
 .include <bsd.prog.mk>

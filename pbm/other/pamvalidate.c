@@ -10,8 +10,8 @@
 =============================================================================*/
 
 #include <string.h>
-#include "pm_c_util.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
 
 
 

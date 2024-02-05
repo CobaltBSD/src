@@ -6,5 +6,5 @@ COPTS+=	-DSMALL
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
 
-.PATH:	${.CURDIR}/../../../sbin/mount
+.PATH:	${.CURDIR}/../../../usr.sbin/mount
 .include <bsd.prog.mk>

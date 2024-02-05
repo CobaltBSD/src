@@ -1,8 +1,5 @@
-#	$OpenBSD: Makefile,v 1.8 2015/12/01 18:36:13 schwarze Exp $
-
 PROG=	ls
-SRCS=	cmp.c ls.c main.c print.c util.c utf8.c color.c
-DPADD= ${LIBUTIL}
-LDADD= -lutil
+OBJS=	cmp.o ls.o main.o print.o util.o utf8.o color.o
+LIBS= -lutil
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

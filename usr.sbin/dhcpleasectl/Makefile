@@ -1,7 +1,5 @@
-#	$OpenBSD: Makefile,v 1.2 2021/09/15 15:18:23 florian Exp $
-
 PROG=	dhcpleasectl
-SRCS=	dhcpleasectl.c
+BINDIR=${SBINDIR}
 
 MAN=	dhcpleasectl.8
 
@@ -10,8 +8,8 @@ CFLAGS+= -Wstrict-prototypes -Wmissing-prototypes
 CFLAGS+= -Wmissing-declarations
 CFLAGS+= -Wshadow -Wpointer-arith -Wcast-qual
 CFLAGS+= -Wsign-compare
-CFLAGS+= -I${.CURDIR} -I${.CURDIR}/../../usr.sbin/dhcpleased
-LDADD=	-lutil
-DPADD=	${LIBUTIL}
+#CFLAGS+= -I${.CURDIR} -I${.CURDIR}/../../usr.sbin/dhcpleased
+CFLAGS+= -I../dhcpleased
+LIBS=	-lutil
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

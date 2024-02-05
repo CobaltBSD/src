@@ -13,10 +13,10 @@
 **     28 Jan 94 -  Added multiple color substitution function.
 */
 
-#include "pm_c_util.h"
-#include "ppm.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/ppm.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 #define TCOLS 256
 #define SQRT3 1.73205080756887729352

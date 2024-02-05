@@ -2,5 +2,5 @@
 
 PROG=	sleep
 
-.PATH:  ${.CURDIR}/../../../bin/sleep
+.PATH:  ${.CURDIR}/../../../usr.bin/sleep
 .include <bsd.prog.mk>

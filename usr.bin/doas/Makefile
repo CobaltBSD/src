@@ -1,6 +1,4 @@
-#	$OpenBSD: Makefile,v 1.3 2017/07/03 22:21:47 espie Exp $
-
-SRCS=	parse.y doas.c env.c
+OBJS=	parse.tab.o doas.o env.o
 
 PROG=	doas
 MAN=	doas.1 doas.conf.5
@@ -8,8 +6,9 @@ MAN=	doas.1 doas.conf.5
 BINOWN= root
 BINMODE=4555
 
-CFLAGS+= -I${.CURDIR}
-COPTS+=	-Wall
-YFLAGS=
+CFLAGS+= -I${CURDIR}
+CFLAGS+=	-Wall
 
-.include <bsd.prog.mk>
+CLEANFILES += parse.tab.c parse.tab.h
+
+include cobalt.prog.mk

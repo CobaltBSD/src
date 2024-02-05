@@ -10,7 +10,7 @@
 ** implied warranty.
 */
 
-#include "pbm.h"
+#include <pbm/pbm.h>
 
 int
 main( argc, argv )

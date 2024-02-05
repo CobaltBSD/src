@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.4 2006/04/07 05:10:02 ray Exp $
-
 PROG=	uniq
+MAN=	uniq.1
 
-COPTS+=	-Wall -W
+CFLAGS+=	-Wall -W
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

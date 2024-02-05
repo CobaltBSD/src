@@ -5,5 +5,5 @@ DPADD=	${LIBUTIL}
 LDADD=	-lutil
 LINKS=	${BINDIR}/reboot ${BINDIR}/halt
 
-.PATH:  ${.CURDIR}/../../../sbin/reboot
+.PATH:  ${.CURDIR}/../../../usr.sbin/reboot
 .include <bsd.prog.mk>

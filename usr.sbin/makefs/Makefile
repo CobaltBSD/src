@@ -1,27 +1,20 @@
-#	$OpenBSD: Makefile,v 1.10 2016/10/18 18:42:08 deraadt Exp $
-#	$NetBSD: Makefile,v 1.36 2013/08/05 14:41:57 reinoud Exp $
-#
-
-.include <bsd.own.mk>
-
 PROG=	makefs
 
-SRCS=	makefs.c walk.c xmalloc.c
-SRCS+=	cd9660.c cd9660_strings.c cd9660_debug.c cd9660_eltorito.c
-SRCS+=	cd9660_write.c cd9660_conversion.c iso9660_rrip.c
-SRCS+=	ffs.c ffs_alloc.c ffs_balloc.c ffs_subr.c
-SRCS+=	ffs_tables.c ufs_bmap.c buf.c mkfs.c
-SRCS+=	msdos.c mkfs_msdos.c msdosfs_fat.c msdosfs_conv.c msdosfs_vfsops.c
-SRCS+=	msdosfs_lookup.c msdosfs_denode.c msdosfs_vnops.c msdosfs_unicode.c
+OBJS=	makefs.o walk.o xmalloc.o
+OBJS+=	cd9660.o cd9660/cd9660_strings.o cd9660/cd9660_debug.o cd9660/cd9660_eltorito.o
+OBJS+=	cd9660/cd9660_write.o cd9660/cd9660_conversion.o cd9660/iso9660_rrip.o
+OBJS+=	ffs.o ffs/ffs_alloc.o ffs/ffs_balloc.o ffs/ffs_subr.o
+OBJS+=	ffs/ffs_tables.o ffs/ufs_bmap.o ffs/buf.o ffs/mkfs.o
+OBJS+=	msdos.o msdos/mkfs_msdos.o msdos/msdosfs_fat.o msdos/msdosfs_conv.o msdos/msdosfs_vfsops.o
+OBJS+=	msdos/msdosfs_lookup.o msdos/msdosfs_denode.o msdos/msdosfs_vnops.o msdos/msdosfs_unicode.o
 
 MAN=	makefs.8
 
-CPPFLAGS+=	-I${.CURDIR}
-#CPPFLAGS+=	-DMSDOSFS_DEBUG
+#CFLAGS+=	-DMSDOSFS_DEBUG
+CFLAGS+=-I${CURDIR}
 
-DPADD+= ${LIBUTIL}
-LDADD+= -lutil
+LIBS= -lutil
 
-.PATH:	${.CURDIR}/cd9660 ${.CURDIR}/ffs ${.CURDIR}/msdos
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

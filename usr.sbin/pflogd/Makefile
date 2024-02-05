@@ -16,3 +16,4 @@ MAN=	pflogd.8
 
 # Don't compile pflogd as static binary by default
 LDSTATIC=       
+#TODO

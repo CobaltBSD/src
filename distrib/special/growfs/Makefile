@@ -6,5 +6,5 @@ SRCS=	growfs.c
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
 
-.PATH:	${.CURDIR}/../../../sbin/growfs
+.PATH:	${.CURDIR}/../../../usr.sbin/growfs
 .include <bsd.prog.mk>

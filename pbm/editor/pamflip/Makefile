@@ -1,5 +1,5 @@
-all:
-	${CC} pamflip.c pamflip_sse.c -I../../lib/util -I../../lib -L../../lib -lpbm -o pamflip
+PROG=pamflip
 
-clean:
-	rm -fv pamflip
+LIBS=-lpbm
+
+include cobalt.prog.mk

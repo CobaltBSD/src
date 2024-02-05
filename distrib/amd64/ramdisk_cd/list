@@ -11,16 +11,12 @@ LINK	instbin					bin/cp
 LINK	instbin					bin/date
 LINK	instbin					bin/dd
 LINK	instbin					bin/df
-LINK	instbin					bin/ed
 LINK	instbin					bin/hostname
 LINK	instbin					bin/ksh bin/sh
 LINK	instbin					bin/ln
 LINK	instbin					bin/ls
-LINK	instbin					bin/md5 bin/sha256 bin/sha512
 LINK	instbin					bin/mkdir
-LINK	instbin					bin/mt bin/eject
 LINK	instbin					bin/mv
-LINK	instbin					bin/pax bin/tar
 LINK	instbin					bin/rm
 LINK	instbin					bin/sleep
 LINK	instbin					bin/stty
@@ -43,22 +39,17 @@ LINK	instbin					sbin/mount_cd9660
 LINK	instbin					sbin/mount_ext2fs
 LINK	instbin					sbin/mount_ffs
 LINK	instbin					sbin/mount_msdos
-LINK	instbin					sbin/mount_nfs
-LINK	instbin					sbin/mount_udf
 LINK	instbin					sbin/newfs
 LINK	instbin					sbin/newfs_msdos
 LINK	instbin					sbin/ping sbin/ping6
 LINK	instbin					sbin/reboot sbin/halt
 LINK	instbin					sbin/resolvd
 LINK	instbin					sbin/restore
-LINK	instbin					sbin/route
-LINK	instbin					sbin/slaacd
 LINK	instbin					sbin/sysctl
 LINK	instbin					sbin/umount
 LINK	instbin					usr/bin/doas
 LINK	instbin					usr/bin/encrypt
 LINK	instbin					usr/bin/grep usr/bin/egrep usr/bin/fgrep
-LINK	instbin					usr/bin/gzip usr/bin/gunzip usr/bin/gzcat
 LINK	instbin					usr/bin/more usr/bin/less
 LINK	instbin					usr/bin/sed
 LINK	instbin					usr/bin/signify
@@ -70,7 +61,6 @@ ARGVLINK ksh					-sh
 SPECIAL	rm bin/md5
 
 SPECIAL awk -f ${UTILS}/trimcerts.awk ${DESTDIR}/etc/ssl/cert.pem etc/ssl/cert.pem
-LINK	instbin					usr/bin/ftp-ssl usr/bin/ftp
 SPECIAL	rm usr/bin/ftp-ssl
 
 COPY	${DESTDIR}/etc/firmware/kue		etc/firmware/kue

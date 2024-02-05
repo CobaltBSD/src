@@ -1,8 +1,0 @@
-atiutil.lo: atiutil.c ../config.h /usr/X11R6/include/xorg/xorg-server.h \
-  atiutil.h
-
-../config.h:
-
-/usr/X11R6/include/xorg/xorg-server.h:
-
-atiutil.h:

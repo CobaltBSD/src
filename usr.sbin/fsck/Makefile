@@ -1,9 +1,7 @@
-#	$OpenBSD: Makefile,v 1.5 1997/09/21 11:36:32 deraadt Exp $
-
 PROG=	fsck
-SRCS=	fsck.c fsutil.c preen.c
+OBJS=	fsck.o fsutil.o preen.o
 MAN=	fsck.8
-DPADD=	${LIBUTIL}
-LDADD=	-lutil
+LIBS=	-lutil
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

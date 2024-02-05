@@ -1,6 +1,5 @@
-#	$OpenBSD: Makefile,v 1.5 2016/02/01 22:38:01 gsoares Exp $
-
 PROG=	sponge
-SRCS=	sponge.c util.c
+MAN=	sponge.1
+OBJS=	sponge.o util.o
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

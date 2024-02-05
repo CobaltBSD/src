@@ -775,7 +775,7 @@ Here is a response file example that uses a hashed password (see
 encrypt(1) for more details) for root and a public ssh key for the
 user that is created during the installation.
 
-           System hostname = openbsd
+           System hostname = cobaltbsd
            Password for root = ${:--:}2a${:--:}14${:--:}Z4xRMg8vDpgYH...GVot3ySoj8yby
            Setup a user = puffy
            Password for user = *************

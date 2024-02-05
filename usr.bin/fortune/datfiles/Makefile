@@ -1,36 +1,31 @@
-#	$OpenBSD: Makefile,v 1.7 2016/09/02 11:55:24 tb Exp $
-#	$NetBSD: Makefile,v 1.15 1996/02/29 00:21:16 jtc Exp $
-#	@(#)Makefile	8.2 (Berkeley) 4/19/94
-
 SRCS=	fortunes startrek zippy recipes
 BLDS=	fortunes.dat startrek.dat zippy.dat \
-	fortunes-o.dat recipes.dat
+	recipes.dat
 
 # THE THREE LINES
-SRCS+=	fortunes-o.dat limerick
+SRCS+=	fortunes-o limerick
 BLDS+=	fortunes-o.dat limerick.dat
 
-CLEANFILES+=${BLDS}
-
-STRFILE!=cd $(.CURDIR)/../strfile; \
-	printf "xxx:\n\techo \$${.OBJDIR}/strfile\n" | \
-	${MAKE} -r -s -f - xxx | grep strfile
+STRFILE=../strfile/strfile
 
 all: ${BLDS}
 
+${STRFILE}:
+	$(MAKE) -C $(dir $@)
+
 install: ${SRCS} ${BLDS}
-	(cd ${.CURDIR} && ${INSTALL} ${INSTALL_COPY} -o ${BINOWN} -g ${BINGRP} -m 444 \
-	    ${SRCS} ${DESTDIR}/usr/share/games/fortune)
-	${INSTALL} ${INSTALL_COPY} -o ${BINOWN} -g ${BINGRP} -m 444 ${BLDS} \
+	(cd ${CURDIR} && ${INSTALL} ${INSTALL_COPY} -d -o root -g bin -m 444 \
+	    ${DESTDIR}/usr/share/games/fortune)
+	${INSTALL} ${INSTALL_COPY} -o root -g bin -m 444 \
+	    ${SRCS} ${DESTDIR}/usr/share/games/fortune
+	${INSTALL} ${INSTALL_COPY} -o root -g bin -m 444 ${BLDS} \
 	    ${DESTDIR}/usr/share/games/fortune
 
-fortunes.dat fortunes2.dat fortunes2-o.dat limerick.dat startrek.dat zippy.dat recipes.dat:
-	${STRFILE} -s ${.CURDIR}/${.TARGET:R} ${.TARGET}
+fortunes.dat limerick.dat startrek.dat zippy.dat recipes.dat:
+	${STRFILE} -s ${CURDIR}/$(basename $@) $@
 
-fortunes-o.dat: fortunes-o
-	${STRFILE} -sx fortunes-o ${.TARGET}
+fortunes-o.dat: ${STRFILE}
+	${STRFILE} -sx fortunes-o $@
 
-fortunes-o: fortunes-o
-	tr [a-zA-Z] [n-za-mN-ZA-M] < ${.ALLSRC} > ${.TARGET}
-
-.include <bsd.prog.mk>
+clean:
+	rm -fv *.dat

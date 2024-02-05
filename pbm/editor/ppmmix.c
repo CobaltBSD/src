@@ -5,7 +5,7 @@
 /*                                                                   */
 /*********************************************************************/
 
-#include "ppm.h"
+#include <pbm/ppm.h>
 
 int main(int argc, const char ** argv) {
 

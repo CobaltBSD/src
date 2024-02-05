@@ -17,8 +17,8 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "pbm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pbm.h>
 
 /* US is 8.5 in by 11 in */
 

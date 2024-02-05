@@ -12,12 +12,12 @@
 
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "bitarith.h"
-#include "nstring.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/bitarith.h>
+#include <pbm/util/nstring.h>
+#include <pbm/pnm.h>
 
 #define LEFTBITS pm_byteLeftBits
 #define RIGHTBITS pm_byteRightBits

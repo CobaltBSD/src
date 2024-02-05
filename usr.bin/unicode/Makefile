@@ -1,3 +1,4 @@
 PROG=unicode
+MAN=unicode.1
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

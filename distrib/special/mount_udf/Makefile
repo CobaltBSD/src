@@ -3,9 +3,9 @@
 PROG=	mount_udf
 SRCS=	mount_udf.c getmntopts.c
 
-MOUNT=	${.CURDIR}/../../../sbin/mount
+MOUNT=	${.CURDIR}/../../../usr.sbin/mount
 CFLAGS+= -I${MOUNT}
 .PATH:	${MOUNT}
 
-.PATH:  ${.CURDIR}/../../../sbin/mount_udf
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount_udf
 .include <bsd.prog.mk>

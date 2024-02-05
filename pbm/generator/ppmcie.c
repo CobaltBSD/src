@@ -29,10 +29,10 @@
 #include <assert.h>
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "ppm.h"
-#include "ppmdraw.h"
-#include "nstring.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/ppm.h>
+#include <pbm/ppmdraw.h>
+#include <pbm/util/nstring.h>
 
 #define CLAMP(v, l, h)  ((v) < (l) ? (l) : (v) > (h) ? (h) : (v))
 

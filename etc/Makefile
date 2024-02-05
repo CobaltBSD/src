@@ -72,7 +72,7 @@ MISETS=	base${OSrev}.tgz comp${OSrev}.tgz man${OSrev}.tgz game${OSrev}.tgz
 all clean cleandir etc install:
 
 install-mtree:
-	${INSTALL} -c -o root -g wheel -m 600 mtree/special \
+	${INSTALL} -D -c -o root -g wheel -m 600 mtree/special \
 	    ${DESTDIR}${MTREEDIR}
 	${INSTALL} -c -o root -g wheel -m 444 mtree/4.4BSD.dist \
 	    ${DESTDIR}${MTREEDIR}

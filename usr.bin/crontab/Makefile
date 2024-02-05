@@ -1,12 +1,10 @@
-#	$OpenBSD: Makefile,v 1.8 2015/11/12 21:12:05 millert Exp $
-
 PROG=	crontab
-SRCS=	crontab.c entry.c env.c client.c misc.c
-CFLAGS+=-I${.CURDIR} -I${.CURDIR}/../../usr.sbin/cron
+OBJS=	crontab.o entry.o env.o client.o misc.o
+CFLAGS+=-I${CURDIR}/../../usr.sbin/cron
 BINGRP =crontab
 BINMODE=2555
 MAN=	crontab.1 crontab.5
 
-.PATH: ${.CURDIR}/../../usr.sbin/cron
+#.PATH: ${.CURDIR}/../../usr.sbin/cron
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

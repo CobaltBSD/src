@@ -6,7 +6,7 @@ LICENSE='.' #TODO
 SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.xz"
 
 src_configure() {
-	PKG_CONFIG_PATH=/usr/lib/pkgconfig:/opt/new/lib/pkgconfig ./configure --prefix=/usr
+	./configure --prefix=/usr
 }
 
 src_compile() {

@@ -1,7 +1,0 @@
-prefix=/usr/X11R6
-includedir=${prefix}/include
-
-Name: XCalibrate
-Description: XCalibrate extension headers
-Version: 0.1.0
-Cflags: -I${includedir}

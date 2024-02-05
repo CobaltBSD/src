@@ -2,10 +2,10 @@
 
 PROG=	fsck_msdos
 SRCS=	main.c check.c boot.c fat.c dir.c fsutil.c
-.PATH: ${.CURDIR}/../../../sbin/fsck
-CFLAGS+= -I${.CURDIR}/../../../sbin/fsck
+.PATH: ${.CURDIR}/../../../usr.sbin/fsck
+CFLAGS+= -I${.CURDIR}/../../../usr.sbin/fsck
 DPADD+=	${LIBUTIL}
 LDADD+=	-lutil
 
-.PATH:  ${.CURDIR}/../../../sbin/fsck_msdos
+.PATH:  ${.CURDIR}/../../../usr.sbin/fsck_msdos
 .include <bsd.prog.mk>

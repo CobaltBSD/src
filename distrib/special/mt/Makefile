@@ -5,6 +5,6 @@ SRCS=	mt.c
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
 
-.PATH:	${.CURDIR}/../../../bin/mt
+.PATH:	${.CURDIR}/../../../usr.bin/mt
 
 .include <bsd.prog.mk>

@@ -12,11 +12,11 @@
 
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "ppm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/ppm.h>
 
 enum sort {SORT_BY_FREQUENCY, SORT_BY_RGB};
 

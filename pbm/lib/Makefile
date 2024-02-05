@@ -1,57 +1,59 @@
 LIB = pbm
+HDRS=util/pm_c_util.h util/mallocvar.h pm_config.h util/shhopt.h pam.h pm.h pnm.h ppm.h pgm.h pbm.h ppmcmap.h util/nstring.h pm_system.h pammap.h colorname.h ppmdfont.h util/bitreverse.h pm_gamma.h dithers.h pamdraw.h util/bitarith.h util/token.h util/io.h util/matrix.h ppmdraw.h lum.h pbmfont.h util/bitio.h version.h util/filename.h
+HDRPREFIX=pbm
 
 SHLIB_MAJOR = 0
 SHLIB_MINOR = 0
 
 CFLAGS += -Iutil
-LDADD = -lm
+LIBS = -lm
 
-SRCS = \
-      colorname.c \
-      fileio.c \
-      libpam.c \
-      libpamcolor.c \
-      libpamd.c \
-      libpammap.c \
-      libpamn.c \
-      libpamread.c \
-      libpamwrite.c \
-      libpbm1.c \
-      libpbm2.c \
-      libpbm3.c \
-      libpbmfont.c \
-      libpgm1.c \
-      libpgm2.c \
-      libpm.c \
-      libpnm1.c \
-      libpnm2.c \
-      libpnm3.c \
-      libppm1.c \
-      libppm2.c \
-      libppmcmap.c \
-      libppmcolor.c \
-      libppmd.c \
-      libppmfloyd.c \
-      libppmfuzzy.c \
-      libsystem.c \
-      path.c \
-      pmfileio.c \
-      ppmdfont.c \
-      standardppmdfont.c \
-      util/shhopt.c \
-      util/nstring.c \
-      util/vasprintf.c \
-      util/mallocvar.c \
-      util/token.c \
-      util/filename.c \
-      util/io.c \
-      util/matrix.c
+CLEANFILES+=standardppmdfont.c
 
-#all:
-#	cc -shared -Iutil libpam.c libpamcolor.c libpamd.c libpammap.c libpamn.c libpamread.c libpamwrite.c libpbm1.c libpbm2.c libpbm3.c libpbmfont.c libpgm1.c libpgm2.c libpm.c libpnm1.c libpnm2.c libpnm3.c libppm1.c libppm2.c libppmcmap.c libppmcolor.c libppmd.c libppmfloyd.c libppmfuzzy.c libsystem.c path.c pmfileio.c ppmdfont.c standardppmdfont.c util/shhopt.c util/nstring.c util/vasprintf.c util/mallocvar.c util/token.c util/filename.c -lm -o libnetpbm.so -Wl,-soname,libpbm.so.0.0
-#	ln -sf libpbm.so libpbm.so.0.0
+OBJS = \
+      colorname.o \
+      fileio.o \
+      libpam.o \
+      libpamcolor.o \
+      libpamd.o \
+      libpammap.o \
+      libpamn.o \
+      libpamread.o \
+      libpamwrite.o \
+      libpbm1.o \
+      libpbm2.o \
+      libpbm3.o \
+      libpbmfont.o \
+      libpgm1.o \
+      libpgm2.o \
+      libpm.o \
+      libpnm1.o \
+      libpnm2.o \
+      libpnm3.o \
+      libppm1.o \
+      libppm2.o \
+      libppmcmap.o \
+      libppmcolor.o \
+      libppmd.o \
+      libppmfloyd.o \
+      libppmfuzzy.o \
+      libsystem.o \
+      path.o \
+      pmfileio.o \
+      ppmdfont.o \
+      standardppmdfont.o \
+      util/shhopt.o \
+      util/nstring.o \
+      util/vasprintf.o \
+      util/mallocvar.o \
+      util/token.o \
+      util/filename.o \
+      util/io.o \
+      util/matrix.o \
+      util/bitio.o
 
-#standardppmdfont.c:
-#	ppmdcfont <standard.ppmdfont >$@
+include cobalt.lib.mk
 
-.include <bsd.lib.mk>
+# standardppmdfont.c has a circular dependency on pbm
+standardppmdfont.c:
+	ppmdcfont <standard.ppmdfont >$@

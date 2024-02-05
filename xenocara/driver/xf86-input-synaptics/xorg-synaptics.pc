@@ -1,6 +1,0 @@
-sdkdir=/usr/X11R6/include/xorg
-
-Name: synaptics
-Description: X.Org synaptics input driver.
-Version: 1.9.2
-Cflags: -I${sdkdir}

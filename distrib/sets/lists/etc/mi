@@ -44,6 +44,9 @@
 ./etc/ssl/x509v3.cnf
 ./etc/syslog.conf
 ./etc/ttys
+./etc/sdwdate.servers
+./etc/pkg.conf
+./etc/hosts
 ./root/.Xdefaults
 ./root/.cshrc
 ./root/.cvsrc

@@ -25,13 +25,13 @@
 #include <math.h>
 #include <assert.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "pam.h"
-#include "ppm.h"
-#include "pammap.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
+#include <pbm/ppm.h>
+#include <pbm/pammap.h>
 
 #define MAXCOLORS 32767u
 

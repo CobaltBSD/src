@@ -25,13 +25,13 @@
 #include <string.h>
 #include <errno.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "nstring.h"
-#include "pm.h"   /* For pm_plain_output */
-#include "pm_system.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/nstring.h>
+#include <pbm/pm.h>   /* For pm_plain_output */
+#include <pbm/pm_system.h>
+#include <pbm/pnm.h>
 
 
 struct cmdlineInfo {

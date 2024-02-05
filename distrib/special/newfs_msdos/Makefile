@@ -5,5 +5,5 @@ PROG=	newfs_msdos
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
 
-.PATH:  ${.CURDIR}/../../../sbin/newfs_msdos
+.PATH:  ${.CURDIR}/../../../usr.sbin/newfs_msdos
 .include <bsd.prog.mk>

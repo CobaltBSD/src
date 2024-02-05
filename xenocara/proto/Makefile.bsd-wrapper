@@ -1,0 +1,3 @@
+SUBDIR= xcb-proto xorgproto
+
+include cobalt.xorg.subdir.mk

@@ -1,11 +1,12 @@
-#	$OpenBSD: Makefile,v 1.9 2019/02/24 12:57:14 kn Exp $
-
 PROG=	xinstall
 MAN=	install.1
 
-realinstall:
-	${INSTALL} ${INSTALL_COPY} ${INSTALL_STRIP} \
+include cobalt.prog.mk
+
+install:
+	${INSTALL} ${INSTALL_COPY} -D ${INSTALL_STRIP} \
 	    -o ${BINOWN} -g ${BINGRP} \
 	    -m ${BINMODE} ${PROG} ${DESTDIR}${BINDIR}/install
-
-.include <bsd.prog.mk>
+	${INSTALL} ${INSTALL_COPY} -D \
+	    -o ${BINOWN} -g ${BINGRP} \
+	    -m 444 ${MAN} ${DESTDIR}/usr/share/man/man1/${MAN}

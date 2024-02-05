@@ -32,5 +32,5 @@ CFLAGS+= -DSUN_CYLCHECK -DSUN_AAT0
 CFLAGS+= -DSTATICLINKING
 .endif
 
-.PATH:	${.CURDIR}/../../../sbin/disklabel
+.PATH:	${.CURDIR}/../../../usr.sbin/disklabel
 .include <bsd.prog.mk>

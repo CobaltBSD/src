@@ -13,6 +13,6 @@ PROG=	signify
 LDADD=	-lutil
 DPADD=	${LIBUTIL}
 
-COPTS+=	-Wall -DVERIFYONLY
+#COPTS+=	-Wall -DVERIFYONLY
 
 .include <bsd.prog.mk>

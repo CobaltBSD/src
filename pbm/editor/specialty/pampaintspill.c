@@ -43,11 +43,11 @@
 #include <math.h>
 #include <time.h>
 
-#include "mallocvar.h"
-#include "nstring.h"
-#include "shhopt.h"
-#include "pam.h"
-#include "pammap.h"
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pam.h>
+#include <pbm/pammap.h>
 
 
 static time_t const timeUpdateDelta = 30;

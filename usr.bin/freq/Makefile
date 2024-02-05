@@ -1,3 +1,3 @@
 PROG=freq
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

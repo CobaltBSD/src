@@ -6,5 +6,5 @@ CFLAGS+= -DNO_NFS
 DPADD+=	${LIBUTIL}
 LDADD+=	-lutil
 
-.PATH:	${.CURDIR}/../../../sbin/umount
+.PATH:	${.CURDIR}/../../../usr.sbin/umount
 .include <bsd.prog.mk>

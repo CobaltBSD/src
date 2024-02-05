@@ -1,0 +1,1 @@
+../primes/pattern.c

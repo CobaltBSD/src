@@ -2,5 +2,5 @@
 
 PROG=	ln
 
-.PATH:	${.CURDIR}/../../../bin/ln
+.PATH:	${.CURDIR}/../../../usr.bin/ln
 .include <bsd.prog.mk>

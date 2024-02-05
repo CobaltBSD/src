@@ -20,10 +20,10 @@
 #include <math.h>
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pnm.h>
 
 /* The pnm library allows us to code this program without branching cases for
    PGM and PPM, but we do the branch anyway to speed up processing of PGM

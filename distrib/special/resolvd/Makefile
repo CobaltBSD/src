@@ -2,7 +2,7 @@
 
 PROG=	resolvd
 COPTS+=	-DSMALL
-.PATH:  ${.CURDIR}/../../../sbin/resolvd
+.PATH:  ${.CURDIR}/../../../usr.sbin/resolvd
 SRCS=   resolvd.c
 
 .include <bsd.prog.mk>

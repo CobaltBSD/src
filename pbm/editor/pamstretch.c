@@ -26,9 +26,9 @@
 #include <ctype.h>
 #include <limits.h>
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
 
 enum an_edge_mode {
     EDGE_DROP,

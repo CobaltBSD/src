@@ -12,9 +12,9 @@
 #include <math.h>
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "ppm.h"
-#include "ppmdraw.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/ppm.h>
+#include <pbm/ppmdraw.h>
 
 #define dtr(x)  (((x) * M_PI) / 180.0)
 

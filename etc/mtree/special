@@ -117,6 +117,9 @@ vm.conf		type=file mode=0644 uname=root gname=wheel optional
 weekly		type=file mode=0644 uname=root gname=wheel
 weekly.local	type=file mode=0644 uname=root gname=wheel optional
 ypldap.conf	type=file mode=0600 uname=root gname=wheel optional
+sdwdate.servers	type=file mode=0644 uname=root gname=wheel optional
+pkg.conf	type=file mode=0644 uname=root gname=wheel optional
+hosts		type=file mode=0644 uname=root gname=wheel
 ..	#etc
 
 root		type=dir mode=0700 uname=root gname=wheel

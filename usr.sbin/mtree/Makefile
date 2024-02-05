@@ -3,6 +3,7 @@
 PROG=	mtree
 #CFLAGS+=-DDEBUG
 MAN=	mtree.8
-SRCS=	compare.c crc.c create.c misc.c mtree.c spec.c verify.c
+OBJS=	compare.o crc.o create.o misc.o mtree.o spec.o verify.o
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

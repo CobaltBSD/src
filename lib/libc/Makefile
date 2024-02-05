@@ -44,3 +44,4 @@ ${VERSION_SCRIPT}: ${SYMBOL_LISTS}
 	  printf '\n\tlocal:\n\t\t*;\n};\n'; } >$@.tmp && mv $@.tmp $@
 
 .include <bsd.lib.mk>
+#TODO

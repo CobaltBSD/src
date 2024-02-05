@@ -1,6 +1,0 @@
-#! /bin/bash
-# This script tests: pgmtopgm
-# Also requires:
-
-
-pgmtopgm < testgrid.pbm | cksum

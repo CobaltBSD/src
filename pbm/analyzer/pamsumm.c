@@ -10,10 +10,10 @@
 
 ******************************************************************************/
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 enum function {FN_ADD, FN_MEAN, FN_MIN, FN_MAX};
 

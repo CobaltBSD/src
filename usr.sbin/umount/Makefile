@@ -1,9 +1,7 @@
-#	$OpenBSD: Makefile,v 1.4 2013/04/21 11:56:09 jsing Exp $
-
 PROG=	umount
 MAN=	umount.8
 
-DPADD+=	${LIBUTIL}
-LDADD+=	-lutil
+LIBS=	-lutil
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

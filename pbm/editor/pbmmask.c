@@ -10,8 +10,8 @@
 ** implied warranty.
 */
 
-#include "pbm.h"
-#include "mallocvar.h"
+#include <pbm/pbm.h>
+#include <pbm/util/mallocvar.h>
 
 static bit ** bits;
 static bit ** mask;

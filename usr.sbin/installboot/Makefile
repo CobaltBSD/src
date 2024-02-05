@@ -1,53 +1,17 @@
-#	$OpenBSD: Makefile,v 1.27 2023/01/16 22:59:41 kn Exp $
-
 PROG=		installboot
-SRCS=		installboot.c util.c
+OBJS=		installboot.o util.o
 MAN=		installboot.8
 
-CPPFLAGS=	-I${.CURDIR}
-LDADD=		-lutil
-DPADD=		${LIBUTIL}
+LIBS=		-lutil
 
-LDSTATIC=	${STATIC}
+LDFLAGS+=	-static
 
-.if ${MACHINE} == "amd64" || ${MACHINE} == "i386"
 CFLAGS += -DSOFTRAID
-SRCS += i386_installboot.c
-SRCS += i386_nlist.c
-SRCS += i386_softraid.c
-.elif ${MACHINE} == "armv7" || ${MACHINE} == "arm64" || ${MACHINE} == "riscv64"
-.  if ${MACHINE} == "arm64" || ${MACHINE} == "riscv64"
-CFLAGS += -DSOFTRAID
-SRCS += efi_softraid.c
-.  endif
-SRCS += efi_installboot.c
-.elif ${MACHINE} == "hppa"
-CFLAGS += -DBOOTSTRAP
-SRCS += hppa_installboot.c
-.elif ${MACHINE} == "landisk"
-SRCS += landisk_installboot.c
-.elif ${MACHINE} == "loongson"
-SRCS += loongson_installboot.c
-.elif ${MACHINE} == "macppc"
-SRCS += macppc_installboot.c
-.elif ${MACHINE} == "powerpc64"
-SRCS += powerpc64_installboot.c
-.elif ${MACHINE} == "octeon"
-SRCS += octeon_installboot.c
-.elif ${MACHINE} == "sparc64"
-CFLAGS += -DSOFTRAID
-SRCS += sparc64_installboot.c
-SRCS += sparc64_softraid.c
-.else
-SRCS += stubs.c
-.endif
+OBJS += i386_installboot.o
+OBJS += i386_nlist.o
+OBJS += i386_softraid.o
+OBJS += softraid.o
 
-.if !empty(CFLAGS:M-DBOOTSTRAP)
-SRCS += bootstrap.c
-.endif
+BINDIR=${SBINDIR}
 
-.if !empty(CFLAGS:M-DSOFTRAID)
-SRCS += softraid.c
-.endif
-
-.include <bsd.prog.mk>
+include cobalt.prog.mk

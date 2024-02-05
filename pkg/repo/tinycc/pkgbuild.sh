@@ -15,4 +15,6 @@ src_compile() {
 
 src_install() {
 	gmake DESTDIR="${DEST}" install
+
+	ln -s tcc "${DEST}/usr/bin/cc"
 }

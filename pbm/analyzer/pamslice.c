@@ -22,9 +22,9 @@
 
 enum orientation {ROW, COLUMN};
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
 
 struct cmdlineInfo {
     /* All the information the user supplied in the command line,

@@ -9,7 +9,7 @@
 /* V1.1 16.11.1993    Rewritten to be NetPBM.programming conforming  */
 /*********************************************************************/
 
-#include "ppm.h"
+#include <pbm/ppm.h>
 
 /**************************/
 /* start of main function */

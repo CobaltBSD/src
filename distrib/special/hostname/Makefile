@@ -2,5 +2,5 @@
 
 PROG=	hostname
 
-.PATH:  ${.CURDIR}/../../../bin/hostname
+.PATH:  ${.CURDIR}/../../../usr.bin/hostname
 .include <bsd.prog.mk>

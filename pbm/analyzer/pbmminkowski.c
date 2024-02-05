@@ -13,7 +13,7 @@
 ** implied warranty.
 */
 
-#include "pbm.h"
+#include <pbm/pbm.h>
 
 #define ISWHITE(x) ((x) == PBM_WHITE)
 

@@ -1,7 +1,6 @@
-#	$OpenBSD: Makefile,v 1.4 2003/07/23 23:10:22 deraadt Exp $
-
 PROG=	scsi
-SRCS=	scsi.c libscsi.c
+OBJS=	scsi.o libscsi.o
 MAN=	scsi.8
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

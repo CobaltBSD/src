@@ -3,5 +3,5 @@
 PROG=	mknod
 LINKS=	${BINDIR}/mknod ${BINDIR}/mkfifo
 
-.PATH:  ${.CURDIR}/../../../sbin/mknod
+.PATH:  ${.CURDIR}/../../../usr.sbin/mknod
 .include <bsd.prog.mk>

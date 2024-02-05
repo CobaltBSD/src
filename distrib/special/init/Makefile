@@ -4,6 +4,6 @@ PROG=	init
 CFLAGS+=-DDEFAULT_STATE=single_user
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
-.PATH:  ${.CURDIR}/../../../sbin/init
+.PATH:  ${.CURDIR}/../../../usr.sbin/init
 
 .include <bsd.prog.mk>

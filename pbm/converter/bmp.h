@@ -81,7 +81,7 @@
 #ifndef BMP_H_INCLUDED
 #define BMP_H_INCLUDED
 
-#include "pm.h"  /* For pm_error() */
+#include <pbm/pm.h>  /* For pm_error() */
 
 enum bmpClass {C_WIN=1, C_OS2=2};
 

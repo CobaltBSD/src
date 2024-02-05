@@ -1,7 +1,0 @@
-prefix=/usr/X11R6
-includedir=${prefix}/include
- 
-Name: DRI3Proto
-Description: DRI3 extension headers
-Version: 1.3
-Cflags: -I${includedir}

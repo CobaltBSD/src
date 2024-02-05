@@ -3,9 +3,9 @@
 PROG=	mount_cd9660
 SRCS=	mount_cd9660.c getmntopts.c
 
-MOUNT=	${.CURDIR}/../../../sbin/mount
+MOUNT=	${.CURDIR}/../../../usr.sbin/mount
 CFLAGS+= -I${MOUNT}
 .PATH:	${MOUNT}
 
-.PATH:  ${.CURDIR}/../../../sbin/mount_cd9660
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount_cd9660
 .include <bsd.prog.mk>

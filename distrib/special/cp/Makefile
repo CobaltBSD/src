@@ -3,5 +3,5 @@
 PROG=	cp
 SRCS=	cp.c utils.c
 
-.PATH:	${.CURDIR}/../../../bin/cp
+.PATH:	${.CURDIR}/../../../usr.bin/cp
 .include <bsd.prog.mk>

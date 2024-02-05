@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "ppm.h"
-#include "nstring.h"
-#include "ppmdfont.h"
+#include <pbm/ppm.h>
+#include <pbm/util/nstring.h>
+#include <pbm/ppmdfont.h>
 
 
 

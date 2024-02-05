@@ -1,7 +1,0 @@
-#! /bin/bash
-# This script tests: pbmtoxbm xbmtopbm
-# Also requires:
-
-
-pbmtoxbm testgrid.pbm | xbmtopbm | cksum
-pbmtoxbm -x10 testgrid.pbm | xbmtopbm | cksum

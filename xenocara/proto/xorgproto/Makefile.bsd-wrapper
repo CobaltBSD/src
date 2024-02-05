@@ -1,5 +1,3 @@
-# $OpenBSD: Makefile.bsd-wrapper,v 1.2 2020/01/04 17:53:16 matthieu Exp $
-
 CONFIGURE_ARGS= --datarootdir=${X11BASE}/lib \
 		--docdir=${X11BASE}/share/doc/xorgproto
 
@@ -21,43 +19,41 @@ EXTSPECS=       appendix.xml appgrp.xml dbe.xml dpms.xml evi.xml geproto.xml \
                 lbx.xml multibuf.xml security.xml shape.xml shm.xml sync.xml \
                 tog-cup.xml xtest.xml
 
+include cobalt.xorg.mk
 
-afterinstall:
-	${INSTALL_DATA} ${.CURDIR}/specs/bigreqsproto/bigreq.xml \
+beforeinstall:
+	${INSTALL_DATA} ${CURDIR}/specs/bigreqsproto/bigreq.xml \
 		${DESTDIR}${X11BASE}/share/doc/xorgproto
-	${INSTALL_DATA} ${.CURDIR}/specs/fontsproto/fsproto.xml \
+	${INSTALL_DATA} ${CURDIR}/specs/fontsproto/fsproto.xml \
 		${DESTDIR}${X11BASE}/share/doc/xorgproto
 	@for i in ${XISPECS}; do \
 		echo installing $$i in ${X11BASE}/share/doc/xorgproto/inputproto;\
-		${INSTALL_DATA} ${.CURDIR}/specs/$$i \
+		${INSTALL_DATA} ${CURDIR}/specs/$$i \
 			${DESTDIR}${X11BASE}/share/doc/xorgproto/inputproto;\
 	done
 	@for i in ${XKBSPECS}; do \
 		echo installing $$i in ${X11BASE}/share/doc/xorgproto/kbproto;\
-		${INSTALL_DATA} ${.CURDIR}/specs/kbproto/$$i \
+		${INSTALL_DATA} ${CURDIR}/specs/kbproto/$$i \
 			${DESTDIR}${X11BASE}/share/doc/xorgproto/kbproto;\
 	done
-	${INSTALL_DATA} ${.CURDIR}/specs/recordproto/record.xml \
+	${INSTALL_DATA} ${CURDIR}/specs/recordproto/record.xml \
 		${DESTDIR}${X11BASE}/share/doc/xorgproto
-	${INSTALL_DATA} ${.CURDIR}/specs/scrnsaverproto/saver.xml \
+	${INSTALL_DATA} ${CURDIR}/specs/scrnsaverproto/saver.xml \
 		${DESTDIR}${X11BASE}/share/doc/xorgproto
 	@for i in ${XSPECS}; do \
 		echo installing $$i in ${X11BASE}/share/doc/xorgproto/x11proto; \
-		${INSTALL_DATA} ${.CURDIR}/specs/xproto/$$i \
+		${INSTALL_DATA} ${CURDIR}/specs/xproto/$$i \
 			${DESTDIR}${X11BASE}/share/doc/xorgproto/x11proto;\
 	done
 	@for i in ${SIADDRESSES}; do \
 		echo installing $$i in ${X11BASE}/share/doc/xorgproto/SIAddresses; \
-		${INSTALL_DATA} ${.CURDIR}/specs/SIAddresses/$$i \
+		${INSTALL_DATA} ${CURDIR}/specs/SIAddresses/$$i \
 			${DESTDIR}${X11BASE}/share/doc/xorgproto/SIAddresses;\
 	done
-	${INSTALL_DATA} ${.CURDIR}/specs/xcmiscproto/xc-misc.xml \
+	${INSTALL_DATA} ${CURDIR}/specs/xcmiscproto/xc-misc.xml \
 		${DESTDIR}${X11BASE}/share/doc/xorgproto
 	@for i in ${EXTSPECS}; do \
 		echo installing $$i in ${X11BASE}/share/doc/xorgproto/xextproto;\
-		${INSTALL_DATA} ${.CURDIR}/specs/xextproto/$$i \
+		${INSTALL_DATA} ${CURDIR}/specs/xextproto/$$i \
 			${DESTDIR}${X11BASE}/share/doc/xorgproto/xextproto;\
 	done
-
-
-.include <bsd.xorg.mk>

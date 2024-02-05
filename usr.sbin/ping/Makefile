@@ -9,11 +9,11 @@ CFLAGS+= -Wshadow -Wpointer-arith -Wcast-qual
 
 MAN=	ping.8
 
-LDADD=	-lm
-DPADD=	${LIBM}
+LIBS=	-lm
 
-LINKS=	${BINDIR}/ping ${BINDIR}/ping6
+SYMLINKS=	${SBINDIR}/ping6
 BINOWN=	root
 BINMODE=4555
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

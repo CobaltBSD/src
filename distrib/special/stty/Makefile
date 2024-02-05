@@ -3,5 +3,5 @@
 PROG=	stty
 SRCS=	cchar.c gfmt.c key.c modes.c print.c stty.c
 
-.PATH:	${.CURDIR}/../../../bin/stty
+.PATH:	${.CURDIR}/../../../usr.bin/stty
 .include <bsd.prog.mk>

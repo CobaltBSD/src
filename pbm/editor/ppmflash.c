@@ -15,7 +15,7 @@
 /*                          forming                                  */
 /*********************************************************************/
 
-#include "ppm.h"
+#include <pbm/ppm.h>
 
 /* global variables */
 #ifdef AMIGA

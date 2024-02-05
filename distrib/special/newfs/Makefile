@@ -3,12 +3,12 @@
 PROG=	newfs
 SRCS=	dkcksum.c getmntopts.c newfs.c mkfs.c
 
-CFLAGS+= -I${.CURDIR}/../../../sbin/mount
+CFLAGS+= -I${.CURDIR}/../../../usr.sbin/mount
 
 LDADD+=	-lutil
 DPADD+=	${LIBUTIL}
 
-.PATH:  ${.CURDIR}/../../../sbin/newfs
-.PATH:  ${.CURDIR}/../../../sbin/mount
-.PATH:	${.CURDIR}/../../../sbin/disklabel
+.PATH:  ${.CURDIR}/../../../usr.sbin/newfs
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount
+.PATH:	${.CURDIR}/../../../usr.sbin/disklabel
 .include <bsd.prog.mk>

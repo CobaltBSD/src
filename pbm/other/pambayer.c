@@ -25,11 +25,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "shhopt.h"
-#include "mallocvar.h"
-#include "nstring.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/nstring.h>
 
 
 enum bayerType {

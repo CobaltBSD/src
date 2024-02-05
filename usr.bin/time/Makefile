@@ -1,5 +1,4 @@
-#	$OpenBSD: Makefile,v 1.3 1997/09/21 11:51:14 deraadt Exp $
-
 PROG=	time
+MAN=	time.1
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

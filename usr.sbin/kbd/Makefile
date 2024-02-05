@@ -17,3 +17,4 @@ NOPROG=	Yes
 MAN=		kbd.8
 
 .include <bsd.prog.mk>
+#TODO

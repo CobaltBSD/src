@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h> /* atoi() */
 
-#include "pam.h"
+#include <pbm/pam.h>
 
 static const char * const copyright = 
   "(c) Robert Tinsley 2003 (http://www.thepoacher.net/contact)";

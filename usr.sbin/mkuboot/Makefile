@@ -1,5 +1,3 @@
-#	$OpenBSD: Makefile,v 1.5 2017/10/27 08:33:40 kevlo Exp $
-
 .if ${MACHINE} == "arm64" || ${MACHINE} == "armv7"
 
 PROG=	mkuboot
@@ -17,3 +15,4 @@ NOPROG=yes
 MAN=	mkuboot.8
 
 .include <bsd.prog.mk>
+#TODO

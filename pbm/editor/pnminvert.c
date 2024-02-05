@@ -10,7 +10,7 @@
 ** implied warranty.
 */
 
-#include "pnm.h"
+#include <pbm/pnm.h>
 
 /* Implementation note: A suitably advanced compiler, such as Gcc 4,
    implements the for statements in our algorithm with instructions that do 16

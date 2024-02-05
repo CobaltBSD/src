@@ -1,31 +1,20 @@
-#	$OpenBSD: Makefile,v 1.29 2023/04/27 22:47:27 dv Exp $
-
-.if ${MACHINE} == "amd64"
-
 PROG=		vmd
-SRCS=		vmd.c control.c log.c priv.c proc.c config.c vmm.c
-SRCS+=		vm.c loadfile_elf.c pci.c virtio.c i8259.c mc146818.c
-SRCS+=		ns8250.c i8253.c dhcp.c packet.c mmio.c
-SRCS+=		parse.y atomicio.c vioscsi.c vioraw.c vioqcow2.c fw_cfg.c
-SRCS+=		vioblk.c vionet.c
+OBJS=		vmd.o control.o log.o priv.o proc.o config.o vmm.o
+OBJS+=		vm.o loadfile_elf.o pci.o virtio.o i8259.o mc146818.o
+OBJS+=		ns8250.o i8253.o dhcp.o packet.o mmio.o
+OBJS+=		parse.tab.o atomicio.o vioscsi.o vioraw.o vioqcow2.o fw_cfg.o
+OBJS+=		vioblk.o vionet.o
 
-CFLAGS+=	-Wall -I${.CURDIR}
+CFLAGS+=	-Wall
 CFLAGS+=	-Wstrict-prototypes -Wmissing-prototypes
 CFLAGS+=	-Wmissing-declarations
 CFLAGS+=	-Wshadow -Wpointer-arith -Wcast-qual
 CFLAGS+=	-Wsign-compare
 
-LDADD+=		-lutil -lpthread -levent -lz
-DPADD+=		${LIBUTIL} ${LIBPTHREAD} ${LIBEVENT} ${LIBZ}
-
-YFLAGS=
-
-.else
-
-NOPROG= yes
-
-.endif
+LIBS=		-lutil -lpthread -levent -lz
 
 MAN=		vmd.8 vm.conf.5
 
-.include <bsd.prog.mk>
+BINDIR=${SBINDIR}
+
+include cobalt.prog.mk

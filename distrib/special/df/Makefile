@@ -5,5 +5,5 @@ SRCS=	df.c ffs_df.c ext2fs_df.c
 LDADD=	-lutil
 DPADD=	${LIBUTIL}
 
-.PATH:	${.CURDIR}/../../../bin/df
+.PATH:	${.CURDIR}/../../../usr.bin/df
 .include <bsd.prog.mk>

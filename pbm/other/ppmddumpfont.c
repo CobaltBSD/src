@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "ppm.h"
-#include "ppmdfont.h"
+#include <pbm/ppm.h>
+#include <pbm/ppmdfont.h>
 
 
 

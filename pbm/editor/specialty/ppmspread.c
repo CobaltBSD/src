@@ -10,7 +10,7 @@
 
 #include <string.h>
 
-#include "ppm.h"
+#include <pbm/ppm.h>
 
 
 

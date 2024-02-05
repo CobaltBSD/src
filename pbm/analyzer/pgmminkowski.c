@@ -14,8 +14,8 @@
 ** implied warranty.
 */
 
-#include "pgm.h"
-#include "mallocvar.h"
+#include <pbm/pgm.h>
+#include <pbm/util/mallocvar.h>
 
 
 #define MAX2(a,b) ( ( (a)>(b) ) ? (a) : (b) )

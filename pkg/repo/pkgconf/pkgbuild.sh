@@ -20,4 +20,7 @@ src_compile() {
 
 src_install() {
 	DESTDIR="${DEST}" muon -C build install
+
+	ln -s pkgconf "${DEST}/usr/bin/pkg-config"
 }
+#FIXME: segfault when in chroot without job control and no pkgs specified?

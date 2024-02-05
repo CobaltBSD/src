@@ -11,7 +11,7 @@
 ** implied warranty.
 */
 
-#include "pnm.h"
+#include <pbm/pnm.h>
 
 int
 main(int argc, char * argv[] ) {

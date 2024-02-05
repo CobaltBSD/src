@@ -5,5 +5,5 @@ SRCS=	fsck.c fsutil.c preen.c
 DPADD=	${LIBUTIL}
 LDADD=	-lutil
 
-.PATH:  ${.CURDIR}/../../../sbin/fsck
+.PATH:  ${.CURDIR}/../../../usr.sbin/fsck
 .include <bsd.prog.mk>

@@ -30,8 +30,8 @@
 
 #include <math.h>
 
-#include "../lib/util/pm_c_util.h"
-#include "../lib/pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
 
 #define RANDOM_MASK 0x7FFF  /* only compare lower 15 bits.  Stupid PCs. */
 

@@ -15,11 +15,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "pm_c_util.h"
-#include "shhopt.h"
-#include "nstring.h"
-#include "mallocvar.h"
-#include "pam.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/nstring.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/pam.h>
 
 struct cmdlineInfo {
     /* All the information the user supplied in the command line,

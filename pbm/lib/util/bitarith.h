@@ -1,7 +1,7 @@
 #ifndef BITARITH_H_INCLUDED
 #define BITARITH_H_INCLUDED
 
-#include "pm_config.h"
+#include "../pm_config.h"
 
 static __inline__ unsigned char
 pm_byteLeftBits(unsigned char const x,

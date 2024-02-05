@@ -1,5 +1,5 @@
-#include "ppm.h"
-#include "mallocvar.h"
+#include <pbm/ppm.h>
+#include <pbm/util/mallocvar.h>
 
 
 /*

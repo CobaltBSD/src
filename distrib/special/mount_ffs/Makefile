@@ -3,9 +3,9 @@
 PROG=	mount_ffs
 SRCS=	mount_ffs.c getmntopts.c
 
-MOUNT=	${.CURDIR}/../../../sbin/mount
+MOUNT=	${.CURDIR}/../../../usr.sbin/mount
 CFLAGS+= -I${MOUNT}
 .PATH:	${MOUNT}
 
-.PATH:  ${.CURDIR}/../../../sbin/mount_ffs
+.PATH:  ${.CURDIR}/../../../usr.sbin/mount_ffs
 .include <bsd.prog.mk>

@@ -1,0 +1,11 @@
+XKB_SUBDIR=	compat
+
+DATA =	accessx basic caps complete iso9995 japan ledcaps lednum ledscroll \
+	level5 misc mousekeys olpc pc pc98 xfree86 xtest README
+
+include cobalt.xorg.mk
+include ../Makefile.inc
+
+config.status:
+	touch config.status
+

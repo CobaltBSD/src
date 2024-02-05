@@ -1,6 +1,0 @@
-#! /bin/bash
-# This script tests: pamseq
-# Also requires:
-
-
-pamseq 1 255 | cksum

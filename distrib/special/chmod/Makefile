@@ -3,7 +3,7 @@
 PROG=	chmod
 CFLAGS+=-DSUPPORT_DOT
 LINKS=	${BINDIR}/chmod ${BINDIR}/chgrp \
-	${BINDIR}/chmod /sbin/chown
+	${BINDIR}/chmod /usr/sbin/chown
 
 # XXX compatibility
 afterinstall:
@@ -14,5 +14,5 @@ afterinstall:
 	    ln -sf ../../bin/chmod chflags)
 
 
-.PATH:  ${.CURDIR}/../../../bin/chmod
+.PATH:  ${.CURDIR}/../../../usr.bin/chmod
 .include <bsd.prog.mk>

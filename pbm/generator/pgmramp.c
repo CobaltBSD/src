@@ -12,9 +12,9 @@
 
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "pgm.h"
-#include "shhopt.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pgm.h>
+#include <pbm/util/shhopt.h>
 
 enum ramptype {RT_LR, RT_TB, RT_DIAG, RT_RECT, RT_ELLIP};
 

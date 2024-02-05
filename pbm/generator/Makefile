@@ -1,7 +1,16 @@
-CFLAGS=-I../lib/util -I../lib
-LDFLAGS=-L../lib -lpbm -lm
+PROGS=pamcrater pamgauss pamgradient pamseq pamshadedrelief pbmmake pbmpage pbmtext pgmkernel pgmmake pgmnoise pgmramp ppmcie ppmforge ppmmake ppmpat ppmrough ppmwheel
 
-all: pamcrater pamgauss pamgradient pamseq pamshadedrelief pamstereogram pbmmake pbmpage pbmtext pbmtextps pgmkernel pgmmake pgmnoise pgmramp ppmcie ppmforge ppmmake ppmpat ppmrough ppmwheel
+all: ${PROGS}
+
+.c:
+	$(CC) -lpbm -lm $< -o $@
 
 clean:
-	rm -fv pamcrater pamgauss pamgradient pamseq pamshadedrelief pamstereogram pbmmake pbmpage pbmtext pbmtextps pgmkernel pgmmake pgmnoise pgmramp ppmcie ppmforge ppmmake ppmpat ppmrough ppmwheel
+	rm -fv ${PROGS}
+
+install: ${PROGS}
+	for P in ${PROGS}; do \
+		$(INSTALL) -D -c -s \
+			-o root -g bin \
+			-m 555 $$P ${DESTDIR}/usr/bin/$$P; \
+	done

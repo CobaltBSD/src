@@ -1,16 +1,9 @@
-#	$OpenBSD: Makefile,v 1.1 2016/01/27 12:27:31 reyk Exp $
-
-.if ${MACHINE} == "i386" || ${MACHINE} == "amd64"
-
 PROG=		hostctl
 
 CFLAGS+=	-Wall
 
-.else
-NOPROG=		yes
-.endif
+MAN=		amd64/hostctl.8
 
-MAN=		hostctl.8
-MANSUBDIR=	i386 amd64
+BINDIR=${SBINDIR}
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

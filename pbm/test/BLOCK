@@ -1,4 +1,0 @@
-#! /bin/sh
-
-echo `basename $0` : command not found in test path 1>&2
-exit 88

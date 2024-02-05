@@ -49,8 +49,8 @@
 
 #include <math.h>
 
-#include "pm_c_util.h"
-#include "pnm.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pnm.h>
 
 struct cmdlineInfo {
     const char * inputFileName;

@@ -20,10 +20,10 @@
 #include <assert.h>
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "pnm.h"
-#include "shhopt.h"
-#include "mallocvar.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pnm.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/util/mallocvar.h>
 
 static double const epsilon = .00001;
 

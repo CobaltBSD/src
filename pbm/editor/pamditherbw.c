@@ -13,12 +13,12 @@
 #include <assert.h>
 #include <string.h>
 
-#include "pm_c_util.h"
-#include "pam.h"
-#include "dithers.h"
-#include "mallocvar.h"
-#include "shhopt.h"
-#include "pm_gamma.h"
+#include <pbm/util/pm_c_util.h>
+#include <pbm/pam.h>
+#include <pbm/dithers.h>
+#include <pbm/util/mallocvar.h>
+#include <pbm/util/shhopt.h>
+#include <pbm/pm_gamma.h>
 
 enum halftone {QT_FS,
                QT_ATKINSON,

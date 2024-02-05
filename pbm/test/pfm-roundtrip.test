@@ -1,8 +1,0 @@
-#! /bin/bash
-# This script tests: pamtopfm pfmtopam
-# Also requires: pamtopnm
-
-
-# Should print 1926073387 101484, cksum of testimg.ppm
-pamtopfm testimg.ppm | pfmtopam | \
-  pamtopnm | cksum

@@ -2,5 +2,5 @@
 
 PROG=	rm
 
-.PATH:  ${.CURDIR}/../../../bin/rm
+.PATH:  ${.CURDIR}/../../../usr.bin/rm
 .include <bsd.prog.mk>
