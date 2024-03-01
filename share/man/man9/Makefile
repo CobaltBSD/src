@@ -1,8 +1,3 @@
-#	$OpenBSD: Makefile,v 1.308 2022/11/05 19:29:45 cheloha Exp $
-#	$NetBSD: Makefile,v 1.4 1996/01/09 03:23:01 thorpej Exp $
-
-#	Makefile for section 9 (kernel function and variable) manual pages.
-
 MAN=	aml_evalnode.9 atomic_add_int.9 atomic_cas_uint.9 \
 	atomic_dec_int.9 atomic_inc_int.9 atomic_load_int.9 \
 	atomic_setbits_int.9 atomic_sub_int.9 atomic_swap_uint.9 \
@@ -53,4 +48,4 @@ MAN=	aml_evalnode.9 atomic_add_int.9 atomic_cas_uint.9 \
 	VOP_LOOKUP.9 vput.9 vrecycle.9 vref.9 vrele.9 \
 	vwaitforio.9 vwakeup.9 wdog_register.9 wsfont_init.9
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

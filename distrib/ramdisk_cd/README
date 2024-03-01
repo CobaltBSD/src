@@ -1,0 +1,52 @@
+HOW TO INSTALL (More in-depth instructions to come)
+
+Cobalt does not as of yet have an automatic installer. This environment is capable of installing a tiny environment which is suitable for building the rest of Cobalt.
+
+## Creating the proper disk layout
+1. Find the disk you wish to install to. Typically it will either be sd# (SCSI) or wd# (IDE). Use `disklabel sd0` or similar to print out the layout of a given disk.
+
+2. Create the disk structure using `fdisk`.
+FOR MBR: `# fdisk -iy <diskname>`
+FOR GPT: `# fdisk -gy -b 532480 <diskname>`
+
+3. Create your partition layout. In this example, a single partition will be created for the entire system. This is usually unrecommended. Also note that on OpenBSD, you can skip this step and use the entire disk as a partition. This is unrecommended and will only work for external storage devices, as it won't leave room for the bootloader.
+`# disklabel -E <diskname>`
+`diskname> a a`
+`offset: <Enter>`
+`size: *`
+`FS type: <Enter>`
+`diskname*> w`
+`diskname> q`
+
+4. Format the disk:
+`# newfs <partname>` (e.g. `# newfs sd0a`)
+
+5. Install the bootloader:
+`# mount /dev/<partname> /mnt`
+`# installboot -r /mnt <diskname> /usr/mdec/biosboot /usr/mdec/boot` (for MBR, amd64)
+
+6. Install the basic environment:
+At the moment, this is most easily done by copying or creating the following root directories, plus decompressing the full kernel:
+`# gunzip -c /bsd.gz > /mnt/bsd`
+`# cp -frp /bin /sbin /usr /etc /var /mnt`
+`# mkdir /mnt/{dev,tmp,mnt,root}`
+`# cp -v /dev/MAKEDEV /mnt/dev`
+`# cd /mnt/dev`
+`# sh MAKEDEV std sd0 wd0 cd0`
+`# cd /`
+`# umount /mnt`
+
+At this point, remove the install medium and reboot.
+
+7. Install the full environment:
+You will need to obtain a tarball of the Cobalt source tree, plus Xenocara if desired. In the minimal Cobalt environment, extract these and begin the build process. You will also need the following files present:
+/opt/tools/bin/clang
+/opt/tools/bin/ld.lld
+/opt/tools/bin/ld
+/opt/tools/bin/omake
+/opt/tools/lib/libc++.so.9.0
+/opt/tools/lib/libc++abi.so.6.0
+/opt/tools/share/omk
+These are included in tools.tar.gz
+
+This document is a rough outline. More to come soon.

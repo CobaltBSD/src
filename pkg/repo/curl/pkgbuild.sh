@@ -3,7 +3,7 @@ PKG_VERS='8.4.0'
 PKG_DESC='.' #TODO
 HOMEPAGE='.' #TODO
 LICENSE='.' #TODO
-SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar"
+SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.xz"
 
 src_prepare() {
 	sed -e 's/#define HAVE_BUILTIN_IA32_PAUSE//' -i lib/easy_lock.h # Remove non-existent builtin

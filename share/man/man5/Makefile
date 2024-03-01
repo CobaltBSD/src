@@ -1,6 +1,3 @@
-#	$OpenBSD: Makefile,v 1.62 2021/11/08 16:13:43 kn Exp $
-#	$NetBSD: Makefile,v 1.14 1995/05/11 23:13:15 cgd Exp $
-
 MAN=	acct.5 ar.5 bsd.port.mk.5 bsd.port.arch.mk.5 bsd.regress.mk.5 \
 	changelist.5 core.5 \
 	defaultdomain.5 dir.5 disktab.5 elf.5 ethers.5 fbtab.5 files.conf.5 \
@@ -16,4 +13,4 @@ MAN=	acct.5 ar.5 bsd.port.mk.5 bsd.port.arch.mk.5 bsd.regress.mk.5 \
 	services.5 shells.5 \
 	spamd.conf.5 sysctl.conf.5 utmp.5 wsconsctl.conf.5
 
-.include <bsd.prog.mk>
+include cobalt.prog.mk

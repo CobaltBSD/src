@@ -49,6 +49,7 @@
 #include <string.h>
 #include <term.h>
 #include <unistd.h>
+#include <termios.h>
 
 #include "screen.h"
 #include "tetris.h"

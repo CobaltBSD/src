@@ -8,7 +8,6 @@ MAN=	afterboot.8 autoinstall.8 boot_config.8 bulk.8 \
 	rc.conf.8 rc.d.8 rc.shutdown.8 rc.subr.8 release.8 \
 	security.8 ssl.8 starttls.8 sticky.8 yp.8
 
-SUBDIR=	man8.amd64 \
-	man8.landisk
+SUBDIR=	man8.amd64
 
 .include <bsd.prog.mk>

@@ -1,5 +1,0 @@
-# Dummy file
-
-all:
-
-distclean:

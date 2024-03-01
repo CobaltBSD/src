@@ -22,7 +22,7 @@ src_prepare() {
 }
 
 src_configure() {
-	PKG_CONFIG_PATH=/usr/lib/pkgconfig:/opt/new/lib/pkgconfig CFLAGS='-D_Pragma' ./configure --enable-version3 --disable-static --enable-shared --disable-debug --enable-libfreetype --enable-openssl --disable-large-tests --enable-pic --cc=tcc --enable-x86asm --prefix=/usr --disable-inline-asm --enable-libdav1d
+	PKG_CONFIG_PATH=/usr/lib/pkgconfig:/opt/new/lib/pkgconfig CFLAGS='-D_Pragma' ./configure --enable-version3 --disable-static --enable-shared --disable-debug --enable-libfreetype --enable-openssl --disable-large-tests --enable-pic --cc=tcc --enable-x86asm --prefix=/usr --disable-inline-asm --enable-libdav1d --toolchain=hardened
 	sed -e "s/#define CC_IDENT \"Unknown compiler\"/#define CC_IDENT \"`tcc --version`\"/" -i config.h # Display TCC when running `ffmpeg`
 }
 

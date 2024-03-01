@@ -1,6 +1,0 @@
-.vscode*
-*.pyc
-*.pyo
-*.out
-**/obj
-/build

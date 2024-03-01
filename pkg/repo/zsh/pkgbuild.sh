@@ -3,7 +3,7 @@ PKG_VERS='5.9'
 PKG_DESC='.' # TODO
 HOMEPAGE='.' # TODO
 LICENSE='.' # TODO
-SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar"
+SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.xz"
 
 src_configure() {
 	./configure --prefix=/usr --sysconfdir=/etc/zsh --enable-etcdir=/etc/zsh --enable-multibyte --enable-zsh-secure-free

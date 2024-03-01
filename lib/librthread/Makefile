@@ -49,4 +49,5 @@ SRCDIR= ${.CURDIR}/../libpthread
 .include <bsd.lib.mk>
 
 ${OBJS} ${GOBJS} ${POBJS} ${SOBJS} ${DOBJS}: ${.CURDIR}/namespace.h
-	#TODO
+	
+#TODO

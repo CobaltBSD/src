@@ -1,3 +1,0 @@
-SUBDIR= macros makedepend gccmakedep
-
-include cobalt.xorg.subdir.mk

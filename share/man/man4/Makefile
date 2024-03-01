@@ -117,7 +117,6 @@ MAN=	aac.4 abcrtc.4 abl.4 ac97.4 acphy.4 acrtc.4 \
 	xbf.4 xe.4 xen.4 xf86.4 xge.4 xhci.4 xl.4 xmphy.4 xnf.4 xspd.4 \
 	yds.4 ytphy.4 zero.4 zyd.4
 
-SUBDIR=	man4.amd64 \
-	man4.landisk
+SUBDIR=	man4.amd64
 
 .include <bsd.prog.mk>

@@ -3,7 +3,7 @@ PKG_VERS='3.7.2'
 PKG_DESC='.' #TODO
 HOMEPAGE='.' #TODO
 LICENSE='.' #TODO
-SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar"
+SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.xz"
 
 src_configure() {
 	./configure --prefix=/usr --disable-static --disable-bsdcat

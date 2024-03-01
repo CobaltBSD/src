@@ -20,4 +20,7 @@ src_install() {
 
 	cp -v bzip2-shared "${DEST}/usr/bin/bzip2"
 	cp -av libbz2.so* "${DEST}/usr/lib/"
+
+	mkdir "${DEST}/usr/include"
+	cp bzlib.h "${DEST}/usr/include"
 }

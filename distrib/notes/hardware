@@ -1,0 +1,10 @@
+CobaltBSD/MACHINE OSREV should work on all machines using the amd64
+architecture. Support for other architectures is being considered but
+not currently implemented.
+
+CobaltBSD/MACHINE OSREV supports most SMP (Symmetrical MultiProcessor)
+systems.  To support SMP operation, a separate SMP kernel (bsd.mp)
+is included with the installation.
+
+CobaltBSD/MACHINE OSREV supports both UEFI/GPT booting and BIOS/MBR
+booting.

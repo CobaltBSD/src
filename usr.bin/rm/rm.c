@@ -274,7 +274,7 @@ rm_file(char **argv)
 			warn("%s", f);
 			eval = 1;
 		} else if (rval == 0 && vflag)
-			(void)fprintf(stdout, "%s\n", f);
+			(void)fprintf(stdout, "removed '%s'\n", f);
 	}
 }
 

@@ -50,5 +50,3 @@ Cobalt is still in early development.
 `usr.bin` - Unprivileged executables
 
 `usr.sbin` - Executables intended for system administration
-
-`xenocara` - The display server sources and related libraries. Note that this is not identical to OpenBSD's xenocara

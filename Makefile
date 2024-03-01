@@ -34,8 +34,7 @@
 
 #.include <bsd.own.mk>	# for NOMAN, if it's there.
 
-#SUBDIR+= lib include libexec usr.bin usr.sbin share xenocara pkg
-SUBDIR+= lib libexec usr.bin usr.sbin pbm
+SUBDIR+= lib include libexec usr.bin usr.sbin share pkg pbm
 
 #SUBDIR+= sys
 

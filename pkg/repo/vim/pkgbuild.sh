@@ -3,7 +3,7 @@ PKG_VERS='9.0.2103'
 PKG_DESC='.' #TODO
 HOMEPAGE='.' #TODO
 LICENSE='.' #TODO
-SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar"
+SRC_URI="file://${SRCDIR}/${PKG_NAME}-${PKG_VERS}.tar.gz"
 
 src_prepare() {
 	echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h

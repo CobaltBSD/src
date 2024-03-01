@@ -5,6 +5,7 @@
 #	libedit libevent \
 #	libpcap \
 #	libusbhid \
+#	libterminfo libcurses libsndio \
 #	liby execinfo
 
 SUBDIR=	execinfo libusbhid

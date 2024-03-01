@@ -20,12 +20,14 @@ option		MSDOSFS
 option		INET6
 option		CRYPTO
 
+option		MFS
+
 option		FONT_SPLEEN8x16
 option		FONT_SPLEEN12x24
 option		FONT_SPLEEN16x32
 
 option		RAMDISK_HOOKS
-option		MINIROOTSIZE=73600
+option		MINIROOTSIZE=200000
 
 config		bsd root on rd0a swap on rd0b and wd0b and sd0b
 

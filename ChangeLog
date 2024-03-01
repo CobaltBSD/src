@@ -1,3 +1,14 @@
+1.0-pre4 - Feb 29 2024
+* Fleshed out the building of the `pkg` directory
+* Removed xenocara temporarily
+* Removed non-regular TTF fonts except for dejavu fonts
+* Additional progress on live environment and boot images
+* Removed `sdwdate`
+* Removed `mkuboot` and `portmap`
+* Replaced ncurses by forking NetBSD curses
+* Improved verbose `rm`
+* Reworked install notes
+
 1.0-pre3 - Feb 5 2024
 * Substantial progress on the live environment and boot images
 * Removed `mkdep` and `top` (replaced the latter with `htop`)

@@ -1,0 +1,727 @@
+.\"DO NOT EDIT
+.\"Automatically generated from termcap.5.in
+.\"
+.\"	$NetBSD: terminfo.5.in,v 1.24 2020/06/05 22:08:11 roy Exp $
+.\"
+.\" Copyright (c) 2009, 2010, 2011, 2013 The NetBSD Foundation, Inc.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to The NetBSD Foundation
+.\" by Roy Marples.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+.\" ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+.\" TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+.\" PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+.\" BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+.\" CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+.\" SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+.\" CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+.\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+.\" POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd June 5, 2020
+.Dt TERMINFO 5
+.Os
+.Sh NAME
+.Nm terminfo
+.Nd terminal capability definition
+.Sh DESCRIPTION
+.Nm
+describes the capabilities of terminals, used by programs such as
+.Xr vi 1 ,
+.Xr rogue 6
+and libraries such as
+.Xr curses 3 .
+The
+.Nm
+source described here needs to be compiled with
+.Xr tic 1
+to be of any use.
+.Pp
+Entries in
+.Nm
+consist of a number of comma separated fields.
+White space after each comma is ignored.
+Embedded commas must be escaped by using a backslash.
+Lines beginning with
+.Sq #
+in the first column are treated as comments.
+Blank lines are ignored.
+.Pp
+The header line must begin in column one and end with a comma.
+Inside the header line are terminal name and aliases,
+separated by vertical bars, the last one being the long
+description of the terminal.
+.Pp
+Capability lines then follow, starting on column two and ending with a comma.
+Each capability is listed by its name, followed by its value if applicable.
+Booleans have no values, numeric values are prefixed by
+.Sq #
+and strings are prefixed by
+.Sq = .
+Numbers can range from 0 to 32767 and string values can be up to 1000
+characters long.
+This implementation supports strings upto 32767 characters long, including the
+.Dv NUL
+terminator.
+.Pp
+Some escapes are available for strings - both
+.Sy \eE
+and
+.Sy \ee
+map to the
+.Dv ESC
+character,
+.Sy ^X
+maps to a control-X for any appropriate X, and the sequences
+.Sy \en ,
+.Sy \er ,
+.Sy \et ,
+.Sy \eb
+and
+.Sy \ef
+map to linefeed, return, tab, backspace, and formfeed respectively.
+Any character can be escaped in octal, such as
+.Sy \e072 .
+If you need to encode a
+.Dv NUL
+character, it should be escaped as
+.Sy \e200 .
+.Pp
+A delay in milliseconds may appear anywhere in a string capability,
+prefixed with a dollar sign and enclosed by angled brackets, such as
+.Sy $\*[Lt]5\*[Gt] .
+.Ss String Parameters
+String capabilities sometimes require parameters.
+Normally this just involves replacing the parameter with a supplied
+variable; however, there are cases where the variable needs to be manipulated
+or used in conditional expressions.
+A stack is also provided for simple pop and push operations.
+.Pp
+The below % encodings have the following meanings:
+.Bl -tag -width %P[a-z]
+.It Sy %%
+outputs %
+.It Sy %[[:]flags][width[.precision]][doxXs]
+flags are
+.Dq [-+#] .
+Prefix with
+.Sq \&:
+to avoid interpreting
+.Dq %-
+as an operator.
+.It Sy %c
+pop a parameter and print the character representation of it.
+.It Sy %s
+pop a parameter and print the string representation of it.
+.It Sy %p[1-9]
+push the parameter [1-9].
+.It Sy %P[a-z]
+pop a parameter and push it to dynamic variable [a-z].
+.It Sy %g[a-z]
+push the dynamic variable [a-z].
+.It Sy %P[A-Z]
+pop a parameter and push it to static variable [a-z].
+.It Sy %g[A-Z]
+push the static variable [a-z].
+.Pp
+Static variables persist over
+.Fn tparm
+whereas dynamic variables do not.
+.It Sy %'c'
+char constant c.
+.It Sy %{nn}
+integer constant nn.
+.It Sy %l
+push the string length of the previously popped parameter.
+.It Sy %+ Sy %- Sy %* Sy %/ Sy %m
+arithmetic: pop two parameters and push the result.
+.It Sy %& Sy %| Sy %^
+bit operations: pop two parameters and push the result.
+.It Sy %! Sy %~
+unary operations: pop two parameters and push the result.
+.It Sy %i
+add 1 to parameters 1 and 2.
+.It Sy %? Va expr Sy %t Ic then Sy %e Ic else Sy %;
+If expr equates to zero then control passes to the optional else part.
+.El
+.Ss Boolean Capabilities
+.Bl -column "enter_near_quality_letter" "setcolor" "TC" "desc"
+.It Sy "Long name" Ta Sy "Code" Ta Sy "TC" Ta Sy "Description"
+.It "\&auto_left_margin" Ta Sy "\&bw" Ta Sy "\&bw" Ta "\&cub1 wraps from column 0 to last column"
+.It "\&auto_right_margin" Ta Sy "\&am" Ta Sy "\&am" Ta "\&Terminal has automatic margins"
+.It "\&back_color_erase" Ta Sy "\&bce" Ta Sy "\&ut" Ta "\&Screen erased with background colour"
+.It "\&can_change" Ta Sy "\&ccc" Ta Sy "\&cc" Ta "\&Terminal can re-define existing colour"
+.It "\&ceol_standout_glitch" Ta Sy "\&xhp" Ta Sy "\&xs" Ta "\&Standout not erased by overwriting (hp)"
+.It "\&col_addr_glitch" Ta Sy "\&xhpa" Ta Sy "\&YA" Ta "\&Only positive motion for hpa/mhba caps"
+.It "\&cpi_changes_res" Ta Sy "\&cpix" Ta Sy "\&YF" Ta "\&Changing character pitch changes resolution"
+.It "\&cr_cancels_micro_mode" Ta Sy "\&crxm" Ta Sy "\&YB" Ta "\&Using cr turns off micro mode"
+.It "\&dest_tabs_magic_smso" Ta Sy "\&xt" Ta Sy "\&xt" Ta "\&Destructive tabs, magic smso char (t1061)"
+.It "\&eat_newline_glitch" Ta Sy "\&xenl" Ta Sy "\&xn" Ta "\&Newline ignored after 80 columns (Concept)"
+.It "\&erase_overstrike" Ta Sy "\&eo" Ta Sy "\&eo" Ta "\&Can erase overstrikes with a blank line"
+.It "\&generic_type" Ta Sy "\&gn" Ta Sy "\&gn" Ta "\&Generic line type (e.g. dialup, switch)"
+.It "\&hard_copy" Ta Sy "\&hc" Ta Sy "\&hc" Ta "\&Hardcopy terminal"
+.It "\&hard_cursor" Ta Sy "\&chts" Ta Sy "\&HC" Ta "\&Cursor is hard to see"
+.It "\&has_meta_key" Ta Sy "\&km" Ta Sy "\&km" Ta "\&Has a meta key (shift, sets parity bit)"
+.It "\&has_print_wheel" Ta Sy "\&daisy" Ta Sy "\&YC" Ta "\&Printer needs operator to change character set"
+.It "\&has_status_line" Ta Sy "\&hs" Ta Sy "\&hs" Ta "\&Has extra "status line""
+.It "\&hue_light_saturation" Ta Sy "\&hls" Ta Sy "\&hl" Ta "\&Terminal only uses HLS colour notion (Tektronix)"
+.It "\&insert_null_glitch" Ta Sy "\&in" Ta Sy "\&in" Ta "\&Insert mode distinguishes nulls"
+.It "\&lpi_changes_yes" Ta Sy "\&lpix" Ta Sy "\&YG" Ta "\&Changing line pitch changes resolution"
+.It "\&memory_above" Ta Sy "\&da" Ta Sy "\&da" Ta "\&Display may be retained above the screen"
+.It "\&memory_below" Ta Sy "\&db" Ta Sy "\&db" Ta "\&Display may be retained below the screen"
+.It "\&move_insert_mode" Ta Sy "\&mir" Ta Sy "\&mi" Ta "\&Safe to move while in insert mode"
+.It "\&move_standout_mode" Ta Sy "\&msgr" Ta Sy "\&ms" Ta "\&Safe to move in standout modes"
+.It "\&needs_xon_xoff" Ta Sy "\&nxon" Ta Sy "\&nx" Ta "\&Padding won't work, xon/xoff required"
+.It "\&no_esc_ctlc" Ta Sy "\&xsb" Ta Sy "\&xb" Ta "\&Beehive (f1=escape, f2=ctrl C)"
+.It "\&no_pad_char" Ta Sy "\&npc" Ta Sy "\&NP" Ta "\&Pad character doesn't exist"
+.It "\&non_dest_scroll_region" Ta Sy "\&ndscr" Ta Sy "\&ND" Ta "\&Scrolling region is nondestructive"
+.It "\&non_rev_rmcup" Ta Sy "\&nrrmc" Ta Sy "\&NR" Ta "\&smcup does not reverse rmcup"
+.It "\&over_strike" Ta Sy "\&os" Ta Sy "\&os" Ta "\&Terminal overstrikes on hard-copy terminal"
+.It "\&prtr_silent" Ta Sy "\&mc5i" Ta Sy "\&5i" Ta "\&Printer won't echo on screen"
+.It "\&row_addr_glitch" Ta Sy "\&xvpa" Ta Sy "\&YD" Ta "\&Only positive motion for vpa/mvpa caps"
+.It "\&semi_auto_right_margin" Ta Sy "\&sam" Ta Sy "\&YE" Ta "\&Printing in last column causes cr"
+.It "\&status_line_esc_ok" Ta Sy "\&eslok" Ta Sy "\&es" Ta "\&Escape can be used on the status line"
+.It "\&tilde_glitch" Ta Sy "\&hz" Ta Sy "\&hz" Ta "\&Hazeltine; can't print tilde (~)"
+.It "\&transparent_underline" Ta Sy "\&ul" Ta Sy "\&ul" Ta "\&Underline character overstrikes"
+.It "\&xon_xoff" Ta Sy "\&xon" Ta Sy "\&xo" Ta "\&Terminal uses xon/xoff handshaking"
+.El
+.Ss Numeric Capabilities
+.Bl -column "enter_near_quality_letter" "setcolor" "TC" "Desc"
+.It Sy "Long name" Ta Sy "Code" Ta Sy "TC" Ta Sy "Description"
+.It "\&bit_image_entwining" Ta Sy "\&bitwin" Ta Sy "\&Yo" Ta "\&Number of passes for each bit-map row"
+.It "\&bit_image_type" Ta Sy "\&bitype" Ta Sy "\&Yp" Ta "\&Type of bit image device"
+.It "\&buffer_capacity" Ta Sy "\&bufsz" Ta Sy "\&Ya" Ta "\&Number of bytes buffered before printing"
+.It "\&buttons" Ta Sy "\&btns" Ta Sy "\&BT" Ta "\&Number of buttons on the mouse"
+.It "\&columns" Ta Sy "\&cols" Ta Sy "\&co" Ta "\&Number of columns in a line"
+.It "\&dot_horz_spacing" Ta Sy "\&spinh" Ta Sy "\&Yc" Ta "\&Spacing of dots horizontally in dots per inch"
+.It "\&dot_vert_spacing" Ta Sy "\&spinv" Ta Sy "\&Yb" Ta "\&Spacing of pins vertically in pins per inch"
+.It "\&init_tabs" Ta Sy "\&it" Ta Sy "\&it" Ta "\&Tabs initially every #1 spaces"
+.It "\&label_height" Ta Sy "\&lh" Ta Sy "\&lh" Ta "\&Number of rows in each label"
+.It "\&label_width" Ta Sy "\&lw" Ta Sy "\&lw" Ta "\&Number of columns in each label"
+.It "\&lines" Ta Sy "\&lines" Ta Sy "\&li" Ta "\&Number of lines on a screen or a page"
+.It "\&lines_of_memory" Ta Sy "\&lm" Ta Sy "\&lm" Ta "\&Lines of memory of > lines; 0 means varies"
+.It "\&magic_cookie_glitch" Ta Sy "\&xmc" Ta Sy "\&sg" Ta "\&Number of blank characters left by smso or rmso"
+.It "\&max_attributes" Ta Sy "\&ma" Ta Sy "\&ma" Ta "\&Maximum combined video attributes terminal can display"
+.It "\&max_colors" Ta Sy "\&colors" Ta Sy "\&Co" Ta "\&Maximum number of colours on the screen"
+.It "\&max_micro_address" Ta Sy "\&maddr" Ta Sy "\&Yd" Ta "\&Maximum value in micro_..._address"
+.It "\&max_micro_jump" Ta Sy "\&mjump" Ta Sy "\&Ye" Ta "\&Maximum value in parm_..._micro"
+.It "\&max_pairs" Ta Sy "\&pairs" Ta Sy "\&pa" Ta "\&Maximum number of colour-pairs on the screen"
+.It "\&maximum_windows" Ta Sy "\&wnum" Ta Sy "\&MW" Ta "\&Maximum number of definable windows"
+.It "\&micro_col_size" Ta Sy "\&mcs" Ta Sy "\&Yf" Ta "\&Character step size when in micro mode"
+.It "\&micro_line_size" Ta Sy "\&mls" Ta Sy "\&Yg" Ta "\&Line step size when in micro mode"
+.It "\&no_color_video" Ta Sy "\&ncv" Ta Sy "\&NC" Ta "\&Video attributes that can't be used with colours"
+.It "\&num_labels" Ta Sy "\&nlab" Ta Sy "\&Nl" Ta "\&Number of labels on screen (start at 1)"
+.It "\&number_of_pins" Ta Sy "\&npins" Ta Sy "\&Yh" Ta "\&Number of pins in print-head"
+.It "\&output_res_char" Ta Sy "\&orc" Ta Sy "\&Yi" Ta "\&Horizontal resolution in units per character"
+.It "\&output_res_horz_inch" Ta Sy "\&orhi" Ta Sy "\&Yk" Ta "\&Horizontal resolution in units per inch"
+.It "\&output_res_line" Ta Sy "\&orl" Ta Sy "\&Yj" Ta "\&Vertical resolution in units per line"
+.It "\&output_res_vert_inch" Ta Sy "\&orvi" Ta Sy "\&Yl" Ta "\&Vertical resolution in units per inch"
+.It "\&padding_baud_rate" Ta Sy "\&pb" Ta Sy "\&pb" Ta "\&Lowest baud rate where padding needed"
+.It "\&print_rate" Ta Sy "\&cps" Ta Sy "\&Ym" Ta "\&Print rate in characters per second"
+.It "\&virtual_terminal" Ta Sy "\&vt" Ta Sy "\&vt" Ta "\&Virtual terminal number"
+.It "\&wide_char_size" Ta Sy "\&widcs" Ta Sy "\&Yn" Ta "\&Character step size when in double-wide mode"
+.It "\&width_status_line" Ta Sy "\&wsl" Ta Sy "\&ws" Ta "\&Number of columns in status line"
+.El
+.Ss String Capabilities
+.Bl -column "enter_near_quality_letter" "setcolor" "TC" "Desc"
+.It Sy "Long name" Ta Sy "Code" Ta Sy "TC" Ta Sy "Description"
+.It "\&acs_chars" Ta Sy "\&acsc" Ta Sy "\&ac" Ta "\&Graphic charset pairs aAbBcC"
+.It "\&alt_scancode_esc" Ta Sy "\&scesa" Ta Sy "\&S8" Ta "\&Alternate escape for scancode emulation"
+.It "\&back_tab" Ta Sy "\&cbt" Ta Sy "\&bt" Ta "\&Back tab"
+.It "\&bell" Ta Sy "\&bel" Ta Sy "\&bl" Ta "\&Audible signal (bell)"
+.It "\&bit_image_carriage_return" Ta Sy "\&bicr" Ta Sy "\&Yv" Ta "\&Move to beginning of same row"
+.It "\&bit_image_newline" Ta Sy "\&binel" Ta Sy "\&Zz" Ta "\&Move to next row of the bit image"
+.It "\&bit_image_repeat" Ta Sy "\&birep" Ta Sy "\&Xy" Ta "\&Repeat bit-image cell #1 #2 times"
+.It "\&carriage_return" Ta Sy "\&cr" Ta Sy "\&cr" Ta "\&Carriage return"
+.It "\&change_char_pitch" Ta Sy "\&cpi" Ta Sy "\&ZA" Ta "\&Change number of characters per inch"
+.It "\&change_line_pitch" Ta Sy "\&lpi" Ta Sy "\&ZB" Ta "\&Change number of lines per inch"
+.It "\&change_res_horz" Ta Sy "\&chr" Ta Sy "\&ZC" Ta "\&Change horizontal resolution"
+.It "\&change_res_vert" Ta Sy "\&cvr" Ta Sy "\&ZD" Ta "\&Change vertical resolution"
+.It "\&change_scroll_region" Ta Sy "\&csr" Ta Sy "\&cs" Ta "\&Change to lines #1 through #2 (VT100)"
+.It "\&char_padding" Ta Sy "\&rmp" Ta Sy "\&rP" Ta "\&Like ip but when in replace mode"
+.It "\&char_set_names" Ta Sy "\&csnm" Ta Sy "\&Zy" Ta "\&Returns a list of character set names"
+.It "\&clear_all_tabs" Ta Sy "\&tbc" Ta Sy "\&ct" Ta "\&Clear all tab stops"
+.It "\&clear_margins" Ta Sy "\&mgc" Ta Sy "\&MC" Ta "\&Clear all margins (top, bottom and sides)"
+.It "\&clear_screen" Ta Sy "\&clear" Ta Sy "\&cl" Ta "\&Clear screen and home cursor"
+.It "\&clr_bol" Ta Sy "\&el1" Ta Sy "\&cb" Ta "\&Clear to beginning of line, inclusive"
+.It "\&clr_eol" Ta Sy "\&el" Ta Sy "\&ce" Ta "\&Clear to end of line"
+.It "\&clr_eos" Ta Sy "\&ed" Ta Sy "\&cd" Ta "\&Clear to end of display"
+.It "\&code_set_init" Ta Sy "\&csin" Ta Sy "\&ci" Ta "\&Init sequence for multiple codesets"
+.It "\&color_names" Ta Sy "\&colornm" Ta Sy "\&Yw" Ta "\&Give name for colour #1"
+.It "\&column_address" Ta Sy "\&hpa" Ta Sy "\&ch" Ta "\&Set horizontal position to absolute #1"
+.It "\&command_character" Ta Sy "\&cmdch" Ta Sy "\&CC" Ta "\&Terminal settable cmd character in prototype"
+.It "\&create_window" Ta Sy "\&cwin" Ta Sy "\&" Ta "\&Define win #1 to go from #2,#3 to #4,#5"
+.It "\&cursor_address" Ta Sy "\&cup" Ta Sy "\&cm" Ta "\&Move to row #1, col #2"
+.It "\&cursor_down" Ta Sy "\&cud1" Ta Sy "\&do" Ta "\&Down one line"
+.It "\&cursor_home" Ta Sy "\&home" Ta Sy "\&ho" Ta "\&Home cursor (if no cup)"
+.It "\&cursor_invisible" Ta Sy "\&civis" Ta Sy "\&vi" Ta "\&Make cursor invisible"
+.It "\&cursor_left" Ta Sy "\&cub1" Ta Sy "\&le" Ta "\&Move left one space"
+.It "\&cursor_mem_address" Ta Sy "\&mrcup" Ta Sy "\&CM" Ta "\&Memory relative cursor addressing"
+.It "\&cursor_normal" Ta Sy "\&cnorm" Ta Sy "\&ve" Ta "\&Make cursor appear normal (under vs/vi)"
+.It "\&cursor_right" Ta Sy "\&cuf1" Ta Sy "\&nd" Ta "\&Non-destructive space (cursor or carriage right)"
+.It "\&cursor_to_ll" Ta Sy "\&ll" Ta Sy "\&ll" Ta "\&Last line, first column (if no cup)"
+.It "\&cursor_up" Ta Sy "\&cuu1" Ta Sy "\&up" Ta "\&Upline (cursor up)"
+.It "\&cursor_visible" Ta Sy "\&cvvis" Ta Sy "\&vs" Ta "\&Make cursor very visible"
+.It "\&define_bit_image_region" Ta Sy "\&defbi" Ta Sy "\&Yx" Ta "\&Define rectangular bit-image region"
+.It "\&define_char" Ta Sy "\&defc" Ta Sy "\&ZE" Ta "\&Define a character in a character set"
+.It "\&delete_character" Ta Sy "\&dch1" Ta Sy "\&dc" Ta "\&Delete character"
+.It "\&delete_line" Ta Sy "\&dl1" Ta Sy "\&dl" Ta "\&Delete line"
+.It "\&device_type" Ta Sy "\&devt" Ta Sy "\&dv" Ta "\&Indicate language/codeset support"
+.It "\&dial_phone" Ta Sy "\&dial" Ta Sy "\&DI" Ta "\&Dial phone number #1"
+.It "\&dis_status_line" Ta Sy "\&dsl" Ta Sy "\&ds" Ta "\&Disable status line"
+.It "\&display_clock" Ta Sy "\&dclk" Ta Sy "\&DK" Ta "\&Display time-of-day clock"
+.It "\&display_pc_char" Ta Sy "\&dispc" Ta Sy "\&S1" Ta "\&Display PC character"
+.It "\&down_half_time" Ta Sy "\&hd" Ta Sy "\&hd" Ta "\&Half-line down (forward 1/2 linefeed)"
+.It "\&ena_acs" Ta Sy "\&enacs" Ta Sy "\&eA" Ta "\&Enable alternate character set"
+.It "\&end_bit_image_region" Ta Sy "\&endbi" Ta Sy "\&Yy" Ta "\&End a bit-image region"
+.It "\&enter_alt_charset_mode" Ta Sy "\&smacs" Ta Sy "\&as" Ta "\&Start alternate character set"
+.It "\&enter_am_mode" Ta Sy "\&smam" Ta Sy "\&SA" Ta "\&Turn on automatic margins"
+.It "\&enter_blink_mode" Ta Sy "\&blink" Ta Sy "\&mb" Ta "\&Turn on blinking"
+.It "\&enter_bold_mode" Ta Sy "\&bold" Ta Sy "\&md" Ta "\&Turn on bold (extra bright) mode"
+.It "\&enter_ca_mode" Ta Sy "\&smcup" Ta Sy "\&ti" Ta "\&String to begin programs that use cup"
+.It "\&enter_delete_mode" Ta Sy "\&smdc" Ta Sy "\&dm" Ta "\&Delete mode (enter)"
+.It "\&enter_dim_mode" Ta Sy "\&dim" Ta Sy "\&mh" Ta "\&Turn on half-bright mode"
+.It "\&enter_doublewide_mode" Ta Sy "\&swidm" Ta Sy "\&ZF" Ta "\&Enable double wide printing"
+.It "\&enter_draft_quality" Ta Sy "\&sdrfq" Ta Sy "\&ZG" Ta "\&Set draft qualify print"
+.It "\&enter_horizontal_hl_mode" Ta Sy "\&ehhlm" Ta Sy "\&Xh" Ta "\&Turn on horizontal highlight mode"
+.It "\&enter_insert_mode" Ta Sy "\&smir" Ta Sy "\&im" Ta "\&Insert mode (enter)"
+.It "\&enter_italics_mode" Ta Sy "\&sitm" Ta Sy "\&ZH" Ta "\&Enable italics"
+.It "\&enter_left_hl_mode" Ta Sy "\&elhlm" Ta Sy "\&Xl" Ta "\&Turn on left highlight mode"
+.It "\&enter_leftward_mode" Ta Sy "\&slm" Ta Sy "\&ZI" Ta "\&Enable leftward carriage motion"
+.It "\&enter_low_hl_mode" Ta Sy "\&elohlm" Ta Sy "\&Xo" Ta "\&Turn on low highlight mode"
+.It "\&enter_micro_mode" Ta Sy "\&smicm" Ta Sy "\&ZJ" Ta "\&Enable micro motion capabilities"
+.It "\&enter_near_quality_letter" Ta Sy "\&snlq" Ta Sy "\&ZK" Ta "\&Set near-letter quality print"
+.It "\&enter_normal_quality" Ta Sy "\&snrmq" Ta Sy "\&ZL" Ta "\&Set normal quality print"
+.It "\&enter_pc_charset_mode" Ta Sy "\&smpch" Ta Sy "\&S2" Ta "\&Enter PC character display mode"
+.It "\&enter_protected_mode" Ta Sy "\&prot" Ta Sy "\&mp" Ta "\&Turn on protected mode"
+.It "\&enter_reverse_mode" Ta Sy "\&rev" Ta Sy "\&mr" Ta "\&Turn on reverse video mode"
+.It "\&enter_right_hl_mode" Ta Sy "\&erhlm" Ta Sy "\&Xr" Ta "\&Turn on right highlight mode"
+.It "\&enter_scancode_mode" Ta Sy "\&smsc" Ta Sy "\&S4" Ta "\&Enter PC scancode mode"
+.It "\&enter_secure_mode" Ta Sy "\&invis" Ta Sy "\&mk" Ta "\&Turn on blank mode (characters invisible)"
+.It "\&enter_shadow_mode" Ta Sy "\&sshm" Ta Sy "\&ZM" Ta "\&Enable shadow printing"
+.It "\&enter_standout_mode" Ta Sy "\&smso" Ta Sy "\&so" Ta "\&Begin standout mode"
+.It "\&enter_subscript_mode" Ta Sy "\&ssubm" Ta Sy "\&ZN" Ta "\&Enable subscript printing"
+.It "\&enter_superscript_mode" Ta Sy "\&ssupm" Ta Sy "\&ZO" Ta "\&Enable superscript printing"
+.It "\&enter_top_hl_mode" Ta Sy "\&ethlm" Ta Sy "\&Xt" Ta "\&Turn on top highlight mode"
+.It "\&enter_underline_mode" Ta Sy "\&smul" Ta Sy "\&us" Ta "\&Start underscore mode"
+.It "\&enter_upward_mode" Ta Sy "\&sum" Ta Sy "\&ZP" Ta "\&Enable upward carriage motion"
+.It "\&enter_vertical_hl_mode" Ta Sy "\&evhlm" Ta Sy "\&Xv" Ta "\&Turn on vertical highlight mode"
+.It "\&enter_xon_mode" Ta Sy "\&smxon" Ta Sy "\&SX" Ta "\&Turn on xon/xoff handshaking"
+.It "\&erase_chars" Ta Sy "\&ech" Ta Sy "\&ec" Ta "\&Erase #1 characters"
+.It "\&exit_alt_charset_mode" Ta Sy "\&rmacs" Ta Sy "\&ae" Ta "\&End alternate character set"
+.It "\&exit_am_mode" Ta Sy "\&rmam" Ta Sy "\&RA" Ta "\&Turn off automatic margins"
+.It "\&exit_attribute_mode" Ta Sy "\&sgr0" Ta Sy "\&me" Ta "\&Turn off all attributes"
+.It "\&exit_ca_mode" Ta Sy "\&rmcup" Ta Sy "\&te" Ta "\&String to end programs that use cup"
+.It "\&exit_delete_mode" Ta Sy "\&rmdc" Ta Sy "\&ed" Ta "\&End delete mode"
+.It "\&exit_doublewide_mode" Ta Sy "\&rwidm" Ta Sy "\&ZQ" Ta "\&Disable double wide printing"
+.It "\&exit_insert_mode" Ta Sy "\&rmir" Ta Sy "\&ei" Ta "\&End insert mode"
+.It "\&exit_italics_mode" Ta Sy "\&ritm" Ta Sy "\&ZR" Ta "\&Disable italics"
+.It "\&exit_leftward_mode" Ta Sy "\&rlm" Ta Sy "\&ZS" Ta "\&Enable rightward (normal) carriage motion"
+.It "\&exit_micro_mode" Ta Sy "\&rmicm" Ta Sy "\&ZT" Ta "\&Disable micro motion capabilities"
+.It "\&exit_pc_charset_mode" Ta Sy "\&rmpch" Ta Sy "\&S3" Ta "\&Disable PC character display mode"
+.It "\&exit_scancode_mode" Ta Sy "\&rmsc" Ta Sy "\&S5" Ta "\&Disable PC scancode mode"
+.It "\&exit_shadow_mode" Ta Sy "\&rshm" Ta Sy "\&ZU" Ta "\&Disable shadow printing"
+.It "\&exit_standout_mode" Ta Sy "\&rmso" Ta Sy "\&se" Ta "\&End standout mode"
+.It "\&exit_subscript_mode" Ta Sy "\&rsubm" Ta Sy "\&ZV" Ta "\&Disable subscript printing"
+.It "\&exit_superscript_mode" Ta Sy "\&rsupm" Ta Sy "\&ZW" Ta "\&Disable superscript printing"
+.It "\&exit_underline_mode" Ta Sy "\&rmul" Ta Sy "\&ue" Ta "\&End underscore mode"
+.It "\&exit_upward_mode" Ta Sy "\&rum" Ta Sy "\&ZX" Ta "\&Enable downward (normal) carriage motion"
+.It "\&exit_xon_mode" Ta Sy "\&rmxon" Ta Sy "\&RX" Ta "\&Turn off xon/xoff handshaking"
+.It "\&fixed_pause" Ta Sy "\&pause" Ta Sy "\&PA" Ta "\&Pause for 2-3 seconds"
+.It "\&flash_hook" Ta Sy "\&hook" Ta Sy "\&fh" Ta "\&Flash the switch hook"
+.It "\&flash_screen" Ta Sy "\&flash" Ta Sy "\&vb" Ta "\&Visible bell (may move cursor)"
+.It "\&form_feed" Ta Sy "\&ff" Ta Sy "\&ff" Ta "\&Hardcopy terminal eject page"
+.It "\&from_status_line" Ta Sy "\&fsl" Ta Sy "\&fs" Ta "\&Return from status line"
+.It "\&get_mouse" Ta Sy "\&getm" Ta Sy "\&Gm" Ta "\&Curses should get button events"
+.It "\&goto_window" Ta Sy "\&wingo" Ta Sy "\&WG" Ta "\&Go to window #1"
+.It "\&hangup" Ta Sy "\&hup" Ta Sy "\&HU" Ta "\&Hang-up phone"
+.It "\&init_1string" Ta Sy "\&is1" Ta Sy "\&i1" Ta "\&Terminal or printer initialisation string"
+.It "\&init_2string" Ta Sy "\&is2" Ta Sy "\&i2" Ta "\&Terminal or printer initialisation string"
+.It "\&init_3string" Ta Sy "\&is3" Ta Sy "\&i3" Ta "\&Terminal or printer initialisation string"
+.It "\&init_file" Ta Sy "\&if" Ta Sy "\&if" Ta "\&Name of initialisation file"
+.It "\&init_prog" Ta Sy "\&iprog" Ta Sy "\&iP" Ta "\&Path name of program for initialisation"
+.It "\&initialize_color" Ta Sy "\&initc" Ta Sy "\&Ic" Ta "\&Set colour #1 to RGB #2, #3, #4"
+.It "\&initialize_pair" Ta Sy "\&initp" Ta Sy "\&Ip" Ta "\&Set colour-pair #1 to fg #2, bg #3"
+.It "\&insert_character" Ta Sy "\&ich1" Ta Sy "\&ic" Ta "\&Insert character"
+.It "\&insert_line" Ta Sy "\&il1" Ta Sy "\&al" Ta "\&Add new blank line"
+.It "\&insert_padding" Ta Sy "\&ip" Ta Sy "\&ip" Ta "\&Insert pad after character inserted"
+.It "\&key_a1" Ta Sy "\&ka1" Ta Sy "\&K1" Ta "\&upper left of keypad"
+.It "\&key_a3" Ta Sy "\&ka3" Ta Sy "\&K3" Ta "\&upper right of keypad"
+.It "\&key_b2" Ta Sy "\&kb2" Ta Sy "\&K2" Ta "\&center of keypad"
+.It "\&key_backspace" Ta Sy "\&kbs" Ta Sy "\&kb" Ta "\&set by backspace key"
+.It "\&key_beg" Ta Sy "\&kbeg" Ta Sy "\&@1" Ta "\&1"
+.It "\&key_btab" Ta Sy "\&kcbt" Ta Sy "\&kB" Ta "\&sent by back-tab key"
+.It "\&key_c1" Ta Sy "\&kc1" Ta Sy "\&K4" Ta "\&lower left of keypad"
+.It "\&key_c3" Ta Sy "\&kc3" Ta Sy "\&K5" Ta "\&lower right of keypad"
+.It "\&key_cancel" Ta Sy "\&kcan" Ta Sy "\&@2" Ta "\&2"
+.It "\&key_catab" Ta Sy "\&ktbc" Ta Sy "\&ka" Ta "\&sent by clear-all-tabs key"
+.It "\&key_clear" Ta Sy "\&kclr" Ta Sy "\&kC" Ta "\&sent by clear-screen or erase key"
+.It "\&key_close" Ta Sy "\&kclo" Ta Sy "\&@3" Ta "\&3"
+.It "\&key_command" Ta Sy "\&kcmd" Ta Sy "\&@4" Ta "\&4"
+.It "\&key_copy" Ta Sy "\&kcpy" Ta Sy "\&@5" Ta "\&5"
+.It "\&key_create" Ta Sy "\&kcrt" Ta Sy "\&@6" Ta "\&6"
+.It "\&key_ctab" Ta Sy "\&kctab" Ta Sy "\&kt" Ta "\&sent by clear-tab key"
+.It "\&key_dc" Ta Sy "\&kdch1" Ta Sy "\&kD" Ta "\&sent by delete-character key"
+.It "\&key_dl" Ta Sy "\&kdl1" Ta Sy "\&kL" Ta "\&sent by delete-line key"
+.It "\&key_down" Ta Sy "\&kcud1" Ta Sy "\&kd" Ta "\&sent by terminal down-arrow key"
+.It "\&key_eic" Ta Sy "\&krmir" Ta Sy "\&kM" Ta "\&sent by rmir or smir in insert mode"
+.It "\&key_end" Ta Sy "\&kend" Ta Sy "\&@7" Ta "\&7"
+.It "\&key_enter" Ta Sy "\&kent" Ta Sy "\&@8" Ta "\&8"
+.It "\&key_eol" Ta Sy "\&kel" Ta Sy "\&kE" Ta "\&sent by clear-to-end-of-line key"
+.It "\&key_eos" Ta Sy "\&ked" Ta Sy "\&kS" Ta "\&sent by clear-to-end-of-screen key"
+.It "\&key_exit" Ta Sy "\&kext" Ta Sy "\&@9" Ta "\&9"
+.It "\&key_f0" Ta Sy "\&kf0" Ta Sy "\&k0" Ta "\&sent by function key f0"
+.It "\&key_f1" Ta Sy "\&kf1" Ta Sy "\&k1" Ta "\&sent by function key f1"
+.It "\&key_f10" Ta Sy "\&kf10" Ta Sy "\&k;" Ta "\&sent by function key f10"
+.It "\&key_f11" Ta Sy "\&kf11" Ta Sy "\&F1" Ta "\&sent by function key f11"
+.It "\&key_f12" Ta Sy "\&kf12" Ta Sy "\&F2" Ta "\&sent by function key f12"
+.It "\&key_f13" Ta Sy "\&kf13" Ta Sy "\&F3" Ta "\&sent by function key f13"
+.It "\&key_f14" Ta Sy "\&kf14" Ta Sy "\&F4" Ta "\&sent by function key f14"
+.It "\&key_f15" Ta Sy "\&kf15" Ta Sy "\&F5" Ta "\&sent by function key f15"
+.It "\&key_f16" Ta Sy "\&kf16" Ta Sy "\&F6" Ta "\&sent by function key f16"
+.It "\&key_f17" Ta Sy "\&kf17" Ta Sy "\&F7" Ta "\&sent by function key f17"
+.It "\&key_f18" Ta Sy "\&kf18" Ta Sy "\&F8" Ta "\&sent by function key f18"
+.It "\&key_f19" Ta Sy "\&kf19" Ta Sy "\&F9" Ta "\&sent by function key f19"
+.It "\&key_f2" Ta Sy "\&kf2" Ta Sy "\&k2" Ta "\&sent by function key f2"
+.It "\&key_f20" Ta Sy "\&kf20" Ta Sy "\&FA" Ta "\&sent by function key f20"
+.It "\&key_f21" Ta Sy "\&kf21" Ta Sy "\&FB" Ta "\&sent by function key f21"
+.It "\&key_f22" Ta Sy "\&kf22" Ta Sy "\&FC" Ta "\&sent by function key f22"
+.It "\&key_f23" Ta Sy "\&kf23" Ta Sy "\&FD" Ta "\&sent by function key f23"
+.It "\&key_f24" Ta Sy "\&kf24" Ta Sy "\&FE" Ta "\&sent by function key f24"
+.It "\&key_f25" Ta Sy "\&kf25" Ta Sy "\&FF" Ta "\&sent by function key f25"
+.It "\&key_f26" Ta Sy "\&kf26" Ta Sy "\&FG" Ta "\&sent by function key f26"
+.It "\&key_f27" Ta Sy "\&kf27" Ta Sy "\&FH" Ta "\&sent by function key f27"
+.It "\&key_f28" Ta Sy "\&kf28" Ta Sy "\&FI" Ta "\&sent by function key f28"
+.It "\&key_f29" Ta Sy "\&kf29" Ta Sy "\&FJ" Ta "\&sent by function key f29"
+.It "\&key_f3" Ta Sy "\&kf3" Ta Sy "\&k3" Ta "\&sent by function key f3"
+.It "\&key_f30" Ta Sy "\&kf30" Ta Sy "\&FK" Ta "\&sent by function key f30"
+.It "\&key_f31" Ta Sy "\&kf31" Ta Sy "\&FL" Ta "\&sent by function key f31"
+.It "\&key_f32" Ta Sy "\&kf32" Ta Sy "\&FM" Ta "\&sent by function key f32"
+.It "\&key_f33" Ta Sy "\&kf33" Ta Sy "\&FN" Ta "\&sent by function key f33"
+.It "\&key_f34" Ta Sy "\&kf34" Ta Sy "\&FO" Ta "\&sent by function key f34"
+.It "\&key_f35" Ta Sy "\&kf35" Ta Sy "\&FP" Ta "\&sent by function key f35"
+.It "\&key_f36" Ta Sy "\&kf36" Ta Sy "\&FQ" Ta "\&sent by function key f36"
+.It "\&key_f37" Ta Sy "\&kf37" Ta Sy "\&FR" Ta "\&sent by function key f37"
+.It "\&key_f38" Ta Sy "\&kf38" Ta Sy "\&FS" Ta "\&sent by function key f38"
+.It "\&key_f39" Ta Sy "\&kf39" Ta Sy "\&FT" Ta "\&sent by function key f39"
+.It "\&key_f4" Ta Sy "\&kf4" Ta Sy "\&k4" Ta "\&sent by function key f4"
+.It "\&key_f40" Ta Sy "\&kf40" Ta Sy "\&FU" Ta "\&sent by function key f40"
+.It "\&key_f41" Ta Sy "\&kf41" Ta Sy "\&FV" Ta "\&sent by function key f41"
+.It "\&key_f42" Ta Sy "\&kf42" Ta Sy "\&FW" Ta "\&sent by function key f42"
+.It "\&key_f43" Ta Sy "\&kf43" Ta Sy "\&FX" Ta "\&sent by function key f43"
+.It "\&key_f44" Ta Sy "\&kf44" Ta Sy "\&FY" Ta "\&sent by function key f44"
+.It "\&key_f45" Ta Sy "\&kf45" Ta Sy "\&FZ" Ta "\&sent by function key f45"
+.It "\&key_f46" Ta Sy "\&kf46" Ta Sy "\&Fa" Ta "\&sent by function key f46"
+.It "\&key_f47" Ta Sy "\&kf47" Ta Sy "\&Fb" Ta "\&sent by function key f47"
+.It "\&key_f48" Ta Sy "\&kf48" Ta Sy "\&Fc" Ta "\&sent by function key f48"
+.It "\&key_f49" Ta Sy "\&kf49" Ta Sy "\&Fd" Ta "\&sent by function key f49"
+.It "\&key_f5" Ta Sy "\&kf5" Ta Sy "\&k5" Ta "\&sent by function key f5"
+.It "\&key_f50" Ta Sy "\&kf50" Ta Sy "\&Fe" Ta "\&sent by function key f50"
+.It "\&key_f51" Ta Sy "\&kf51" Ta Sy "\&Ff" Ta "\&sent by function key f51"
+.It "\&key_f52" Ta Sy "\&kf52" Ta Sy "\&Fg" Ta "\&sent by function key f52"
+.It "\&key_f53" Ta Sy "\&kf53" Ta Sy "\&Fh" Ta "\&sent by function key f53"
+.It "\&key_f54" Ta Sy "\&kf54" Ta Sy "\&Fi" Ta "\&sent by function key f54"
+.It "\&key_f55" Ta Sy "\&kf55" Ta Sy "\&Fj" Ta "\&sent by function key f55"
+.It "\&key_f56" Ta Sy "\&kf56" Ta Sy "\&Fk" Ta "\&sent by function key f56"
+.It "\&key_f57" Ta Sy "\&kf57" Ta Sy "\&Fl" Ta "\&sent by function key f57"
+.It "\&key_f58" Ta Sy "\&kf58" Ta Sy "\&Fm" Ta "\&sent by function key f58"
+.It "\&key_f59" Ta Sy "\&kf59" Ta Sy "\&Fn" Ta "\&sent by function key f59"
+.It "\&key_f6" Ta Sy "\&kf6" Ta Sy "\&k6" Ta "\&sent by function key f6"
+.It "\&key_f60" Ta Sy "\&kf60" Ta Sy "\&Fo" Ta "\&sent by function key f60"
+.It "\&key_f61" Ta Sy "\&kf61" Ta Sy "\&Fp" Ta "\&sent by function key f61"
+.It "\&key_f62" Ta Sy "\&kf62" Ta Sy "\&Fq" Ta "\&sent by function key f62"
+.It "\&key_f63" Ta Sy "\&kf63" Ta Sy "\&Fr" Ta "\&sent by function key f63"
+.It "\&key_f7" Ta Sy "\&kf7" Ta Sy "\&k7" Ta "\&sent by function key f7"
+.It "\&key_f8" Ta Sy "\&kf8" Ta Sy "\&k8" Ta "\&sent by function key f8"
+.It "\&key_f9" Ta Sy "\&kf9" Ta Sy "\&k9" Ta "\&sent by function key f9"
+.It "\&key_find" Ta Sy "\&kfnd" Ta Sy "\&@0" Ta "\&0"
+.It "\&key_help" Ta Sy "\&khlp" Ta Sy "\&%1" Ta "\&sent by help key"
+.It "\&key_home" Ta Sy "\&khome" Ta Sy "\&kh" Ta "\&sent by home key"
+.It "\&key_ic" Ta Sy "\&kich1" Ta Sy "\&kI" Ta "\&sent by ins-char/enter ins-mode key"
+.It "\&key_il" Ta Sy "\&kil1" Ta Sy "\&kA" Ta "\&sent by insert-line key"
+.It "\&key_left" Ta Sy "\&kcub1" Ta Sy "\&kl" Ta "\&sent by terminal left-arrow key"
+.It "\&key_ll" Ta Sy "\&kll" Ta Sy "\&kH" Ta "\&sent by home-down key"
+.It "\&key_mark" Ta Sy "\&kmrk" Ta Sy "\&%2" Ta "\&sent by mark key"
+.It "\&key_message" Ta Sy "\&kmsg" Ta Sy "\&%3" Ta "\&sent by message key"
+.It "\&key_mouse" Ta Sy "\&kmous" Ta Sy "\&Km" Ta "\&0631, Mouse event has occurred"
+.It "\&key_move" Ta Sy "\&kmov" Ta Sy "\&%4" Ta "\&sent by move key"
+.It "\&key_next" Ta Sy "\&knxt" Ta Sy "\&%5" Ta "\&sent by next-object key"
+.It "\&key_npage" Ta Sy "\&knp" Ta Sy "\&kN" Ta "\&sent by next-page key"
+.It "\&key_open" Ta Sy "\&kopn" Ta Sy "\&%6" Ta "\&sent by open key"
+.It "\&key_options" Ta Sy "\&kopt" Ta Sy "\&%7" Ta "\&sent by options key"
+.It "\&key_ppage" Ta Sy "\&kpp" Ta Sy "\&kP" Ta "\&sent by previous-page key"
+.It "\&key_previous" Ta Sy "\&kprv" Ta Sy "\&%8" Ta "\&sent by previous-object key"
+.It "\&key_print" Ta Sy "\&kprt" Ta Sy "\&%9" Ta "\&sent by print or copy key"
+.It "\&key_redo" Ta Sy "\&krdo" Ta Sy "\&%0" Ta "\&sent by redo key"
+.It "\&key_reference" Ta Sy "\&kref" Ta Sy "\&&1" Ta "\&sent by ref(erence) key"
+.It "\&key_refresh" Ta Sy "\&krfr" Ta Sy "\&&2" Ta "\&sent by refresh key"
+.It "\&key_replace" Ta Sy "\&krpl" Ta Sy "\&&3" Ta "\&sent by replace key"
+.It "\&key_restart" Ta Sy "\&krst" Ta Sy "\&&4" Ta "\&sent by restart key"
+.It "\&key_resume" Ta Sy "\&kres" Ta Sy "\&&5" Ta "\&sent by resume key"
+.It "\&key_right" Ta Sy "\&kcuf1" Ta Sy "\&kr" Ta "\&sent by terminal right-arrow key"
+.It "\&key_save" Ta Sy "\&ksav" Ta Sy "\&&6" Ta "\&sent by save key"
+.It "\&key_sbeg" Ta Sy "\&kBEG" Ta Sy "\&&9" Ta "\&sent by shifted beginning key"
+.It "\&key_scancel" Ta Sy "\&kCAN" Ta Sy "\&&0" Ta "\&sent by shifted cancel key"
+.It "\&key_scommand" Ta Sy "\&kCMD" Ta Sy "\&*1" Ta "\&sent by shifted command key"
+.It "\&key_scopy" Ta Sy "\&kCPY" Ta Sy "\&*2" Ta "\&sent by shifted copy key"
+.It "\&key_screate" Ta Sy "\&kCRT" Ta Sy "\&*3" Ta "\&sent by shifted create key"
+.It "\&key_sdc" Ta Sy "\&kDC" Ta Sy "\&*4" Ta "\&sent by shifted delete-char key"
+.It "\&key_sdl" Ta Sy "\&kDL" Ta Sy "\&*5" Ta "\&sent by shifted delete-line key"
+.It "\&key_select" Ta Sy "\&kslt" Ta Sy "\&*6" Ta "\&sent by select key"
+.It "\&key_send" Ta Sy "\&kEND" Ta Sy "\&*7" Ta "\&sent by shifted end key"
+.It "\&key_seol" Ta Sy "\&kEOL" Ta Sy "\&*8" Ta "\&sent by shifted clear-line key"
+.It "\&key_sexit" Ta Sy "\&kEXT" Ta Sy "\&*9" Ta "\&sent by shifted exit key"
+.It "\&key_sf" Ta Sy "\&kind" Ta Sy "\&kF" Ta "\&sent by scroll-forward/down key"
+.It "\&key_sfind" Ta Sy "\&kFND" Ta Sy "\&*0" Ta "\&sent by shifted find key"
+.It "\&key_shelp" Ta Sy "\&kHLP" Ta Sy "\&#1" Ta "\&sent by shifted help key"
+.It "\&key_shome" Ta Sy "\&kHOM" Ta Sy "\&#2" Ta "\&sent by shifted home key"
+.It "\&key_sic" Ta Sy "\&kIC" Ta Sy "\&#3" Ta "\&sent by shifted input key"
+.It "\&key_sleft" Ta Sy "\&kLFT" Ta Sy "\&#4" Ta "\&sent by shifted left-arrow key"
+.It "\&key_smessage" Ta Sy "\&kMSG" Ta Sy "\&%a" Ta "\&sent by shifted message key"
+.It "\&key_smove" Ta Sy "\&kMOV" Ta Sy "\&%b" Ta "\&sent by shifted move key"
+.It "\&key_snext" Ta Sy "\&kNXT" Ta Sy "\&%c" Ta "\&sent by shifted next key"
+.It "\&key_soptions" Ta Sy "\&kOPT" Ta Sy "\&%d" Ta "\&sent by shifted options key"
+.It "\&key_sprevious" Ta Sy "\&kPRV" Ta Sy "\&%e" Ta "\&sent by shifted prev key"
+.It "\&key_sprint" Ta Sy "\&kPRT" Ta Sy "\&%f" Ta "\&sent by shifted print key"
+.It "\&key_sr" Ta Sy "\&kri" Ta Sy "\&kR" Ta "\&sent by scroll-backwards/up key"
+.It "\&key_sredo" Ta Sy "\&kRDO" Ta Sy "\&%g" Ta "\&sent by shifted redo key"
+.It "\&key_sreplace" Ta Sy "\&kRPL" Ta Sy "\&%h" Ta "\&sent by shifted replace key"
+.It "\&key_sright" Ta Sy "\&kRIT" Ta Sy "\&%i" Ta "\&sent by shifted right-arrow key"
+.It "\&key_srsume" Ta Sy "\&kRES" Ta Sy "\&%j" Ta "\&sent by shifted resume key"
+.It "\&key_ssave" Ta Sy "\&kSAV" Ta Sy "\&!1" Ta "\&sent by shifted save key"
+.It "\&key_ssuspend" Ta Sy "\&kSPD" Ta Sy "\&!2" Ta "\&sent by shifted suspend key"
+.It "\&key_stab" Ta Sy "\&khts" Ta Sy "\&kT" Ta "\&sent by set-tab key"
+.It "\&key_sundo" Ta Sy "\&kUND" Ta Sy "\&!3" Ta "\&sent by shifted undo key"
+.It "\&key_suspend" Ta Sy "\&kspd" Ta Sy "\&&7" Ta "\&sent by suspend key"
+.It "\&key_undo" Ta Sy "\&kund" Ta Sy "\&&8" Ta "\&sent by undo key"
+.It "\&key_up" Ta Sy "\&kcuu1" Ta Sy "\&ku" Ta "\&sent by terminal up-arrow key"
+.It "\&keypad_local" Ta Sy "\&rmkx" Ta Sy "\&ke" Ta "\&Out of "keypad-transmit" mode"
+.It "\&keypad_xmit" Ta Sy "\&smkx" Ta Sy "\&ks" Ta "\&Put terminal in "keypad-transmit" mode"
+.It "\&lab_f0" Ta Sy "\&lf0" Ta Sy "\&l0" Ta "\&Labels on function key f0 if not f0"
+.It "\&lab_f1" Ta Sy "\&lf1" Ta Sy "\&l1" Ta "\&Labels on function key f1 if not f1"
+.It "\&lab_f10" Ta Sy "\&lf10" Ta Sy "\&la" Ta "\&Labels on function key f10 if not f10"
+.It "\&lab_f2" Ta Sy "\&lf2" Ta Sy "\&l2" Ta "\&Labels on function key f2 if not f2 "
+.It "\&lab_f3" Ta Sy "\&lf3" Ta Sy "\&l3" Ta "\&Labels on function key f3 if not f3"
+.It "\&lab_f4" Ta Sy "\&lf4" Ta Sy "\&l4" Ta "\&Labels on function key f4 if not f4"
+.It "\&lab_f5" Ta Sy "\&lf5" Ta Sy "\&l5" Ta "\&Labels on function key f5 if not f5"
+.It "\&lab_f6" Ta Sy "\&lf6" Ta Sy "\&l6" Ta "\&Labels on function key f6 if not f6"
+.It "\&lab_f7" Ta Sy "\&lf7" Ta Sy "\&l7" Ta "\&Labels on function key f7 if not f7"
+.It "\&lab_f8" Ta Sy "\&lf8" Ta Sy "\&l8" Ta "\&Labels on function key f8 if not f8"
+.It "\&lab_f9" Ta Sy "\&lf9" Ta Sy "\&l9" Ta "\&Labels on function key f9 if not f9"
+.It "\&label_format" Ta Sy "\&fln" Ta Sy "\&Lf" Ta "\&Label format"
+.It "\&label_off" Ta Sy "\&rmln" Ta Sy "\&LF" Ta "\&Turn off soft labels"
+.It "\&label_on" Ta Sy "\&smln" Ta Sy "\&LO" Ta "\&Turn on soft labels"
+.It "\&meta_off" Ta Sy "\&rmm" Ta Sy "\&mo" Ta "\&Turn off "meta mode""
+.It "\&meta_on" Ta Sy "\&smm" Ta Sy "\&mm" Ta "\&Turn on "meta mode" (8th bit)"
+.It "\&micro_column_address" Ta Sy "\&mhpa" Ta Sy "\&ZY" Ta "\&Like column_address for micro adjustment"
+.It "\&micro_down" Ta Sy "\&mcud1" Ta Sy "\&ZZ" Ta "\&Like cursor_down for micro adjustment"
+.It "\&micro_left" Ta Sy "\&mcub1" Ta Sy "\&Za" Ta "\&Like cursor_left for micro adjustment"
+.It "\&micro_right" Ta Sy "\&mcuf1" Ta Sy "\&Zb" Ta "\&Like cursor_right for micro adjustment"
+.It "\&micro_row_address" Ta Sy "\&mvpa" Ta Sy "\&Zc" Ta "\&Like row_address for micro adjustment"
+.It "\&micro_up" Ta Sy "\&mcuu1" Ta Sy "\&Zd" Ta "\&Like cursor_up for micro adjustment"
+.It "\&mouse_info" Ta Sy "\&minfo" Ta Sy "\&Mi" Ta "\&Mouse status information"
+.It "\&newline" Ta Sy "\&nel" Ta Sy "\&nw" Ta "\&Newline (behaves like cr followed by lf)"
+.It "\&order_of_pins" Ta Sy "\&porder" Ta Sy "\&Ze" Ta "\&Matches software bits to print-head pins"
+.It "\&orig_colors" Ta Sy "\&oc" Ta Sy "\&oc" Ta "\&Set all colour(-pair)s to original ones"
+.It "\&orig_pair" Ta Sy "\&op" Ta Sy "\&op" Ta "\&Set default colour-pair to the original one"
+.It "\&pad_char" Ta Sy "\&pad" Ta Sy "\&pc" Ta "\&Pad character (rather than NULL)"
+.It "\&parm_dch" Ta Sy "\&dch" Ta Sy "\&DC" Ta "\&Delete #1 chars"
+.It "\&parm_delete_line" Ta Sy "\&dl" Ta Sy "\&DL" Ta "\&Delete #1 lines"
+.It "\&parm_down_cursor" Ta Sy "\&cud" Ta Sy "\&DO" Ta "\&Move down #1 lines"
+.It "\&parm_down_micro" Ta Sy "\&mcud" Ta Sy "\&Zf" Ta "\&Like parm_down_cursor for micro adjustment"
+.It "\&parm_ich" Ta Sy "\&ich" Ta Sy "\&IC" Ta "\&Insert #1 blank chars"
+.It "\&parm_index" Ta Sy "\&indn" Ta Sy "\&SF" Ta "\&Scroll forward #1 lines"
+.It "\&parm_insert_line" Ta Sy "\&il" Ta Sy "\&AL" Ta "\&Add #1 new blank lines"
+.It "\&parm_left_cursor" Ta Sy "\&cub" Ta Sy "\&LE" Ta "\&Move cursor left #1 lines"
+.It "\&parm_left_micro" Ta Sy "\&mcub" Ta Sy "\&Zg" Ta "\&Like parm_left_cursor for micro adjustment"
+.It "\&parm_right_cursor" Ta Sy "\&cuf" Ta Sy "\&RI" Ta "\&Move right #1 spaces"
+.It "\&parm_right_micro" Ta Sy "\&mcuf" Ta Sy "\&Zh" Ta "\&Like parm_right_cursor for micro adjustment"
+.It "\&parm_rindex" Ta Sy "\&rin" Ta Sy "\&SR" Ta "\&Scroll backward #1 lines"
+.It "\&parm_up_cursor" Ta Sy "\&cuu" Ta Sy "\&UP" Ta "\&Move cursor up #1 lines"
+.It "\&parm_up_micro" Ta Sy "\&mcuu" Ta Sy "\&Zi" Ta "\&Like parm_up_cursor for micro adjustment"
+.It "\&pc_term_options" Ta Sy "\&pctrm" Ta Sy "\&S6" Ta "\&PC terminal options"
+.It "\&pkey_key" Ta Sy "\&pfkey" Ta Sy "\&pk" Ta "\&Prog funct key #1 to type string #2"
+.It "\&pkey_local" Ta Sy "\&pfloc" Ta Sy "\&pl" Ta "\&Prog funct key #1 to execute string #2"
+.It "\&pkey_plab" Ta Sy "\&pfxl" Ta Sy "\&xl" Ta "\&Prog key #1 to xmit string #2 and show string #3"
+.It "\&pkey_xmit" Ta Sy "\&pfx" Ta Sy "\&px" Ta "\&Prog funct key #1 to xmit string #2"
+.It "\&plab_norm" Ta Sy "\&pln" Ta Sy "\&pn" Ta "\&Prog label #1 to show string #2"
+.It "\&print_screen" Ta Sy "\&mc0" Ta Sy "\&ps" Ta "\&Print contents of screen"
+.It "\&ptr_non" Ta Sy "\&mc5p" Ta Sy "\&pO" Ta "\&Turn off printer for #1 bytes"
+.It "\&ptr_off" Ta Sy "\&mc4" Ta Sy "\&pf" Ta "\&Turn off the printer"
+.It "\&ptr_on" Ta Sy "\&mc5" Ta Sy "\&po" Ta "\&Turn on the printer"
+.It "\&pulse" Ta Sy "\&pulse" Ta Sy "\&PU" Ta "\&Select pulse dialing"
+.It "\&quick_dial" Ta Sy "\&qdial" Ta Sy "\&QD" Ta "\&Dial phone number #1, without progress detection"
+.It "\&remove_clock" Ta Sy "\&rmclk" Ta Sy "\&RC" Ta "\&Remove time-of-day clock"
+.It "\&repeat_char" Ta Sy "\&rep" Ta Sy "\&rp" Ta "\&Repeat char #1 #2 times"
+.It "\&req_for_input" Ta Sy "\&rfi" Ta Sy "\&RF" Ta "\&Send next input char (for ptys)"
+.It "\&req_mouse_pos" Ta Sy "\&reqmp" Ta Sy "\&RQ" Ta "\&Request mouse position report"
+.It "\&reset_1string" Ta Sy "\&rs1" Ta Sy "\&r1" Ta "\&Reset terminal completely to sane modes"
+.It "\&reset_2string" Ta Sy "\&rs2" Ta Sy "\&r2" Ta "\&Reset terminal completely to sane modes"
+.It "\&reset_3string" Ta Sy "\&rs3" Ta Sy "\&r3" Ta "\&Reset terminal completely to sane modes"
+.It "\&reset_file" Ta Sy "\&rf" Ta Sy "\&rf" Ta "\&Name of file containing reset string"
+.It "\&restore_cursor" Ta Sy "\&rc" Ta Sy "\&rc" Ta "\&Restore cursor to position of last sc"
+.It "\&row_address" Ta Sy "\&vpa" Ta Sy "\&cv" Ta "\&Set vertical position to absolute #1"
+.It "\&save_cursor" Ta Sy "\&sc" Ta Sy "\&sc" Ta "\&Save cursor position"
+.It "\&scancode_escape" Ta Sy "\&scesc" Ta Sy "\&S7" Ta "\&Escape for scancode emulation"
+.It "\&scroll_forward" Ta Sy "\&ind" Ta Sy "\&sf" Ta "\&Scroll text up"
+.It "\&scroll_reverse" Ta Sy "\&ri" Ta Sy "\&sr" Ta "\&Scroll text down"
+.It "\&select_char_set" Ta Sy "\&scs" Ta Sy "\&Zj" Ta "\&Select character set"
+.It "\&set0_des_seq" Ta Sy "\&s0ds" Ta Sy "\&s0" Ta "\&Shift into codeset 0 (EUC set 0, ASCII)"
+.It "\&set1_des_seq" Ta Sy "\&s1ds" Ta Sy "\&s1" Ta "\&Shift into codeset 1"
+.It "\&set2_des_seq" Ta Sy "\&s2ds" Ta Sy "\&s2" Ta "\&Shift into codeset 2"
+.It "\&set3_des_seq" Ta Sy "\&s3ds" Ta Sy "\&s3" Ta "\&Shift into codeset 3"
+.It "\&set_a_attributes" Ta Sy "\&sgr1" Ta Sy "\&sA" Ta "\&Define second set of video attributes #1-#6"
+.It "\&set_a_background" Ta Sy "\&setab" Ta Sy "\&AB" Ta "\&Set background colour to #1 using ANSI escape"
+.It "\&set_a_foreground" Ta Sy "\&setaf" Ta Sy "\&AF" Ta "\&Set foreground colour to #1 using ANSI escape"
+.It "\&set_attributes" Ta Sy "\&sgr" Ta Sy "\&sa" Ta "\&Define first set of video attributes #1-#9"
+.It "\&set_background" Ta Sy "\&setb" Ta Sy "\&Sb" Ta "\&Set background colour to #1"
+.It "\&set_bottom_margin" Ta Sy "\&smgb" Ta Sy "\&Zk" Ta "\&Set bottom margin at current line"
+.It "\&set_bottom_margin_parm" Ta Sy "\&smgbp" Ta Sy "\&Zl" Ta "\&Set bottom margin at line #1 or #2 lines from bottom"
+.It "\&set_clock" Ta Sy "\&sclk" Ta Sy "\&SC" Ta "\&Set clock to hours (#1), minutes (#2), seconds (#3)"
+.It "\&set_color_band" Ta Sy "\&setcolor" Ta Sy "\&" Ta "\&Change ribbon to colour #1"
+.It "\&set_color_pair" Ta Sy "\&scp" Ta Sy "\&sp" Ta "\&Set current colour pair to #1"
+.It "\&set_foreground" Ta Sy "\&setf" Ta Sy "\&Sf" Ta "\&Set foreground colour to #1"
+.It "\&set_left_margin" Ta Sy "\&smgl" Ta Sy "\&ML" Ta "\&Set left margin at current column"
+.It "\&set_left_margin_parm" Ta Sy "\&smglp" Ta Sy "\&Zm" Ta "\&Set left (right) margin at column #1 (#2)"
+.It "\&set_lr_margin" Ta Sy "\&smglr" Ta Sy "\&" Ta "\&Sets both left and right margins"
+.It "\&set_page_length" Ta Sy "\&slines" Ta Sy "\&Yz" Ta "\&Set page length to #1 lines"
+.It "\&set_pglen_inch" Ta Sy "\&slength" Ta Sy "\&sL" Ta "\&Set page length to #1 hundredth of an inch"
+.It "\&set_right_margin" Ta Sy "\&smgr" Ta Sy "\&MR" Ta "\&Set right margin at current column"
+.It "\&set_right_margin_parm" Ta Sy "\&smgrp" Ta Sy "\&Zn" Ta "\&Set right margin at #1"
+.It "\&set_tab" Ta Sy "\&hts" Ta Sy "\&st" Ta "\&Set a tab in all rows, current column"
+.It "\&set_tb_margin" Ta Sy "\&smgtb" Ta Sy "\&MT" Ta "\&Sets both top and bottom margins"
+.It "\&set_top_margin" Ta Sy "\&smgt" Ta Sy "\&Zo" Ta "\&Set top margin at current line"
+.It "\&set_top_margin_parm" Ta Sy "\&smgtp" Ta Sy "\&Zp" Ta "\&Set top (bottom) margin at line #1 (#2)"
+.It "\&set_window" Ta Sy "\&wind" Ta Sy "\&wi" Ta "\&Current window is lines #1-#2 cols #3-#4"
+.It "\&start_bit_image" Ta Sy "\&sbim" Ta Sy "\&Zq" Ta "\&Start printing bit image graphics"
+.It "\&start_char_set_def" Ta Sy "\&scsd" Ta Sy "\&Zr" Ta "\&Start definition of a character set"
+.It "\&stop_bit_image" Ta Sy "\&rbim" Ta Sy "\&Zs" Ta "\&End printing bit image graphics"
+.It "\&stop_char_set_def" Ta Sy "\&rcsd" Ta Sy "\&Zt" Ta "\&End definition of a character set"
+.It "\&subscript_characters" Ta Sy "\&subcs" Ta Sy "\&Zu" Ta "\&List of "subscript-able" characters"
+.It "\&superscript_characters" Ta Sy "\&supcs" Ta Sy "\&Zv" Ta "\&List of "superscript-able" characters"
+.It "\&tab" Ta Sy "\&ht" Ta Sy "\&ta" Ta "\&Tab to next 8-space hardware tab stop"
+.It "\&these_cause_cr" Ta Sy "\&docr" Ta Sy "\&Zw" Ta "\&Printing any of these characters causes cr"
+.It "\&to_status_line" Ta Sy "\&tsl" Ta Sy "\&ts" Ta "\&Go to status line, col #1"
+.It "\&tone" Ta Sy "\&tone" Ta Sy "\&TO" Ta "\&Select tone touch dialing"
+.It "\&underline_char" Ta Sy "\&uc" Ta Sy "\&uc" Ta "\&Underscore one char and move past it"
+.It "\&up_half_line" Ta Sy "\&hu" Ta Sy "\&hu" Ta "\&Half-line up (reverse 1/2 linefeed)"
+.It "\&user0" Ta Sy "\&u0" Ta Sy "\&u0" Ta "\&User string 0"
+.It "\&user1" Ta Sy "\&u1" Ta Sy "\&u1" Ta "\&User string 1"
+.It "\&user2" Ta Sy "\&u2" Ta Sy "\&u2" Ta "\&User string 2"
+.It "\&user3" Ta Sy "\&u3" Ta Sy "\&u3" Ta "\&User string 3"
+.It "\&user4" Ta Sy "\&u4" Ta Sy "\&u4" Ta "\&User string 4"
+.It "\&user5" Ta Sy "\&u5" Ta Sy "\&u5" Ta "\&User string 5"
+.It "\&user6" Ta Sy "\&u6" Ta Sy "\&u6" Ta "\&User string 6"
+.It "\&user7" Ta Sy "\&u7" Ta Sy "\&u7" Ta "\&User string 7"
+.It "\&user8" Ta Sy "\&u8" Ta Sy "\&u8" Ta "\&User string 8"
+.It "\&user9" Ta Sy "\&u9" Ta Sy "\&u9" Ta "\&User string 9"
+.It "\&wait_tone" Ta Sy "\&wait" Ta Sy "\&WA" Ta "\&Wait for dial tone"
+.It "\&xoff_character" Ta Sy "\&xoffc" Ta Sy "\&XF" Ta "\&X-off character"
+.It "\&xon_character" Ta Sy "\&xonc" Ta Sy "\&XN" Ta "\&X-on character"
+.It "\&zero_motion" Ta Sy "\&zerom" Ta Sy "\&Zx" Ta "\&No motion for the subsequent character"
+.El
+.Ss A Sample Entry
+.Bd -literal
+vt100\||dec vt100 (w/advanced video),
+am, xenl, msgr, mc5i, xon,
+cols#80, it#8, lines#24, vt#3,
+acsc=``aaffggjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~, bel=^G,
+cr=^M, csr=\eE[%i%p1%d;%p2%dr, tbc=\eE[3g, clear=\eE[H\eE[J$\*[Lt]50\*[Gt],
+el1=\eE[1K$\*[Lt]3\*[Gt], el=\eE[K$\*[Lt]3\*[Gt], ed=\eE[J$\*[Lt]50\*[Gt],
+cup=\eE[%i%p1%d;%p2%dH$\*[Lt]5\*[Gt], cud1=^J, home=\eE[H, cub1=^H,
+cuf1=\eE[C$\*[Lt]2\*[Gt], cuu1=\eE[A$\*[Lt]2\*[Gt], enacs=\eE(B\eE)0, smacs=^N,
+smam=\eE[?7h, blink=\eE[5m$\*[Lt]2\*[Gt], bold=\eE[1m$\*[Lt]2\*[Gt], rev=\eE[7m$\*[Lt]2\*[Gt],
+smso=\eE[7m$\*[Lt]2\*[Gt], smul=\eE[4m$\*[Lt]2\*[Gt], rmacs=^O, rmam=\eE[?7l,
+sgr0=\eE[m017$\*[Lt]2\*[Gt], rmso=\eE[m$\*[Lt]2\*[Gt], rmul=\eE[m$\*[Lt]2\*[Gt], ka1=\eEOq,
+ka3=\eEOs, kb2=\eEOr, kbs=^H, kc1=\eEOp, kc3=\eEOn, kcud1=\eEOB,
+kent=\eEOM, kf0=\eEOy, kf1=\eEOP, kf2=\eEOQ, kf3=\eEOR, kf4=\eEOS,
+kf5=\eEOt, kf6=\eEOu, kf7=\eEOv, kf8=\eEOl, kf9=\eEOw, kf10=\eEOx,
+kcub1=\eEOD, kcuf1=\eEOC, kcuu1=\eEOA, rmkx=\eE[?1l\eE\*[Gt],
+smkx=\eE[?1h\eE=, lf1=pf1, lf2=pf2, lf3=pf3, lf4=pf4,
+cud=\eE[%p1%dB, cub=\eE[%p1%dD, cuf=\eE[%p1%dC, cuu=\eE[%p1%dA,
+mc0=\eE[0i, mc4=\eE[4i, mc5=\eE[5i,
+rs2=\eE\*[Gt]\eE[?3l\eE[?4l\eE[?5l\eE[?7h\eE[?8h, rc=\eE8, sc=\eE7,
+ind=^J, ri=\eEM$\*[Lt]5\*[Gt],
+sgr=\eE[0%?%p1%p6%|%t;1%;%?%p2%t;4%;%?%p1%p3%|%t;7%;%?%p4%t;5%;m%?%p9%t016%e017%;$\*[Lt]2\*[Gt],
+hts=\eEH, ht=^I,
+.Ed
+.Ss Fetching Compiled Descriptions
+This implementation uses hashed databases managed by
+.Xr cdb 5
+instead of directories.
+To maintain compatibility with other implementations,
+.Pa .cdb
+is appended to each file checked.
+.Pp
+If the environment variable
+.Ev TERMINFO
+is available, does not begin with
+.Pq Sq / ,
+can be compiled with the above rules and whose name matches
+.Ev TERM
+then it is used.
+.Pp
+If the environment variable
+.Ev TERMCAP
+is available and does not begin with a slash
+.Pq Sq /
+then it will be translated into
+terminfo and compiled as above.
+If its name matches
+.Ev TERM
+then it is used.
+.Pp
+If the environment variable
+.Ev TERMINFO
+is available and begins with a slash
+.Pq Sq /
+then only this file is searched.
+Otherwise
+.Nm
+will first look for
+.Pa $HOME/.terminfo ,
+followed by
+.Pa /usr/share/misc/terminfo
+unless
+.Ev TERMINFO_DIRS
+is available.
+If a matching description is not found then a small embedded database is
+searched, which currently holds descriptions for ansi, dumb, vt100, vt220,
+wsvt25, and xterm.
+.Sh FILES
+.Bl -tag -width /usr/share/misc/terminfo.cdb -compact
+.It Pa $HOME/.terminfo.cdb
+Database of terminal descriptions for personal use.
+.It Pa /usr/share/misc/terminfo
+File containing terminal descriptions.
+.It Pa /usr/share/misc/terminfo.cdb
+Database of terminal descriptions.
+.El
+.Sh SEE ALSO
+.Xr infocmp 1 ,
+.Xr tic 1 ,
+.Xr tput 1 ,
+.Xr curses 3 ,
+.Xr cdb 5
+.Sh STANDARDS
+.Nm
+complies with the
+.St -xcurses4.2
+standard.
+.Pp
+Extensions to the standard are noted in
+.Xr tic 1 .
+.Sh AUTHORS
+.An Roy Marples Aq Mt roy@NetBSD.org
