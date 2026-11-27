@@ -1,3 +1,6 @@
+# Note
+This project is not abandoned but this repository is not being actively maintained. Please check again later
+
 # Cobalt BSD
 
 The source tree for Cobalt, a lightweight and secure desktop operating system for the x86\_64 architecture.
